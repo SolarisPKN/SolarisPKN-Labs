@@ -1,0 +1,40 @@
+---
+// Props para título y descripción
+export interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "SolarisPKN - Laboratorio transparente de ingeniería" } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>{title} | SolarisPKN</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles/global.css" />
+  </head>
+  <body>
+    <header class="glass" style="position: sticky; top: 1rem; margin: 1rem; z-index: 100; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+      <div style="font-weight: bold; font-family: 'JetBrains Mono', monospace;">🌞 SolarisPKN</div>
+      <nav style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+        <a href="/" style="color: var(--border-cyan); text-decoration: none;">Inicio</a>
+        <a href="/blog" style="color: var(--border-cyan); text-decoration: none;">Blog</a>
+        <a href="/proyectos" style="color: var(--border-cyan); text-decoration: none;">Proyectos</a>
+        <a href="/arquitectura" style="color: var(--border-cyan); text-decoration: none;">🔍 Arquitectura</a>
+        <a href="/dashboard" id="auth-link" style="color: var(--accent-pink);">Mi cuenta</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="glass" style="margin-top: 4rem; text-align: center; font-size: 0.85rem;">
+      <p>⚡ Laboratorio transparente — <a href="https://github.com/solarispkn/solarispkn.github.io" style="color: var(--border-cyan);">Código abierto</a> — <span id="status">Estado: operativo</span></p>
+    </footer>
+    <script is:inline src="/scripts/scroll-animations.js"></script>
+  </body>
+</html>
