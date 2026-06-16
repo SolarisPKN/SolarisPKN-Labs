@@ -1,0 +1,31 @@
+{
+  "hero": {
+    "titulo": "Transparent Engineering",
+    "descripcion": "Architectures, firmware, automation, and software. Explore open projects, technical documentation, and tools developed for those who need to take their systems further."
+  },
+  "botones": {
+    "proyectos": "Explore projects",
+    "arquitectura": "View live architecture"
+  },
+  "ecosistema": {
+    "titulo": "🌐 The ecosystem",
+    "web": "Web (Astro)",
+    "api": "API (Worker)",
+    "db": "D1 DB",
+    "r2": "R2 Firmware",
+    "texto": "Everything runs for free on Cloudflare and GitHub.",
+    "diagrama": "Interactive diagram →"
+  },
+  "early": {
+    "titulo": "📡 Early Access (coming soon)",
+    "descripcion": "Members will see this content 30 days before the public.",
+    "boton": "Leave your email"
+  },
+  "chipTitulo": "simulated devices",
+  "chipDescripcion": "Each chip represents an ESP32 connected to our platform.",
+  "emailPrompt": {
+    "message": "📧 Leave your email and I'll let you know when Early Access launches:",
+    "success": "✅ Thanks! We'll let you know soon. (demo without backend)",
+    "invalid": "Invalid email"
+  }
+}

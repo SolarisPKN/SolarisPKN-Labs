@@ -1,0 +1,88 @@
+{
+  "hero": {
+    "nombre": "Pablo Marchetti Orayen"
+  },
+  "aptitudesMini": [
+    "🔧 Reparación y Mantenimiento PC",
+    "🖥️ Administración de Servidores",
+    "📈 Marketing y SEO",
+    "🌐 Redes e Infraestructura"
+  ],
+  "contacto": {
+    "email": "PabloKoutaNya@gmail.com",
+    "whatsappTexto": "WhatsApp: ",
+    "whatsapp": "11-7009-5771",
+    "trabajo": "Trabajo: 11-3869-0921"
+  },
+  "botones": {
+    "youtube": "Canal",
+    "linkedin": "LinkedIn",
+    "descargarCV": "Descargar CV"
+  },
+  "sobreMi": {
+    "titulo": "Sobre mí",
+    "perfil": "MI PERFIL",
+    "texto": "Lo que me diferencia en soluciones informáticas es que ayudo a mis clientes a lograr sus metas con un trabajo orientado a sus necesidades. Tengo años de experiencia trabajando en la industria y conozco a fondo varios de sus detalles. Me he dedicado a realizar computadoras hechas a medida con gabinetes y sistemas de refrigeración artesanales para PC de uso doméstico, como infraestructuras para uso corporativo en una gran variedad de pymes."
+  },
+  "experiencia": {
+    "titulo": "Experiencia",
+    "item1": {
+      "titulo": "Soluciones Informáticas – TecnOtakus",
+      "fecha": "2015 - Actualidad",
+      "texto": "Emprendimiento personal, dedicado al mantenimiento, reparación de PC, optimización de servidores, instalación en infraestructura de redes, fabricación de prototipos de refrigeración customizada, venta de productos y marketing online de la marca. Trabajos a nivel domiciliario como empresarial."
+    },
+    "item2": {
+      "titulo": "Electricidad del Automotor – Lubricantes Villars",
+      "fecha": "2018 - Actualidad",
+      "texto": "Emprendimiento familiar. Reparación de fallas electrónicas del automotor, escaneo y diagnóstico del sistema."
+    }
+  },
+  "formacion": {
+    "titulo": "Formación",
+    "curso1": {
+      "titulo": "DKA Formación – Curso Online: Administrador de Servidores",
+      "id": "eU9IUTsvJf",
+      "items": [
+        "Instalación de Linux/Windows Server",
+        "Administración y Mantenimiento remoto/presencial",
+        "Seguridad del servidor ante ataques"
+      ],
+      "verLink": "Ver"
+    },
+    "curso2": {
+      "titulo": "Fundación Carlos Slim – Curso Online: Desarrollador Front-End",
+      "id": "dk3mhbtwf",
+      "items": [
+        "Diseño visual de una página web"
+      ]
+    }
+  },
+  "aptitudes": {
+    "titulo": "Aptitudes e idiomas",
+    "lista": [
+      "Reparación y Mantenimiento PC",
+      "Administración de Servidores",
+      "Operador de PC & Suite Office",
+      "Marketing y SEO",
+      "Redes e Infraestructura",
+      "Gestion de redes sociales",
+      "Herramientas de imagen y diseño"
+    ],
+    "idiomasExtra": "Electricidad domiciliaria"
+  },
+  "estudios": {
+    "titulo": "Estudios y Logros",
+    "interesesTitulo": "Intereses",
+    "intereses": [
+      "🎓 Bachillerato: Ciencias Sociales y Humanidades",
+      "📜 Certificado de participación – Metodologías Agile y Lean UX",
+      "🔧 Ingeniería Inversa",
+      "💻 Programación",
+      "🎥 Videotutoriales",
+      "🍳 Cocina",
+      "🎮 Gaming",
+      "🔬 Investigación Tecnológica"
+    ],
+    "verMas": "Ver más"
+  }
+}

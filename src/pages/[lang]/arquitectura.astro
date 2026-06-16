@@ -1,0 +1,44 @@
+---
+// src/pages/[lang]/arquitectura.astro
+
+// Rutas estáticas para los idiomas
+export async function getStaticPaths() {
+  return [
+    { params: { lang: 'es' } },
+    { params: { lang: 'en' } }
+  ];
+}
+
+// Obtener el idioma de la URL
+const { lang } = Astro.params;
+
+// Importar Layout y las traducciones específicas
+import Layout from '../../layouts/Layout.astro';
+const t = await import(`../../locales/${lang}/arquitectura.json`);
+---
+
+<Layout title={t.titulo} lang={lang}>
+  <div class="glass" style="margin: 2rem auto; max-width: 1100px;">
+    <h1>🔍 {t.titulo}</h1>
+    <p>{t.descripcion}</p>
+    <pre class="mermaid" style="background: transparent; margin-top: 2rem;">
+      graph TD
+        A["🌞 solarispkn.pages.dev<br>Astro + GitHub + Cloudflare Pages"] -->|Fetch API| B["⚡ Cloudflare Worker<br>solarispkn-api"]
+        B --> C["(🗄️ D1 Database)<br>users, posts, entitlements"]
+        B --> D["(⚡ KV Cache)<br>sesiones y early access"]
+        B --> E["(📦 R2 Storage)<br>firmware premium"]
+        C --> F["📋 Tablas: users, products, licenses"]
+        E --> G["🔒 Firmware ESP32 Low Power"]
+        style A fill:#1E1E2F,stroke:#00FFCC,stroke-width:2px
+        style B fill:#1E1E2F,stroke:#FF79C6,stroke-width:2px
+        style C fill:#1E1E2F,stroke:#50FA7B,stroke-width:2px
+        style D fill:#1E1E2F,stroke:#50FA7B,stroke-width:2px
+        style E fill:#1E1E2F,stroke:#FFB86C,stroke-width:2px
+    </pre>
+    <p style="margin-top: 1rem;">⚡ <strong>{t.notaInteractiva}</strong></p>
+  </div>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'dark', themeVariables: { background: '#0B0B10' } });
+  </script>
+</Layout>

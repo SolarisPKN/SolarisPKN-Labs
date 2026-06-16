@@ -1,0 +1,88 @@
+{
+  "hero": {
+    "nombre": "Pablo Marchetti Orayen"
+  },
+  "aptitudesMini": [
+    "🔧 PC Repair and Maintenance",
+    "🖥️ Server Administration",
+    "📈 Marketing and SEO",
+    "🌐 Networks and Infrastructure"
+  ],
+  "contacto": {
+    "email": "PabloKoutaNya@gmail.com",
+    "whatsappTexto": "WhatsApp: ",
+    "whatsapp": "11-7009-5771",
+    "trabajo": "Work: 11-3869-0921"
+  },
+  "botones": {
+    "youtube": "Channel",
+    "linkedin": "LinkedIn",
+    "descargarCV": "Download CV"
+  },
+  "sobreMi": {
+    "titulo": "About me",
+    "perfil": "MY PROFILE",
+    "texto": "What sets me apart in IT solutions is that I help my clients achieve their goals with work oriented to their needs. I have years of experience in the industry and know many of its details in depth. I have dedicated myself to building custom-made computers with artisanal cases and cooling systems for home use, as well as infrastructures for corporate use in a wide variety of SMEs."
+  },
+  "experiencia": {
+    "titulo": "Experience",
+    "item1": {
+      "titulo": "IT Solutions – TecnOtakus",
+      "fecha": "2015 - Present",
+      "texto": "Personal venture, dedicated to PC maintenance and repair, server optimization, network infrastructure installation, custom cooling prototype manufacturing, product sales and online marketing of the brand. Work at both home and corporate level."
+    },
+    "item2": {
+      "titulo": "Automotive Electrical – Lubricantes Villars",
+      "fecha": "2018 - Present",
+      "texto": "Family venture. Repair of automotive electronic failures, system scanning and diagnostics."
+    }
+  },
+  "formacion": {
+    "titulo": "Education",
+    "curso1": {
+      "titulo": "DKA Formación – Online Course: Server Administrator",
+      "id": "eU9IUTsvJf",
+      "items": [
+        "Linux/Windows Server Installation",
+        "Remote/On-site Administration and Maintenance",
+        "Server security against attacks"
+      ],
+      "verLink": "View"
+    },
+    "curso2": {
+      "titulo": "Fundación Carlos Slim – Online Course: Front-End Developer",
+      "id": "dk3mhbtwf",
+      "items": [
+        "Visual design of a website"
+      ]
+    }
+  },
+  "aptitudes": {
+    "titulo": "Skills and languages",
+    "lista": [
+      "PC Repair and Maintenance",
+      "Server Administration",
+      "PC Operator & Office Suite",
+      "Marketing and SEO",
+      "Networks and Infrastructure",
+      "Social media management",
+      "Image and design tools"
+    ],
+    "idiomasExtra": "Home electricity"
+  },
+  "estudios": {
+    "titulo": "Studies and Achievements",
+    "interesesTitulo": "Interests",
+    "intereses": [
+      "🎓 High School: Social Sciences and Humanities",
+      "📜 Certificate of participation – Agile and Lean UX methodologies",
+      "🔧 Reverse Engineering",
+      "💻 Programming",
+      "🎥 Video tutorials",
+      "🍳 Cooking",
+      "🎮 Gaming",
+      "🔬 Technological Research"
+    ],
+    "verMas": "See more"
+  }
+}

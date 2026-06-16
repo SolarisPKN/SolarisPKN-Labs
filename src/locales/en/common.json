@@ -1,0 +1,15 @@
+{
+  "nav": {
+    "inicio": "Home",
+    "blog": "Blog",
+    "proyectos": "Projects",
+    "arquitectura": "🔍 Architecture",
+    "portfolio": "📁 Portfolio",
+    "miCuenta": "My account"
+  },
+  "footer": {
+    "transparente": "⚡ Transparent Lab — ",
+    "codigoAbierto": "Open source",
+    "estado": "Status: operational"
+  }
+}
