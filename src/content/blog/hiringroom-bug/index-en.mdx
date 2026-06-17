@@ -1,0 +1,74 @@
+# 🚨 This is something I found in an ATS that might be silently hurting the job application experience without anyone noticing
+
+I was exploring the CV upload process in a recruitment platform (ATS like Hiring Room) and found several interesting details from a UX and integration flow perspective.
+
+The system offers multiple ways to complete a profile:
+
+* Upload CV with AI auto-parsing
+* Boomerang integration
+* ZonaJobs integration
+* Manual input
+
+---
+
+## 🧩 What I noticed in the flow
+
+The Boomerang and ZonaJobs integrations can fail if they are used directly on the first attempt.
+
+However, if the user first uploads a PDF CV using the AI parser and then goes back to select the integration, the flow works correctly and the auto-completion behaves much more consistently.
+
+This suggests a possible dependency on the **initial profile state** or the **CV parsing step** before external integrations are properly enabled.
+
+---
+
+## 🤖 AI vs external integrations
+
+Another interesting point is the difference in data quality between methods:
+
+* AI-based CV parsing still shows inaccuracies in data extraction and field assignment.
+* On the other hand, integrations such as Boomerang and ZonaJobs tend to be more structured, consistent, and accurate.
+
+> This reinforces an important idea: in ATS systems, **structured data remains more reliable** than direct PDF parsing through AI in many scenarios.
+
+---
+
+## ⚠️ Interesting flow optimization
+
+One unexpected advantage of the AI-assisted flow is related to data pre-filling.
+
+When the CV is initially parsed by AI, duplicate fields may be generated. However, in practice this can actually be beneficial because:
+
+> it is easier to review and remove duplicate information than to manually re-enter all the data from scratch
+
+This makes the hybrid approach (AI + integrations) potentially more efficient when proper deduplication mechanisms are in place.
+
+---
+
+## ⚠️ Additional UX detail (captcha placement)
+
+I also noticed a design issue related to the captcha placement.
+
+The captcha is positioned in a low-visibility area within the flow. A more intuitive location would be between:
+
+👉 the **"Next"** button
+👉 and the CV upload method selection
+
+This would improve:
+
+* visibility of the verification requirement
+* clarity of the overall flow
+* reduction of unexpected user errors
+
+---
+
+## 💡 Conclusion
+
+Rather than isolated "bugs", this case illustrates how:
+
+* flow state can directly impact integrations
+* AI-based CV parsing still has limitations in accuracy
+* small UX decisions can significantly affect critical processes such as job applications
+
+---
+
+*Article written by Pablo Marchetti Orayen – SolarisPKN Labs*

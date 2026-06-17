@@ -5,10 +5,21 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "create-post": "node scripts/create-post.js"
   },
   "dependencies": {
     "astro": "^4.0.0",
+    "dompurify": "^3.4.10",
+    "highlight.js": "^11.11.1",
+    "isomorphic-dompurify": "^3.17.0",
+    "marked": "^18.0.5",
     "mermaid": "^11.15.0"
+  },
+  "devDependencies": {
+    "fast-glob": "^3.3.3",
+    "fs-extra": "^11.3.5",
+    "inquirer": "^14.0.2",
+    "slugify": "^1.6.9"
   }
 }

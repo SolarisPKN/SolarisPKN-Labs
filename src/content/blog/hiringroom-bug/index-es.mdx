@@ -1,0 +1,74 @@
+# 🚨 Esto que encontré en un ATS te puede estar arruinando la experiencia de postulación sin que nadie lo note
+
+Estuve explorando el proceso de carga de CV en una plataforma de reclutamiento tipo ATS (Hiring Room) y me encontré con varios detalles interesantes desde el lado de UX y flujos de integración.
+
+El sistema ofrece varias formas de completar el perfil:
+
+- Subir CV y autocompletar con IA
+- Integración con Boomerang
+- Integración con ZonaJobs
+- Carga manual
+
+---
+
+## 🧩 Lo que noté en el flujo
+
+Las integraciones con Boomerang y ZonaJobs pueden fallar si se usan directamente en el primer intento.
+
+Pero si primero se realiza la carga del CV en PDF con el autocompletado por IA y luego se vuelve atrás para seleccionar la integración, el flujo funciona correctamente y el autocompletado se ejecuta de forma más estable.
+
+Esto sugiere una posible dependencia del **estado previo del perfil** o del **parsing inicial del CV** antes de habilitar correctamente las integraciones externas.
+
+---
+
+## 🤖 IA vs integraciones externas
+
+Otro punto interesante es la diferencia de calidad entre métodos:
+
+- El autocompletado por IA todavía presenta imprecisiones en la extracción y asignación de datos.
+- En cambio, las integraciones con plataformas como Boomerang y ZonaJobs suelen ser más estructuradas, consistentes y precisas.
+
+> Esto refuerza algo clave: en sistemas ATS, **los datos estructurados siguen siendo más confiables** que la extracción directa desde PDF mediante IA en muchos casos.
+
+---
+
+## ⚠️ Optimización interesante del flujo
+
+Algo que también aparece como ventaja del flujo con IA:
+
+Al precargar previamente el CV con IA, es probable que se generen campos duplicados. Pero en la práctica esto puede ser incluso positivo, porque:
+
+> es más fácil hacer un chequeo y eliminar duplicados que tener que copiar manualmente todos los datos desde cero
+
+Esto convierte al flujo híbrido (IA + integración) en una opción potencialmente más eficiente si se maneja bien la deduplicación.
+
+---
+
+## ⚠️ Detalle de UX adicional (captcha)
+
+También noté un detalle de diseño:
+
+El captcha está ubicado en una zona poco visible dentro del flujo. Sería más coherente colocarlo entre:
+
+👉 el botón de **"Siguiente"**  
+👉 y la selección del método de carga del CV
+
+Esto mejoraría:
+
+- visibilidad del requisito
+- claridad del flujo
+- reducción de errores inesperados
+
+---
+
+## 💡 Conclusión
+
+Más que "errores", esto muestra cómo:
+
+- el estado del flujo impacta directamente en integraciones
+- la IA aún tiene margen de mejora en extracción de CVs
+- y pequeños detalles de UX pueden afectar procesos críticos como la postulación laboral
+
+---
+
+*Artículo escrito por Pablo Marchetti Orayen – SolarisPKN Labs*
