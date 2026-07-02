@@ -19,20 +19,25 @@
   "sobreMi": {
     "titulo": "Sobre mí",
     "perfil": "MI PERFIL",
-    "texto": "Lo que me diferencia en soluciones informáticas es que ayudo a mis clientes a lograr sus metas con un trabajo orientado a sus necesidades. Tengo años de experiencia trabajando en la industria y conozco a fondo varios de sus detalles. Me he dedicado a realizar computadoras hechas a medida con gabinetes y sistemas de refrigeración artesanales para PC de uso doméstico, como infraestructuras para uso corporativo en una gran variedad de pymes."
+    "texto": "Lo que me diferencia como profesional de tecnología es mi enfoque integral para resolver problemas. Combino experiencia en infraestructura IT, administración de sistemas Linux, redes, hardware y desarrollo de software para diseñar soluciones adaptadas a las necesidades de cada proyecto. A lo largo de los años he trabajado en administración de servidores, soporte técnico, reparación y optimización de equipos, automatización de procesos, desarrollo de aplicaciones y despliegue de infraestructura tecnológica. Mi experiencia abarca desde la construcción y optimización de estaciones de trabajo de alto rendimiento hasta la implementación y mantenimiento de servicios para pequeñas y medianas empresas. Me apasiona aprender nuevas tecnologías, experimentar con soluciones innovadoras y documentar de forma transparente cada proyecto. Mi objetivo es crear sistemas robustos, eficientes y fáciles de mantener que aporten valor real a quienes los utilizan."
   },
   "experiencia": {
     "titulo": "Experiencia",
     "item1": {
-      "titulo": "Soluciones Informáticas – TecnOtakus",
+      "titulo": "SolarisPKN",
       "fecha": "2015 - Actualidad",
-      "texto": "Emprendimiento personal, dedicado al mantenimiento, reparación de PC, optimización de servidores, instalación en infraestructura de redes, fabricación de prototipos de refrigeración customizada, venta de productos y marketing online de la marca. Trabajos a nivel domiciliario como empresarial."
-    },
-    "item2": {
-      "titulo": "Electricidad del Automotor – Lubricantes Villars",
-      "fecha": "2018 - Actualidad",
-      "texto": "Emprendimiento familiar. Reparación de fallas electrónicas del automotor, escaneo y diagnóstico del sistema."
-    }
+      "texto": "Emprendimiento tecnológico especializado en soporte IT, mantenimiento y reparación de equipos informáticos para clientes particulares y empresas. Experiencia en administración de servidores Linux, infraestructura de redes, optimización de sistemas, implementación de soluciones de conectividad y acceso remoto, desarrollo de prototipos de refrigeración personalizada para equipos de alto rendimiento, consultoría tecnológica, comercialización de productos y gestión de marca."
+  },
+  "item2": {
+    "titulo": "Lubricantes Villars",
+    "fecha": "2018 - Actualidad",
+    "texto": "Diagnóstico y resolución de fallas en sistemas eléctricos, electrónicos y computarizados del automotor. Experiencia en el uso de scanners automotrices, interpretación de códigos de error, análisis de sensores, actuadores y módulos de control, reparación de sistemas eléctricos y asesoramiento técnico a clientes."
+  },
+  "item3": {
+    "titulo": "TheZapas",
+    "fecha": "2021 - 2022",
+    "texto": "Administrador de infraestructura tecnológica para una plataforma de comercio electrónico. Administración de servidores Linux (Debian), gestión remota mediante SSH, configuración y optimización de servicios web, monitoreo de infraestructura, optimización del rendimiento y mejoras orientadas al SEO técnico."
+  
   },
   "formacion": {
     "titulo": "Formación",
@@ -54,19 +59,28 @@
       ]
     }
   },
-  "aptitudes": {
-    "titulo": "Aptitudes e idiomas",
-    "lista": [
-      "Reparación y Mantenimiento PC",
-      "Administración de Servidores",
-      "Operador de PC & Suite Office",
-      "Marketing y SEO",
-      "Redes e Infraestructura",
-      "Gestion de redes sociales",
-      "Herramientas de imagen y diseño",
-	  "Electricidad domiciliaria"
-    ],
-    "idiomasExtra": "Ingles Tecnico Escrito"
+"aptitudes": {
+  "titulo": "Aptitudes e idiomas",
+  "lista": [
+    "Administración de Servidores Linux y Windows",
+    "Infraestructura Web y Cloudflare",
+    "Desarrollo Web (HTML, CSS, JavaScript, Astro)",
+    "Git y GitHub",
+    "Redes e Infraestructura",
+    "Streaming Profesional y Producción en Vivo",
+    "Automatización de Procesos",
+    "ESP32 y Arduino (IoT)",
+    "Administración de Sistemas",
+    "Reparación y Mantenimiento Informático",
+    "Diagnóstico de Hardware",
+    "Electrónica y Electricidad Vehicular",
+    "Electricidad Domiciliaria",
+    "Marketing Digital y SEO",
+    "Gestión de Redes Sociales",
+    "Atención y Soporte Técnico"
+  ],
+  "idiomasExtra": "Inglés Técnico (lectura de documentación)"
+}
   },
   "estudios": {
     "titulo": "Estudios y Logros",
