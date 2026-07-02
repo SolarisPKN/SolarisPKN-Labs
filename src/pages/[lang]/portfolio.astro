@@ -1,316 +1,530 @@
-<style>
-  .portfolio-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-  }
+---
+// src/pages/[lang]/portfolio.astro
 
-  .back-to-top {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    background: var(--glass);
-    border: 1px solid var(--border-cyan);
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    z-index: 1000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-  }
+export async function getStaticPaths() {
+  return [
+    { params: { lang: 'es' } },
+    { params: { lang: 'en' } }
+  ];
+}
 
-  .back-to-top:hover {
-    transform: scale(1.05);
-    border-color: var(--accent-pink);
-  }
+const { lang } = Astro.params;
 
-  /* HERO */
-  .hero-portfolio {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    align-items: center;
-    justify-content: space-between;
-    padding: 2rem;
-    margin-bottom: 2rem;
-  }
+import Layout from '../../layouts/Layout.astro';
+const t = await import(`../../locales/${lang}/portfolio.json`);
+const common = await import(`../../locales/${lang}/common.json`);
+---
 
-  .hero-text {
-    flex: 2;
-    min-width: 250px;
-  }
+<Layout title="Portfolio - Pablo Marchetti Orayen" lang={lang}>
+  <div class="portfolio-container">
 
-  .hero-name {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--border-cyan);
-    margin-bottom: 1rem;
-  }
+    <button id="back-to-top" class="glass back-to-top" aria-label="Volver arriba">⬆️</button>
 
-  .aptitudes-mini {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
+    <!-- HERO -->
+    <section class="hero-portfolio glass">
+      <div class="hero-text">
+        <h1 class="hero-name">{t.hero.nombre}</h1>
 
-  .aptitudes-mini span {
-    background: rgba(0, 255, 204, 0.1);
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-  }
+        <div class="aptitudes-mini">
+          {t.aptitudesMini.map((aptitud) => <span>{aptitud}</span>)}
+        </div>
 
-  .contact-info p {
-    margin: 0.3rem 0;
-  }
+        <div class="contact-info">
+          <p>📧 <a href="mailto:PabloKoutaNya@gmail.com">{t.contacto.email}</a></p>
+          <p>📱 {t.contacto.whatsappTexto}<a href="https://wa.me/541170095771">{t.contacto.whatsapp}</a></p>
+        </div>
 
-  .contact-info a {
-    color: var(--text-light);
-    text-decoration: none;
-    border-bottom: 1px dashed var(--border-cyan);
-  }
+        <div class="buttons-social">
+          <a href="https://www.linkedin.com/in/solarispkn" target="_blank" class="btn-social">
+            <img src="/images/portfolio/logos/linkedin.svg" alt="LinkedIn" />
+            LinkedIn
+          </a>
 
-  .buttons-social {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 1rem;
-  }
+          <a href="https://www.github.com/SolarisPKN" target="_blank" class="btn-social">
+            <img src="/images/portfolio/logos/github.svg" alt="GitHub" />
+            GitHub
+          </a>
 
-  .btn-social {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1.2rem;
-    border-radius: 40px;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    border: 1px solid var(--border-cyan);
-    color: white;
-    text-decoration: none;
-    transition: 0.2s;
-    font-size: 0.9rem;
-    white-space: nowrap;
-  }
+          <a href="https://www.youtube.com/@SolarisPKN" target="_blank" class="btn-social">
+            <img src="/images/portfolio/logos/youtube.svg" alt="YouTube" />
+            YouTube
+          </a>
+          <a href="/cv.pdf" download class="btn-social download">
+            <img src="/images/portfolio/logos/download.svg" alt="CV" />
+            {t.botones.descargarCV}
+          </a>
+        </div>
+      </div>
 
-  .btn-social img {
-    width: 20px;
-    height: 20px;
-    display: block;
-    flex-shrink: 0;
-  }
+      <div class="hero-image">
+        <img src="/images/portfolio/foto-perfil.webp" alt="Pablo Marchetti Orayen" class="profile-pic" />
+      </div>
+    </section>
 
-  .btn-social:hover {
-    background: var(--border-cyan);
-    color: #0a0a0a;
-  }
+    <!-- SOBRE MI -->
+    <section class="sobre-mi glass reveal" data-reveal>
+      <h2>{t.sobreMi.titulo}</h2>
+      <div class="sobre-mi-content">
+        <p><strong>{t.sobreMi.perfil}</strong></p>
+        <p>{t.sobreMi.texto}</p>
+      </div>
+    </section>
 
-  .hero-image {
-    flex: 1;
-    text-align: center;
-  }
+    <!-- EXPERIENCIA -->
+    <section class="experiencia glass reveal" data-reveal>
+      <h2>{t.experiencia.titulo}</h2>
 
-  /* 🔥 ESTA ES LA REGLA QUE TE FALTA PARA LA FOTO DE PERFIL */
-  .profile-pic {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid var(--border-cyan);
-    box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
-  }
+      <div class="experiencia-item">
+        <h3>{t.experiencia.item1.titulo}</h3>
+        <p class="fecha">{t.experiencia.item1.fecha}</p>
+        <p>{t.experiencia.item1.texto}</p>
+      </div>
 
-  /* SECCIONES GENERALES */
-  section {
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-  }
+      <div class="experiencia-item">
+        <h3>{t.experiencia.item2.titulo}</h3>
+        <p class="fecha">{t.experiencia.item2.fecha}</p>
+        <p>{t.experiencia.item2.texto}</p>
+      </div>
 
-  h2 {
-    font-size: 1.8rem;
-    border-left: 4px solid var(--border-cyan);
-    padding-left: 1rem;
-    margin-bottom: 1rem;
-  }
+      <div class="experiencia-item">
+        <h3>{t.experiencia.item3.titulo}</h3>
+        <p class="fecha">{t.experiencia.item3.fecha}</p>
+        <p>{t.experiencia.item3.texto}</p>
+      </div>
+    </section>
 
-  .fecha {
-    font-family: monospace;
-    color: var(--border-cyan);
-    margin: 0.2rem 0;
-  }
+    <!-- FORMACIÓN -->
+    <section class="formacion glass reveal" data-reveal>
+      <h2>{t.formacion.titulo}</h2>
 
-  .experiencia-item,
-  .formacion-item {
-    margin-bottom: 1.5rem;
-  }
+      <div class="formacion-item">
+        <h3>{t.formacion.curso1.titulo}</h3>
+        <p>ID: {t.formacion.curso1.id}</p>
+        <ul>
+          {t.formacion.curso1.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
 
-  .aptitudes-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-  }
+      <div class="formacion-item">
+        <h3>{t.formacion.curso2.titulo}</h3>
+        <p>ID: {t.formacion.curso2.id}</p>
+        <ul>
+          {t.formacion.curso2.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
 
-  .aptitudes-lista {
-    flex: 2;
-    list-style: none;
-    columns: 2;
-  }
+    <!-- APTITUDES -->
+    <section class="aptitudes glass reveal" data-reveal>
+      <h2>{t.aptitudes.titulo}</h2>
 
-  .aptitudes-lista li {
-    margin-bottom: 0.5rem;
-    padding-left: 1.2rem;
-    position: relative;
-  }
+      <div class="aptitudes-grid">
+        <ul class="aptitudes-lista">
+          {t.aptitudes.lista.map((apt) => <li>{apt}</li>)}
+        </ul>
 
-  .aptitudes-lista li::before {
-    content: "⚡";
-    position: absolute;
-    left: 0;
-    color: var(--border-cyan);
-  }
+        <div class="idiomas-extra">
+          <p><strong>{t.aptitudes.idiomasExtra}</strong></p>
+        </div>
+      </div>
+    </section>
 
-  .idiomas-extra {
-    flex: 1;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 1rem;
-    border-radius: 16px;
-  }
+    <!-- ESTUDIOS -->
+    <section class="estudios-logros glass reveal" data-reveal>
+      <h2>{t.estudios.titulo}</h2>
 
-  /* ESTUDIOS Y CARRUSEL */
-  .estudios-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-  }
+      <div class="estudios-container">
+        <div class="carrusel">
+          <div class="carrusel-track" id="carrusel-track"></div>
 
-  .carrusel {
-    flex: 2;
-    position: relative;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 24px;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 300px;
-  }
+          <button class="carrusel-btn prev" id="prevBtn">❮</button>
+          <button class="carrusel-btn next" id="nextBtn">❯</button>
+        </div>
 
-  .carrusel-track {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
+        <div class="intereses">
+          <h3>{t.estudios.interesesTitulo}</h3>
+          <ul>
+            {t.estudios.intereses.map((interes) => <li>{interes}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
 
-  .carrusel-img {
-    max-width: 100%;
-    max-height: 280px;
-    object-fit: contain;
-    border-radius: 16px;
-    box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
-  }
+    <!-- FOOTER -->
+    <footer class="contact-footer glass reveal" data-reveal>
+      <p>📧 <a href="mailto:PabloKoutaNya@gmail.com">{t.contacto.email}</a></p>
+      <p>📱 WhatsApp: <a href="https://wa.me/541170095771">{t.contacto.whatsapp}</a></p>
 
-  .carrusel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: var(--glass);
-    border: 1px solid var(--border-cyan);
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    backdrop-filter: blur(8px);
-    transition: 0.2s;
-  }
+      <a href="/cv.pdf" download class="btn-social download">
+        {t.botones.descargarCV}
+      </a>
 
-  .carrusel-btn:hover {
-    background: var(--border-cyan);
-    color: black;
-  }
+      <div class="logos-footer">
+        <span>SolarisPKN</span>
+      </div>
+    </footer>
 
-  .prev {
-    left: 10px;
-  }
+  </div>
 
-  .next {
-    right: 10px;
-  }
+  <script>
+    const backToTop = document.getElementById('back-to-top');
 
-  .intereses {
-    flex: 1;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 24px;
-    padding: 1rem;
-  }
+    if (backToTop) {
+      window.addEventListener('scroll', () => {
+        backToTop.style.display = window.scrollY > 300 ? 'flex' : 'none';
+      });
 
-  .intereses ul {
-    list-style: none;
-    padding-left: 0;
-  }
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
 
-  .intereses li {
-    margin-bottom: 0.5rem;
-    padding-left: 1.2rem;
-    position: relative;
-  }
+    const imagenes = [
+      '/images/portfolio/carrusel/logro1.jpg',
+      '/images/portfolio/carrusel/logro2.jpg',
+      '/images/portfolio/carrusel/logro3.jpg',
+      '/images/portfolio/carrusel/logro4.jpg',
+      '/images/portfolio/carrusel/logro5.jpg',
+      '/images/portfolio/carrusel/logro6.jpg'
+    ];
 
-  .intereses li::before {
-    content: "✨";
-    position: absolute;
-    left: 0;
-  }
+    const track = document.getElementById('carrusel-track');
+    let currentIndex = 0;
 
-  .contact-footer {
-    text-align: center;
-    padding: 2rem;
-  }
+    function renderCarrusel() {
+      if (!track) return;
+      track.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = imagenes[currentIndex];
+      img.classList.add('carrusel-img');
+      track.appendChild(img);
+    }
 
-  .contact-footer .btn-social {
-    margin: 0.5rem auto;
-  }
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % imagenes.length;
+      renderCarrusel();
+    }
 
-  .logos-footer {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-    justify-content: center;
-    font-size: 0.9rem;
-  }
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + imagenes.length) % imagenes.length;
+      renderCarrusel();
+    }
 
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
+    document.getElementById('nextBtn')?.addEventListener('click', nextImage);
+    document.getElementById('prevBtn')?.addEventListener('click', prevImage);
+
+    renderCarrusel();
+  </script>
+
+  <style>
+    .portfolio-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--glass);
+      border: 1px solid var(--border-cyan);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .back-to-top:hover {
+      transform: scale(1.05);
+      border-color: var(--accent-pink);
+    }
+
     .hero-portfolio {
-      flex-direction: column-reverse;
-      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-text {
+      flex: 2;
+      min-width: 250px;
+    }
+
+    .hero-name {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--border-cyan);
+      margin-bottom: 1rem;
     }
 
     .aptitudes-mini {
-      justify-content: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .aptitudes-mini span {
+      background: rgba(0, 255, 204, 0.1);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    .contact-info p {
+      margin: 0.3rem 0;
+    }
+
+    .contact-info a {
+      color: var(--text-light);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--border-cyan);
     }
 
     .buttons-social {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .btn-social {
+      display: inline-flex;
+      align-items: center;
       justify-content: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--border-cyan);
+      color: white;
+      text-decoration: none;
+      transition: 0.2s;
+      font-size: 0.9rem;
+      white-space: nowrap;
     }
 
-    .aptitudes-lista {
-      columns: 1;
+    .btn-social img {
+      width: 20px;
+      height: 20px;
+      display: block;
+      flex-shrink: 0;
     }
 
-    .estudios-container {
-      flex-direction: column;
+    .btn-social:hover {
+      background: var(--border-cyan);
+      color: #0a0a0a;
+    }
+
+    .hero-image {
+      flex: 1;
+      text-align: center;
     }
 
     .profile-pic {
-      width: 150px;
-      height: 150px;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--border-cyan);
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
     }
-  }
-</style>
+
+    section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      border-left: 4px solid var(--border-cyan);
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .fecha {
+      font-family: monospace;
+      color: var(--border-cyan);
+      margin: 0.2rem 0;
+    }
+
+    .experiencia-item,
+    .formacion-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .aptitudes-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .aptitudes-lista {
+      flex: 2;
+      list-style: none;
+      columns: 2;
+    }
+
+    .aptitudes-lista li {
+      margin-bottom: 0.5rem;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .aptitudes-lista li::before {
+      content: "⚡";
+      position: absolute;
+      left: 0;
+      color: var(--border-cyan);
+    }
+
+    .idiomas-extra {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 1rem;
+      border-radius: 16px;
+    }
+
+    .estudios-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .carrusel {
+      flex: 2;
+      position: relative;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 24px;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+    }
+
+    .carrusel-track {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .carrusel-img {
+      max-width: 100%;
+      max-height: 280px;
+      object-fit: contain;
+      border-radius: 16px;
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+    }
+
+    .carrusel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--glass);
+      border: 1px solid var(--border-cyan);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      backdrop-filter: blur(8px);
+      transition: 0.2s;
+    }
+
+    .carrusel-btn:hover {
+      background: var(--border-cyan);
+      color: black;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    .intereses {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 24px;
+      padding: 1rem;
+    }
+
+    .intereses ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .intereses li {
+      margin-bottom: 0.5rem;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .intereses li::before {
+      content: "✨";
+      position: absolute;
+      left: 0;
+    }
+
+    .contact-footer {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .contact-footer .btn-social {
+      margin: 0.5rem auto;
+    }
+
+    .logos-footer {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-portfolio {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+
+      .aptitudes-mini {
+        justify-content: center;
+      }
+
+      .buttons-social {
+        justify-content: center;
+      }
+
+      .aptitudes-lista {
+        columns: 1;
+      }
+
+      .estudios-container {
+        flex-direction: column;
+      }
+
+      .profile-pic {
+        width: 150px;
+        height: 150px;
+      }
+    }
+  </style>
+</Layout>
