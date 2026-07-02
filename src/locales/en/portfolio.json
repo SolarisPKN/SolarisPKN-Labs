@@ -5,8 +5,8 @@
   "aptitudesMini": [
     "🔧 PC Repair and Maintenance",
     "🖥️ Server Administration",
-    "📈 Marketing and SEO",
-    "🌐 Networks and Infrastructure"
+    "📈 Digital Marketing & SEO",
+    "🌐 Networks & Infrastructure"
   ],
   "contacto": {
     "email": "PabloKoutaNya@gmail.com",
@@ -17,21 +17,26 @@
     "descargarCV": "Download CV"
   },
   "sobreMi": {
-    "titulo": "About me",
+    "titulo": "About Me",
     "perfil": "MY PROFILE",
-    "texto": "What sets me apart in IT solutions is that I help my clients achieve their goals with work oriented to their needs. I have years of experience in the industry and know many of its details in depth. I have dedicated myself to building custom-made computers with artisanal cases and cooling systems for home use, as well as infrastructures for corporate use in a wide variety of SMEs."
+    "texto": "What sets me apart as a technology professional is my comprehensive approach to problem solving. I combine experience in IT infrastructure, Linux systems administration, networking, hardware, and software development to design solutions tailored to each project's needs. Over the years, I have worked in server administration, technical support, computer repair and optimization, process automation, application development, and technology infrastructure deployment. My experience ranges from building and optimizing high-performance workstations to implementing and maintaining services for small and medium-sized businesses. I enjoy learning new technologies, experimenting with innovative solutions, and documenting every project with transparency. My goal is to build robust, efficient, and maintainable systems that provide real value to the people who use them."
   },
   "experiencia": {
     "titulo": "Experience",
     "item1": {
-      "titulo": "IT Solutions – TecnOtakus",
+      "titulo": "SolarisPKN",
       "fecha": "2015 - Present",
-      "texto": "Personal venture, dedicated to PC maintenance and repair, server optimization, network infrastructure installation, custom cooling prototype manufacturing, product sales and online marketing of the brand. Work at both home and corporate level."
+      "texto": "Technology venture specialized in IT support, computer maintenance, and repair for individuals and businesses. Experience in Linux server administration, network infrastructure, system optimization, remote access solutions, custom cooling prototypes for high-performance computers, technology consulting, product sales, and brand management."
     },
     "item2": {
-      "titulo": "Automotive Electrical – Lubricantes Villars",
+      "titulo": "Lubricantes Villars",
       "fecha": "2018 - Present",
-      "texto": "Family venture. Repair of automotive electronic failures, system scanning and diagnostics."
+      "texto": "Diagnosis and troubleshooting of automotive electrical, electronic, and computerized systems. Experience using automotive diagnostic scanners, interpreting fault codes, analyzing sensors, actuators and control modules, repairing electrical systems, and providing technical assistance to customers."
+    },
+    "item3": {
+      "titulo": "TheZapas",
+      "fecha": "2021 - 2022",
+      "texto": "Technology infrastructure administrator for an e-commerce platform. Linux (Debian) server administration, remote management via SSH, web service configuration and optimization, infrastructure monitoring, performance tuning, and technical SEO improvements."
     }
   },
   "formacion": {
@@ -41,8 +46,8 @@
       "id": "eU9IUTsvJf",
       "items": [
         "Linux/Windows Server Installation",
-        "Remote/On-site Administration and Maintenance",
-        "Server security against attacks"
+        "Remote and On-site Administration & Maintenance",
+        "Server Security Against Cyberattacks"
       ],
       "verLink": "View"
     },
@@ -50,36 +55,45 @@
       "titulo": "Fundación Carlos Slim – Online Course: Front-End Developer",
       "id": "dk3mhbtwf",
       "items": [
-        "Visual design of a website"
+        "Website Visual Design"
       ]
     }
   },
   "aptitudes": {
-    "titulo": "Skills and languages",
+    "titulo": "Skills and Languages",
     "lista": [
-      "PC Repair and Maintenance",
-      "Server Administration",
-      "PC Operator & Office Suite",
-      "Marketing and SEO",
+      "Linux and Windows Server Administration",
+      "Web Infrastructure and Cloudflare",
+      "Web Development (HTML, CSS, JavaScript, Astro)",
+      "Git and GitHub",
       "Networks and Infrastructure",
-      "Social media management",
-      "Image and design tools"
+      "Professional Live Streaming and Production",
+      "Process Automation",
+      "ESP32 and Arduino (IoT)",
+      "Systems Administration",
+      "Computer Repair and Maintenance",
+      "Hardware Diagnostics",
+      "Automotive Electronics and Electrical Systems",
+      "Residential Electrical Installation and Maintenance",
+      "Digital Marketing and SEO",
+      "Social Media Management",
+      "Technical Support and Customer Assistance"
     ],
-    "idiomasExtra": "Written Technical English"
+    "idiomasExtra": "Technical English (Reading Technical Documentation)"
   },
   "estudios": {
     "titulo": "Studies and Achievements",
     "interesesTitulo": "Interests",
     "intereses": [
-      "🎓 High School: Social Sciences and Humanities",
-      "📜 Certificate of participation – Agile and Lean UX methodologies",
+      "🎓 High School Diploma – Social Sciences and Humanities",
+      "📜 Certificate of Participation – Agile and Lean UX Methodologies",
       "🔧 Reverse Engineering",
-      "💻 Programming",
-      "🎥 Video tutorials",
+      "💻 Software Development",
+      "🎥 Educational Content Creation",
       "🍳 Cooking",
       "🎮 Gaming",
-      "🔬 Technological Research"
+      "🔬 Technology Research"
     ],
-    "verMas": "See more"
+    "verMas": "See More"
   }
 }
