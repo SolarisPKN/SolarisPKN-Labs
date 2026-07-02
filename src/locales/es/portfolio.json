@@ -37,7 +37,7 @@
     "titulo": "TheZapas",
     "fecha": "2021 - 2022",
     "texto": "Administrador de infraestructura tecnológica para una plataforma de comercio electrónico. Administración de servidores Linux (Debian), gestión remota mediante SSH, configuración y optimización de servicios web, monitoreo de infraestructura, optimización del rendimiento y mejoras orientadas al SEO técnico."
-  
+   }
   },
   "formacion": {
     "titulo": "Formación",
@@ -80,7 +80,6 @@
     "Atención y Soporte Técnico"
   ],
   "idiomasExtra": "Inglés Técnico (lectura de documentación)"
-}
   },
   "estudios": {
     "titulo": "Estudios y Logros",
