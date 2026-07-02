@@ -14,8 +14,6 @@
     "whatsapp": "11-7009-5771"
   },
   "botones": {
-    "youtube": "Canal",
-    "linkedin": "LinkedIn",
     "descargarCV": "Descargar CV"
   },
   "sobreMi": {
@@ -66,8 +64,9 @@
       "Redes e Infraestructura",
       "Gestion de redes sociales",
       "Herramientas de imagen y diseño"
+	  "Electricidad domiciliaria"
     ],
-    "idiomasExtra": "Electricidad domiciliaria"
+    "idiomasExtra": "Ingles Tecnico Escrito"
   },
   "estudios": {
     "titulo": "Estudios y Logros",

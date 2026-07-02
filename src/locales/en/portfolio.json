@@ -11,12 +11,9 @@
   "contacto": {
     "email": "PabloKoutaNya@gmail.com",
     "whatsappTexto": "WhatsApp: ",
-    "whatsapp": "11-7009-5771",
-    "trabajo": "Work: 11-3869-0921"
+    "whatsapp": "11-7009-5771"
   },
   "botones": {
-    "youtube": "Channel",
-    "linkedin": "LinkedIn",
     "descargarCV": "Download CV"
   },
   "sobreMi": {
@@ -68,7 +65,7 @@
       "Social media management",
       "Image and design tools"
     ],
-    "idiomasExtra": "Home electricity"
+    "idiomasExtra": "Written Technical English"
   },
   "estudios": {
     "titulo": "Studies and Achievements",

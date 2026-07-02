@@ -1,11 +1,11 @@
 {
   "nav": {
-    "inicio": "Inicio",
-    "blog": "Blog",
-    "proyectos": "Proyectos",
+    "inicio": "🏠 Inicio",
+    "blog": "🖋 Blog",
+    "proyectos": "🧪 Proyectos",
     "arquitectura": "🔍 Arquitectura",
     "portfolio": "📁 Portfolio",
-    "miCuenta": "Mi cuenta"
+    "miCuenta": "👥 Mi cuenta"
   },
   "footer": {
     "transparente": "⚡ Laboratorio transparente — ",

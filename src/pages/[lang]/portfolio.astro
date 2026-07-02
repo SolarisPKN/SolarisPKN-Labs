@@ -35,11 +35,14 @@ const common = await import(`../../locales/${lang}/common.json`);
           <p>📱 {t.contacto.whatsappTexto}<a href="https://wa.me/541170095771">{t.contacto.whatsapp}</a></p>
         </div>
         <div class="buttons-social">
-          <a href="https://www.youtube.com/c/@SolarisPKN" target="_blank" class="btn-social youtube">
-            <img src="/images/portfolio/logos/youtube.svg" alt="YouTube" /> "YouTube"
+		  <a href="https://www.linkedin.com/in/solarispkn" target="_blank" class="btn-social linkedin">
+            <img src="/images/portfolio/logos/linkedin.svg" alt="LinkedIn" /> LinkedIn
           </a>
-          <a href="https://www.linkedin.com/in/solarispkn" target="_blank" class="btn-social linkedin">
-            <img src="/images/portfolio/logos/linkedin.svg" alt="LinkedIn" /> "LinkedIn"
+		  <a href="https://www.github.com/SolarisPKN" target="_blank" class="btn-social github">
+            <img src="/images/portfolio/logos/github.svg" alt="LinkedIn" /> GitHub
+          </a>
+          <a href="https://www.youtube.com/@SolarisPKN" target="_blank" class="btn-social youtube">
+            <img src="/images/portfolio/logos/youtube.svg" alt="YouTube" /> YouTube
           </a>
           <a href="/cv.pdf" download class="btn-cv glass">{t.botones.descargarCV}</a>
         </div>
@@ -132,12 +135,11 @@ const common = await import(`../../locales/${lang}/common.json`);
     <!-- ========== FOOTER DE CONTACTO ========== -->
     <footer class="contact-footer glass reveal" data-reveal>
       <div class="contact-footer-content">
-        <p>📧 {t.contacto.email}</p>
-        <p>📱 WhatsApp: {t.contacto.whatsapp}</p>
+        <p>📧 <a href="mailto:PabloKoutaNya@gmail.com">{t.contacto.email}</a></p>
+        <p>📱 WhatsApp: <a href="https://wa.me/541170095771">{t.contacto.whatsapp}</a></p>
         <a href="/cv.pdf" download class="btn-cv-footer">{t.botones.descargarCV}</a>
         <div class="logos-footer">
-          <span>TecnOtakus</span>
-          <span>Lubricantes Villars</span>
+          <span>SolarisPKN</span>
         </div>
       </div>
     </footer>
