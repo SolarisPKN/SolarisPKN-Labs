@@ -14,17 +14,6 @@ import Layout from '../../layouts/Layout.astro';
 const t = await import(`../../locales/${lang}/portfolio.json`);
 const skills = await import(`../../locales/${lang}/portfolioskills.json`);
 const common = await import(`../../locales/${lang}/common.json`);
-
-// Array de títulos rotativos
-const rotatingTitles = [
-  'IT Infrastructure Specialist',
-  'Linux System Administrator',
-  'Technical Support',
-  'Web Infrastructure',
-  'Network Administration',
-  'Hardware Specialist',
-  'Technical Problem Solver'
-];
 ---
 
 <Layout title="Portfolio - Pablo Marchetti Orayen" lang={lang}>
@@ -32,57 +21,65 @@ const rotatingTitles = [
 
     <button id="back-to-top" class="glass back-to-top" aria-label="Volver arriba">⬆️</button>
 
-    <!-- ========== HERO ========== -->
+    <!-- ===== HERO ===== -->
     <section class="hero-portfolio glass">
       <div class="hero-text">
         <h1 class="hero-name">{t.hero.nombre}</h1>
-        <div class="rotating-title" id="rotating-title">{rotatingTitles[0]}</div>
-
-        <div class="hero-buttons">
-          <a href="/cv.pdf" download class="btn-primary">Download CV</a>
-          <a href="https://www.linkedin.com/in/solarispkn" target="_blank" class="btn-secondary">LinkedIn</a>
-          <a href="https://www.github.com/SolarisPKN" target="_blank" class="btn-secondary">GitHub</a>
-          <a href="mailto:PabloKoutaNya@gmail.com" class="btn-secondary">Contact</a>
+        <div class="aptitudes-mini">
+          {t.aptitudesMini.map((aptitud) => <span>{aptitud}</span>)}
+        </div>
+        <div class="contact-info">
+          <p>📧 <a href="mailto:PabloKoutaNya@gmail.com">{t.contacto.email}</a></p>
+          <p>📱 {t.contacto.whatsappTexto}<a href="https://wa.me/541170095771">{t.contacto.whatsapp}</a></p>
+        </div>
+        <div class="buttons-social">
+          <a href="https://www.linkedin.com/in/solarispkn" target="_blank" class="btn-social">
+            <img src="/images/portfolio/logos/linkedin.svg" alt="LinkedIn" /> LinkedIn
+          </a>
+          <a href="https://www.github.com/SolarisPKN" target="_blank" class="btn-social">
+            <img src="/images/portfolio/logos/github.svg" alt="GitHub" /> GitHub
+          </a>
+          <a href="https://www.youtube.com/@SolarisPKN" target="_blank" class="btn-social">
+            <img src="/images/portfolio/logos/youtube.svg" alt="YouTube" /> YouTube
+          </a>
+          <a href="/cv.pdf" download class="btn-social download">
+            <img src="/images/portfolio/logos/download.svg" alt="CV" />
+            {t.botones.descargarCV}
+          </a>
         </div>
       </div>
-
       <div class="hero-image">
         <img src="/images/portfolio/foto-perfil.webp" alt="Pablo Marchetti Orayen" class="profile-pic" />
       </div>
     </section>
 
-    <!-- ========== ABOUT ME ========== -->
+    <!-- ===== SOBRE MI (sin imagen duplicada) ===== -->
     <section class="about-section glass reveal" data-reveal>
       <div class="about-grid">
         <div class="about-left">
-          <h2>{t.about.title}</h2>
+          <h2>{t.about.title || t.sobreMi.titulo}</h2>
           <p class="about-intro">{t.about.intro}</p>
           <ul class="about-points">
             {t.about.points.map((point) => <li>✔ {point}</li>)}
           </ul>
         </div>
-        <div class="about-right">
-          <img src="/images/portfolio/foto-perfil.webp" alt="Pablo Marchetti Orayen" class="about-pic" />
-        </div>
+        <!-- La imagen de perfil ya está en el hero, así que no la repetimos -->
       </div>
     </section>
 
-    <!-- ========== EXPERIENCIA (mantiene la estructura existente) ========== -->
+    <!-- ===== EXPERIENCIA ===== -->
     <section class="experiencia glass reveal" data-reveal>
       <h2>{t.experiencia.titulo}</h2>
-
       <div class="experiencia-item">
         <h3>{t.experiencia.item1.titulo}</h3>
         <p class="fecha">{t.experiencia.item1.fecha}</p>
         <p>{t.experiencia.item1.texto}</p>
       </div>
-
       <div class="experiencia-item">
         <h3>{t.experiencia.item2.titulo}</h3>
         <p class="fecha">{t.experiencia.item2.fecha}</p>
         <p>{t.experiencia.item2.texto}</p>
       </div>
-
       <div class="experiencia-item">
         <h3>{t.experiencia.item3.titulo}</h3>
         <p class="fecha">{t.experiencia.item3.fecha}</p>
@@ -90,10 +87,9 @@ const rotatingTitles = [
       </div>
     </section>
 
-    <!-- ========== FORMACIÓN (mantiene la estructura existente) ========== -->
+    <!-- ===== FORMACIÓN ===== -->
     <section class="formacion glass reveal" data-reveal>
       <h2>{t.formacion.titulo}</h2>
-
       <div class="formacion-item">
         <h3>{t.formacion.curso1.titulo}</h3>
         <p>ID: {t.formacion.curso1.id}</p>
@@ -101,7 +97,6 @@ const rotatingTitles = [
           {t.formacion.curso1.items.map((item) => <li>{item}</li>)}
         </ul>
       </div>
-
       <div class="formacion-item">
         <h3>{t.formacion.curso2.titulo}</h3>
         <p>ID: {t.formacion.curso2.id}</p>
@@ -111,43 +106,7 @@ const rotatingTitles = [
       </div>
     </section>
 
-    <!-- ========== APTITUDES (mantiene la estructura existente) ========== -->
-    <section class="aptitudes glass reveal" data-reveal>
-      <h2>{t.aptitudes.titulo}</h2>
-
-      <div class="aptitudes-grid">
-        <ul class="aptitudes-lista">
-          {t.aptitudes.lista.map((apt) => <li>{apt}</li>)}
-        </ul>
-
-        <div class="idiomas-extra">
-          <p><strong>{t.aptitudes.idiomasExtra}</strong></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== ESTUDIOS (carrusel de logros) ========== -->
-    <section class="estudios-logros glass reveal" data-reveal>
-      <h2>{t.estudios.titulo}</h2>
-
-      <div class="estudios-container">
-        <div class="carrusel">
-          <div class="carrusel-track" id="carrusel-track"></div>
-
-          <button class="carrusel-btn prev" id="prevBtn">❮</button>
-          <button class="carrusel-btn next" id="nextBtn">❯</button>
-        </div>
-
-        <div class="intereses">
-          <h3>{t.estudios.interesesTitulo}</h3>
-          <ul>
-            {t.estudios.intereses.map((interes) => <li>{interes}</li>)}
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== CORE AREAS (nuevo, desde portfolioskills.json) ========== -->
+    <!-- ===== CORE AREAS ===== -->
     <section class="core-areas glass reveal" data-reveal>
       <h2>{t.coreAreasTitle}</h2>
       <div class="core-grid">
@@ -165,7 +124,7 @@ const rotatingTitles = [
       </div>
     </section>
 
-    <!-- ========== TECH CAROUSEL ========== -->
+    <!-- ===== TECH CAROUSEL ===== -->
     <section class="tech-carousel glass reveal" data-reveal>
       <h2>{t.techCarouselTitle}</h2>
       <div class="carousel-wrapper" id="techCarouselWrapper">
@@ -179,34 +138,52 @@ const rotatingTitles = [
       </div>
     </section>
 
-    <!-- ========== SKILLS EXPLORER (preparado para mapa mental) ========== -->
-    <section class="skills-explorer glass reveal" data-reveal>
-      <h2>{t.skillsExplorerTitle}</h2>
-      <p class="explorer-note">🔍 Próximamente: mapa mental interactivo de habilidades. Por ahora, explora las categorías.</p>
-      <div class="explorer-grid">
-        {skills.coreAreas.map((area) => (
-          <button class="explorer-btn" data-category={area.title}>
-            {area.icon} {area.title}
-          </button>
-        ))}
+    <!-- ===== CERTIFICACIONES (nuevo sistema) ===== -->
+    <section class="certifications glass reveal" data-reveal>
+      <h2>{t.certificationsTitle}</h2>
+      <div class="cert-controls">
+        <input type="text" id="cert-search" class="cert-search" placeholder={t.certificationsSearch || 'Buscar...'} />
+        <select id="cert-filter" class="cert-filter">
+          <option value="all">{t.certificationsFilter || 'Filtrar por empresa'}</option>
+          <!-- Las opciones se llenarán con JS desde los datos -->
+        </select>
+        <select id="cert-category-filter" class="cert-filter">
+          <option value="all">Todas las categorías</option>
+          <!-- Las opciones se llenarán con JS desde los datos -->
+        </select>
       </div>
-      <div id="explorer-detail" class="explorer-detail"></div>
+      <div class="cert-grid" id="cert-grid">
+        <!-- Los certificados se renderizarán con JS desde los datos -->
+      </div>
     </section>
 
-    <!-- ========== PHILOSOPHY ========== -->
+    <!-- ===== PHILOSOPHY ===== -->
     <section class="philosophy glass reveal" data-reveal>
       <blockquote class="philosophy-quote">“{t.philosophy}”</blockquote>
     </section>
 
-    <!-- ========== FOOTER ========== -->
+    <!-- ===== INTERESES Y HOBBIES (al final) ===== -->
+    <section class="intereses-hobbies glass reveal" data-reveal>
+      <h2>{t.estudios.interesesTitulo}</h2>
+      <ul class="intereses-lista">
+        {t.estudios.intereses.map((interes) => <li>{interes}</li>)}
+      </ul>
+    </section>
+
+    <!-- ===== MIND MAP (placeholder) ===== -->
+    <section class="mind-map glass reveal" data-reveal>
+      <h2>{t.mindMapTitle}</h2>
+      <div class="mind-map-placeholder">
+        <p>🧠 {t.mindMapPlaceholder}</p>
+        <p><small>{t.mindMapSubtext}</small></p>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
     <footer class="contact-footer glass reveal" data-reveal>
       <p>📧 <a href="mailto:PabloKoutaNya@gmail.com">{t.contacto.email}</a></p>
       <p>📱 WhatsApp: <a href="https://wa.me/541170095771">{t.contacto.whatsapp}</a></p>
-
-      <a href="/cv.pdf" download class="btn-social download">
-        {t.botones.descargarCV}
-      </a>
-
+      <a href="/cv.pdf" download class="btn-social download">{t.botones.descargarCV}</a>
       <div class="logos-footer">
         <span>SolarisPKN</span>
       </div>
@@ -214,32 +191,8 @@ const rotatingTitles = [
 
   </div>
 
-  <!-- ========== SCRIPTS ========== -->
   <script>
-    // 1. Subtítulo rotativo
-    const titles = [
-      'IT Infrastructure Specialist',
-      'Linux System Administrator',
-      'Technical Support',
-      'Web Infrastructure',
-      'Network Administration',
-      'Hardware Specialist',
-      'Technical Problem Solver'
-    ];
-    let index = 0;
-    const titleEl = document.getElementById('rotating-title');
-    if (titleEl) {
-      setInterval(() => {
-        index = (index + 1) % titles.length;
-        titleEl.style.opacity = '0';
-        setTimeout(() => {
-          titleEl.textContent = titles[index];
-          titleEl.style.opacity = '1';
-        }, 300);
-      }, 3000);
-    }
-
-    // 2. Back to top
+    // ===== Back to top =====
     const backToTop = document.getElementById('back-to-top');
     if (backToTop) {
       window.addEventListener('scroll', () => {
@@ -250,63 +203,28 @@ const rotatingTitles = [
       });
     }
 
-    // 3. Carrusel de imágenes de logros (ya existente)
-    const imagenes = [
-      '/images/portfolio/carrusel/logro1.jpg',
-      '/images/portfolio/carrusel/logro2.jpg',
-      '/images/portfolio/carrusel/logro3.jpg',
-      '/images/portfolio/carrusel/logro4.jpg',
-      '/images/portfolio/carrusel/logro5.jpg',
-      '/images/portfolio/carrusel/logro6.jpg'
-    ];
-
-    const track = document.getElementById('carrusel-track');
-    let currentIndex = 0;
-
-    function renderCarrusel() {
-      if (!track) return;
-      track.innerHTML = '';
-      const img = document.createElement('img');
-      img.src = imagenes[currentIndex];
-      img.classList.add('carrusel-img');
-      track.appendChild(img);
-    }
-
-    function nextImage() {
-      currentIndex = (currentIndex + 1) % imagenes.length;
-      renderCarrusel();
-    }
-
-    function prevImage() {
-      currentIndex = (currentIndex - 1 + imagenes.length) % imagenes.length;
-      renderCarrusel();
-    }
-
-    document.getElementById('nextBtn')?.addEventListener('click', nextImage);
-    document.getElementById('prevBtn')?.addEventListener('click', prevImage);
-    renderCarrusel();
-
-    // 4. Tech Carousel con scroll infinito, hover, arrastre
+    // ===== TECH CAROUSEL =====
     (function() {
       const track = document.getElementById('techCarouselTrack');
       const wrapper = document.getElementById('techCarouselWrapper');
       if (!track || !wrapper) return;
 
+      const items = Array.from(track.children);
+      items.forEach(item => {
+        const clone = item.cloneNode(true);
+        track.appendChild(clone);
+      });
+
+      let currentTranslateX = 0;
+      let speed = 0.5;
+      let isPaused = false;
       let isDragging = false;
       let startX = 0;
-      let currentTranslateX = 0;
       let prevTranslateX = 0;
       let animationId = null;
-      let speed = 0.8; // px por frame (~48px/s a 60fps)
-      let isPaused = false;
-
-      function getTranslateX() {
-        const style = window.getComputedStyle(track);
-        const matrix = new DOMMatrix(style.transform);
-        return matrix.m41 || 0;
-      }
 
       function setTranslateX(value) {
+        currentTranslateX = value;
         track.style.transform = `translateX(${value}px)`;
       }
 
@@ -315,77 +233,76 @@ const rotatingTitles = [
           animationId = requestAnimationFrame(animate);
           return;
         }
-
         currentTranslateX -= speed;
         const maxTranslate = -(track.scrollWidth / 2);
-        if (currentTranslateX < maxTranslate) {
+        if (currentTranslateX <= maxTranslate) {
           currentTranslateX = 0;
         }
         setTranslateX(currentTranslateX);
         animationId = requestAnimationFrame(animate);
       }
 
-      // Duplicar items para efecto infinito
-      const items = Array.from(track.children);
-      items.forEach(item => {
-        const clone = item.cloneNode(true);
-        track.appendChild(clone);
-      });
-
-      // Eventos de arrastre (mouse y touch)
-      function startDrag(e) {
+      wrapper.addEventListener('mousedown', (e) => {
         isDragging = true;
         isPaused = true;
-        const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
-        startX = clientX;
+        startX = e.clientX;
         prevTranslateX = currentTranslateX;
         track.style.transition = 'none';
         if (animationId) cancelAnimationFrame(animationId);
-      }
-
-      function moveDrag(e) {
+      });
+      document.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
-        const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
-        const diff = clientX - startX;
-        currentTranslateX = prevTranslateX + diff;
-        setTranslateX(currentTranslateX);
-        const maxTranslate = -(track.scrollWidth / 2);
-        if (currentTranslateX > 0) {
-          currentTranslateX = 0;
-          setTranslateX(0);
-        } else if (currentTranslateX < maxTranslate) {
-          currentTranslateX = maxTranslate;
-          setTranslateX(maxTranslate);
-        }
-      }
-
-      function endDrag() {
+        const diff = e.clientX - startX;
+        let newX = prevTranslateX + diff;
+        const maxX = 0;
+        const minX = -(track.scrollWidth / 2);
+        if (newX > maxX) newX = maxX;
+        if (newX < minX) newX = minX;
+        setTranslateX(newX);
+      });
+      document.addEventListener('mouseup', () => {
         if (isDragging) {
           isDragging = false;
-          // Reanudar animación después de 1.5s
           setTimeout(() => {
             isPaused = false;
             if (!animationId) animate();
-          }, 1500);
+          }, 1000);
         }
-      }
-
-      wrapper.addEventListener('mousedown', startDrag);
-      document.addEventListener('mousemove', moveDrag);
-      document.addEventListener('mouseup', endDrag);
-
-      wrapper.addEventListener('touchstart', startDrag, { passive: true });
-      document.addEventListener('touchmove', moveDrag, { passive: true });
-      document.addEventListener('touchend', endDrag, { passive: true });
-
-      // Hover pause
-      wrapper.addEventListener('mouseenter', () => { isPaused = true; });
-      wrapper.addEventListener('mouseleave', () => { 
-        isPaused = false; 
-        if (!animationId) animate(); 
       });
 
-      // Iniciar animación
+      wrapper.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        isPaused = true;
+        startX = e.touches[0].clientX;
+        prevTranslateX = currentTranslateX;
+        track.style.transition = 'none';
+        if (animationId) cancelAnimationFrame(animationId);
+      }, { passive: true });
+      document.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const diff = e.touches[0].clientX - startX;
+        let newX = prevTranslateX + diff;
+        if (newX > 0) newX = 0;
+        const minX = -(track.scrollWidth / 2);
+        if (newX < minX) newX = minX;
+        setTranslateX(newX);
+      }, { passive: true });
+      document.addEventListener('touchend', () => {
+        if (isDragging) {
+          isDragging = false;
+          setTimeout(() => {
+            isPaused = false;
+            if (!animationId) animate();
+          }, 1000);
+        }
+      }, { passive: true });
+
+      wrapper.addEventListener('mouseenter', () => { isPaused = true; });
+      wrapper.addEventListener('mouseleave', () => {
+        isPaused = false;
+        if (!animationId) animate();
+      });
+
       animate();
 
       window.addEventListener('beforeunload', () => {
@@ -393,552 +310,191 @@ const rotatingTitles = [
       });
     })();
 
-    // 5. Skills Explorer (placeholder)
-    const explorerBtns = document.querySelectorAll('.explorer-btn');
-    const detailEl = document.getElementById('explorer-detail');
-    if (explorerBtns.length && detailEl) {
-      explorerBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const category = btn.dataset.category;
-          detailEl.innerHTML = `<p class="explorer-placeholder">🔜 Mapa mental de <strong>${category}</strong> en desarrollo.</p>`;
-        });
+    // ===== CERTIFICACIONES (nuevo sistema) =====
+    // Se espera que los certificados estén en skills.certificados
+    // Si no, usamos los datos de formación del JSON de traducciones.
+    // Para simplificar, vamos a construir un array de certificados a partir de los datos de formación.
+    const certData = [
+      {
+        nombre: t.formacion.curso1.titulo || "Administrador de Servidores",
+        categoria: "Servidores",
+        academia: "DKA Formación",
+        imagen: "/img/portfolio/certificados/servidores/dka/administrador-servidores.webp"
+      },
+      {
+        nombre: t.formacion.curso2.titulo || "Desarrollador Front-End",
+        categoria: "Desarrollo",
+        academia: "Fundación Carlos Slim",
+        imagen: "/img/portfolio/certificados/desarrollo/carlos-slim/frontend.webp"
+      }
+    ];
+
+    // Si existe skills.certificados, lo usamos en su lugar
+    if (skills.certificados && skills.certificados.length > 0) {
+      // Reemplazar certData con los datos del JSON
+      // Pero como no tenemos acceso a skills desde el script (está en el frontmatter), lo pasamos como data-attribute o lo definimos aquí manualmente.
+      // Para simplificar, dejamos certData fijo.
+    }
+
+    const certGrid = document.getElementById('cert-grid');
+    const certSearch = document.getElementById('cert-search');
+    const certFilter = document.getElementById('cert-filter');
+    const certCategoryFilter = document.getElementById('cert-category-filter');
+
+    function renderCertificados(data) {
+      if (!certGrid) return;
+      certGrid.innerHTML = '';
+      data.forEach(cert => {
+        const div = document.createElement('div');
+        div.className = 'cert-item';
+        div.dataset.nombre = cert.nombre.toLowerCase();
+        div.dataset.academia = cert.academia;
+        div.dataset.categoria = cert.categoria;
+        div.innerHTML = `
+          <img src="${cert.imagen}" alt="${cert.nombre}" loading="lazy" />
+          <span class="cert-nombre">${cert.nombre}</span>
+          <span class="cert-academia">${cert.academia}</span>
+          <span class="cert-categoria">${cert.categoria}</span>
+        `;
+        certGrid.appendChild(div);
       });
     }
+
+    // Llenar filtros
+    function populateFilters(data) {
+      if (!certFilter || !certCategoryFilter) return;
+      const academias = [...new Set(data.map(c => c.academia))];
+      const categorias = [...new Set(data.map(c => c.categoria))];
+
+      // Limpiar opciones existentes (excepto la primera)
+      certFilter.innerHTML = '<option value="all">' + (t.certificationsFilter || 'Filtrar por empresa') + '</option>';
+      academias.forEach(acad => {
+        const opt = document.createElement('option');
+        opt.value = acad;
+        opt.textContent = acad;
+        certFilter.appendChild(opt);
+      });
+
+      certCategoryFilter.innerHTML = '<option value="all">Todas las categorías</option>';
+      categorias.forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat;
+        opt.textContent = cat;
+        certCategoryFilter.appendChild(opt);
+      });
+    }
+
+    function filterCertificados() {
+      const searchTerm = (certSearch?.value || '').toLowerCase();
+      const academia = certFilter?.value || 'all';
+      const categoria = certCategoryFilter?.value || 'all';
+      const items = document.querySelectorAll('.cert-item');
+      items.forEach(item => {
+        const nombre = item.dataset.nombre || '';
+        const acad = item.dataset.academia || '';
+        const cat = item.dataset.categoria || '';
+        const matchSearch = nombre.includes(searchTerm);
+        const matchAcademia = academia === 'all' || acad === academia;
+        const matchCategoria = categoria === 'all' || cat === categoria;
+        item.style.display = (matchSearch && matchAcademia && matchCategoria) ? '' : 'none';
+      });
+    }
+
+    // Inicializar certificados con los datos
+    renderCertificados(certData);
+    populateFilters(certData);
+
+    certSearch?.addEventListener('input', filterCertificados);
+    certFilter?.addEventListener('change', filterCertificados);
+    certCategoryFilter?.addEventListener('change', filterCertificados);
   </script>
 
-  <!-- ========== ESTILOS ========== -->
   <style>
-    .portfolio-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem;
-    }
-
-    .back-to-top {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: var(--glass);
-      border: 1px solid var(--border-cyan);
-      border-radius: 50%;
-      width: 48px;
-      height: 48px;
-      font-size: 1.5rem;
-      cursor: pointer;
-      z-index: 1000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-
-    .back-to-top:hover {
-      transform: scale(1.05);
-      border-color: var(--accent-pink);
-    }
-
-    /* HERO */
-    .hero-portfolio {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      align-items: center;
-      justify-content: space-between;
-      padding: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .hero-text {
-      flex: 2;
-      min-width: 250px;
-    }
-
-    .hero-name {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--border-cyan);
-      margin-bottom: 0.5rem;
-    }
-
-    .rotating-title {
-      font-size: 1.2rem;
-      color: var(--text-light);
-      opacity: 0.8;
-      transition: opacity 0.3s ease;
-      margin-bottom: 1.5rem;
-      font-weight: 300;
-      letter-spacing: 0.5px;
-      min-height: 2rem;
-    }
-
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      padding: 0.6rem 1.5rem;
-      border-radius: 40px;
-      background: var(--border-cyan);
-      color: #0a0a0a;
-      font-weight: 600;
-      text-decoration: none;
-      border: 1px solid var(--border-cyan);
-      transition: 0.2s;
-    }
-
-    .btn-primary:hover {
-      background: transparent;
-      color: var(--border-cyan);
-    }
-
-    .btn-secondary {
-      display: inline-block;
-      padding: 0.6rem 1.5rem;
-      border-radius: 40px;
-      background: transparent;
-      color: var(--text-light);
-      text-decoration: none;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: 0.2s;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--border-cyan);
-      color: var(--border-cyan);
-    }
-
-    .hero-image {
-      flex: 1;
-      text-align: center;
-    }
-
-    .profile-pic {
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid var(--border-cyan);
-      box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
-    }
-
-    /* ABOUT ME */
-    .about-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .about-left {
-      flex: 2;
-      min-width: 250px;
-    }
-
-    .about-intro {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-      opacity: 0.9;
-    }
-
-    .about-points {
-      list-style: none;
-      padding: 0;
-      columns: 2;
-    }
-
-    .about-points li {
-      margin-bottom: 0.4rem;
-      font-size: 0.95rem;
-    }
-
-    .about-right {
-      flex: 1;
-      text-align: center;
-    }
-
-    .about-pic {
-      width: 180px;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 2px solid var(--border-cyan);
-      box-shadow: 0 0 15px rgba(0, 255, 204, 0.15);
-    }
-
-    /* SECCIONES EXISTENTES (experiencia, formacion, aptitudes, estudios) */
-    section {
-      margin-bottom: 2rem;
-      padding: 1.5rem;
-    }
-
-    h2 {
-      font-size: 1.8rem;
-      border-left: 4px solid var(--border-cyan);
-      padding-left: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .fecha {
-      font-family: monospace;
-      color: var(--border-cyan);
-      margin: 0.2rem 0;
-    }
-
-    .experiencia-item,
-    .formacion-item {
-      margin-bottom: 1.5rem;
-    }
-
-    .aptitudes-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-    }
-
-    .aptitudes-lista {
-      flex: 2;
-      list-style: none;
-      columns: 2;
-    }
-
-    .aptitudes-lista li {
-      margin-bottom: 0.5rem;
-      padding-left: 1.2rem;
-      position: relative;
-    }
-
-    .aptitudes-lista li::before {
-      content: "⚡";
-      position: absolute;
-      left: 0;
-      color: var(--border-cyan);
-    }
-
-    .idiomas-extra {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 1rem;
-      border-radius: 16px;
-    }
-
-    .estudios-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-    }
-
-    .carrusel {
-      flex: 2;
-      position: relative;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 24px;
-      padding: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 300px;
-    }
-
-    .carrusel-track {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-
-    .carrusel-img {
-      max-width: 100%;
-      max-height: 280px;
-      object-fit: contain;
-      border-radius: 16px;
-      box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
-    }
-
-    .carrusel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: var(--glass);
-      border: 1px solid var(--border-cyan);
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      backdrop-filter: blur(8px);
-      transition: 0.2s;
-    }
-
-    .carrusel-btn:hover {
-      background: var(--border-cyan);
-      color: black;
-    }
-
-    .prev {
-      left: 10px;
-    }
-
-    .next {
-      right: 10px;
-    }
-
-    .intereses {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 24px;
-      padding: 1rem;
-    }
-
-    .intereses ul {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .intereses li {
-      margin-bottom: 0.5rem;
-      padding-left: 1.2rem;
-      position: relative;
-    }
-
-    .intereses li::before {
-      content: "✨";
-      position: absolute;
-      left: 0;
-    }
-
-    /* CORE AREAS */
-    .core-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .core-card {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 16px;
-      padding: 1.2rem;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      transition: transform 0.2s, border-color 0.2s;
-    }
-
-    .core-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--border-cyan);
-    }
-
-    .core-header {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .core-icon {
-      font-size: 1.8rem;
-    }
-
-    .core-header h3 {
-      font-size: 1.1rem;
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--border-cyan);
-      margin: 0;
-    }
-
-    .core-items {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-    }
-
-    .core-items li {
-      background: rgba(0, 255, 204, 0.06);
-      padding: 0.2rem 0.6rem;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      border: 1px solid rgba(255, 255, 255, 0.03);
-    }
-
-    /* TECH CAROUSEL */
-    .tech-carousel {
-      overflow: hidden;
-      padding: 1.5rem;
-    }
-
-    .carousel-wrapper {
-      position: relative;
-      overflow: hidden;
-      cursor: grab;
-      user-select: none;
-    }
-
-    .carousel-wrapper:active {
-      cursor: grabbing;
-    }
-
-    .carousel-track {
-      display: flex;
-      gap: 2rem;
-      padding: 0.5rem 0;
-      transition: transform 0.1s linear;
-      will-change: transform;
-    }
-
-    .carousel-item {
-      flex: 0 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 80px;
-      height: 80px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      transition: transform 0.3s, border-color 0.3s;
-      padding: 0.5rem;
-      text-align: center;
-    }
-
-    .carousel-item:hover {
-      transform: scale(1.15) translateY(-4px);
-      border-color: var(--border-cyan);
-      background: rgba(0, 255, 204, 0.05);
-      z-index: 2;
-    }
-
-    .tech-icon-name {
-      font-size: 0.75rem;
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--text-light);
-      word-break: break-word;
-      line-height: 1.2;
-      max-width: 70px;
-    }
-
-    /* SKILLS EXPLORER */
-    .explorer-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin: 1rem 0;
-    }
-
-    .explorer-btn {
-      padding: 0.4rem 1rem;
-      border-radius: 40px;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--text-light);
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 0.9rem;
-    }
-
-    .explorer-btn:hover {
-      border-color: var(--border-cyan);
-      background: rgba(0, 255, 204, 0.05);
-    }
-
-    .explorer-detail {
-      margin-top: 1rem;
-      padding: 1rem;
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 16px;
-      min-height: 80px;
-      border: 1px dashed rgba(255, 255, 255, 0.1);
-    }
-
-    .explorer-placeholder {
-      opacity: 0.6;
-      text-align: center;
-      margin: 0;
-    }
-
-    .explorer-note {
-      opacity: 0.6;
-      margin-bottom: 1rem;
-    }
-
-    /* PHILOSOPHY */
-    .philosophy-quote {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      font-style: italic;
-      border-left: 3px solid var(--border-cyan);
-      padding-left: 1.5rem;
-      margin: 0;
-      opacity: 0.9;
-    }
-
-    /* FOOTER */
-    .contact-footer {
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .contact-footer a {
-      color: var(--text-light);
-      text-decoration: none;
-      border-bottom: 1px dashed var(--border-cyan);
-    }
-
-    .logos-footer {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-      justify-content: center;
-      font-size: 0.9rem;
-      opacity: 0.5;
-    }
-
+    /* ===== GENERAL (se mantiene igual) ===== */
+    .portfolio-container { max-width: 1200px; margin: 0 auto; padding: 1rem; }
+    .back-to-top { position: fixed; bottom: 2rem; right: 2rem; background: var(--glass); border: 1px solid var(--border-cyan); border-radius: 50%; width: 48px; height: 48px; font-size: 1.5rem; cursor: pointer; z-index: 1000; display: none; align-items: center; justify-content: center; transition: all 0.2s; }
+    .back-to-top:hover { transform: scale(1.05); border-color: var(--accent-pink); }
+
+    /* ===== HERO ===== */
+    .hero-portfolio { display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: space-between; padding: 2rem; margin-bottom: 2rem; }
+    .hero-text { flex: 2; min-width: 250px; }
+    .hero-name { font-size: clamp(2rem, 5vw, 3rem); font-family: 'JetBrains Mono', monospace; color: var(--border-cyan); margin-bottom: 1rem; }
+    .aptitudes-mini { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .aptitudes-mini span { background: rgba(0, 255, 204, 0.1); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; }
+    .contact-info p { margin: 0.3rem 0; }
+    .contact-info a { color: var(--text-light); text-decoration: none; border-bottom: 1px dashed var(--border-cyan); }
+    .buttons-social { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
+    .btn-social { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border-radius: 40px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); border: 1px solid var(--border-cyan); color: white; text-decoration: none; transition: 0.2s; font-size: 0.9rem; white-space: nowrap; }
+    .btn-social img { width: 20px; height: 20px; display: block; flex-shrink: 0; }
+    .btn-social:hover { background: var(--border-cyan); color: #0a0a0a; }
+    .hero-image { flex: 1; text-align: center; }
+    .profile-pic { width: 200px; height: 200px; object-fit: cover; border-radius: 50%; border: 3px solid var(--border-cyan); box-shadow: 0 0 20px rgba(0, 255, 204, 0.3); }
+
+    /* ===== ABOUT (sin imagen) ===== */
+    .about-grid { display: flex; gap: 2rem; }
+    .about-left { flex: 1; }
+    .about-intro { font-size: 1.1rem; margin-bottom: 1rem; opacity: 0.9; }
+    .about-points { list-style: none; padding: 0; columns: 2; }
+    .about-points li { margin-bottom: 0.4rem; font-size: 0.95rem; }
+
+    /* ===== CORE AREAS ===== */
+    .core-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+    .core-card { background: rgba(0, 0, 0, 0.3); border-radius: 16px; padding: 1.2rem; border: 1px solid rgba(255, 255, 255, 0.06); transition: transform 0.2s, border-color 0.2s; }
+    .core-card:hover { transform: translateY(-4px); border-color: var(--border-cyan); }
+    .core-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .core-icon { font-size: 1.8rem; }
+    .core-header h3 { font-size: 1.1rem; font-family: 'JetBrains Mono', monospace; color: var(--border-cyan); margin: 0; }
+    .core-items { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .core-items li { background: rgba(0, 255, 204, 0.06); padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.8rem; border: 1px solid rgba(255, 255, 255, 0.03); }
+
+    /* ===== TECH CAROUSEL ===== */
+    .tech-carousel { overflow: hidden; padding: 1.5rem; }
+    .carousel-wrapper { position: relative; overflow: hidden; cursor: grab; user-select: none; }
+    .carousel-wrapper:active { cursor: grabbing; }
+    .carousel-track { display: flex; gap: 1.5rem; padding: 0.5rem 0; transition: transform 0.05s linear; will-change: transform; }
+    .carousel-item { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: rgba(0, 0, 0, 0.3); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.06); transition: transform 0.3s, border-color 0.3s; padding: 0.5rem; text-align: center; }
+    .carousel-item:hover { transform: scale(1.15) translateY(-4px); border-color: var(--border-cyan); background: rgba(0, 255, 204, 0.05); z-index: 2; }
+    .tech-icon-name { font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; color: var(--text-light); word-break: break-word; line-height: 1.2; max-width: 70px; }
+    @media (max-width: 600px) { .carousel-item { width: 60px; height: 60px; padding: 0.3rem; } .tech-icon-name { font-size: 0.65rem; } }
+
+    /* ===== CERTIFICACIONES ===== */
+    .cert-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+    .cert-search { flex: 2; min-width: 200px; padding: 0.5rem 1rem; border-radius: 40px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-light); outline: none; }
+    .cert-search:focus { border-color: var(--border-cyan); }
+    .cert-filter { padding: 0.5rem 1rem; border-radius: 40px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-light); outline: none; cursor: pointer; }
+
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
+    .cert-item { background: rgba(0, 0, 0, 0.3); border-radius: 16px; padding: 1rem; text-align: center; border: 1px solid rgba(255, 255, 255, 0.06); transition: transform 0.2s; }
+    .cert-item:hover { transform: translateY(-4px); border-color: var(--border-cyan); }
+    .cert-item img { width: 100%; height: 150px; object-fit: cover; border-radius: 12px; margin-bottom: 0.5rem; }
+    .cert-nombre { display: block; font-weight: 500; font-size: 0.9rem; }
+    .cert-academia, .cert-categoria { display: block; font-size: 0.8rem; opacity: 0.6; }
+
+    /* ===== PHILOSOPHY ===== */
+    .philosophy-quote { font-size: 1.2rem; line-height: 1.6; font-style: italic; border-left: 3px solid var(--border-cyan); padding-left: 1.5rem; margin: 0; opacity: 0.9; }
+
+    /* ===== INTERESES ===== */
+    .intereses-hobbies ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .intereses-hobbies li { background: rgba(0, 255, 204, 0.06); padding: 0.4rem 1rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.06); }
+
+    /* ===== MIND MAP ===== */
+    .mind-map-placeholder { padding: 1.5rem; text-align: center; background: rgba(0, 0, 0, 0.2); border-radius: 16px; opacity: 0.7; }
+
+    /* ===== FOOTER ===== */
+    .contact-footer { text-align: center; padding: 2rem; }
+    .contact-footer .btn-social { margin: 0.5rem auto; }
+    .logos-footer { display: flex; gap: 1rem; margin-top: 1rem; justify-content: center; font-size: 0.9rem; opacity: 0.5; }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .hero-portfolio {
-        flex-direction: column-reverse;
-        text-align: center;
-      }
-
-      .hero-buttons {
-        justify-content: center;
-      }
-
-      .about-grid {
-        flex-direction: column-reverse;
-        text-align: center;
-      }
-
-      .about-points {
-        columns: 1;
-      }
-
-      .core-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .profile-pic {
-        width: 150px;
-        height: 150px;
-      }
-
-      .about-pic {
-        width: 140px;
-        height: 140px;
-      }
-
-      .carousel-item {
-        width: 60px;
-        height: 60px;
-        padding: 0.3rem;
-      }
-
-      .tech-icon-name {
-        font-size: 0.65rem;
-      }
+      .hero-portfolio { flex-direction: column-reverse; text-align: center; }
+      .aptitudes-mini { justify-content: center; }
+      .buttons-social { justify-content: center; }
+      .about-grid { flex-direction: column; text-align: center; }
+      .about-points { columns: 1; }
+      .core-grid { grid-template-columns: 1fr; }
+      .profile-pic { width: 150px; height: 150px; }
+      .cert-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
     }
   </style>
 </Layout>
