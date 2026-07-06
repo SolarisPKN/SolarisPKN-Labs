@@ -53,5 +53,35 @@
   ],
   "techIcons": [
     "Linux", "Debian", "Docker", "Cloudflare", "GitHub", "WordPress", "Git", "Apache", "Nginx", "SSH", "MariaDB", "OBS", "Discord", "OpenWRT", "Ubiquiti", "Node", "React", "Astro", "HTML", "CSS", "JavaScript", "PHP", "Python", "VirtualBox", "Hyper-V"
+  ],
+  "certificados": [
+    {
+      "nombre": "Administrador de Servidores",
+      "categoria": "Servidores",
+      "subcategoria": "Linux",
+      "academia": "DKA Formación",
+      "imagen": "/images/portfolio/certificados/servidores/dka/admin-servidores.webp"
+    },
+    {
+      "nombre": "Desarrollador Front-End",
+      "categoria": "Desarrollo Web",
+      "subcategoria": "Frontend",
+      "academia": "Fundación Carlos Slim",
+      "imagen": "/images/portfolio/certificados/web/slim/front-end.webp"
+    },
+    {
+      "nombre": "Redes y Seguridad",
+      "categoria": "Redes",
+      "subcategoria": "Cisco",
+      "academia": "Cisco Networking Academy",
+      "imagen": "/images/portfolio/certificados/redes/cisco/redes-seguridad.webp"
+    },
+    {
+      "nombre": "Administración de Bases de Datos",
+      "categoria": "Bases de Datos",
+      "subcategoria": "SQL",
+      "academia": "Oracle University",
+      "imagen": "/images/portfolio/certificados/bd/oracle/sql-admin.webp"
+    }
   ]
 }
