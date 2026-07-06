@@ -12,7 +12,19 @@ const { lang } = Astro.params;
 
 import Layout from '../../layouts/Layout.astro';
 const t = await import(`../../locales/${lang}/portfolio.json`);
+const skills = await import(`../../locales/${lang}/portfolioskills.json`);
 const common = await import(`../../locales/${lang}/common.json`);
+
+// Array de títulos rotativos
+const rotatingTitles = [
+  'IT Infrastructure Specialist',
+  'Linux System Administrator',
+  'Technical Support',
+  'Web Infrastructure',
+  'Network Administration',
+  'Hardware Specialist',
+  'Technical Problem Solver'
+];
 ---
 
 <Layout title="Portfolio - Pablo Marchetti Orayen" lang={lang}>
@@ -20,39 +32,17 @@ const common = await import(`../../locales/${lang}/common.json`);
 
     <button id="back-to-top" class="glass back-to-top" aria-label="Volver arriba">⬆️</button>
 
-    <!-- HERO -->
+    <!-- ========== HERO ========== -->
     <section class="hero-portfolio glass">
       <div class="hero-text">
         <h1 class="hero-name">{t.hero.nombre}</h1>
+        <div class="rotating-title" id="rotating-title">{rotatingTitles[0]}</div>
 
-        <div class="aptitudes-mini">
-          {t.aptitudesMini.map((aptitud) => <span>{aptitud}</span>)}
-        </div>
-
-        <div class="contact-info">
-          <p>📧 <a href="mailto:PabloKoutaNya@gmail.com">{t.contacto.email}</a></p>
-          <p>📱 {t.contacto.whatsappTexto}<a href="https://wa.me/541170095771">{t.contacto.whatsapp}</a></p>
-        </div>
-
-        <div class="buttons-social">
-          <a href="https://www.linkedin.com/in/solarispkn" target="_blank" class="btn-social">
-            <img src="/images/portfolio/logos/linkedin.svg" alt="LinkedIn" />
-            LinkedIn
-          </a>
-
-          <a href="https://www.github.com/SolarisPKN" target="_blank" class="btn-social">
-            <img src="/images/portfolio/logos/github.svg" alt="GitHub" />
-            GitHub
-          </a>
-
-          <a href="https://www.youtube.com/@SolarisPKN" target="_blank" class="btn-social">
-            <img src="/images/portfolio/logos/youtube.svg" alt="YouTube" />
-            YouTube
-          </a>
-          <a href="/cv.pdf" download class="btn-social download">
-            <img src="/images/portfolio/logos/download.svg" alt="CV" />
-            {t.botones.descargarCV}
-          </a>
+        <div class="hero-buttons">
+          <a href="/cv.pdf" download class="btn-primary">Download CV</a>
+          <a href="https://www.linkedin.com/in/solarispkn" target="_blank" class="btn-secondary">LinkedIn</a>
+          <a href="https://www.github.com/SolarisPKN" target="_blank" class="btn-secondary">GitHub</a>
+          <a href="mailto:PabloKoutaNya@gmail.com" class="btn-secondary">Contact</a>
         </div>
       </div>
 
@@ -61,16 +51,23 @@ const common = await import(`../../locales/${lang}/common.json`);
       </div>
     </section>
 
-    <!-- SOBRE MI -->
-    <section class="sobre-mi glass reveal" data-reveal>
-      <h2>{t.sobreMi.titulo}</h2>
-      <div class="sobre-mi-content">
-        <p><strong>{t.sobreMi.perfil}</strong></p>
-        <p>{t.sobreMi.texto}</p>
+    <!-- ========== ABOUT ME ========== -->
+    <section class="about-section glass reveal" data-reveal>
+      <div class="about-grid">
+        <div class="about-left">
+          <h2>{t.about.title}</h2>
+          <p class="about-intro">{t.about.intro}</p>
+          <ul class="about-points">
+            {t.about.points.map((point) => <li>✔ {point}</li>)}
+          </ul>
+        </div>
+        <div class="about-right">
+          <img src="/images/portfolio/foto-perfil.webp" alt="Pablo Marchetti Orayen" class="about-pic" />
+        </div>
       </div>
     </section>
 
-    <!-- EXPERIENCIA -->
+    <!-- ========== EXPERIENCIA (mantiene la estructura existente) ========== -->
     <section class="experiencia glass reveal" data-reveal>
       <h2>{t.experiencia.titulo}</h2>
 
@@ -93,7 +90,7 @@ const common = await import(`../../locales/${lang}/common.json`);
       </div>
     </section>
 
-    <!-- FORMACIÓN -->
+    <!-- ========== FORMACIÓN (mantiene la estructura existente) ========== -->
     <section class="formacion glass reveal" data-reveal>
       <h2>{t.formacion.titulo}</h2>
 
@@ -114,7 +111,7 @@ const common = await import(`../../locales/${lang}/common.json`);
       </div>
     </section>
 
-    <!-- APTITUDES -->
+    <!-- ========== APTITUDES (mantiene la estructura existente) ========== -->
     <section class="aptitudes glass reveal" data-reveal>
       <h2>{t.aptitudes.titulo}</h2>
 
@@ -129,7 +126,7 @@ const common = await import(`../../locales/${lang}/common.json`);
       </div>
     </section>
 
-    <!-- ESTUDIOS -->
+    <!-- ========== ESTUDIOS (carrusel de logros) ========== -->
     <section class="estudios-logros glass reveal" data-reveal>
       <h2>{t.estudios.titulo}</h2>
 
@@ -150,7 +147,58 @@ const common = await import(`../../locales/${lang}/common.json`);
       </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- ========== CORE AREAS (nuevo, desde portfolioskills.json) ========== -->
+    <section class="core-areas glass reveal" data-reveal>
+      <h2>{t.coreAreasTitle}</h2>
+      <div class="core-grid">
+        {skills.coreAreas.map((area) => (
+          <div class="core-card">
+            <div class="core-header">
+              <span class="core-icon">{area.icon}</span>
+              <h3>{area.title}</h3>
+            </div>
+            <ul class="core-items">
+              {area.items.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ========== TECH CAROUSEL ========== -->
+    <section class="tech-carousel glass reveal" data-reveal>
+      <h2>{t.techCarouselTitle}</h2>
+      <div class="carousel-wrapper" id="techCarouselWrapper">
+        <div class="carousel-track" id="techCarouselTrack">
+          {skills.techIcons.map((tech) => (
+            <div class="carousel-item">
+              <span class="tech-icon-name">{tech}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SKILLS EXPLORER (preparado para mapa mental) ========== -->
+    <section class="skills-explorer glass reveal" data-reveal>
+      <h2>{t.skillsExplorerTitle}</h2>
+      <p class="explorer-note">🔍 Próximamente: mapa mental interactivo de habilidades. Por ahora, explora las categorías.</p>
+      <div class="explorer-grid">
+        {skills.coreAreas.map((area) => (
+          <button class="explorer-btn" data-category={area.title}>
+            {area.icon} {area.title}
+          </button>
+        ))}
+      </div>
+      <div id="explorer-detail" class="explorer-detail"></div>
+    </section>
+
+    <!-- ========== PHILOSOPHY ========== -->
+    <section class="philosophy glass reveal" data-reveal>
+      <blockquote class="philosophy-quote">“{t.philosophy}”</blockquote>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
     <footer class="contact-footer glass reveal" data-reveal>
       <p>📧 <a href="mailto:PabloKoutaNya@gmail.com">{t.contacto.email}</a></p>
       <p>📱 WhatsApp: <a href="https://wa.me/541170095771">{t.contacto.whatsapp}</a></p>
@@ -166,19 +214,43 @@ const common = await import(`../../locales/${lang}/common.json`);
 
   </div>
 
+  <!-- ========== SCRIPTS ========== -->
   <script>
-    const backToTop = document.getElementById('back-to-top');
+    // 1. Subtítulo rotativo
+    const titles = [
+      'IT Infrastructure Specialist',
+      'Linux System Administrator',
+      'Technical Support',
+      'Web Infrastructure',
+      'Network Administration',
+      'Hardware Specialist',
+      'Technical Problem Solver'
+    ];
+    let index = 0;
+    const titleEl = document.getElementById('rotating-title');
+    if (titleEl) {
+      setInterval(() => {
+        index = (index + 1) % titles.length;
+        titleEl.style.opacity = '0';
+        setTimeout(() => {
+          titleEl.textContent = titles[index];
+          titleEl.style.opacity = '1';
+        }, 300);
+      }, 3000);
+    }
 
+    // 2. Back to top
+    const backToTop = document.getElementById('back-to-top');
     if (backToTop) {
       window.addEventListener('scroll', () => {
         backToTop.style.display = window.scrollY > 300 ? 'flex' : 'none';
       });
-
       backToTop.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     }
 
+    // 3. Carrusel de imágenes de logros (ya existente)
     const imagenes = [
       '/images/portfolio/carrusel/logro1.jpg',
       '/images/portfolio/carrusel/logro2.jpg',
@@ -212,10 +284,129 @@ const common = await import(`../../locales/${lang}/common.json`);
 
     document.getElementById('nextBtn')?.addEventListener('click', nextImage);
     document.getElementById('prevBtn')?.addEventListener('click', prevImage);
-
     renderCarrusel();
+
+    // 4. Tech Carousel con scroll infinito, hover, arrastre
+    (function() {
+      const track = document.getElementById('techCarouselTrack');
+      const wrapper = document.getElementById('techCarouselWrapper');
+      if (!track || !wrapper) return;
+
+      let isDragging = false;
+      let startX = 0;
+      let currentTranslateX = 0;
+      let prevTranslateX = 0;
+      let animationId = null;
+      let speed = 0.8; // px por frame (~48px/s a 60fps)
+      let isPaused = false;
+
+      function getTranslateX() {
+        const style = window.getComputedStyle(track);
+        const matrix = new DOMMatrix(style.transform);
+        return matrix.m41 || 0;
+      }
+
+      function setTranslateX(value) {
+        track.style.transform = `translateX(${value}px)`;
+      }
+
+      function animate() {
+        if (isPaused || isDragging) {
+          animationId = requestAnimationFrame(animate);
+          return;
+        }
+
+        currentTranslateX -= speed;
+        const maxTranslate = -(track.scrollWidth / 2);
+        if (currentTranslateX < maxTranslate) {
+          currentTranslateX = 0;
+        }
+        setTranslateX(currentTranslateX);
+        animationId = requestAnimationFrame(animate);
+      }
+
+      // Duplicar items para efecto infinito
+      const items = Array.from(track.children);
+      items.forEach(item => {
+        const clone = item.cloneNode(true);
+        track.appendChild(clone);
+      });
+
+      // Eventos de arrastre (mouse y touch)
+      function startDrag(e) {
+        isDragging = true;
+        isPaused = true;
+        const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+        startX = clientX;
+        prevTranslateX = currentTranslateX;
+        track.style.transition = 'none';
+        if (animationId) cancelAnimationFrame(animationId);
+      }
+
+      function moveDrag(e) {
+        if (!isDragging) return;
+        const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+        const diff = clientX - startX;
+        currentTranslateX = prevTranslateX + diff;
+        setTranslateX(currentTranslateX);
+        const maxTranslate = -(track.scrollWidth / 2);
+        if (currentTranslateX > 0) {
+          currentTranslateX = 0;
+          setTranslateX(0);
+        } else if (currentTranslateX < maxTranslate) {
+          currentTranslateX = maxTranslate;
+          setTranslateX(maxTranslate);
+        }
+      }
+
+      function endDrag() {
+        if (isDragging) {
+          isDragging = false;
+          // Reanudar animación después de 1.5s
+          setTimeout(() => {
+            isPaused = false;
+            if (!animationId) animate();
+          }, 1500);
+        }
+      }
+
+      wrapper.addEventListener('mousedown', startDrag);
+      document.addEventListener('mousemove', moveDrag);
+      document.addEventListener('mouseup', endDrag);
+
+      wrapper.addEventListener('touchstart', startDrag, { passive: true });
+      document.addEventListener('touchmove', moveDrag, { passive: true });
+      document.addEventListener('touchend', endDrag, { passive: true });
+
+      // Hover pause
+      wrapper.addEventListener('mouseenter', () => { isPaused = true; });
+      wrapper.addEventListener('mouseleave', () => { 
+        isPaused = false; 
+        if (!animationId) animate(); 
+      });
+
+      // Iniciar animación
+      animate();
+
+      window.addEventListener('beforeunload', () => {
+        if (animationId) cancelAnimationFrame(animationId);
+      });
+    })();
+
+    // 5. Skills Explorer (placeholder)
+    const explorerBtns = document.querySelectorAll('.explorer-btn');
+    const detailEl = document.getElementById('explorer-detail');
+    if (explorerBtns.length && detailEl) {
+      explorerBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const category = btn.dataset.category;
+          detailEl.innerHTML = `<p class="explorer-placeholder">🔜 Mapa mental de <strong>${category}</strong> en desarrollo.</p>`;
+        });
+      });
+    }
   </script>
 
+  <!-- ========== ESTILOS ========== -->
   <style>
     .portfolio-container {
       max-width: 1200px;
@@ -246,6 +437,7 @@ const common = await import(`../../locales/${lang}/common.json`);
       border-color: var(--accent-pink);
     }
 
+    /* HERO */
     .hero-portfolio {
       display: flex;
       flex-wrap: wrap;
@@ -265,67 +457,57 @@ const common = await import(`../../locales/${lang}/common.json`);
       font-size: clamp(2rem, 5vw, 3rem);
       font-family: 'JetBrains Mono', monospace;
       color: var(--border-cyan);
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
 
-    .aptitudes-mini {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .aptitudes-mini span {
-      background: rgba(0, 255, 204, 0.1);
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.85rem;
-    }
-
-    .contact-info p {
-      margin: 0.3rem 0;
-    }
-
-    .contact-info a {
+    .rotating-title {
+      font-size: 1.2rem;
       color: var(--text-light);
-      text-decoration: none;
-      border-bottom: 1px dashed var(--border-cyan);
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      min-height: 2rem;
     }
 
-    .buttons-social {
+    .hero-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
-      margin-top: 1rem;
     }
 
-    .btn-social {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1.2rem;
+    .btn-primary {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
       border-radius: 40px;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(4px);
-      border: 1px solid var(--border-cyan);
-      color: white;
-      text-decoration: none;
-      transition: 0.2s;
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
-
-    .btn-social img {
-      width: 20px;
-      height: 20px;
-      display: block;
-      flex-shrink: 0;
-    }
-
-    .btn-social:hover {
       background: var(--border-cyan);
       color: #0a0a0a;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--border-cyan);
+      transition: 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--border-cyan);
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      border-radius: 40px;
+      background: transparent;
+      color: var(--text-light);
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--border-cyan);
+      color: var(--border-cyan);
     }
 
     .hero-image {
@@ -342,6 +524,51 @@ const common = await import(`../../locales/${lang}/common.json`);
       box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
     }
 
+    /* ABOUT ME */
+    .about-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .about-left {
+      flex: 2;
+      min-width: 250px;
+    }
+
+    .about-intro {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      opacity: 0.9;
+    }
+
+    .about-points {
+      list-style: none;
+      padding: 0;
+      columns: 2;
+    }
+
+    .about-points li {
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .about-right {
+      flex: 1;
+      text-align: center;
+    }
+
+    .about-pic {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid var(--border-cyan);
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.15);
+    }
+
+    /* SECCIONES EXISTENTES (experiencia, formacion, aptitudes, estudios) */
     section {
       margin-bottom: 2rem;
       padding: 1.5rem;
@@ -482,13 +709,183 @@ const common = await import(`../../locales/${lang}/common.json`);
       left: 0;
     }
 
+    /* CORE AREAS */
+    .core-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .core-card {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 16px;
+      padding: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .core-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-cyan);
+    }
+
+    .core-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .core-icon {
+      font-size: 1.8rem;
+    }
+
+    .core-header h3 {
+      font-size: 1.1rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--border-cyan);
+      margin: 0;
+    }
+
+    .core-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .core-items li {
+      background: rgba(0, 255, 204, 0.06);
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    /* TECH CAROUSEL */
+    .tech-carousel {
+      overflow: hidden;
+      padding: 1.5rem;
+    }
+
+    .carousel-wrapper {
+      position: relative;
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .carousel-wrapper:active {
+      cursor: grabbing;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 2rem;
+      padding: 0.5rem 0;
+      transition: transform 0.1s linear;
+      will-change: transform;
+    }
+
+    .carousel-item {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: transform 0.3s, border-color 0.3s;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    .carousel-item:hover {
+      transform: scale(1.15) translateY(-4px);
+      border-color: var(--border-cyan);
+      background: rgba(0, 255, 204, 0.05);
+      z-index: 2;
+    }
+
+    .tech-icon-name {
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-light);
+      word-break: break-word;
+      line-height: 1.2;
+      max-width: 70px;
+    }
+
+    /* SKILLS EXPLORER */
+    .explorer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin: 1rem 0;
+    }
+
+    .explorer-btn {
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+    }
+
+    .explorer-btn:hover {
+      border-color: var(--border-cyan);
+      background: rgba(0, 255, 204, 0.05);
+    }
+
+    .explorer-detail {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 16px;
+      min-height: 80px;
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+    }
+
+    .explorer-placeholder {
+      opacity: 0.6;
+      text-align: center;
+      margin: 0;
+    }
+
+    .explorer-note {
+      opacity: 0.6;
+      margin-bottom: 1rem;
+    }
+
+    /* PHILOSOPHY */
+    .philosophy-quote {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      font-style: italic;
+      border-left: 3px solid var(--border-cyan);
+      padding-left: 1.5rem;
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    /* FOOTER */
     .contact-footer {
       text-align: center;
       padding: 2rem;
     }
 
-    .contact-footer .btn-social {
-      margin: 0.5rem auto;
+    .contact-footer a {
+      color: var(--text-light);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--border-cyan);
     }
 
     .logos-footer {
@@ -497,6 +894,7 @@ const common = await import(`../../locales/${lang}/common.json`);
       margin-top: 1rem;
       justify-content: center;
       font-size: 0.9rem;
+      opacity: 0.5;
     }
 
     @media (max-width: 768px) {
@@ -505,25 +903,41 @@ const common = await import(`../../locales/${lang}/common.json`);
         text-align: center;
       }
 
-      .aptitudes-mini {
+      .hero-buttons {
         justify-content: center;
       }
 
-      .buttons-social {
-        justify-content: center;
+      .about-grid {
+        flex-direction: column-reverse;
+        text-align: center;
       }
 
-      .aptitudes-lista {
+      .about-points {
         columns: 1;
       }
 
-      .estudios-container {
-        flex-direction: column;
+      .core-grid {
+        grid-template-columns: 1fr;
       }
 
       .profile-pic {
         width: 150px;
         height: 150px;
+      }
+
+      .about-pic {
+        width: 140px;
+        height: 140px;
+      }
+
+      .carousel-item {
+        width: 60px;
+        height: 60px;
+        padding: 0.3rem;
+      }
+
+      .tech-icon-name {
+        font-size: 0.65rem;
       }
     }
   </style>

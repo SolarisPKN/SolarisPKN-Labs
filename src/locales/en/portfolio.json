@@ -95,5 +95,27 @@
       "🔬 Technology Research"
     ],
     "verMas": "See More"
-  }
+  },
+  "about": {
+    "title": "About Me",
+    "intro": "10+ years building technology solutions.",
+    "points": [
+      "Linux & Windows Administration",
+      "Servers & VPS",
+      "Networking",
+      "Hardware Diagnostics",
+      "Technical Support",
+      "Web Infrastructure",
+      "AI Assisted Workflow"
+    ]
+  },
+  "coreAreasTitle": "Core Areas",
+  "techCarouselTitle": "Technologies",
+  "certificationsTitle": "Certifications",
+  "certificationsFilter": "Filter by issuer",
+  "certificationsSearch": "Search certification...",
+  "philosophy": "I believe technology should solve real problems. My workflow combines research, official documentation, experimentation, backups, security best practices and AI-assisted development to build reliable solutions while maintaining privacy and continuous learning.",
+  "mindMapTitle": "Skills Map",
+  "mindMapPlaceholder": "Coming soon: interactive mind map of skills and technologies.",
+  "mindMapSubtext": "This space will host a node diagram where you can visually explore all my competencies."
 }

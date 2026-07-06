@@ -1,0 +1,57 @@
+{
+  "coreAreas": [
+    {
+      "icon": "🖥",
+      "title": "Sistemas Operativos",
+      "items": ["Windows XP", "Windows 7", "Windows 10", "Windows 11", "Windows Server", "Debian", "Ubuntu", "Linux Mint", "LXLE"]
+    },
+    {
+      "icon": "🌐",
+      "title": "Redes",
+      "items": ["TCP/IP", "DHCP", "DNS", "NAT", "SSH", "Firewall", "QoS", "OpenWRT", "Ubiquiti", "Samba", "DDNS", "VPN", "Acceso Remoto"]
+    },
+    {
+      "icon": "☁",
+      "title": "Infraestructura",
+      "items": ["Servidores Linux", "VPS", "Apache", "Nginx", "Cloudflare", "GitHub Pages", "Cloudflare Pages", "cPanel", "WordPress", "Let's Encrypt", "SSL/TLS", "DNS", "FTP", "SFTP", "MariaDB", "phpMyAdmin", "Docker", "VirtualBox", "Hyper-V", "KVM", "QEMU"]
+    },
+    {
+      "icon": "🛠",
+      "title": "Hardware",
+      "items": ["Armado de PC", "PC Gamer", "Servidores", "NAS", "Mini PCs", "Optimización Térmica", "Metal Líquido", "Recuperación BIOS CH341A", "Diagnóstico de Hardware", "Fuentes de Alimentación", "Diseño de Refrigeración", "Reparación de Hardware", "Reemplazo de Pantallas", "Reemplazo de Condensadores"]
+    },
+    {
+      "icon": "⚙",
+      "title": "Automatización",
+      "items": ["Batch", "Bash", "PowerShell", "Python (con IA)", "Cron", "Programador de Tareas", "Webhooks", "OBS Websocket", "Streamer.bot", "ESP32", "Arduino", "Google Home"]
+    },
+    {
+      "icon": "💻",
+      "title": "Desarrollo",
+      "items": ["HTML", "CSS", "JavaScript", "PHP", "Astro", "NodeJS", "React", "Bootstrap", "Git", "GitHub", "MongoDB", "SQLite", "MySQL", "MariaDB"]
+    },
+    {
+      "icon": "📺",
+      "title": "Streaming",
+      "items": ["OBS Studio", "StreamElements", "TikTok Studio", "Discord", "TeamSpeak", "Webhooks", "Cámaras Virtuales", "Multistreaming", "SEO para Creadores"]
+    },
+    {
+      "icon": "📈",
+      "title": "Marketing",
+      "items": ["SEO Técnico", "Google Analytics", "Search Console", "Meta Pixel", "Google Tag Manager", "Gestión de Redes Sociales", "Estrategia de Contenido", "YouTube SEO", "TikTok", "LinkedIn", "WordPress"]
+    },
+    {
+      "icon": "🚗",
+      "title": "Tecnología Automotriz",
+      "items": ["OBD-II", "ELM327", "Torque Pro", "Diagnóstico Eléctrico", "Diagramas de Cableado", "Sensores", "ECU", "Electrónica Automotriz"]
+    },
+    {
+      "icon": "⚡",
+      "title": "Electricidad",
+      "items": ["Sistemas Solares", "Inversores", "Conmutación 220V", "Temporizadores", "Autocaravanas", "Remolques", "Instalaciones Eléctricas"]
+    }
+  ],
+  "techIcons": [
+    "Linux", "Debian", "Docker", "Cloudflare", "GitHub", "WordPress", "Git", "Apache", "Nginx", "SSH", "MariaDB", "OBS", "Discord", "OpenWRT", "Ubiquiti", "Node", "React", "Astro", "HTML", "CSS", "JavaScript", "PHP", "Python", "VirtualBox", "Hyper-V"
+  ]
+}
