@@ -1,5 +1,13 @@
 ---
-// src/pages/index.astro
-// Redirige a la versión en español (idioma por defecto)
-return Astro.redirect('/es/');
+// Redirigir a /es/
 ---
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="0;url=/es/">
+    <title>Redirigiendo...</title>
+  </head>
+  <body>
+    <p>Redirigiendo a <a href="/es/">la versión en español</a>...</p>
+  </body>
+</html>

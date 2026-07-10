@@ -3,25 +3,18 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  // ===== CONFIGURACIÓN GENERAL =====
   site: 'https://solarispkn.pages.dev',
   base: '/',
   output: 'static',
-
-  // ===== BUILD =====
   build: {
     assets: 'assets',
   },
-
-  // ===== IMÁGENES (Optimización con Sharp) =====
   image: {
     service: {
       entrypoint: 'astro/assets/services/sharp',
     },
     domains: ['solarispkn.pages.dev'],
   },
-
-  // ===== INTERNACIONALIZACIÓN (i18n) =====
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],
@@ -29,16 +22,17 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
-
-  // ===== INTEGRACIONES =====
   integrations: [
     react(),
     sitemap({
-      filter: (page) => {},
+      filter: (page) => {
+        // Excluir páginas que no tienen idioma o que no queremos indexar
+        return !page.includes('/404') &&
+               !page.includes('/under-construction') &&
+               page !== '/'; // 🔥 Excluir la raíz
+      },
     }),
   ],
-
-  // ===== ALIAS PARA IMPORTS (Vite) =====
   vite: {
     resolve: {
       alias: {
