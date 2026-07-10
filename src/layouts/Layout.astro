@@ -162,9 +162,17 @@ const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
     </footer>
 
     <!-- ===== SCRIPTS ===== -->
-    <script>
-      import '@scripts/scroll-animations.js';
-      import '@scripts/layout.js';
-    </script>
+<!-- ===== SCRIPTS (carga diferida) ===== -->
+<script>
+  // Scripts críticos que necesitan ejecutarse pronto (selector de idioma)
+  import '@scripts/layout.js';
+</script>
+
+<!-- Scripts no críticos (scroll, canvas) se cargan después -->
+<script defer>
+  // Esto asegura que el script de scroll se cargue sin bloquear
+  import '@scripts/scroll-animations.js';
+  // El canvas (home-tech) se carga bajo demanda, no aquí
+</script>
   </body>
 </html>
