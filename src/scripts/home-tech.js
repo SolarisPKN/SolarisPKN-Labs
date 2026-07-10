@@ -7,6 +7,8 @@ function initHome() {
 
   if (canvas) {
     const ctx = canvas.getContext('2d');
+    let animationFrame = null;
+    let isRunning = true;
 
     function drawChips(num) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -21,7 +23,8 @@ function initHome() {
       }
     }
 
-    setInterval(() => {
+    function updateLoop() {
+      if (!isRunning) return;
       if (count < 42) {
         count = Math.min(42, count + Math.floor(Math.random() * 3));
       } else {
@@ -29,22 +32,39 @@ function initHome() {
       }
       if (counterEl) counterEl.innerText = count;
       drawChips(count);
-    }, 800);
+      // Reducir la frecuencia para móvil: cada 1500ms en lugar de 800ms
+      setTimeout(() => {
+        animationFrame = requestAnimationFrame(updateLoop);
+      }, 1500);
+    }
 
-    drawChips(0);
+    // Iniciar después de un pequeño retraso para no bloquear el renderizado inicial
+    setTimeout(() => {
+      drawChips(0);
+      updateLoop();
+    }, 300);
+
+    // Limpiar cuando la página se oculta (para ahorrar recursos)
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        isRunning = false;
+        if (animationFrame) cancelAnimationFrame(animationFrame);
+      } else {
+        isRunning = true;
+        updateLoop();
+      }
+    });
   }
 
   // ===== EARLY ACCESS BUTTON =====
   const earlyBait = document.getElementById('early-bait');
   if (earlyBait) {
-    // Obtener mensajes desde los atributos data-* (ya están en el HTML)
     const messages = {
       message: earlyBait.dataset.message || '📧 Dejame tu correo y te aviso cuando lance Early Access:',
       success: earlyBait.dataset.success || '✅ Gracias! Te avisaremos pronto. (demo sin backend)',
       invalid: earlyBait.dataset.invalid || 'Correo inválido'
     };
 
-    // Remover event listeners antiguos (por si acaso)
     const newBait = earlyBait.cloneNode(true);
     earlyBait.parentNode.replaceChild(newBait, earlyBait);
 
@@ -60,5 +80,5 @@ function initHome() {
   }
 }
 
-// ===== EJECUTAR EN CARGA INICIAL Y CADA NAVEGACIÓN =====
+// Ejecutar en carga inicial y cada navegación
 document.addEventListener('astro:page-load', initHome);

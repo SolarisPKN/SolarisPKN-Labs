@@ -22,26 +22,20 @@ const {
   canonical,
 } = Astro.props;
 
-// ===== CARGAR TRADUCCIONES =====
-// Usamos ruta relativa para evitar problemas con alias dinámicos
+// Cargar traducciones
 const common = await import(`../locales/${lang}/common.json`);
 
-// ===== CARGAR BANDERAS DESDE src/assets/flags/ =====
-// Usamos glob con as: 'url' para obtener directamente la URL pública
+// Cargar banderas desde src/assets/flags/
 const flagModules = import.meta.glob('/src/assets/flags/*.svg', {
   eager: true,
   as: 'url',
 });
 
-// Función para obtener la URL de la bandera según el código de idioma
 const getFlagSrc = (langCode: string): string => {
-  // Buscar en el objeto glob la clave que coincida con el nombre del archivo
   const key = `/src/assets/flags/${langCode}.svg`;
-  // Si existe, devuelve la URL; si no, fallback a public
   return flagModules[key] || `/images/flags/${langCode}.svg`;
 };
 
-// Ruta sin idioma para el selector de idioma
 const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
 ---
 
@@ -61,12 +55,39 @@ const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
 
     <ViewTransitions />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
+    <!-- ===== FUENTES LOCALES (optimizadas) ===== -->
+    <!-- Preload de las fuentes críticas -->
+    <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin />
+
+    <style>
+      /* Declaración de @font-face para usar fuentes locales */
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 300 700;
+        font-display: swap;
+        src: url('/fonts/inter-variable.woff2') format('woff2-variations');
+      }
+
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 400 600;
+        font-display: swap;
+        src: url('/fonts/jetbrains-mono-variable.woff2') format('woff2-variations');
+      }
+
+      /* Estilos de respaldo (opcional) */
+      .fallback-font {
+        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      }
+    </style>
+
+    <!-- ===== RECURSOS EXTERNOS (solo si es necesario) ===== -->
+    <!-- Si aún quieres usar Google Fonts como fallback, mantén solo un enlace -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" /> -->
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
   </head>
 
   <body>
@@ -79,7 +100,7 @@ const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
       style="position: sticky; top: 1rem; margin: 1rem; z-index: 100; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;"
     >
       <div style="font-weight: bold; font-family: 'JetBrains Mono', monospace; display: flex; align-items: center; gap: 0.5rem;">
-        <img src="/favicon.svg" alt="SolarisPKN Labs" width="24" height="24" />
+        <img src="/favicon.svg" alt="SolarisPKN Labs" width="24" height="24" loading="eager" fetchpriority="high" />
         SolarisPKN-Labs
       </div>
 
@@ -91,7 +112,7 @@ const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
         <a href={`/${lang}/portfolio`} style="color: var(--border-cyan); text-decoration: none;">{common.nav.portfolio}</a>
         <a href={`/${lang}/under-construction`} style="color: var(--accent-pink);">{common.nav.miCuenta}</a>
 
-        <!-- ===== SELECTOR DE IDIOMA ===== -->
+        <!-- SELECTOR DE IDIOMA -->
         <div class="language-dropdown" style="position: relative; margin-left: 0.5rem;">
           <div class="language-selector">
             <button id="lang-btn" class="lang-btn" aria-haspopup="true" aria-expanded="false">
