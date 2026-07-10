@@ -2,7 +2,7 @@
 // src/layouts/Layout.astro
 import SEO from '@components/SEO.astro';
 import { ViewTransitions } from 'astro:transitions';
-import '@styles/global.css';
+import "@styles/global.css";
 
 export interface Props {
   title: string;
@@ -147,7 +147,3 @@ const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
     </script>
   </body>
 </html>
-
-<style>
-      import '@styles/global.css';
-</style>

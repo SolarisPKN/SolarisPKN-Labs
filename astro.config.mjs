@@ -34,12 +34,7 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
-      i18n: {
-        defaultLocale: 'es',
-        locales: {
-          es: 'es',
-          en: 'en',
-        },
+      
       },
       filter: (page) => !page.includes('/under-construction'),
     }),
