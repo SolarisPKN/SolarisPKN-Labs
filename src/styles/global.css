@@ -181,11 +181,29 @@ body {
     transform: translateY(-8px);
   }
 }
-@font-face {
-  font-family: 'Inter';
-  font-display: swap;
-}
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-display: swap;
-}
+
+  /* Inter (variable) - con font-display: optional para evitar CLS */
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: optional;  /* 🔥 Evita el cambio de layout */
+    src: url('/fonts/inter.woff2') format('woff2-variations');
+  }
+
+  /* JetBrains Mono (variable) - igual */
+  @font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400 600;
+    font-display: optional;  /* 🔥 Evita el cambio de layout */
+    src: url('/fonts/jetbrains-mono.woff2') format('woff2-variations');
+  }
+
+  /* 📝 Ajuste de fallback para evitar CLS (opcional pero recomendado) */
+  @supports (font-variation-settings: normal) {
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      font-size-adjust: 0.5; /* aproximación al ratio de Inter */
+    }
+  }
