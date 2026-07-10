@@ -1,6 +1,7 @@
 ---
 // src/pages/[lang]/portfolio.astro
-import "/public/styles/portfolio.css";
+import "@styles/portfolio.css";
+
 export async function getStaticPaths() {
   return [
     { params: { lang: 'es' } },
@@ -14,6 +15,17 @@ import Layout from '../../layouts/Layout.astro';
 const t = await import(`../../locales/${lang}/portfolio.json`);
 const skills = await import(`../../locales/${lang}/portfolioskills.json`);
 const common = await import(`../../locales/${lang}/common.json`);
+
+// 🔥 Mezclar aleatoriamente los certificados
+const shuffledCerts = skills.certificados 
+  ? [...skills.certificados].sort(() => Math.random() - 0.5)
+  : [];
+
+// El primer certificado será el seleccionado por defecto
+const defaultCert = shuffledCerts[0] || null;
+
+const categorias = [...new Set(skills.certificados.map(c => c.categoria))];
+const academias = [...new Set(skills.certificados.map(c => c.academia))];
 ---
 
 <Layout title="Portfolio - Pablo Marchetti Orayen" lang={lang}>
@@ -34,26 +46,26 @@ const common = await import(`../../locales/${lang}/common.json`);
         </div>
         <div class="buttons-social">
           <a href="https://www.linkedin.com/in/solarispkn" target="_blank" class="btn-social">
-            <img src="/images/portfolio/logos/linkedin.svg" alt="LinkedIn" /> LinkedIn
+            <img src="/images/portfolio/logos/linkedin.svg" alt="LinkedIn" loading="lazy" /> LinkedIn
           </a>
           <a href="https://www.github.com/SolarisPKN" target="_blank" class="btn-social">
-            <img src="/images/portfolio/logos/github.svg" alt="GitHub" /> GitHub
+            <img src="/images/portfolio/logos/github.svg" alt="GitHub" loading="lazy" /> GitHub
           </a>
           <a href="https://www.youtube.com/@SolarisPKN" target="_blank" class="btn-social">
-            <img src="/images/portfolio/logos/youtube.svg" alt="YouTube" /> YouTube
+            <img src="/images/portfolio/logos/youtube.svg" alt="YouTube" loading="lazy" /> YouTube
           </a>
           <a href="/cv.pdf" download class="btn-social download">
-            <img src="/images/portfolio/logos/download.svg" alt="CV" />
+            <img src="/images/portfolio/logos/download.svg" alt="CV" loading="lazy" />
             {t.botones.descargarCV}
           </a>
         </div>
       </div>
       <div class="hero-image">
-        <img src="/images/portfolio/foto-perfil.webp" alt="Pablo Marchetti Orayen" class="profile-pic" />
+        <img src="/images/portfolio/foto-perfil.webp" alt="Pablo Marchetti Orayen" class="profile-pic" loading="eager" fetchpriority="high" />
       </div>
     </section>
 
-    <!-- ===== SOBRE MI (sin foto, solo texto) ===== -->
+    <!-- ===== ABOUT ===== -->
     <section class="about-section glass reveal" data-reveal>
       <h2>{t.about.title || t.sobreMi.titulo}</h2>
       <p class="about-intro">{t.about.intro}</p>
@@ -82,7 +94,7 @@ const common = await import(`../../locales/${lang}/common.json`);
       </div>
     </section>
 
-    <!-- ===== FORMACIÓN ===== -->
+    <!-- ===== EDUCACIÓN ===== -->
     <section class="formacion glass reveal" data-reveal>
       <h2>{t.formacion.titulo}</h2>
       <div class="formacion-item">
@@ -118,70 +130,100 @@ const common = await import(`../../locales/${lang}/common.json`);
         ))}
       </div>
     </section>
-	
-<!-- ===== TECH CAROUSEL ===== -->
-<section class="tech-carousel glass reveal" data-reveal>
-  <h2>{t.techCarouselTitle}</h2>
-  <div class="carousel-wrapper" id="techCarouselWrapper">
-    <div class="carousel-track" id="techCarouselTrack">
-      {skills.techIcons.map((tech) => (
-        <div class="carousel-item-wrapper">
-          <div class="carousel-item">
-            <img 
-              src={`/images/portfolio/carruseltech/${tech}.svg`} 
-              alt={tech} 
-              class="tech-icon"
-              loading="lazy"
-              onerror="this.style.display='none'; this.parentElement.classList.add('fallback');"
-            />
-            <span class="tech-icon-fallback">{tech}</span>
-          </div>
-          <span class="tech-icon-name">{tech}</span>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
 
-    <!-- ===== CERTIFICACIONES CON FILTROS MEJORADOS ===== -->
+    <!-- ===== TECH CAROUSEL ===== -->
+    <section class="tech-carousel glass reveal" data-reveal>
+      <h2>{t.techCarouselTitle}</h2>
+      <div class="carousel-wrapper" id="techCarouselWrapper">
+        <div class="carousel-track" id="techCarouselTrack">
+          {skills.techIcons.map((tech) => (
+            <div class="carousel-item-wrapper">
+              <div class="carousel-item">
+                <img 
+                  src={`/images/portfolio/carruseltech/${tech}.svg`} 
+                  alt={tech} 
+                  class="tech-icon"
+                  loading="lazy"
+                  decoding="async"
+                  onerror="this.style.display='none'; this.parentElement.classList.add('fallback');"
+                />
+                <span class="tech-icon-fallback">{tech}</span>
+              </div>
+              <span class="tech-icon-name">{tech}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CERTIFICACIONES ===== -->
     <section class="certificaciones glass reveal" data-reveal>
       <h2>{t.certificationsTitle}</h2>
-      <div class="cert-controls">
+
+      <!-- FILTROS -->
+      <div class="cert-filters-horizontal">
         <input type="text" id="cert-search" class="cert-search" placeholder={t.certificationsSearch || 'Buscar...'} />
-        
         <select id="cert-filter-categoria" class="cert-filter">
           <option value="all">Todas las categorías</option>
-          {[...new Set(skills.certificados.map(c => c.categoria))].map(categoria => (
+          {categorias.map(categoria => (
             <option value={categoria}>{categoria}</option>
           ))}
         </select>
-
         <select id="cert-filter-subcategoria" class="cert-filter">
           <option value="all">Todas las subcategorías</option>
         </select>
-
         <select id="cert-filter-academia" class="cert-filter">
           <option value="all">Todas las academias</option>
-          {[...new Set(skills.certificados.map(c => c.academia))].map(academia => (
+          {academias.map(academia => (
             <option value={academia}>{academia}</option>
           ))}
         </select>
-
         <button id="cert-clear-filters" class="btn-clear-filters">Limpiar filtros</button>
       </div>
-      <div class="cert-grid" id="cert-grid">
-        {skills.certificados.map((cert) => (
-          <div class="cert-card" 
-               data-academia={cert.academia} 
-               data-categoria={cert.categoria} 
-               data-subcategoria={cert.subcategoria || ''}
-               data-nombre={cert.nombre}>
-            {cert.imagen && (
-              <img src={cert.imagen} alt={cert.nombre} class="cert-img" />
-            )}
-            <span class="cert-nombre">{cert.nombre}</span>
+
+      <!-- LAYOUT PRINCIPAL: dos columnas -->
+      <div class="cert-main-layout">
+        <!-- COLUMNA IZQUIERDA: DETALLE -->
+        <div class="cert-detalle" id="certDetalle">
+          <div class="cert-detalle-img">
+            <img id="certDetalleImagen" src={defaultCert?.imagen || '/images/placeholder.webp'} alt={defaultCert?.nombre || 'Certificado'} />
           </div>
-        ))}
+          <div class="cert-detalle-info">
+            <h3 id="certDetalleNombre">{defaultCert?.nombre || 'Selecciona un certificado'}</h3>
+            <p id="certDetalleAcademia">🏛️ {defaultCert?.academia || ''}</p>
+            <p id="certDetalleCategoria">📂 {defaultCert?.categoria || ''}</p>
+            <p id="certDetalleSubcategoria">🏷️ {defaultCert?.subcategoria || ''}</p>
+            <a id="certDetalleLink" href={defaultCert?.link || '#'} target="_blank">Ver certificado</a>
+            <span id="certDetalleId">ID: {defaultCert?.id || 'No disponible'}</span>
+          </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: CARRUSEL VERTICAL -->
+        <div class="cert-carousel-wrapper-vertical">
+          <div class="cert-carousel-viewport" id="certCarouselViewport">
+            <div class="cert-carousel-vertical" id="certCarouselVertical">
+              {shuffledCerts.map((cert, idx) => (
+                <div class="cert-thumb" 
+                     data-index={idx}
+                     data-nombre={cert.nombre}
+                     data-categoria={cert.categoria || ''}
+                     data-subcategoria={cert.subcategoria || ''}
+                     data-academia={cert.academia || ''}
+                     data-cert={JSON.stringify(cert)}>
+                  <img src={cert.imagen || '/images/placeholder.webp'} alt={cert.nombre} loading="lazy" />
+                  <div class="thumb-info">
+                    <span class="thumb-nombre">{cert.nombre}</span>
+                    <span class="thumb-meta">{cert.academia || ''}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="carousel-controls-vertical">
+            <button id="carousel-up-vertical" class="carousel-btn">▲</button>
+            <button id="carousel-down-vertical" class="carousel-btn">▼</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -190,7 +232,7 @@ const common = await import(`../../locales/${lang}/common.json`);
       <blockquote class="philosophy-quote">“{t.philosophy}”</blockquote>
     </section>
 
-    <!-- ===== INTERESES Y HOBBIES (movido al final) ===== -->
+    <!-- ===== INTERESES ===== -->
     <section class="intereses-hobbies glass reveal" data-reveal>
       <h2>{t.estudios.interesesTitulo}</h2>
       <ul class="intereses-lista">
@@ -198,7 +240,7 @@ const common = await import(`../../locales/${lang}/common.json`);
       </ul>
     </section>
 
-    <!-- ===== MAPA MENTAL (placeholder) ===== -->
+    <!-- ===== MAPA MENTAL ===== -->
     <section class="mind-map glass reveal" data-reveal>
       <h2>🗺️ {t.mindMapTitle || 'Mapa de habilidades'}</h2>
       <div class="mind-map-placeholder">
@@ -219,6 +261,7 @@ const common = await import(`../../locales/${lang}/common.json`);
 
   </div>
 
+  <!-- ===== SCRIPTS ===== -->
   <script>
     // ===== Back to top =====
     const backToTop = document.getElementById('back-to-top');
@@ -339,86 +382,264 @@ const common = await import(`../../locales/${lang}/common.json`);
       });
     })();
 
-    // ===== FILTROS DE CERTIFICACIONES (con subcategoría) =====
-    const certSearch = document.getElementById('cert-search');
-    const certFilterCategoria = document.getElementById('cert-filter-categoria');
-    const certFilterSubcategoria = document.getElementById('cert-filter-subcategoria');
-    const certFilterAcademia = document.getElementById('cert-filter-academia');
-    const certClearBtn = document.getElementById('cert-clear-filters');
-    const certCards = document.querySelectorAll('.cert-card');
+    // ===== CERTIFICADOS: CARRUSEL VERTICAL Y DETALLE =====
+    (function() {
+      const viewport = document.getElementById('certCarouselViewport');
+      const carouselContainer = document.getElementById('certCarouselVertical');
+      const upBtn = document.getElementById('carousel-up-vertical');
+      const downBtn = document.getElementById('carousel-down-vertical');
 
-    // Función para actualizar las subcategorías disponibles según la categoría seleccionada
-    function updateSubcategorias() {
-      const categoriaSeleccionada = certFilterCategoria.value;
-      // Obtener todas las subcategorías únicas de los certificados que coinciden con la categoría seleccionada
-      const subcategorias = new Set();
-      const allSubcategorias = new Set();
+      const detalleImg = document.getElementById('certDetalleImagen');
+      const detalleNombre = document.getElementById('certDetalleNombre');
+      const detalleAcademia = document.getElementById('certDetalleAcademia');
+      const detalleCategoria = document.getElementById('certDetalleCategoria');
+      const detalleSubcategoria = document.getElementById('certDetalleSubcategoria');
+      const detalleLink = document.getElementById('certDetalleLink');
+      const detalleId = document.getElementById('certDetalleId');
 
-      certCards.forEach(card => {
-        const cat = card.dataset.categoria || '';
-        const sub = card.dataset.subcategoria || '';
-        allSubcategorias.add(sub);
-        if (categoriaSeleccionada === 'all' || cat === categoriaSeleccionada) {
-          if (sub) subcategorias.add(sub);
+      if (!carouselContainer || !viewport) return;
+
+      // Configuración del carrusel vertical
+      const THUMB_HEIGHT = 80;
+      const VISIBLE_THUMBS = 4;
+      const GAP = 0.5 * 16;
+      const ITEM_HEIGHT = THUMB_HEIGHT + GAP;
+
+      let currentIndex = 0;
+      let autoScrollTimer = null;
+      let isPaused = false;
+      let pauseTimeout = null;
+
+      function updateCarousel() {
+        const offset = currentIndex * ITEM_HEIGHT;
+        carouselContainer.style.transform = `translateY(-${offset}px)`;
+      }
+
+      function selectThumb(index) {
+        const thumbs = carouselContainer.querySelectorAll('.cert-thumb');
+        if (index < 0 || index >= thumbs.length) return;
+
+        // Solo seleccionar si el thumb está visible (no display:none)
+        const thumb = thumbs[index];
+        if (thumb.style.display === 'none') {
+          // Buscar el siguiente visible
+          let nextVisible = -1;
+          thumbs.forEach((el, i) => {
+            if (el.style.display !== 'none' && nextVisible === -1) nextVisible = i;
+          });
+          if (nextVisible === -1) {
+            // No hay ninguno visible, limpiar detalle
+            detalleImg.src = '/images/placeholder.webp';
+            detalleNombre.textContent = 'No hay certificados';
+            detalleAcademia.textContent = '';
+            detalleCategoria.textContent = '';
+            detalleSubcategoria.textContent = '';
+            detalleLink.href = '#';
+            detalleLink.textContent = '';
+            detalleId.textContent = '';
+            return;
+          }
+          index = nextVisible;
+        }
+
+        // Actualizar clase active
+        thumbs.forEach((el, i) => {
+          el.classList.toggle('active', i === index);
+        });
+
+        // Obtener datos del certificado desde el dataset
+        const certData = thumbs[index].dataset.cert;
+        if (!certData) return;
+        const cert = JSON.parse(certData);
+
+        // Actualizar detalle
+        detalleImg.src = cert.imagen || '/images/placeholder.webp';
+        detalleImg.alt = cert.nombre || 'Certificado';
+        detalleNombre.textContent = cert.nombre || 'Sin nombre';
+        detalleAcademia.textContent = `🏛️ ${cert.academia || ''}`;
+        detalleCategoria.textContent = `📂 ${cert.categoria || ''}`;
+        detalleSubcategoria.textContent = `🏷️ ${cert.subcategoria || ''}`;
+        detalleLink.href = cert.link || '#';
+        detalleLink.textContent = cert.link ? 'Ver certificado' : 'Sin enlace';
+        detalleId.textContent = `ID: ${cert.id || 'No disponible'}`;
+
+        currentIndex = index;
+        updateCarousel();
+        pauseAutoScroll(30000);
+      }
+
+      function moveUp() {
+        const thumbs = carouselContainer.querySelectorAll('.cert-thumb');
+        if (thumbs.length === 0) return;
+        const maxIndex = Math.max(0, thumbs.length - VISIBLE_THUMBS);
+        let newIndex = currentIndex - 1;
+        if (newIndex < 0) newIndex = maxIndex;
+        selectThumb(newIndex);
+      }
+
+      function moveDown() {
+        const thumbs = carouselContainer.querySelectorAll('.cert-thumb');
+        if (thumbs.length === 0) return;
+        const maxIndex = Math.max(0, thumbs.length - VISIBLE_THUMBS);
+        let newIndex = currentIndex + 1;
+        if (newIndex > maxIndex) newIndex = 0;
+        selectThumb(newIndex);
+      }
+
+      function autoScrollStep() {
+        if (isPaused) return;
+        const thumbs = carouselContainer.querySelectorAll('.cert-thumb');
+        if (thumbs.length === 0) return;
+        const maxIndex = Math.max(0, thumbs.length - VISIBLE_THUMBS);
+        let nextIndex = currentIndex + 1;
+        if (nextIndex > maxIndex) nextIndex = 0;
+        selectThumb(nextIndex);
+      }
+
+      function resetAutoScroll() {
+        if (autoScrollTimer) clearInterval(autoScrollTimer);
+        if (!isPaused) {
+          autoScrollTimer = setInterval(autoScrollStep, 4000);
+        }
+      }
+
+      function pauseAutoScroll(duration = 30000) {
+        isPaused = true;
+        if (pauseTimeout) clearTimeout(pauseTimeout);
+        pauseTimeout = setTimeout(() => {
+          isPaused = false;
+          pauseTimeout = null;
+          resetAutoScroll();
+        }, duration);
+      }
+
+      upBtn?.addEventListener('click', moveUp);
+      downBtn?.addEventListener('click', moveDown);
+
+      carouselContainer.addEventListener('click', (e) => {
+        const thumb = e.target.closest('.cert-thumb');
+        if (thumb) {
+          const index = parseInt(thumb.dataset.index);
+          if (!isNaN(index)) selectThumb(index);
         }
       });
 
-      // Limpiar y llenar el select de subcategorías
-      certFilterSubcategoria.innerHTML = '<option value="all">Todas las subcategorías</option>';
-      // Si no hay categoría seleccionada o es 'all', mostrar todas las subcategorías
-      const subList = categoriaSeleccionada === 'all' ? allSubcategorias : subcategorias;
-      [...subList].sort().forEach(sub => {
-        if (sub) {
-          const option = document.createElement('option');
-          option.value = sub;
-          option.textContent = sub;
-          certFilterSubcategoria.appendChild(option);
+      viewport.addEventListener('mouseenter', () => { isPaused = true; });
+      viewport.addEventListener('mouseleave', () => {
+        isPaused = false;
+        if (pauseTimeout) clearTimeout(pauseTimeout);
+        resetAutoScroll();
+      });
+
+      // ===== FILTROS =====
+      const certSearch = document.getElementById('cert-search');
+      const certFilterCategoria = document.getElementById('cert-filter-categoria');
+      const certFilterSubcategoria = document.getElementById('cert-filter-subcategoria');
+      const certFilterAcademia = document.getElementById('cert-filter-academia');
+      const certClearBtn = document.getElementById('cert-clear-filters');
+      const certCards = carouselContainer.querySelectorAll('.cert-thumb');
+
+      function updateSubcategorias() {
+        const categoriaSeleccionada = certFilterCategoria.value;
+        const subcategorias = new Set();
+        const allSubcategorias = new Set();
+
+        certCards.forEach(card => {
+          const cat = card.dataset.categoria || '';
+          const sub = card.dataset.subcategoria || '';
+          allSubcategorias.add(sub);
+          if (categoriaSeleccionada === 'all' || cat === categoriaSeleccionada) {
+            if (sub) subcategorias.add(sub);
+          }
+        });
+
+        certFilterSubcategoria.innerHTML = '<option value="all">Todas las subcategorías</option>';
+        const subList = categoriaSeleccionada === 'all' ? allSubcategorias : subcategorias;
+        [...subList].sort().forEach(sub => {
+          if (sub) {
+            const option = document.createElement('option');
+            option.value = sub;
+            option.textContent = sub;
+            certFilterSubcategoria.appendChild(option);
+          }
+        });
+      }
+
+      function filterCerts() {
+        const searchTerm = (certSearch?.value || '').toLowerCase();
+        const categoria = certFilterCategoria?.value || 'all';
+        const subcategoria = certFilterSubcategoria?.value || 'all';
+        const academia = certFilterAcademia?.value || 'all';
+
+        let firstVisibleIndex = -1;
+        certCards.forEach((card, index) => {
+          const nombre = (card.dataset.nombre || '').toLowerCase();
+          const cardCategoria = card.dataset.categoria || '';
+          const cardSubcategoria = card.dataset.subcategoria || '';
+          const cardAcademia = card.dataset.academia || '';
+
+          const matchSearch = nombre.includes(searchTerm);
+          const matchCategoria = categoria === 'all' || cardCategoria === categoria;
+          const matchSubcategoria = subcategoria === 'all' || cardSubcategoria === subcategoria;
+          const matchAcademia = academia === 'all' || cardAcademia === academia;
+
+          const visible = matchSearch && matchCategoria && matchSubcategoria && matchAcademia;
+          card.style.display = visible ? '' : 'none';
+          if (visible && firstVisibleIndex === -1) {
+            firstVisibleIndex = index;
+          }
+        });
+
+        if (firstVisibleIndex !== -1) {
+          selectThumb(firstVisibleIndex);
+        } else {
+          // No hay visibles, limpiar detalle
+          detalleImg.src = '/images/placeholder.webp';
+          detalleNombre.textContent = 'No hay certificados que coincidan';
+          detalleAcademia.textContent = '';
+          detalleCategoria.textContent = '';
+          detalleSubcategoria.textContent = '';
+          detalleLink.href = '#';
+          detalleLink.textContent = '';
+          detalleId.textContent = '';
+          // Mover el carrusel a la posición 0
+          currentIndex = 0;
+          updateCarousel();
         }
+      }
+
+      certSearch?.addEventListener('input', filterCerts);
+      certFilterCategoria?.addEventListener('change', () => {
+        updateSubcategorias();
+        filterCerts();
       });
-    }
+      certFilterSubcategoria?.addEventListener('change', filterCerts);
+      certFilterAcademia?.addEventListener('change', filterCerts);
 
-    function filterCerts() {
-      const searchTerm = (certSearch?.value || '').toLowerCase();
-      const categoria = certFilterCategoria?.value || 'all';
-      const subcategoria = certFilterSubcategoria?.value || 'all';
-      const academia = certFilterAcademia?.value || 'all';
-
-      certCards.forEach(card => {
-        const nombre = (card.dataset.nombre || '').toLowerCase();
-        const cardCategoria = card.dataset.categoria || '';
-        const cardSubcategoria = card.dataset.subcategoria || '';
-        const cardAcademia = card.dataset.academia || '';
-
-        const matchSearch = nombre.includes(searchTerm);
-        const matchCategoria = categoria === 'all' || cardCategoria === categoria;
-        const matchSubcategoria = subcategoria === 'all' || cardSubcategoria === subcategoria;
-        const matchAcademia = academia === 'all' || cardAcademia === academia;
-
-        card.style.display = (matchSearch && matchCategoria && matchSubcategoria && matchAcademia) ? 'flex' : 'none';
+      certClearBtn?.addEventListener('click', () => {
+        certSearch.value = '';
+        certFilterCategoria.value = 'all';
+        certFilterAcademia.value = 'all';
+        updateSubcategorias();
+        certFilterSubcategoria.value = 'all';
+        filterCerts();
       });
-    }
 
-    // Eventos de filtros
-    certSearch?.addEventListener('input', filterCerts);
-    certFilterCategoria?.addEventListener('change', () => {
       updateSubcategorias();
-      filterCerts();
-    });
-    certFilterSubcategoria?.addEventListener('change', filterCerts);
-    certFilterAcademia?.addEventListener('change', filterCerts);
 
-    // Botón limpiar filtros
-    certClearBtn?.addEventListener('click', () => {
-      certSearch.value = '';
-      certFilterCategoria.value = 'all';
-      certFilterAcademia.value = 'all';
-      // Resetear subcategorías
-      updateSubcategorias();
-      certFilterSubcategoria.value = 'all';
-      filterCerts();
-    });
+      // Inicializar seleccionando el primer visible (el primero por defecto)
+      setTimeout(() => {
+        const thumbs = carouselContainer.querySelectorAll('.cert-thumb');
+        let firstVisible = -1;
+        thumbs.forEach((el, i) => {
+          if (el.style.display !== 'none' && firstVisible === -1) firstVisible = i;
+        });
+        if (firstVisible !== -1) {
+          selectThumb(firstVisible);
+        }
+      }, 100);
 
-    // Inicializar subcategorías al cargar
-    updateSubcategorias();
+      resetAutoScroll();
+    })();
   </script>
 </Layout>
