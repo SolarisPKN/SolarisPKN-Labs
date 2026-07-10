@@ -60,3 +60,16 @@
 .prose a:hover {
   border-bottom: 1px solid var(--border-cyan);
 }
+/* Mejora de contraste para etiquetas de Mermaid */
+.edgeLabel {
+  color: #e0e0e0 !important;
+  background-color: rgba(11, 11, 16, 0.8) !important;
+  padding: 0.2rem 0.6rem !important;
+  border-radius: 4px !important;
+  font-weight: 500 !important;
+}
+
+/* Ajuste para los textos dentro del diagrama */
+.mermaid .label {
+  color: #e0e0e0 !important;
+}

@@ -35,25 +35,78 @@ const t = await import(`../../locales/${lang}/arquitectura.json`);
     <p style="margin-top: 1rem;">⚡ <strong>{t.notaInteractiva}</strong></p>
   </div>
 
+  <!-- ===== SCRIPT OPTIMIZADO ===== -->
   <script>
-    // Inicializar Mermaid después de cada navegación
+    let mermaidInitialized = false;
+
     async function initMermaid() {
-      // Si ya existe, limpiar versiones anteriores
-      const mermaidPre = document.querySelector('.mermaid');
-      if (!mermaidPre) return;
+      // Evitar reinicializaciones innecesarias
+      if (mermaidInitialized) return;
+      mermaidInitialized = true;
 
-      // Eliminar posibles instancias previas de Mermaid
-      const wrapper = mermaidPre.parentElement;
-      const clone = mermaidPre.cloneNode(true);
-      wrapper.replaceChild(clone, mermaidPre);
+      try {
+        // Importar Mermaid solo cuando sea necesario (carga diferida)
+        const { default: mermaid } = await import(
+          /* webpackChunkName: "mermaid" */
+          'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+        );
 
-      // Importar y ejecutar Mermaid
-      const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs');
-      mermaid.initialize({ startOnLoad: true, theme: 'dark', themeVariables: { background: '#0B0B10' } });
-      await mermaid.run({ nodes: [clone] });
+        // Inicializar Mermaid con la configuración adecuada
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: 'dark',
+          themeVariables: {
+            background: '#0B0B10',
+            primaryColor: '#1E1E2F',
+            primaryBorderColor: '#00FFCC',
+            lineColor: '#00FFCC',
+            tertiaryColor: '#1E1E2F',
+          },
+        });
+
+        // Buscar todos los elementos con clase 'mermaid'
+        const elements = document.querySelectorAll('.mermaid');
+        if (elements.length > 0) {
+          await mermaid.run({ nodes: elements });
+          console.log('✅ Mermaid inicializado correctamente');
+        }
+      } catch (error) {
+        console.warn('⚠️ Error al cargar Mermaid:', error);
+        // Fallback: mostrar el código en texto plano
+        const pre = document.querySelector('.mermaid');
+        if (pre) {
+          pre.style.display = 'block';
+          pre.style.whiteSpace = 'pre-wrap';
+          pre.textContent = pre.textContent || 'Diagrama no disponible';
+        }
+      }
     }
 
-    // Ejecutar al cargar la página y en cada navegación
-    document.addEventListener('astro:page-load', initMermaid);
+    // ===== ESTRATEGIA DE CARGA =====
+    // 1. Intentar cargar cuando el navegador esté inactivo (prioridad baja)
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => initMermaid(), { timeout: 3000 });
+    } else {
+      // 2. Fallback: cargar después de que la página esté completamente cargada
+      document.addEventListener('load', initMermaid, { once: true });
+    }
+
+    // 3. También en cada navegación con View Transitions (solo si no se ha inicializado)
+    document.addEventListener('astro:page-load', () => {
+      if (!mermaidInitialized) {
+        initMermaid();
+      } else {
+        // Si ya está inicializado, solo reiniciamos si hay nuevos nodos
+        const elements = document.querySelectorAll('.mermaid:not([data-processed])');
+        if (elements.length > 0) {
+          // Reimportar Mermaid y procesar los nuevos nodos
+          import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs')
+            .then(({ default: mermaid }) => {
+              mermaid.run({ nodes: elements });
+            })
+            .catch(err => console.warn('Error al procesar nuevos nodos Mermaid', err));
+        }
+      }
+    });
   </script>
 </Layout>
