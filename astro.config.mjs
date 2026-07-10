@@ -34,7 +34,14 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
-      filter: (page) => !page.includes('/under-construction'),
+      filter: (page) => {
+        // Solo incluimos URLs que tengan los prefijos de idioma válidos
+        const isLocalized = page.includes('/es/') || page.includes('/en/');
+        // Excluimos explícitamente las páginas en construcción
+        const isUnderConstruction = page.includes('/under-construction');
+        
+        return isLocalized && !isUnderConstruction;
+      },
     }),
   ],
 
