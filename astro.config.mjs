@@ -35,12 +35,16 @@ export default defineConfig({
     react(),
     sitemap({
       filter: (page) => {
-        // Solo incluimos URLs que tengan los prefijos de idioma válidos
+        // Incluimos la página raíz explícitamente para que no rompa el plugin
+        const isRoot = page === 'https://solarispkn.pages.dev' || page === 'https://solarispkn.pages.dev/';
+        
+        // Rutas localizadas válidas
         const isLocalized = page.includes('/es/') || page.includes('/en/');
-        // Excluimos explícitamente las páginas en construcción
+        
+        // Excluimos la página en construcción
         const isUnderConstruction = page.includes('/under-construction');
         
-        return isLocalized && !isUnderConstruction;
+        return (isRoot || isLocalized) && !isUnderConstruction;
       },
     }),
   ],
