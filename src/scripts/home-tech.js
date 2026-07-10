@@ -1,28 +1,21 @@
 // src/scripts/home-tech.js
 function initHome() {
-  // ===== CONTADOR DE CHIPS (canvas) =====
+  // ===== CONTADOR DE CHIPS (canvas) - optimizado =====
   const canvas = document.getElementById('chip-canvas');
   const counterEl = document.getElementById('chip-counter');
   if (!canvas || !counterEl) return;
 
   // Solo ejecutar cuando el navegador esté inactivo
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(initCanvas, { timeout: 2000 });
-  } else {
-    setTimeout(initCanvas, 500);
-  }
-
-  function initCanvas() {
+  const startCanvas = () => {
     const ctx = canvas.getContext('2d');
     let count = 0;
     let isRunning = true;
-    let animationFrame = null;
-    const MAX_CHIPS = 30; // Reducimos de 42 a 30 para móvil
-    const INTERVAL = 2000; // Aumentamos a 2s para menos carga
+    let timerId = null;
+    const MAX_CHIPS = 20; // reducido para móvil
+    const INTERVAL = 2500; // más espaciado
 
     function drawChips(num) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // Dibujar menos chips para mejorar rendimiento
       const chipsToDraw = Math.min(num, MAX_CHIPS);
       for (let i = 0; i < chipsToDraw; i++) {
         ctx.fillStyle = `hsl(${Date.now() / 20 + i * 30}, 100%, 60%)`;
@@ -30,7 +23,7 @@ function initHome() {
         ctx.arc(20 + (i % 20) * 38, 50 + Math.floor(i / 20) * 50, 12, 0, Math.PI * 2);
         ctx.fill();
         ctx.fillStyle = 'white';
-        ctx.font = '12px monospace';
+        ctx.font = '10px monospace';
         ctx.fillText(`ESP${i}`, 20 + (i % 20) * 38 - 8, 50 + Math.floor(i / 20) * 50 + 4);
       }
     }
@@ -44,31 +37,43 @@ function initHome() {
       }
       counterEl.innerText = count;
       drawChips(count);
-      // Programar la siguiente actualización
-      animationFrame = setTimeout(() => {
+      timerId = setTimeout(() => {
         requestAnimationFrame(updateLoop);
       }, INTERVAL);
     }
 
-    // Iniciar con un retraso para no bloquear el renderizado inicial
-    setTimeout(() => {
+    // Iniciar con retraso
+    const startId = setTimeout(() => {
       drawChips(0);
       updateLoop();
-    }, 500);
+    }, 1000);
 
-    // Pausar cuando la pestaña no está visible
+    // Pausar en pestañas ocultas
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         isRunning = false;
-        if (animationFrame) {
-          clearTimeout(animationFrame);
-          animationFrame = null;
+        if (timerId) {
+          clearTimeout(timerId);
+          timerId = null;
         }
       } else {
         isRunning = true;
         updateLoop();
       }
     });
+
+    // Limpiar en descarga
+    window.addEventListener('beforeunload', () => {
+      if (timerId) clearTimeout(timerId);
+      if (startId) clearTimeout(startId);
+    });
+  };
+
+  // Usar requestIdleCallback para no bloquear
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(startCanvas, { timeout: 3000 });
+  } else {
+    setTimeout(startCanvas, 1000);
   }
 
   // ===== EARLY ACCESS BUTTON (sin cambios) =====
@@ -93,4 +98,5 @@ function initHome() {
   }
 }
 
+// Ejecutar en carga inicial y cada navegación
 document.addEventListener('astro:page-load', initHome);
