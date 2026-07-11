@@ -46,22 +46,30 @@ const academias = [...new Set(skills.certificados.map(c => c.academia))];
         </div>
         <div class="buttons-social">
           <a href="https://www.linkedin.com/in/solarispkn" target="_blank" class="btn-social">
-            <img src="/images/portfolio/logos/linkedin.svg" alt="LinkedIn" loading="lazy" /> LinkedIn
+            <img src="/images/portfolio/logos/linkedin.svg" alt="LinkedIn" loading="lazy" width="20" height="20" /> LinkedIn
           </a>
           <a href="https://www.github.com/SolarisPKN" target="_blank" class="btn-social">
-            <img src="/images/portfolio/logos/github.svg" alt="GitHub" loading="lazy" /> GitHub
+            <img src="/images/portfolio/logos/github.svg" alt="GitHub" loading="lazy" width="20" height="20" /> GitHub
           </a>
           <a href="https://www.youtube.com/@SolarisPKN" target="_blank" class="btn-social">
-            <img src="/images/portfolio/logos/youtube.svg" alt="YouTube" loading="lazy" /> YouTube
+            <img src="/images/portfolio/logos/youtube.svg" alt="YouTube" loading="lazy" width="20" height="20" /> YouTube
           </a>
           <a href="/cv.pdf" download class="btn-social download">
-            <img src="/images/portfolio/logos/download.svg" alt="CV" loading="lazy" />
+            <img src="/images/portfolio/logos/download.svg" alt="CV" loading="lazy" width="20" height="20" />
             {t.botones.descargarCV}
           </a>
         </div>
       </div>
       <div class="hero-image">
-        <img src="/images/portfolio/foto-perfil.webp" alt="Pablo Marchetti Orayen" class="profile-pic" loading="eager" fetchpriority="high" />
+        <img 
+          src="/images/portfolio/foto-perfil.webp" 
+          alt="Pablo Marchetti Orayen" 
+          class="profile-pic" 
+          width="200" 
+          height="200" 
+          loading="eager" 
+          fetchpriority="high" 
+        />
       </div>
     </section>
 
@@ -145,6 +153,8 @@ const academias = [...new Set(skills.certificados.map(c => c.academia))];
                   class="tech-icon"
                   loading="lazy"
                   decoding="async"
+                  width="40"
+                  height="40"
                   onerror="this.style.display='none'; this.parentElement.classList.add('fallback');"
                 />
                 <span class="tech-icon-fallback">{tech}</span>
@@ -163,16 +173,16 @@ const academias = [...new Set(skills.certificados.map(c => c.academia))];
       <!-- FILTROS -->
       <div class="cert-filters-horizontal">
         <input type="text" id="cert-search" class="cert-search" placeholder={t.certificationsSearch || 'Buscar...'} />
-        <select id="cert-filter-categoria" class="cert-filter">
+        <select id="cert-filter-categoria" class="cert-filter" aria-label="Filtrar por categoría">
           <option value="all">Todas las categorías</option>
           {categorias.map(categoria => (
             <option value={categoria}>{categoria}</option>
           ))}
         </select>
-        <select id="cert-filter-subcategoria" class="cert-filter">
+        <select id="cert-filter-subcategoria" class="cert-filter" aria-label="Filtrar por subcategoría">
           <option value="all">Todas las subcategorías</option>
         </select>
-        <select id="cert-filter-academia" class="cert-filter">
+        <select id="cert-filter-academia" class="cert-filter" aria-label="Filtrar por academia">
           <option value="all">Todas las academias</option>
           {academias.map(academia => (
             <option value={academia}>{academia}</option>
@@ -186,7 +196,14 @@ const academias = [...new Set(skills.certificados.map(c => c.academia))];
         <!-- COLUMNA IZQUIERDA: DETALLE -->
         <div class="cert-detalle" id="certDetalle">
           <div class="cert-detalle-img">
-            <img id="certDetalleImagen" src={defaultCert?.imagen || '/images/placeholder.webp'} alt={defaultCert?.nombre || 'Certificado'} />
+            <img 
+              id="certDetalleImagen" 
+              src={defaultCert?.imagen || '/images/placeholder.webp'} 
+              alt={defaultCert?.nombre || 'Certificado'} 
+              width="600" 
+              height="400" 
+              loading="lazy"
+            />
           </div>
           <div class="cert-detalle-info">
             <h3 id="certDetalleNombre">{defaultCert?.nombre || 'Selecciona un certificado'}</h3>
@@ -210,7 +227,13 @@ const academias = [...new Set(skills.certificados.map(c => c.academia))];
                      data-subcategoria={cert.subcategoria || ''}
                      data-academia={cert.academia || ''}
                      data-cert={JSON.stringify(cert)}>
-                  <img src={cert.imagen || '/images/placeholder.webp'} alt={cert.nombre} loading="lazy" />
+                  <img 
+                    src={cert.imagen || '/images/placeholder.webp'} 
+                    alt={cert.nombre} 
+                    loading="lazy"
+                    width="50"
+                    height="50"
+                  />
                   <div class="thumb-info">
                     <span class="thumb-nombre">{cert.nombre}</span>
                     <span class="thumb-meta">{cert.academia || ''}</span>
@@ -261,385 +284,34 @@ const academias = [...new Set(skills.certificados.map(c => c.academia))];
 
   </div>
 
-  <!-- ===== SCRIPTS ===== -->
+  <!-- ===== SCRIPTS (modularizados) ===== -->
   <script type="module">
-    // ===== Back to top =====
-    const backToTop = document.getElementById('back-to-top');
-    if (backToTop) {
-      window.addEventListener('scroll', () => {
-        backToTop.style.display = window.scrollY > 300 ? 'flex' : 'none';
-      });
-      backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Importamos las funciones de los scripts externos
+    import { initBackToTop } from '@scripts/backToTop.js';
+    import { initTechCarousel } from '@scripts/techCarousel.js';
+    import { initCertificates } from '@scripts/certificates.js';
+
+    // Pasamos shuffledCerts al script de certificados
+    const certsData = shuffledCerts;
+
+    // Ejecutar en cada carga/navegación
+    document.addEventListener('astro:page-load', () => {
+      initBackToTop();
+      initTechCarousel();
+      initCertificates(certsData);
+    });
+
+    // También ejecutar inmediatamente si la página ya está cargada (por si acaso)
+    if (document.readyState === 'complete') {
+      initBackToTop();
+      initTechCarousel();
+      initCertificates(certsData);
+    } else {
+      document.addEventListener('DOMContentLoaded', () => {
+        initBackToTop();
+        initTechCarousel();
+        initCertificates(certsData);
       });
     }
-
-    // ===== TECH CAROUSEL =====
-    (function() {
-      const track = document.getElementById('techCarouselTrack');
-      const wrapper = document.getElementById('techCarouselWrapper');
-      if (!track || !wrapper) return;
-
-      const items = Array.from(track.children);
-      items.forEach(item => {
-        const clone = item.cloneNode(true);
-        track.appendChild(clone);
-      });
-
-      let currentTranslateX = 0;
-      let speed = 0.5;
-      let isPaused = false;
-      let isDragging = false;
-      let startX = 0;
-      let prevTranslateX = 0;
-      let animationId = null;
-
-      function setTranslateX(value) {
-        currentTranslateX = value;
-        track.style.transform = `translateX(${value}px)`;
-      }
-
-      function animate() {
-        if (isPaused || isDragging) {
-          animationId = requestAnimationFrame(animate);
-          return;
-        }
-        currentTranslateX -= speed;
-        const maxTranslate = -(track.scrollWidth / 2);
-        if (currentTranslateX <= maxTranslate) {
-          currentTranslateX = 0;
-        }
-        setTranslateX(currentTranslateX);
-        animationId = requestAnimationFrame(animate);
-      }
-
-      wrapper.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        isPaused = true;
-        startX = e.clientX;
-        prevTranslateX = currentTranslateX;
-        track.style.transition = 'none';
-        if (animationId) cancelAnimationFrame(animationId);
-      });
-      document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const diff = e.clientX - startX;
-        let newX = prevTranslateX + diff;
-        const maxX = 0;
-        const minX = -(track.scrollWidth / 2);
-        if (newX > maxX) newX = maxX;
-        if (newX < minX) newX = minX;
-        setTranslateX(newX);
-      });
-      document.addEventListener('mouseup', () => {
-        if (isDragging) {
-          isDragging = false;
-          setTimeout(() => {
-            isPaused = false;
-            if (!animationId) animate();
-          }, 1000);
-        }
-      });
-
-      wrapper.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        isPaused = true;
-        startX = e.touches[0].clientX;
-        prevTranslateX = currentTranslateX;
-        track.style.transition = 'none';
-        if (animationId) cancelAnimationFrame(animationId);
-      }, { passive: true });
-      document.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        const diff = e.touches[0].clientX - startX;
-        let newX = prevTranslateX + diff;
-        const maxX = 0;
-        const minX = -(track.scrollWidth / 2);
-        if (newX > maxX) newX = maxX;
-        if (newX < minX) newX = minX;
-        setTranslateX(newX);
-      }, { passive: true });
-      document.addEventListener('touchend', () => {
-        if (isDragging) {
-          isDragging = false;
-          setTimeout(() => {
-            isPaused = false;
-            if (!animationId) animate();
-          }, 1000);
-        }
-      }, { passive: true });
-
-      wrapper.addEventListener('mouseenter', () => { isPaused = true; });
-      wrapper.addEventListener('mouseleave', () => {
-        isPaused = false;
-        if (!animationId) animate();
-      });
-
-      animate();
-
-      window.addEventListener('beforeunload', () => {
-        if (animationId) cancelAnimationFrame(animationId);
-      });
-    })();
-
-    // ===== CERTIFICADOS: CARRUSEL VERTICAL Y DETALLE =====
-    (function() {
-      const viewport = document.getElementById('certCarouselViewport');
-      const carouselContainer = document.getElementById('certCarouselVertical');
-      const upBtn = document.getElementById('carousel-up-vertical');
-      const downBtn = document.getElementById('carousel-down-vertical');
-
-      const detalleImg = document.getElementById('certDetalleImagen');
-      const detalleNombre = document.getElementById('certDetalleNombre');
-      const detalleAcademia = document.getElementById('certDetalleAcademia');
-      const detalleCategoria = document.getElementById('certDetalleCategoria');
-      const detalleSubcategoria = document.getElementById('certDetalleSubcategoria');
-      const detalleLink = document.getElementById('certDetalleLink');
-      const detalleId = document.getElementById('certDetalleId');
-
-      if (!carouselContainer || !viewport) return;
-
-      // Configuración del carrusel vertical
-      const THUMB_HEIGHT = 80;
-      const VISIBLE_THUMBS = 4;
-      const GAP = 0.5 * 16;
-      const ITEM_HEIGHT = THUMB_HEIGHT + GAP;
-
-      let currentIndex = 0;
-      let autoScrollTimer = null;
-      let isPaused = false;
-      let pauseTimeout = null;
-
-      function updateCarousel() {
-        const offset = currentIndex * ITEM_HEIGHT;
-        carouselContainer.style.transform = `translateY(-${offset}px)`;
-      }
-
-      function selectThumb(index) {
-        const thumbs = carouselContainer.querySelectorAll('.cert-thumb');
-        if (index < 0 || index >= thumbs.length) return;
-
-        // Solo seleccionar si el thumb está visible (no display:none)
-        const thumb = thumbs[index];
-        if (thumb.style.display === 'none') {
-          // Buscar el siguiente visible
-          let nextVisible = -1;
-          thumbs.forEach((el, i) => {
-            if (el.style.display !== 'none' && nextVisible === -1) nextVisible = i;
-          });
-          if (nextVisible === -1) {
-            // No hay ninguno visible, limpiar detalle
-            detalleImg.src = '/images/placeholder.webp';
-            detalleNombre.textContent = 'No hay certificados';
-            detalleAcademia.textContent = '';
-            detalleCategoria.textContent = '';
-            detalleSubcategoria.textContent = '';
-            detalleLink.href = '#';
-            detalleLink.textContent = '';
-            detalleId.textContent = '';
-            return;
-          }
-          index = nextVisible;
-        }
-
-        // Actualizar clase active
-        thumbs.forEach((el, i) => {
-          el.classList.toggle('active', i === index);
-        });
-
-        // Obtener datos del certificado desde el dataset
-        const certData = thumbs[index].dataset.cert;
-        if (!certData) return;
-        const cert = JSON.parse(certData);
-
-        // Actualizar detalle
-        detalleImg.src = cert.imagen || '/images/placeholder.webp';
-        detalleImg.alt = cert.nombre || 'Certificado';
-        detalleNombre.textContent = cert.nombre || 'Sin nombre';
-        detalleAcademia.textContent = `🏛️ ${cert.academia || ''}`;
-        detalleCategoria.textContent = `📂 ${cert.categoria || ''}`;
-        detalleSubcategoria.textContent = `🏷️ ${cert.subcategoria || ''}`;
-        detalleLink.href = cert.link || '#';
-        detalleLink.textContent = cert.link ? 'Ver certificado' : 'Sin enlace';
-        detalleId.textContent = `ID: ${cert.id || 'No disponible'}`;
-
-        currentIndex = index;
-        updateCarousel();
-        pauseAutoScroll(30000);
-      }
-
-      function moveUp() {
-        const thumbs = carouselContainer.querySelectorAll('.cert-thumb');
-        if (thumbs.length === 0) return;
-        const maxIndex = Math.max(0, thumbs.length - VISIBLE_THUMBS);
-        let newIndex = currentIndex - 1;
-        if (newIndex < 0) newIndex = maxIndex;
-        selectThumb(newIndex);
-      }
-
-      function moveDown() {
-        const thumbs = carouselContainer.querySelectorAll('.cert-thumb');
-        if (thumbs.length === 0) return;
-        const maxIndex = Math.max(0, thumbs.length - VISIBLE_THUMBS);
-        let newIndex = currentIndex + 1;
-        if (newIndex > maxIndex) newIndex = 0;
-        selectThumb(newIndex);
-      }
-
-      function autoScrollStep() {
-        if (isPaused) return;
-        const thumbs = carouselContainer.querySelectorAll('.cert-thumb');
-        if (thumbs.length === 0) return;
-        const maxIndex = Math.max(0, thumbs.length - VISIBLE_THUMBS);
-        let nextIndex = currentIndex + 1;
-        if (nextIndex > maxIndex) nextIndex = 0;
-        selectThumb(nextIndex);
-      }
-
-      function resetAutoScroll() {
-        if (autoScrollTimer) clearInterval(autoScrollTimer);
-        if (!isPaused) {
-          autoScrollTimer = setInterval(autoScrollStep, 4000);
-        }
-      }
-
-      function pauseAutoScroll(duration = 30000) {
-        isPaused = true;
-        if (pauseTimeout) clearTimeout(pauseTimeout);
-        pauseTimeout = setTimeout(() => {
-          isPaused = false;
-          pauseTimeout = null;
-          resetAutoScroll();
-        }, duration);
-      }
-
-      upBtn?.addEventListener('click', moveUp);
-      downBtn?.addEventListener('click', moveDown);
-
-      carouselContainer.addEventListener('click', (e) => {
-        const thumb = e.target.closest('.cert-thumb');
-        if (thumb) {
-          const index = parseInt(thumb.dataset.index);
-          if (!isNaN(index)) selectThumb(index);
-        }
-      });
-
-      viewport.addEventListener('mouseenter', () => { isPaused = true; });
-      viewport.addEventListener('mouseleave', () => {
-        isPaused = false;
-        if (pauseTimeout) clearTimeout(pauseTimeout);
-        resetAutoScroll();
-      });
-
-      // ===== FILTROS =====
-      const certSearch = document.getElementById('cert-search');
-      const certFilterCategoria = document.getElementById('cert-filter-categoria');
-      const certFilterSubcategoria = document.getElementById('cert-filter-subcategoria');
-      const certFilterAcademia = document.getElementById('cert-filter-academia');
-      const certClearBtn = document.getElementById('cert-clear-filters');
-      const certCards = carouselContainer.querySelectorAll('.cert-thumb');
-
-      function updateSubcategorias() {
-        const categoriaSeleccionada = certFilterCategoria.value;
-        const subcategorias = new Set();
-        const allSubcategorias = new Set();
-
-        certCards.forEach(card => {
-          const cat = card.dataset.categoria || '';
-          const sub = card.dataset.subcategoria || '';
-          allSubcategorias.add(sub);
-          if (categoriaSeleccionada === 'all' || cat === categoriaSeleccionada) {
-            if (sub) subcategorias.add(sub);
-          }
-        });
-
-        certFilterSubcategoria.innerHTML = '<option value="all">Todas las subcategorías</option>';
-        const subList = categoriaSeleccionada === 'all' ? allSubcategorias : subcategorias;
-        [...subList].sort().forEach(sub => {
-          if (sub) {
-            const option = document.createElement('option');
-            option.value = sub;
-            option.textContent = sub;
-            certFilterSubcategoria.appendChild(option);
-          }
-        });
-      }
-
-      function filterCerts() {
-        const searchTerm = (certSearch?.value || '').toLowerCase();
-        const categoria = certFilterCategoria?.value || 'all';
-        const subcategoria = certFilterSubcategoria?.value || 'all';
-        const academia = certFilterAcademia?.value || 'all';
-
-        let firstVisibleIndex = -1;
-        certCards.forEach((card, index) => {
-          const nombre = (card.dataset.nombre || '').toLowerCase();
-          const cardCategoria = card.dataset.categoria || '';
-          const cardSubcategoria = card.dataset.subcategoria || '';
-          const cardAcademia = card.dataset.academia || '';
-
-          const matchSearch = nombre.includes(searchTerm);
-          const matchCategoria = categoria === 'all' || cardCategoria === categoria;
-          const matchSubcategoria = subcategoria === 'all' || cardSubcategoria === subcategoria;
-          const matchAcademia = academia === 'all' || cardAcademia === academia;
-
-          const visible = matchSearch && matchCategoria && matchSubcategoria && matchAcademia;
-          card.style.display = visible ? '' : 'none';
-          if (visible && firstVisibleIndex === -1) {
-            firstVisibleIndex = index;
-          }
-        });
-
-        if (firstVisibleIndex !== -1) {
-          selectThumb(firstVisibleIndex);
-        } else {
-          // No hay visibles, limpiar detalle
-          detalleImg.src = '/images/placeholder.webp';
-          detalleNombre.textContent = 'No hay certificados que coincidan';
-          detalleAcademia.textContent = '';
-          detalleCategoria.textContent = '';
-          detalleSubcategoria.textContent = '';
-          detalleLink.href = '#';
-          detalleLink.textContent = '';
-          detalleId.textContent = '';
-          // Mover el carrusel a la posición 0
-          currentIndex = 0;
-          updateCarousel();
-        }
-      }
-
-      certSearch?.addEventListener('input', filterCerts);
-      certFilterCategoria?.addEventListener('change', () => {
-        updateSubcategorias();
-        filterCerts();
-      });
-      certFilterSubcategoria?.addEventListener('change', filterCerts);
-      certFilterAcademia?.addEventListener('change', filterCerts);
-
-      certClearBtn?.addEventListener('click', () => {
-        certSearch.value = '';
-        certFilterCategoria.value = 'all';
-        certFilterAcademia.value = 'all';
-        updateSubcategorias();
-        certFilterSubcategoria.value = 'all';
-        filterCerts();
-      });
-
-      updateSubcategorias();
-
-      // Inicializar seleccionando el primer visible (el primero por defecto)
-      setTimeout(() => {
-        const thumbs = carouselContainer.querySelectorAll('.cert-thumb');
-        let firstVisible = -1;
-        thumbs.forEach((el, i) => {
-          if (el.style.display !== 'none' && firstVisible === -1) firstVisible = i;
-        });
-        if (firstVisible !== -1) {
-          selectThumb(firstVisible);
-        }
-      }, 100);
-
-      resetAutoScroll();
-    })();
   </script>
 </Layout>

@@ -55,13 +55,11 @@ const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
 
     <ViewTransitions />
 
-    <!-- ===== FUENTES LOCALES (optimizadas) ===== -->
-    <!-- Preload de las fuentes críticas -->
+    <!-- FUENTES -->
     <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin />
 
     <style>
-      /* Declaración de @font-face para usar fuentes locales */
       @font-face {
         font-family: 'Inter';
         font-style: normal;
@@ -69,7 +67,6 @@ const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
         font-display: swap;
         src: url('/fonts/inter.woff2') format('woff2-variations');
       }
-
       @font-face {
         font-family: 'JetBrains Mono';
         font-style: normal;
@@ -77,17 +74,7 @@ const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
         font-display: swap;
         src: url('/fonts/jetbrains-mono.woff2') format('woff2-variations');
       }
-
-      /* Estilos de respaldo (opcional) */
-      .fallback-font {
-        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-      }
     </style>
-
-    <!-- ===== RECURSOS EXTERNOS (solo si es necesario) ===== -->
-    <!-- Si aún quieres usar Google Fonts como fallback, mantén solo un enlace -->
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" /> -->
-    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
   </head>
 
   <body>
@@ -95,10 +82,7 @@ const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
     <a href="#main-content" class="skip-link">Saltar al contenido</a>
 
     <!-- HEADER -->
-    <header
-      class="glass"
-      style="position: sticky; top: 1rem; margin: 1rem; z-index: 100; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;"
-    >
+    <header class="glass" style="position: sticky; top: 1rem; margin: 1rem; z-index: 100; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
       <div style="font-weight: bold; font-family: 'JetBrains Mono', monospace; display: flex; align-items: center; gap: 0.5rem;">
         <img src="/favicon.svg" alt="SolarisPKN Labs" width="24" height="24" loading="eager" fetchpriority="high" />
         SolarisPKN-Labs
@@ -116,13 +100,7 @@ const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
         <div class="language-dropdown" style="position: relative; margin-left: 0.5rem;">
           <div class="language-selector">
             <button id="lang-btn" class="lang-btn" aria-haspopup="true" aria-expanded="false">
-              <img
-                src={getFlagSrc(lang)}
-                alt={lang === 'es' ? 'Español' : 'English'}
-                width="20"
-                height="15"
-                loading="lazy"
-              />
+              <img src={getFlagSrc(lang)} alt={lang === 'es' ? 'Español' : 'English'} width="20" height="15" loading="lazy" />
               <span>{lang === 'es' ? 'Español' : 'English'}</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -161,18 +139,11 @@ const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
       </p>
     </footer>
 
-    <!-- ===== SCRIPTS ===== -->
-<!-- ===== SCRIPTS (carga diferida) ===== -->
+    <!-- ===== SCRIPTS CORREGIDOS ===== -->
+    <!-- 1. Selector de idioma (crítico) -->
 <script>
-  // Scripts críticos que necesitan ejecutarse pronto (selector de idioma)
   import '@scripts/layout.js';
-</script>
-
-<!-- Scripts no críticos (scroll, canvas) se cargan después -->
-<script defer>
-  // Esto asegura que el script de scroll se cargue sin bloquear
   import '@scripts/scroll-animations.js';
-  // El canvas (home-tech) se carga bajo demanda, no aquí
 </script>
   </body>
 </html>
