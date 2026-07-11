@@ -73,14 +73,22 @@ const academias = [...new Set(skills.certificados.map(c => c.academia))];
       </div>
     </section>
 
-    <!-- ===== ABOUT ===== -->
-    <section class="about-section glass reveal" data-reveal>
-      <h2>{t.about.title || t.sobreMi.titulo}</h2>
-      <p class="about-intro">{t.about.intro}</p>
-      <ul class="about-points">
-        {t.about.points.map((point) => <li>✔ {point}</li>)}
-      </ul>
-    </section>
+<!-- ===== ABOUT ===== -->
+<section class="about-section glass reveal" data-reveal>
+  <h2>{t.about.title || t.sobreMi.titulo}</h2>
+
+  <p class="about-intro">{t.about.intro}</p>
+
+  <ul class="about-points">
+    {t.about.points.map((point) => (
+      <li>✔ {point}</li>
+    ))}
+  </ul>
+
+  <p class="about-text">
+    {t.sobreMi.texto}
+  </p>
+</section>
 
     <!-- ===== EXPERIENCIA ===== -->
     <section class="experiencia glass reveal" data-reveal>

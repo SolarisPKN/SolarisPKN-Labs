@@ -1060,3 +1060,6 @@ h2 {
   background: var(--accent-pink);
   color: #0a0a0a;
 }
+.about-text {
+    margin-top: 32px;
+}

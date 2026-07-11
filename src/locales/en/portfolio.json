@@ -3,10 +3,10 @@
     "nombre": "Pablo Marchetti Orayen"
   },
   "aptitudesMini": [
-    "🔧 PC Repair and Maintenance",
-    "🖥️ Server Administration",
-    "📈 Digital Marketing & SEO",
-    "🌐 Networks & Infrastructure"
+    "🖥️ IT Infrastructure",
+    "🐧 Linux Administration",
+    "🌐 Networking & Hosting",
+    "🔧 Technical Support"
   ],
   "contacto": {
     "email": "PabloKoutaNya@gmail.com",
@@ -19,24 +19,24 @@
   "sobreMi": {
     "titulo": "About Me",
     "perfil": "MY PROFILE",
-    "texto": "What sets me apart as a technology professional is my comprehensive approach to problem solving. I combine experience in IT infrastructure, Linux systems administration, networking, hardware, and software development to design solutions tailored to each project's needs. Over the years, I have worked in server administration, technical support, computer repair and optimization, process automation, application development, and technology infrastructure deployment. My experience ranges from building and optimizing high-performance workstations to implementing and maintaining services for small and medium-sized businesses. I enjoy learning new technologies, experimenting with innovative solutions, and documenting every project with transparency. My goal is to build robust, efficient, and maintainable systems that provide real value to the people who use them."
+    "texto": "IT Infrastructure, Linux and Technical Support professional with hands-on experience in Windows, Linux, networking, web infrastructure, VPS hosting, hardware and systems administration. I have deployed and managed Linux servers, VPS instances, websites, self-hosted services, cloud services and game servers, configuring domains, DNS, HTTPS, SSL/TLS certificates, Cloudflare, GitHub, WordPress and cPanel. I also have practical experience with networking, SSH, Samba, OpenWRT, Ubiquiti, hardware diagnostics, server monitoring, remote administration and Windows/Linux integration. My approach focuses on solving real technical problems through research, official documentation, hands-on experimentation and AI-assisted workflows while applying security best practices, backups, documentation and data protection."
   },
   "experiencia": {
     "titulo": "Experience",
     "item1": {
       "titulo": "SolarisPKN",
       "fecha": "2015 - Present",
-      "texto": "Technology venture specialized in IT support, computer maintenance, and repair for individuals and businesses. Experience in Linux server administration, network infrastructure, system optimization, remote access solutions, custom cooling prototypes for high-performance computers, technology consulting, product sales, and brand management."
+      "texto": "Founder and Administrator of SolarisPKN. Responsible for IT infrastructure, technical support, Linux and Windows systems administration, web hosting and technology solutions for personal projects, private clients and small businesses. Administration of VPS servers, self-hosted services, GitHub, Cloudflare Pages, WordPress and cPanel. Configuration of networking, DNS, HTTPS, SSL/TLS, SSH, OpenWRT and Ubiquiti devices. Development of automation workflows, streaming infrastructure, AI integrations, technical SEO and online platform management. Experience built through real-world projects while applying security best practices, backups, documentation and data protection."
     },
     "item2": {
       "titulo": "Lubricantes Villars",
       "fecha": "2018 - Present",
-      "texto": "Diagnosis and troubleshooting of automotive electrical, electronic, and computerized systems. Experience using automotive diagnostic scanners, interpreting fault codes, analyzing sensors, actuators and control modules, repairing electrical systems, and providing technical assistance to customers."
+      "texto": "Performed computerized diagnostics, automotive electrical troubleshooting and automotive electronics support. Responsibilities included OBD-II diagnostics, sensor, actuator and ECU analysis, DTC interpretation, electrical system diagnosis and repair, automotive wiring diagram interpretation, preventive maintenance, systematic troubleshooting and technical customer assistance."
     },
     "item3": {
       "titulo": "TheZapas",
       "fecha": "2021 - 2022",
-      "texto": "Technology infrastructure administrator for an e-commerce platform. Linux (Debian) server administration, remote management via SSH, web service configuration and optimization, infrastructure monitoring, performance tuning, and technical SEO improvements."
+      "texto": "Responsible for the administration, maintenance and optimization of the IT infrastructure supporting an e-commerce platform. Linux (Debian) server administration through SSH, website deployment and maintenance, web hosting management, domain, DNS, HTTPS and SSL/TLS administration, infrastructure monitoring, incident resolution, performance optimization, technical SEO implementation and technical support for e-commerce operations."
     }
   },
   "formacion": {
@@ -55,58 +55,65 @@
       "titulo": "Fundación Carlos Slim – Online Course: Front-End Developer",
       "id": "dk3mhbtwf",
       "items": [
-        "Website Visual Design"
+        "Responsive Web Interface Development"
       ]
     }
   },
   "aptitudes": {
     "titulo": "Skills and Languages",
     "lista": [
-      "Linux and Windows Server Administration",
-      "Web Infrastructure and Cloudflare",
-      "Web Development (HTML, CSS, JavaScript, Astro)",
-      "Git and GitHub",
-      "Networks and Infrastructure",
-      "Professional Live Streaming and Production",
-      "Process Automation",
-      "ESP32 and Arduino (IoT)",
-      "Systems Administration",
-      "Computer Repair and Maintenance",
+      "Linux Administration",
+      "Windows Administration",
+      "IT Infrastructure",
+      "VPS Administration",
+      "Web Hosting",
+      "Cloudflare",
+      "Git & GitHub",
+      "WordPress",
+      "cPanel",
+      "DNS, HTTPS & SSL/TLS",
+      "SSH",
+      "OpenWRT",
+      "Ubiquiti",
+      "TCP/IP Networking",
       "Hardware Diagnostics",
-      "Automotive Electronics and Electrical Systems",
-      "Residential Electrical Installation and Maintenance",
-      "Digital Marketing and SEO",
-      "Social Media Management",
-      "Technical Support and Customer Assistance"
+      "Technical Support",
+      "Virtualization",
+      "Process Automation",
+      "Streaming Infrastructure & AI Integration",
+      "Technical SEO",
+      "Automotive Electronics",
+      "OBD-II Diagnostics",
+      "Automotive Electrical Systems"
     ],
-    "idiomasExtra": "Technical English (Reading Technical Documentation)"
+    "idiomasExtra": "Technical English (Technical Documentation Reading)"
   },
   "estudios": {
     "titulo": "Studies and Achievements",
     "interesesTitulo": "Interests",
     "intereses": [
       "🎓 High School Diploma – Social Sciences and Humanities",
-      "📜 Certificate of Participation – Agile and Lean UX Methodologies",
-      "🔧 Reverse Engineering",
-      "💻 Software Development",
-      "🎥 Educational Content Creation",
-      "🍳 Cooking",
-      "🎮 Gaming",
+      "📜 50+ Technical Certifications",
+      "🖥️ IT Infrastructure",
+      "🐧 Linux Administration",
+      "💻 Web Development",
+      "🤖 Automation & AI",
+      "🔧 Electronics & Hardware",
       "🔬 Technology Research"
     ],
     "verMas": "See More"
   },
   "about": {
     "title": "About Me",
-    "intro": "10+ years building technology solutions.",
+    "intro": "10+ years building IT infrastructure and technology solutions.",
     "points": [
-      "Linux & Windows Administration",
+      "Linux & Windows",
       "Servers & VPS",
-      "Networking",
-      "Hardware Diagnostics",
+      "Web Hosting",
+      "IT Infrastructure",
       "Technical Support",
-      "Web Infrastructure",
-      "AI Assisted Workflow"
+      "Networking",
+      "AI-Assisted Workflows"
     ]
   },
   "coreAreasTitle": "Core Areas",
@@ -114,8 +121,8 @@
   "certificationsTitle": "Certifications",
   "certificationsFilter": "Filter by issuer",
   "certificationsSearch": "Search certification...",
-  "philosophy": "I believe technology should solve real problems. My workflow combines research, official documentation, experimentation, backups, security best practices and AI-assisted development to build reliable solutions while maintaining privacy and continuous learning.",
+  "philosophy": "I believe technology should solve real-world problems. My workflow combines research, official documentation, hands-on experimentation and AI-assisted workflows to build reliable solutions. I prioritize security best practices, documentation, backups, privacy and continuous learning in every project.",
   "mindMapTitle": "Skills Map",
   "mindMapPlaceholder": "Coming soon: interactive mind map of skills and technologies.",
-  "mindMapSubtext": "This space will host a node diagram where you can visually explore all my competencies."
+  "mindMapSubtext": "This space will visually showcase the technologies, tools and competencies that define my professional experience."
 }

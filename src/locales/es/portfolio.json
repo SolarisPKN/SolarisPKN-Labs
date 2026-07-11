@@ -3,10 +3,10 @@
     "nombre": "Pablo Marchetti Orayen"
   },
   "aptitudesMini": [
-    "🔧 Reparación y Mantenimiento PC",
-    "🖥️ Administración de Servidores",
-    "📈 Marketing Digital & SEO",
-    "🌐 Redes e Infraestructura"
+    "🖥️ Infraestructura IT",
+    "🐧 Administración Linux",
+    "🌐 Redes y Hosting",
+    "🔧 Soporte Técnico"
   ],
   "contacto": {
     "email": "PabloKoutaNya@gmail.com",
@@ -19,24 +19,24 @@
   "sobreMi": {
     "titulo": "Sobre mí",
     "perfil": "MI PERFIL",
-    "texto": "Lo que me diferencia como profesional tecnológico es mi enfoque integral para resolver problemas. Combino experiencia en infraestructura IT, administración de sistemas Linux, redes, hardware y desarrollo de software para diseñar soluciones adaptadas a las necesidades de cada proyecto. A lo largo de los años, he trabajado en administración de servidores, soporte técnico, reparación y optimización de equipos, automatización de procesos, desarrollo de aplicaciones y despliegue de infraestructura tecnológica. Mi experiencia abarca desde la construcción y optimización de estaciones de trabajo de alto rendimiento hasta la implementación y mantenimiento de servicios para pequeñas y medianas empresas. Disfruto aprender nuevas tecnologías, experimentar con soluciones innovadoras y documentar cada proyecto con transparencia. Mi objetivo es construir sistemas robustos, eficientes y mantenibles que aporten valor real a las personas que los utilizan."
+    "texto": "Profesional de Infraestructura IT, Linux y Soporte Técnico con experiencia práctica en Windows, Linux, redes, infraestructura web, hosting VPS, hardware y administración de sistemas. He desplegado y administrado servidores Linux, VPS, sitios web, servicios autohospedados, servicios cloud y servidores de videojuegos, configurando dominios, DNS, HTTPS, certificados SSL/TLS, Cloudflare, GitHub, WordPress y cPanel. También cuento con experiencia práctica en redes, SSH, Samba, OpenWRT, Ubiquiti, diagnóstico de hardware, monitorización de servidores, administración remota e integración entre entornos Windows y Linux. Mi forma de trabajar se basa en resolver problemas técnicos reales mediante investigación, documentación oficial, experimentación práctica y el uso de IA como herramienta de apoyo, aplicando buenas prácticas de seguridad, copias de seguridad, documentación y protección de datos."
   },
   "experiencia": {
     "titulo": "Experiencia",
     "item1": {
       "titulo": "SolarisPKN",
       "fecha": "2015 - Actualidad",
-      "texto": "Emprendimiento tecnológico especializado en soporte IT, mantenimiento y reparación de computadoras para particulares y empresas. Experiencia en administración de servidores Linux, infraestructura de redes, optimización de sistemas, soluciones de acceso remoto, prototipos de refrigeración customizada para equipos de alto rendimiento, consultoría tecnológica, venta de productos y gestión de marca."
+      "texto": "Fundador y Administrador de SolarisPKN. Responsable de infraestructura IT, soporte técnico, administración de sistemas Linux y Windows, hosting web y desarrollo de soluciones para proyectos propios, particulares y PyMEs. Administración de VPS, servicios autohospedados, GitHub, Cloudflare Pages, WordPress y cPanel. Configuración de redes, DNS, HTTPS, SSL/TLS, SSH, OpenWRT y equipos Ubiquiti. Implementación de automatizaciones, infraestructura para streaming, integración con IA, SEO técnico y gestión de plataformas online. Experiencia adquirida mediante proyectos reales, aplicando buenas prácticas de seguridad, backups, documentación y protección de datos."
     },
     "item2": {
       "titulo": "Lubricantes Villars",
       "fecha": "2018 - Actualidad",
-      "texto": "Diagnóstico y reparación de sistemas eléctricos, electrónicos y computarizados del automotor. Experiencia en el uso de escáneres de diagnóstico automotriz, interpretación de códigos de falla, análisis de sensores, actuadores y módulos de control, reparación de sistemas eléctricos y asistencia técnica a clientes."
+      "texto": "Técnico en diagnóstico electrónico y electricidad automotriz. Diagnóstico computarizado mediante escáneres OBD-II, interpretación de códigos DTC y análisis de parámetros en tiempo real. Diagnóstico de sensores, actuadores y módulos ECU. Reparación de sistemas eléctricos vehiculares, interpretación de diagramas eléctricos, mantenimiento preventivo, resolución sistemática de fallas y asesoramiento técnico a clientes."
     },
     "item3": {
       "titulo": "TheZapas",
       "fecha": "2021 - 2022",
-      "texto": "Administrador de infraestructura tecnológica para una plataforma de comercio electrónico. Administración de servidores Linux (Debian), gestión remota vía SSH, configuración y optimización de servicios web, monitoreo de infraestructura, ajuste de rendimiento y mejoras de SEO técnico."
+      "texto": "Administrador de infraestructura tecnológica para una plataforma de comercio electrónico. Administración de servidores Linux Debian mediante SSH, despliegue y mantenimiento de sitios web, administración de hosting, dominios, DNS, HTTPS y certificados SSL/TLS. Monitorización de infraestructura, resolución de incidentes, optimización de rendimiento, implementación de SEO técnico y soporte para las operaciones del comercio electrónico."
     }
   },
   "formacion": {
@@ -45,9 +45,9 @@
       "titulo": "DKA Formación – Curso Online: Administrador de Servidores",
       "id": "eU9IUTsvJf",
       "items": [
-        "Instalación de Linux/Windows Server",
-        "Administración y Mantenimiento remoto/presencial",
-        "Seguridad del servidor ante ataques"
+        "Administración de Linux y Windows Server",
+        "Administración remota y mantenimiento",
+        "Seguridad y endurecimiento de servidores"
       ],
       "verLink": "Ver"
     },
@@ -55,58 +55,65 @@
       "titulo": "Fundación Carlos Slim – Curso Online: Desarrollador Front-End",
       "id": "dk3mhbtwf",
       "items": [
-        "Diseño visual de una página web"
+        "Desarrollo de interfaces web responsivas"
       ]
     }
   },
   "aptitudes": {
     "titulo": "Aptitudes e idiomas",
     "lista": [
-      "Administración de Servidores Linux y Windows",
-      "Infraestructura Web y Cloudflare",
-      "Desarrollo Web (HTML, CSS, JavaScript, Astro)",
+      "Administración de Linux",
+      "Administración de Windows",
+      "Infraestructura IT",
+      "Servidores VPS",
+      "Hosting Web",
+      "Cloudflare",
       "Git y GitHub",
-      "Redes e Infraestructura",
-      "Streaming profesional y producción en vivo",
-      "Automatización de procesos",
-      "ESP32 y Arduino (IoT)",
-      "Administración de Sistemas",
-      "Reparación y Mantenimiento de PC",
+      "WordPress",
+      "cPanel",
+      "DNS, HTTPS y SSL/TLS",
+      "SSH",
+      "OpenWRT",
+      "Ubiquiti",
+      "Redes TCP/IP",
       "Diagnóstico de Hardware",
-      "Electrónica y Sistemas Eléctricos Automotrices",
-      "Instalación y mantenimiento eléctrico residencial",
-      "Marketing Digital y SEO",
-      "Gestión de Redes Sociales",
-      "Soporte Técnico y Atención al Cliente"
+      "Soporte Técnico",
+      "Virtualización",
+      "Automatización de procesos",
+      "Streaming e Integración con IA",
+      "SEO Técnico",
+      "Electrónica Automotriz",
+      "Diagnóstico OBD-II",
+      "Electricidad Automotriz"
     ],
-    "idiomasExtra": "Inglés técnico (lectura de documentación técnica)"
+    "idiomasExtra": "Inglés técnico (lectura e interpretación de documentación técnica)"
   },
   "estudios": {
     "titulo": "Estudios y Logros",
     "interesesTitulo": "Intereses",
     "intereses": [
       "🎓 Bachillerato – Ciencias Sociales y Humanidades",
-      "📜 Certificado de participación – Metodologías Agile y Lean UX",
-      "🔧 Ingeniería Inversa",
-      "💻 Desarrollo de Software",
-      "🎥 Creación de Contenido Educativo",
-      "🍳 Cocina",
-      "🎮 Gaming",
+      "📜 Más de 50 certificaciones técnicas",
+      "🖥️ Infraestructura IT",
+      "🐧 Administración Linux",
+      "💻 Desarrollo Web",
+      "🤖 Automatización e IA",
+      "🔧 Electrónica y Hardware",
       "🔬 Investigación Tecnológica"
     ],
     "verMas": "Ver más"
   },
   "about": {
     "title": "Acerca de mí",
-    "intro": "10+ años construyendo soluciones tecnológicas.",
+    "intro": "10+ años desarrollando soluciones tecnológicas e infraestructura IT.",
     "points": [
-      "Administración Linux & Windows",
-      "Servidores & VPS",
-      "Redes",
-      "Diagnóstico de Hardware",
+      "Linux & Windows",
+      "Servidores y VPS",
+      "Hosting Web",
+      "Infraestructura IT",
       "Soporte Técnico",
-      "Infraestructura Web",
-      "Flujo de trabajo asistido por IA"
+      "Redes",
+      "IA aplicada"
     ]
   },
   "coreAreasTitle": "Áreas de conocimiento",
@@ -114,8 +121,8 @@
   "certificationsTitle": "Certificaciones",
   "certificationsFilter": "Filtrar por empresa",
   "certificationsSearch": "Buscar certificado...",
-  "philosophy": "Creo que la tecnología debe resolver problemas reales. Mi flujo de trabajo combina investigación, documentación oficial, experimentación, copias de seguridad, mejores prácticas de seguridad y desarrollo asistido por IA para construir soluciones confiables, manteniendo la privacidad y el aprendizaje continuo.",
+  "philosophy": "Creo que la tecnología debe resolver problemas reales. Mi metodología combina investigación, documentación oficial, experimentación práctica y el uso de IA como herramienta de apoyo para construir soluciones confiables. Siempre priorizo las buenas prácticas de seguridad, documentación, copias de seguridad, privacidad y mejora continua.",
   "mindMapTitle": "Mapa de habilidades",
-  "mindMapPlaceholder": "Próximamente: mapa mental interactivo de habilidades y tecnologías.",
-  "mindMapSubtext": "Este espacio albergará un diagrama de nodos donde podrás explorar visualmente todas mis competencias."
+  "mindMapPlaceholder": "Próximamente: mapa interactivo de habilidades y tecnologías.",
+  "mindMapSubtext": "Este espacio mostrará visualmente las tecnologías, herramientas y competencias que forman parte de mi experiencia profesional."
 }
