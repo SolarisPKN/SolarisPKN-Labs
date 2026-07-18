@@ -1,3 +1,4 @@
 # Forzar que los sitemaps se sirvan sin redirecciones
-/sitemap-index.xml /sitemap-index.xml 200
-/sitemap-0.xml /sitemap-0.xml 200
+# Redirigir todo el dominio solarispkn.pages.dev a labs.solarispkn.com.ar
+# Preservando la ruta completa y los parámetros de consulta
+* https://labs.solarispkn.com.ar/:splat 301
