@@ -58,6 +58,7 @@ const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
     <!-- FUENTES -->
     <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="canonical" href={`https://labs.solarispkn.com.ar${Astro.url.pathname}`} />
 
     <style>
       @font-face {

@@ -3,7 +3,7 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://solarispkn.pages.dev',
+  site: 'https://labs.solarispkn.com.ar',
   base: '/',
   output: 'static',
   build: {
