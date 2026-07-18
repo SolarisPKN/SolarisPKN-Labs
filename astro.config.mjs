@@ -13,14 +13,7 @@ export default defineConfig({
     service: {
       entrypoint: 'astro/assets/services/sharp',
     },
-    domains: ['solarispkn.pages.dev'],
-  },
-  i18n: {
-    defaultLocale: 'es',
-    locales: ['es', 'en'],
-    routing: {
-      prefixDefaultLocale: true,
-    },
+    domains: ['labs.solarispkn.com.ar'],
   },
   integrations: [
     react(),
@@ -28,8 +21,8 @@ export default defineConfig({
       filter: (page) => {
         // Excluir páginas que no tienen idioma o que no queremos indexar
         return !page.includes('/404') &&
-               !page.includes('/under-construction') &&
-               page !== '/'; // 🔥 Excluir la raíz
+               !page.includes('/under-construction');
+        // ✅ Eliminamos la exclusión de '/' para que aparezca en el sitemap
       },
     }),
   ],
