@@ -1,6 +1,78 @@
+# ============================================================
+# 🛡️ PROTECCIÓN CONTRA ENTRENAMIENTO DE IA
+# ============================================================
+# Permite leer (indexación/búsqueda), pero prohíbe entrenar modelos.
+# ============================================================
 /*
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
+  X-Robots-Tag: noai, noimageai
 
-/*.xml
-  Content-Type: application/xml
+# ============================================================
+# 🔒 CABECERAS DE SEGURIDAD (Siempre activas)
+# ============================================================
+# Obliga a usar HTTPS (HSTS) durante 1 año
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'
+
+# ============================================================
+# ⏱️ CACHÉ LIMITADO A 1 DÍA (MÁXIMO) - LABORATORIO
+# ============================================================
+# Páginas HTML (cambian constantemente → 5 minutos)
+# ------------------------------------------------------------
+/*.html
+  Cache-Control: public, max-age=300
+
+# Archivos CSS y JS (máximo 1 día)
+# ------------------------------------------------------------
+/*.css
+  Cache-Control: public, max-age=86400
+/*.js
+  Cache-Control: public, max-age=86400
+
+# Imágenes (máximo 1 día)
+# ------------------------------------------------------------
+/*.jpg
+  Cache-Control: public, max-age=86400
+/*.jpeg
+  Cache-Control: public, max-age=86400
+/*.png
+  Cache-Control: public, max-age=86400
+/*.gif
+  Cache-Control: public, max-age=86400
+/*.svg
+  Cache-Control: public, max-age=86400
+/*.webp
+  Cache-Control: public, max-age=86400
+/*.ico
+  Cache-Control: public, max-age=86400
+
+# Fuentes (máximo 1 día)
+# ------------------------------------------------------------
+/*.woff
+  Cache-Control: public, max-age=86400
+/*.woff2
+  Cache-Control: public, max-age=86400
+/*.ttf
+  Cache-Control: public, max-age=86400
+/*.otf
+  Cache-Control: public, max-age=86400
+
+# Manifiesto y favicons (máximo 1 día)
+# ------------------------------------------------------------
+/manifest.webmanifest
+  Cache-Control: public, max-age=86400
+/favicon.ico
+  Cache-Control: public, max-age=86400
+/icon-*.png
+  Cache-Control: public, max-age=86400
+
+# ============================================================
+# 🤖 DIRECTIVAS ADICIONALES PARA CRAWLERS DE IA (Refuerzo)
+# ============================================================
+/*
+  X-Robots-Tag: googlebot-ai: noai
+  X-Robots-Tag: gptbot: noai
