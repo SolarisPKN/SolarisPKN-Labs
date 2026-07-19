@@ -1,0 +1,96 @@
+---
+// src/pages/[lang]/security.astro
+// Página de Política de Seguridad bilingüe
+
+export async function getStaticPaths() {
+  return [
+    { params: { lang: 'es' } },
+    { params: { lang: 'en' } }
+  ];
+}
+
+const { lang } = Astro.params;
+
+import Layout from '../../layouts/Layout.astro';
+
+// ===== CARGAR TRADUCCIONES =====
+const t = await import(`../../locales/${lang}/security.json`);
+const common = await import(`../../locales/${lang}/common.json`);
+---
+
+<Layout title={t.titulo} lang={lang}>
+  <main style="max-width: 900px; margin: 0 auto; padding: 1.5rem; line-height: 1.7; color: #1a1a2e;">
+    <h1 style="font-size: 2rem; border-bottom: 3px solid #0d6efd; padding-bottom: 0.5rem;">{t.encabezado}</h1>
+    <p><strong>{t.actualizacion}</strong> {t.fecha}</p>
+
+    <h2 style="margin-top: 2rem;">📬 {t.reporte.titulo}</h2>
+    <p>{t.reporte.descripcion}</p>
+    <div style="background: #e9f0ff; padding: 1rem 1.5rem; border-radius: 8px; border-left: 4px solid #0d6efd; margin: 1.5rem 0;">
+      <strong>📧 <a href="mailto:seguridad@solarispkn.com.ar">seguridad@solarispkn.com.ar</a></strong>
+    </div>
+    <p>{t.reporte.requisitosIntro}</p>
+    <ul>
+      {t.reporte.requisitos.map((item) => <li>{item}</li>)}
+    </ul>
+    <p>{t.reporte.nota}</p>
+
+    <hr style="border: 0; border-top: 2px solid #e0e0e0; margin: 2rem 0;" />
+
+    <h2>🛡️ {t.pruebas.titulo}</h2>
+    <p>{t.pruebas.descripcion}</p>
+    <p>{t.pruebas.solicitudIntro}</p>
+    <ul>
+      {t.pruebas.solicitudes.map((item) => <li>{item}</li>)}
+    </ul>
+
+    <h3>🚫 {t.pruebas.noPermitidasTitulo}</h3>
+    <p>{t.pruebas.noPermitidasIntro}</p>
+    <ul>
+      {t.pruebas.noPermitidas.map((item) => <li>{item}</li>)}
+    </ul>
+    <p>{t.pruebas.aviso}</p>
+
+    <hr style="border: 0; border-top: 2px solid #e0e0e0; margin: 2rem 0;" />
+
+    <h2>📢 {t.divulgacion.titulo}</h2>
+    <p>{t.divulgacion.descripcion}</p>
+    <p>{t.divulgacion.tiempo}</p>
+    <p>{t.divulgacion.evaluacionIntro}</p>
+    <ul>
+      {t.divulgacion.evaluacion.map((item) => <li>{item}</li>)}
+    </ul>
+    <p>{t.divulgacion.nota}</p>
+    <p>{t.divulgacion.coordinacion}</p>
+
+    <hr style="border: 0; border-top: 2px solid #e0e0e0; margin: 2rem 0;" />
+
+    <h2>🏆 {t.reconocimiento.titulo}</h2>
+    <p>{t.reconocimiento.descripcion}</p>
+    <ul>
+      {t.reconocimiento.condiciones.map((item) => <li>{item}</li>)}
+    </ul>
+
+    <hr style="border: 0; border-top: 2px solid #e0e0e0; margin: 2rem 0;" />
+
+    <h2>🎯 {t.alcance.titulo}</h2>
+    <p>{t.alcance.descripcion}</p>
+    <p>{t.alcance.otras}</p>
+
+    <hr style="border: 0; border-top: 2px solid #e0e0e0; margin: 2rem 0;" />
+
+    <h2>📧 {t.contacto.titulo}</h2>
+    <div style="background: #e9f0ff; padding: 1rem 1.5rem; border-radius: 8px; border-left: 4px solid #0d6efd; margin: 1.5rem 0;">
+      <strong>Correo de seguridad:</strong> <a href="mailto:seguridad@solarispkn.com.ar">seguridad@solarispkn.com.ar</a>
+    </div>
+    <p>{t.contacto.pgp}</p>
+
+    <footer style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #ddd; font-size: 0.9rem; color: #555;">
+      <p>
+        <a href={`/${lang}`}>← {common.volverInicio}</a> &bull;
+        <a href="/es/">{common.esp}</a> &bull;
+        <a href="/en/">{common.eng}</a>
+      </p>
+      <p>SolarisPKN Labs &bull; <a href="https://labs.solarispkn.com.ar">labs.solarispkn.com.ar</a></p>
+    </footer>
+  </main>
+</Layout>

@@ -1,0 +1,75 @@
+{
+  "titulo": "Política de Seguridad - SolarisPKN Labs",
+  "encabezado": "🔒 Política de Seguridad y Divulgación Responsable",
+  "actualizacion": "Última actualización:",
+  "fecha": "19 de julio de 2026",
+  "reporte": {
+    "titulo": "Reporte de vulnerabilidades",
+    "descripcion": "Si encontrás una posible vulnerabilidad de seguridad en SolarisPKN Labs, podés reportarla a:",
+    "requisitosIntro": "Los reportes deben incluir, siempre que sea posible:",
+    "requisitos": [
+      "una descripción clara de la vulnerabilidad;",
+      "los pasos necesarios para reproducirla;",
+      "el impacto potencial;",
+      "las URL, endpoints, sistemas o componentes afectados;",
+      "capturas de pantalla, pruebas de concepto u otra información relevante."
+    ],
+    "nota": "No es necesario tener una prueba de concepto completamente desarrollada para reportar una vulnerabilidad."
+  },
+  "pruebas": {
+    "titulo": "Política de pruebas de seguridad",
+    "descripcion": "SolarisPKN acepta investigaciones de seguridad realizadas de buena fe.",
+    "solicitudIntro": "Se solicita a los investigadores que:",
+    "solicitudes": [
+      "minimicen el impacto de sus pruebas;",
+      "eviten afectar la disponibilidad de los servicios;",
+      "eviten acceder a información que no les pertenezca;",
+      "no modifiquen ni eliminen datos;",
+      "detengan las pruebas si existe riesgo de afectar a otros usuarios o servicios."
+    ],
+    "noPermitidasTitulo": "Actividades no permitidas",
+    "noPermitidasIntro": "No se permiten:",
+    "noPermitidas": [
+      "ataques de denegación de servicio (DoS o DDoS);",
+      "pruebas destructivas;",
+      "ingeniería social contra personas asociadas con SolarisPKN;",
+      "acceso físico no autorizado a instalaciones o equipos;",
+      "acceso, modificación o eliminación de datos pertenecientes a terceros;",
+      "ataques contra sistemas, dominios o usuarios que no formen parte del alcance correspondiente."
+    ],
+    "aviso": "La existencia de esta política no constituye una autorización para realizar actividades ilegales ni para acceder a sistemas fuera del alcance definido."
+  },
+  "divulgacion": {
+    "titulo": "Divulgación responsable",
+    "descripcion": "Se recomienda reportar las vulnerabilidades a SolarisPKN antes de realizar una divulgación pública.",
+    "tiempo": "Los investigadores deben permitir un tiempo razonable para que el problema pueda ser evaluado y, cuando sea posible, mitigado antes de divulgarlo públicamente.",
+    "evaluacionIntro": "SolarisPKN evaluará cada reporte individualmente. Los tiempos de respuesta y resolución dependerán de:",
+    "evaluacion": [
+      "la gravedad de la vulnerabilidad;",
+      "su impacto potencial;",
+      "la complejidad técnica del problema;",
+      "el alcance de los sistemas afectados."
+    ],
+    "nota": "No se garantiza un plazo fijo de resolución para todos los reportes.",
+    "coordinacion": "Cuando sea apropiado, SolarisPKN podrá coordinar con el investigador una divulgación pública de la vulnerabilidad."
+  },
+  "reconocimiento": {
+    "titulo": "Reconocimiento",
+    "descripcion": "Los investigadores que reporten vulnerabilidades de forma responsable podrán ser reconocidos públicamente por su contribución, siempre que:",
+    "condiciones": [
+      "el investigador lo permita;",
+      "no exista una solicitud de anonimato;",
+      "la divulgación del reconocimiento no genere riesgos de seguridad o privacidad."
+    ]
+  },
+  "alcance": {
+    "titulo": "Alcance",
+    "descripcion": "Esta política se aplica a los servicios y sistemas de SolarisPKN Labs identificados como parte del alcance correspondiente.",
+    "otras": "Para reportes relacionados con otros proyectos, dominios o servicios asociados, se recomienda indicar claramente el recurso afectado en el mensaje."
+  },
+  "contacto": {
+    "titulo": "Contacto",
+    "email": "seguridad@solarispkn.com.ar",
+    "pgp": "Se recomienda cifrar las comunicaciones sensibles mediante OpenPGP cuando exista una clave pública oficial disponible."
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "titulo": "Security Policy - SolarisPKN Labs",
+  "encabezado": "🔒 Security and Responsible Disclosure Policy",
+  "actualizacion": "Last updated:",
+  "fecha": "July 19, 2026",
+  "reporte": {
+    "titulo": "Vulnerability Reporting",
+    "descripcion": "If you find a potential security vulnerability in SolarisPKN Labs, please report it to:",
+    "requisitosIntro": "Reports should include, whenever possible:",
+    "requisitos": [
+      "a clear description of the vulnerability;",
+      "steps to reproduce it;",
+      "the potential impact;",
+      "the affected URLs, endpoints, systems, or components;",
+      "screenshots, proof of concept, or other relevant information."
+    ],
+    "nota": "A fully developed proof of concept is not required to report a vulnerability."
+  },
+  "pruebas": {
+    "titulo": "Security Testing Policy",
+    "descripcion": "SolarisPKN accepts good-faith security research.",
+    "solicitudIntro": "Researchers are requested to:",
+    "solicitudes": [
+      "minimize the impact of their testing;",
+      "avoid affecting service availability;",
+      "avoid accessing information that does not belong to them;",
+      "not modify or delete data;",
+      "stop testing if there is a risk of affecting other users or services."
+    ],
+    "noPermitidasTitulo": "Prohibited Activities",
+    "noPermitidasIntro": "The following are not allowed:",
+    "noPermitidas": [
+      "denial-of-service (DoS or DDoS) attacks;",
+      "destructive testing;",
+      "social engineering against SolarisPKN personnel;",
+      "unauthorized physical access to facilities or equipment;",
+      "accessing, modifying, or deleting third-party data;",
+      "attacks against systems, domains, or users outside the scope."
+    ],
+    "aviso": "The existence of this policy does not authorize illegal activities or access to systems outside the defined scope."
+  },
+  "divulgacion": {
+    "titulo": "Responsible Disclosure",
+    "descripcion": "We encourage reporting vulnerabilities to SolarisPKN before public disclosure.",
+    "tiempo": "Researchers should allow a reasonable time for the issue to be evaluated and, if possible, mitigated before public disclosure.",
+    "evaluacionIntro": "SolarisPKN will evaluate each report individually. Response and resolution times will depend on:",
+    "evaluacion": [
+      "the severity of the vulnerability;",
+      "its potential impact;",
+      "the technical complexity of the issue;",
+      "the scope of the affected systems."
+    ],
+    "nota": "No fixed resolution timeframe is guaranteed for all reports.",
+    "coordinacion": "When appropriate, SolarisPKN may coordinate public disclosure with the researcher."
+  },
+  "reconocimiento": {
+    "titulo": "Acknowledgement",
+    "descripcion": "Researchers who report vulnerabilities responsibly may be publicly acknowledged for their contribution, provided that:",
+    "condiciones": [
+      "the researcher allows it;",
+      "no anonymity is requested;",
+      "the disclosure of recognition does not create security or privacy risks."
+    ]
+  },
+  "alcance": {
+    "titulo": "Scope",
+    "descripcion": "This policy applies to SolarisPKN Labs services and systems identified within the corresponding scope.",
+    "otras": "For reports related to other projects, domains, or associated services, please clearly indicate the affected resource in the message."
+  },
+  "contacto": {
+    "titulo": "Contact",
+    "email": "seguridad@solarispkn.com.ar",
+    "pgp": "We recommend encrypting sensitive communications using OpenPGP when an official public key is available."
+  }
+}
