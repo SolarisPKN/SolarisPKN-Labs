@@ -1,0 +1,90 @@
+/* ============================================================
+   security.css - Estilos para la página de seguridad
+   Tema oscuro, hereda colores del layout principal
+   ============================================================ */
+
+.security-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  line-height: 1.7;
+  color: #e0e0e0; /* Texto claro sobre fondo oscuro */
+}
+
+.security-title {
+  font-size: 2.2rem;
+  border-bottom: 3px solid var(--border-cyan, #0ea5e9);
+  padding-bottom: 0.75rem;
+  color: #ffffff;
+}
+
+.security-date {
+  color: #a0a0a0;
+  margin-bottom: 2rem;
+}
+
+.security-container h2 {
+  color: #ffffff;
+  margin-top: 2.5rem;
+}
+
+.security-container h3 {
+  color: #ffffff;
+  margin-top: 1.5rem;
+}
+
+.security-container p {
+  color: #d0d0d0;
+}
+
+.security-container ul {
+  color: #d0d0d0;
+  padding-left: 1.5rem;
+}
+
+.security-container li {
+  margin-bottom: 0.3rem;
+}
+
+.security-container hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 2.5rem 0;
+}
+
+/* Caja de contacto (destacada) */
+.security-contact-box {
+  background: rgba(14, 165, 233, 0.15);
+  border-left: 4px solid var(--border-cyan, #0ea5e9);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+.security-contact-box a {
+  color: var(--border-cyan, #0ea5e9);
+  text-decoration: none;
+}
+
+.security-contact-box a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+.security-footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.security-footer a {
+  color: #888;
+  text-decoration: none;
+}
+
+.security-footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+}

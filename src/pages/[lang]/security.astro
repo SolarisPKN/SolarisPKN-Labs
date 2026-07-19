@@ -1,5 +1,7 @@
 ---
 // src/pages/[lang]/security.astro
+// Página de Política de Seguridad bilingüe
+
 export async function getStaticPaths() {
   return [
     { params: { lang: 'es' } },
@@ -9,79 +11,93 @@ export async function getStaticPaths() {
 
 const { lang } = Astro.params;
 
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/security.css'; // 🎨 Estilos separados
+
 // Cargar traducciones
 const t = await import(`../../locales/${lang}/security.json`);
 const common = await import(`../../locales/${lang}/common.json`);
-
-import Layout from '../../layouts/Layout.astro';
 ---
 
 <Layout title={t.titulo} lang={lang}>
-  <main style="max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; color: #e0e0e0;">
-    <h1 style="font-size: 2.2rem; border-bottom: 3px solid var(--border-cyan, #0ea5e9); padding-bottom: 0.75rem; color: #ffffff;">
-      🔒 {t.titulo}
-    </h1>
-    <p style="color: #a0a0a0; margin-bottom: 2rem;"><strong>Última actualización:</strong> {t.fecha}</p>
+  <main class="security-container">
+    <h1 class="security-title">🔒 {t.encabezado}</h1>
+    <p class="security-date"><strong>{t.actualizacion}</strong> {t.fecha}</p>
 
-    <!-- ===== REPORTE ===== -->
-    <h2 style="color: #ffffff; margin-top: 2.5rem;">📬 {t.reporte.titulo}</h2>
+    <!-- Reporte -->
+    <h2>📬 {t.reporte.titulo}</h2>
     <p>{t.reporte.descripcion}</p>
-    <div style="background: rgba(14, 165, 233, 0.15); border-left: 4px solid var(--border-cyan, #0ea5e9); padding: 1rem 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
-      <strong style="color: #ffffff;">📧 <a href="mailto:seguridad@solarispkn.com.ar" style="color: var(--border-cyan, #0ea5e9); text-decoration: none;">seguridad@solarispkn.com.ar</a></strong>
+    <div class="security-contact-box">
+      <strong>📧 <a href="mailto:seguridad@solarispkn.com.ar">seguridad@solarispkn.com.ar</a></strong>
     </div>
-    <p>{t.reporte.requisitos}</p>
-    <ul style="color: #d0d0d0; padding-left: 1.5rem;">
-      {t.reporte.lista.map(item => <li>{item}</li>)}
+    <p>{t.reporte.requisitosIntro}</p>
+    <ul>
+      {t.reporte.requisitos.map((item) => <li>{item}</li>)}
     </ul>
+    <p>{t.reporte.nota}</p>
 
-    <!-- ===== POLÍTICA DE PRUEBAS ===== -->
-    <h2 style="color: #ffffff; margin-top: 2.5rem;">🛡️ {t.pruebas.titulo}</h2>
+    <hr />
+
+    <!-- Pruebas -->
+    <h2>🛡️ {t.pruebas.titulo}</h2>
     <p>{t.pruebas.descripcion}</p>
-    <p>{t.pruebas.solicitud}</p>
-    <ul style="color: #d0d0d0; padding-left: 1.5rem;">
-      {t.pruebas.lista.map(item => <li>{item}</li>)}
+    <p>{t.pruebas.solicitudIntro}</p>
+    <ul>
+      {t.pruebas.solicitudes.map((item) => <li>{item}</li>)}
     </ul>
 
-    <h3 style="color: #ffffff; margin-top: 1.5rem;">🚫 {t.pruebas.noPermitidas.titulo}</h3>
-    <p>{t.pruebas.noPermitidas.descripcion}</p>
-    <ul style="color: #d0d0d0; padding-left: 1.5rem;">
-      {t.pruebas.noPermitidas.lista.map(item => <li>{item}</li>)}
+    <h3>🚫 {t.pruebas.noPermitidasTitulo}</h3>
+    <p>{t.pruebas.noPermitidasIntro}</p>
+    <ul>
+      {t.pruebas.noPermitidas.map((item) => <li>{item}</li>)}
     </ul>
+    <p>{t.pruebas.aviso}</p>
 
-    <!-- ===== DIVULGACIÓN ===== -->
-    <h2 style="color: #ffffff; margin-top: 2.5rem;">📢 {t.divulgacion.titulo}</h2>
+    <hr />
+
+    <!-- Divulgación -->
+    <h2>📢 {t.divulgacion.titulo}</h2>
     <p>{t.divulgacion.descripcion}</p>
-    <p>{t.divulgacion.recomendacion}</p>
-    <p>{t.divulgacion.evaluacion}</p>
-    <ul style="color: #d0d0d0; padding-left: 1.5rem;">
-      {t.divulgacion.lista.map(item => <li>{item}</li>)}
+    <p>{t.divulgacion.tiempo}</p>
+    <p>{t.divulgacion.evaluacionIntro}</p>
+    <ul>
+      {t.divulgacion.evaluacion.map((item) => <li>{item}</li>)}
     </ul>
+    <p>{t.divulgacion.nota}</p>
+    <p>{t.divulgacion.coordinacion}</p>
 
-    <!-- ===== RECONOCIMIENTO ===== -->
-    <h2 style="color: #ffffff; margin-top: 2.5rem;">🏆 {t.reconocimiento.titulo}</h2>
+    <hr />
+
+    <!-- Reconocimiento -->
+    <h2>🏆 {t.reconocimiento.titulo}</h2>
     <p>{t.reconocimiento.descripcion}</p>
-    <ul style="color: #d0d0d0; padding-left: 1.5rem;">
-      {t.reconocimiento.lista.map(item => <li>{item}</li>)}
+    <ul>
+      {t.reconocimiento.condiciones.map((item) => <li>{item}</li>)}
     </ul>
 
-    <!-- ===== ALCANCE ===== -->
-    <h2 style="color: #ffffff; margin-top: 2.5rem;">🎯 {t.alcance.titulo}</h2>
+    <hr />
+
+    <!-- Alcance -->
+    <h2>🎯 {t.alcance.titulo}</h2>
     <p>{t.alcance.descripcion}</p>
+    <p>{t.alcance.otras}</p>
 
-    <!-- ===== CONTACTO ===== -->
-    <h2 style="color: #ffffff; margin-top: 2.5rem;">📧 {t.contacto.titulo}</h2>
-    <div style="background: rgba(14, 165, 233, 0.15); border-left: 4px solid var(--border-cyan, #0ea5e9); padding: 1rem 1.5rem; border-radius: 8px; margin: 1rem 0;">
-      <strong style="color: #ffffff;">Correo de seguridad:</strong> <a href="mailto:seguridad@solarispkn.com.ar" style="color: var(--border-cyan, #0ea5e9); text-decoration: none;">seguridad@solarispkn.com.ar</a>
-    </div>
-    <p style="color: #a0a0a0;">{t.contacto.recomendacion}</p>
+    <hr />
 
-    <!-- ===== FOOTER ===== -->
-    <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 3rem 0 1.5rem;" />
-    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.9rem; color: #888;">
-      <a href="/" style="color: #888; text-decoration: none;">← Volver al inicio</a>
-      <a href="/es/security" style="color: #888; text-decoration: none;">Español</a>
-      <a href="/en/security" style="color: #888; text-decoration: none;">English</a>
-      <span style="color: #555;">SolarisPKN Labs</span>
+    <!-- Contacto -->
+    <h2>📧 {t.contacto.titulo}</h2>
+    <div class="security-contact-box">
+      <strong>Correo de seguridad:</strong> <a href="mailto:seguridad@solarispkn.com.ar">seguridad@solarispkn.com.ar</a>
     </div>
+    <p>{t.contacto.pgp}</p>
+
+    <footer class="security-footer">
+      <p>
+        <a href={`/${lang}`}>← {common.volverInicio}</a> &bull;
+        <a href="/es/">{common.esp}</a> &bull;
+        <a href="/en/">{common.eng}</a>
+      </p>
+      <p>SolarisPKN Labs &bull; <a href="https://labs.solarispkn.com.ar">labs.solarispkn.com.ar</a></p>
+    </footer>
   </main>
 </Layout>
