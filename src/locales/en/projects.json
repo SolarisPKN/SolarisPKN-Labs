@@ -1,42 +1,42 @@
 {
-  "title": "Projects",
-  "subtitle": "Technical systems, experiments and infrastructure developed by SolarisPKN.",
+  "title": "Proyectos",
+  "subtitle": "Sistemas técnicos, experimentos e infraestructura desarrollados por SolarisPKN.",
   "filters": {
-    "all": "ALL",
+    "all": "TODOS",
     "software": "SOFTWARE",
-    "infrastructure": "INFRASTRUCTURE",
-    "network": "NETWORK",
-    "automation": "AUTOMATION",
+    "infrastructure": "INFRAESTRUCTURA",
+    "network": "RED",
+    "automation": "AUTOMATIZACIÓN",
     "hardware": "HARDWARE",
-    "game": "GAMES"
+    "game": "JUEGOS"
   },
   "metrics": {
-    "requests": "Requests",
-    "response": "Response",
-    "availability": "Availability",
-    "players": "Players",
+    "requests": "Solicitudes",
+    "response": "Respuesta",
+    "availability": "Disponibilidad",
+    "players": "Jugadores",
     "mods": "Mods",
     "tps": "TPS",
-    "memory": "Memory"
+    "memory": "Memoria"
   },
   "status": {
-    "operational": "Operational",
-    "online": "Online",
-    "tracking": "Tracking",
-    "development": "Development",
-    "maintenance": "Maintenance"
+    "operational": "Operativo",
+    "online": "En línea",
+    "tracking": "Monitoreo",
+    "development": "En desarrollo",
+    "maintenance": "Mantenimiento"
   },
   "buttons": {
-    "openProject": "OPEN PROJECT →",
-    "back": "← BACK TO PROJECTS",
+    "openProject": "ABRIR PROYECTO →",
+    "back": "← VOLVER A PROYECTOS",
     "github": "GitHub",
-    "documentation": "Documentation",
-    "live": "Open Project"
+    "documentation": "Documentación",
+    "live": "Abrir proyecto"
   },
   "tabs": {
-    "overview": "OVERVIEW",
-    "architecture": "ARCHITECTURE",
-    "liveData": "LIVE DATA",
-    "documentation": "DOCUMENTATION"
+    "overview": "RESUMEN",
+    "architecture": "ARQUITECTURA",
+    "liveData": "DATOS EN VIVO",
+    "documentation": "DOCUMENTACIÓN"
   }
 }

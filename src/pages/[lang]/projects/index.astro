@@ -1,12 +1,9 @@
 ---
 // src/pages/[lang]/projects/index.astro
-import { projects } from '../../../data/projects';
-import ProjectCard from '../../../components/Projects/ProjectCard.astro';
 import Layout from '../../../layouts/Layout.astro';
-
-// Importación estática de traducciones
-import esProjects from '../../../locales/es/projects.json';
-import enProjects from '../../../locales/en/projects.json';
+import fs from 'fs';
+import path from 'path';
+import ProjectCard from '../../../components/projects/ProjectCard.astro';
 
 export async function getStaticPaths() {
   return [
@@ -16,11 +13,44 @@ export async function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
-const t = lang === 'es' ? esProjects : enProjects;
-const labsUrl = import.meta.env.PUBLIC_LABS_URL || 'https://labs.solarispkn.com.ar';
+
+// ==========================================
+// Leer todos los proyectos del sistema de archivos
+// ==========================================
+const root = process.cwd();
+const projectsBaseDir = path.join(root, 'src', 'content', 'projects');
+const projects = [];
+
+if (fs.existsSync(projectsBaseDir)) {
+  const projectSlugs = fs.readdirSync(projectsBaseDir).filter(f => {
+    const stat = fs.statSync(path.join(projectsBaseDir, f));
+    return stat.isDirectory();
+  });
+
+  for (const slug of projectSlugs) {
+    const metaPath = path.join(projectsBaseDir, slug, 'project.json');
+    if (fs.existsSync(metaPath)) {
+      const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+      // También podrías leer las traducciones del nombre/descripción desde un archivo MDX,
+      // pero como los metadatos ya están en project.json, podemos usarlos directamente.
+      // Si quieres separar, puedes tener un locale para los nombres, pero por simplicidad
+      // mantenemos todo en project.json.
+      projects.push({
+        slug,
+        ...meta,
+      });
+    }
+  }
+}
+
+// Ordenar por algún criterio (ej. por id o por fecha si añades un campo)
+projects.sort((a, b) => a.id.localeCompare(b.id));
+
+// Cargar traducciones de UI
+const t = await import(`../../../locales/${lang}/projects.json`);
 ---
 
-<Layout title={`${t.title} | SolarisPKN Labs`} lang={lang}>
+<Layout title={t.title} lang={lang}>
   <main class="projects-page">
     <header class="page-header">
       <h1>{t.title}</h1>
@@ -38,12 +68,16 @@ const labsUrl = import.meta.env.PUBLIC_LABS_URL || 'https://labs.solarispkn.com.
 
     <div class="projects-grid">
       {projects.map(project => (
-        <ProjectCard project={project} lang={lang} />
+        <ProjectCard
+          key={project.id}
+          project={project}
+          lang={lang}
+          t={t}
+        />
       ))}
     </div>
   </main>
 </Layout>
-
 <style>
   .projects-page {
     max-width: 1200px;

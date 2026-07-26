@@ -1,51 +1,40 @@
 ---
 // src/components/projects/ProjectCard.astro
-import type { Project } from '../../data/projects';
-import StatusBadge from './StatusBadge.astro';
-import TechTags from './TechTags.astro';
+const { project, lang, t } = Astro.props;
+const { slug, name, shortDescription, status, type, technologies, metrics } = project;
+const statusLabel = t.status[status] || status;
+const nameText = name?.[lang] || slug;
+const descText = shortDescription?.[lang] || '';
 
-const { project, lang } = Astro.props as { project: Project; lang: string };
-const t = await import(`../../locales/${lang}/projects.json`);
-
-// Obtenemos el texto del proyecto según el idioma
-const name = project.name[lang as 'es' | 'en'] || project.name.es;
-const shortDesc = project.shortDescription[lang as 'es' | 'en'] || project.shortDescription.es;
-const statusLabel = t.status[project.status] || project.status;
-const metricsLabels = t.metrics;
+// ... resto igual
 ---
 
 <div class="project-card">
   <div class="card-header">
     <div class="status-wrapper">
-      <StatusBadge status={project.status} label={statusLabel} />
-      <span class="project-type">{project.type.toUpperCase()}</span>
+      <span class="status-badge" style={`--dot-color: ${status === 'operational' || status === 'online' ? '#22c55e' : status === 'tracking' ? '#eab308' : status === 'development' ? '#3b82f6' : '#f97316'}`}>
+        <span class="dot"></span>
+        {statusLabel}
+      </span>
+      <span class="project-type">{type.toUpperCase()}</span>
     </div>
-    <h3>{name}</h3>
+    <h3>{nameText}</h3>
   </div>
-
-  <p class="project-description">{shortDesc}</p>
-
+  <p class="project-description">{descText}</p>
   <div class="card-metrics">
-    {project.metrics?.map((metric) => {
-      const labelKey = Object.keys(metricsLabels).find(
-        (key) => metricsLabels[key as keyof typeof metricsLabels] === metric.label
-      );
-      const label = labelKey ? metricsLabels[labelKey as keyof typeof metricsLabels] : metric.label;
-      return (
-        <div class="metric">
-          <span class="metric-icon">{metric.icon}</span>
-          <span class="metric-value">{metric.value}</span>
-          <span class="metric-label">{label}</span>
-        </div>
-      );
-    })}
+    {(metrics || []).map((metric) => (
+      <div class="metric">
+        <span class="metric-icon">{metric.icon}</span>
+        <span class="metric-value">{metric.value}</span>
+        <span class="metric-label">{t.metrics[metric.label.toLowerCase()] || metric.label}</span>
+      </div>
+    ))}
   </div>
-
   <div class="card-footer">
-    <TechTags tags={project.technologies} />
-    <a href={`/${lang}/projects/${project.id}`} class="open-link">
-      {t.buttons.openProject}
-    </a>
+    <div class="tech-tags">
+      {technologies?.map(tag => <span class="tag">{tag}</span>)}
+    </div>
+    <a href={`/${lang}/projects/${slug}`} class="open-link">{t.buttons.openProject}</a>
   </div>
 </div>
 

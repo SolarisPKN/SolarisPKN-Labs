@@ -1,0 +1,24 @@
+{
+  "id": "cloud-infrastructure",
+  "type": "infrastructure",
+  "status": "operational",
+  "technologies": ["Cloudflare", "DNS", "TLS 1.3", "DNSSEC", "Astro", "Cloudflare Pages"],
+  "metrics": [
+    { "label": "Requests", "value": "12.4K", "icon": "🌐" },
+    { "label": "Response", "value": "142ms", "icon": "⚡" },
+    { "label": "Availability", "value": "99.9%", "icon": "🛡" }
+  ],
+  "links": {
+    "live": "https://labs.solarispkn.com.ar",
+    "docs": "https://labs.solarispkn.com.ar/arquitectura"
+  },
+  "details": {
+    "architecture": "Distributed edge network with Cloudflare Workers and Pages.",
+    "features": ["Global CDN", "Automatic SSL", "DDoS Protection", "Load Balancing"],
+    "uptime": "99.99%",
+    "lastUpdated": "2026-07-20"
+  },
+  "heroImage": "/images/projects/cloud-infrastructure/hero.webp",
+  "images": ["/images/projects/cloud-infrastructure/diagram.png"],
+  "apiEndpoint": "https://api.example.com/metrics/cloud-infrastructure"
+}

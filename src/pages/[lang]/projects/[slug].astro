@@ -1,44 +1,75 @@
 ---
 // src/pages/[lang]/projects/[slug].astro
-import { projects } from '../../../data/projects';
 import Layout from '../../../layouts/Layout.astro';
+import fs from 'fs';
+import path from 'path';
+import { marked } from 'marked';
+import DOMPurify from 'isomorphic-dompurify';
 
 export async function getStaticPaths() {
-  const paths = [];
-  for (const lang of ['es', 'en']) {
-    for (const project of projects) {
-      paths.push({ params: { lang, slug: project.id } });
+  const root = process.cwd();
+  const projectsBaseDir = path.join(root, 'src', 'content', 'projects');
+  const slugs = [];
+  if (fs.existsSync(projectsBaseDir)) {
+    const items = fs.readdirSync(projectsBaseDir).filter(f => {
+      const stat = fs.statSync(path.join(projectsBaseDir, f));
+      return stat.isDirectory();
+    });
+    for (const slug of items) {
+      slugs.push({ params: { lang: 'es', slug } });
+      slugs.push({ params: { lang: 'en', slug } });
     }
   }
-  return paths;
+  return slugs;
 }
 
+// ==========================================
+// Obtener la raíz del proyecto
+// ==========================================
+const root = process.cwd();
 const { lang, slug } = Astro.params;
-const project = projects.find(p => p.id === slug);
 
-// Cargar traducciones (igual que en index.astro)
-const t = await import(`../../../locales/${lang}/projects.json`);
+// ==========================================
+// Construir rutas de archivos
+// ==========================================
+const projectDir = path.join(root, 'src', 'content', 'projects', slug);
+const metaPath = path.join(projectDir, 'project.json');
+const mdxFile = `index-${lang}.mdx`;
+const mdxPath = path.join(projectDir, mdxFile);
 
-// FIX: en el frontmatter NO se puede devolver markup (<Layout>...</Layout>).
-// Esa sintaxis solo es válida en el template, después del segundo "---".
-// Desde acá solo se puede cortar la ejecución con un Response o un redirect.
-if (!project) {
+if (!fs.existsSync(metaPath) || !fs.existsSync(mdxPath)) {
   return Astro.redirect(`/${lang}/404`);
 }
 
-const name = project.name[lang as 'es' | 'en'] || project.name.es;
-const description = project.description[lang as 'es' | 'en'] || project.description.es;
+// ==========================================
+// Leer metadatos
+// ==========================================
+const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+const t = await import(`../../../locales/${lang}/projects.json`);
 
-// Sanitizar título para evitar caracteres especiales que rompan el parser
-const safeTitle = String(name)
-  .replace(/&/g, '&amp;')
-  .replace(/</g, '&lt;')
-  .replace(/>/g, '&gt;')
-  .replace(/"/g, '&quot;')
-  .replace(/'/g, '&#39;');
+// ==========================================
+// Renderizar contenido MDX
+// ==========================================
+const contentRaw = fs.readFileSync(mdxPath, 'utf-8');
+const htmlContent = DOMPurify.sanitize(marked.parse(contentRaw));
+
+// ==========================================
+// Datos de API (opcional)
+// ==========================================
+let liveMetrics = null;
+if (meta.apiEndpoint) {
+  try {
+    const response = await fetch(meta.apiEndpoint);
+    if (response.ok) {
+      liveMetrics = await response.json();
+    }
+  } catch (error) {
+    console.error('Error fetching live metrics:', error);
+  }
+}
 ---
 
-<Layout title={safeTitle} lang={lang}>
+<Layout title={meta.name?.[lang] || slug} lang={lang}>
   <main class="project-detail">
     <div class="back-link">
       <a href={`/${lang}/projects`}>{t.buttons.back}</a>
@@ -46,46 +77,54 @@ const safeTitle = String(name)
 
     <header class="detail-header">
       <div class="status-row">
-        <span class="status-badge" style={`--dot-color: ${project.status === 'operational' || project.status === 'online' ? '#22c55e' : project.status === 'tracking' ? '#eab308' : project.status === 'development' ? '#3b82f6' : '#f97316'}`}>
+        <span class="status-badge" style={`--dot-color: ${meta.status === 'operational' || meta.status === 'online' ? '#22c55e' : meta.status === 'tracking' ? '#eab308' : meta.status === 'development' ? '#3b82f6' : '#f97316'}`}>
           <span class="dot"></span>
-          {t.status[project.status] || project.status}
+          {t.status[meta.status] || meta.status}
         </span>
-        <span class="project-type">{project.type.toUpperCase()}</span>
+        <span class="project-type">{meta.type.toUpperCase()}</span>
       </div>
-      <h1>{name}</h1>
-      <p class="description">{description}</p>
+      <h1>{meta.name?.[lang] || slug}</h1>
+      <p class="description">{meta.description?.[lang] || meta.shortDescription?.[lang] || ''}</p>
     </header>
 
+    <!-- Métricas (estáticas o desde API) -->
     <section class="detail-metrics">
-      {project.metrics?.map((metric) => {
-        const label = t.metrics[metric.label.toLowerCase()] || metric.label;
-        return (
-          <div class="metric-card">
-            <span class="metric-icon">{metric.icon}</span>
-            <span class="metric-value">{metric.value}</span>
-            <span class="metric-label">{label}</span>
-          </div>
-        );
-      })}
+      {(liveMetrics?.metrics || meta.metrics || []).map((metric) => (
+        <div class="metric-card">
+          <span class="metric-icon">{metric.icon}</span>
+          <span class="metric-value">{metric.value}</span>
+          <span class="metric-label">{t.metrics[metric.label.toLowerCase()] || metric.label}</span>
+        </div>
+      ))}
     </section>
 
+    <!-- Contenido MDX -->
     <section class="detail-body">
-      <h2>{t.tabs.overview}</h2>
-      <div class="tech-tags">
-        {project.technologies.map(tag => <span class="tag">{tag}</span>)}
+      <div class="markdown-content">
+        <h2>{t.tabs.overview}</h2>
+        <div set:html={htmlContent} />
       </div>
-      {project.details && (
+
+      <!-- Tecnologías -->
+      <div class="tech-tags">
+        {meta.technologies?.map(tag => <span class="tag">{tag}</span>)}
+      </div>
+
+      <!-- Detalles adicionales -->
+      {meta.details && (
         <ul class="features">
-          <li><strong>Architecture:</strong> {project.details.architecture}</li>
-          <li><strong>Features:</strong> {project.details.features?.join(', ')}</li>
-          <li><strong>Uptime:</strong> {project.details.uptime}</li>
-          <li><strong>Last updated:</strong> {project.details.lastUpdated}</li>
+          <li><strong>Architecture:</strong> {meta.details.architecture}</li>
+          <li><strong>Features:</strong> {meta.details.features?.join(', ')}</li>
+          <li><strong>Uptime:</strong> {meta.details.uptime}</li>
+          <li><strong>Last updated:</strong> {meta.details.lastUpdated}</li>
         </ul>
       )}
+
+      <!-- Enlaces -->
       <div class="action-links">
-        {project.links?.github && <a href={project.links.github} class="btn">{t.buttons.github}</a>}
-        {project.links?.docs && <a href={project.links.docs} class="btn">{t.buttons.documentation}</a>}
-        {project.links?.live && <a href={project.links.live} class="btn primary">{t.buttons.live}</a>}
+        {meta.links?.github && <a href={meta.links.github} class="btn">{t.buttons.github}</a>}
+        {meta.links?.docs && <a href={meta.links.docs} class="btn">{t.buttons.documentation}</a>}
+        {meta.links?.live && <a href={meta.links.live} class="btn primary">{t.buttons.live}</a>}
       </div>
     </section>
   </main>
