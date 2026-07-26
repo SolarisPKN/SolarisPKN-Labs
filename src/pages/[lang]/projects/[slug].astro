@@ -19,8 +19,11 @@ const project = projects.find(p => p.id === slug);
 // Cargar traducciones (igual que en index.astro)
 const t = await import(`../../../locales/${lang}/projects.json`);
 
+// FIX: en el frontmatter NO se puede devolver markup (<Layout>...</Layout>).
+// Esa sintaxis solo es válida en el template, después del segundo "---".
+// Desde acá solo se puede cortar la ejecución con un Response o un redirect.
 if (!project) {
-  return <Layout title="404" lang={lang}><h1>404</h1></Layout>;
+  return Astro.redirect(`/${lang}/404`);
 }
 
 const name = project.name[lang as 'es' | 'en'] || project.name.es;
@@ -35,7 +38,7 @@ const safeTitle = String(name)
   .replace(/'/g, '&#39;');
 ---
 
-<Layout title={t.hero.titulo} lang={lang}>
+<Layout title={safeTitle} lang={lang}>
   <main class="project-detail">
     <div class="back-link">
       <a href={`/${lang}/projects`}>{t.buttons.back}</a>
