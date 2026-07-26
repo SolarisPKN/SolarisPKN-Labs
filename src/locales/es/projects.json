@@ -1,0 +1,42 @@
+{
+  "title": "Proyectos",
+  "subtitle": "Sistemas técnicos, experimentos e infraestructura desarrollados por SolarisPKN.",
+  "filters": {
+    "all": "TODOS",
+    "software": "SOFTWARE",
+    "infrastructure": "INFRAESTRUCTURA",
+    "network": "RED",
+    "automation": "AUTOMATIZACIÓN",
+    "hardware": "HARDWARE",
+    "game": "JUEGOS"
+  },
+  "metrics": {
+    "requests": "Solicitudes",
+    "response": "Respuesta",
+    "availability": "Disponibilidad",
+    "players": "Jugadores",
+    "mods": "Mods",
+    "tps": "TPS",
+    "memory": "Memoria"
+  },
+  "status": {
+    "operational": "Operativo",
+    "online": "En línea",
+    "tracking": "Monitoreo",
+    "development": "En desarrollo",
+    "maintenance": "Mantenimiento"
+  },
+  "buttons": {
+    "openProject": "ABRIR PROYECTO →",
+    "back": "← VOLVER A PROYECTOS",
+    "github": "GitHub",
+    "documentation": "Documentación",
+    "live": "Abrir proyecto"
+  },
+  "tabs": {
+    "overview": "RESUMEN",
+    "architecture": "ARQUITECTURA",
+    "liveData": "DATOS EN VIVO",
+    "documentation": "DOCUMENTACIÓN"
+  }
+}

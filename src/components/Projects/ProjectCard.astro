@@ -1,0 +1,143 @@
+---
+// src/components/projects/ProjectCard.astro
+import type { Project } from '../../data/projects';
+import StatusBadge from './StatusBadge.astro';
+import TechTags from './TechTags.astro';
+
+const { project, lang } = Astro.props as { project: Project; lang: string };
+const t = await import(`../../locales/${lang}/projects.json`);
+
+// Obtenemos el texto del proyecto según el idioma
+const name = project.name[lang as 'es' | 'en'] || project.name.es;
+const shortDesc = project.shortDescription[lang as 'es' | 'en'] || project.shortDescription.es;
+const statusLabel = t.status[project.status] || project.status;
+const metricsLabels = t.metrics;
+---
+
+<div class="project-card">
+  <div class="card-header">
+    <div class="status-wrapper">
+      <StatusBadge status={project.status} label={statusLabel} />
+      <span class="project-type">{project.type.toUpperCase()}</span>
+    </div>
+    <h3>{name}</h3>
+  </div>
+
+  <p class="project-description">{shortDesc}</p>
+
+  <div class="card-metrics">
+    {project.metrics?.map((metric) => {
+      const labelKey = Object.keys(metricsLabels).find(
+        (key) => metricsLabels[key as keyof typeof metricsLabels] === metric.label
+      );
+      const label = labelKey ? metricsLabels[labelKey as keyof typeof metricsLabels] : metric.label;
+      return (
+        <div class="metric">
+          <span class="metric-icon">{metric.icon}</span>
+          <span class="metric-value">{metric.value}</span>
+          <span class="metric-label">{label}</span>
+        </div>
+      );
+    })}
+  </div>
+
+  <div class="card-footer">
+    <TechTags tags={project.technologies} />
+    <a href={`/${lang}/projects/${project.id}`} class="open-link">
+      {t.buttons.openProject}
+    </a>
+  </div>
+</div>
+
+<style>
+  .project-card {
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .project-card:hover {
+    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+  }
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .status-wrapper {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  .project-type {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+    background: rgba(255,255,255,0.05);
+    padding: 0.15rem 0.6rem;
+    border-radius: 20px;
+  }
+  .project-description {
+    color: #bbb;
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+  }
+  .card-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .metric {
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    padding: 0.6rem 0.4rem;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .metric-icon {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+  }
+  .metric-value {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #eee;
+  }
+  .metric-label {
+    font-size: 0.65rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  .open-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: #0ea5e9;
+    text-decoration: none;
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .open-link:hover {
+    background: rgba(14, 165, 233, 0.08);
+    border-color: #0ea5e9;
+  }
+</style>

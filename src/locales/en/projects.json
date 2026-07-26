@@ -1,0 +1,42 @@
+{
+  "title": "Projects",
+  "subtitle": "Technical systems, experiments and infrastructure developed by SolarisPKN.",
+  "filters": {
+    "all": "ALL",
+    "software": "SOFTWARE",
+    "infrastructure": "INFRASTRUCTURE",
+    "network": "NETWORK",
+    "automation": "AUTOMATION",
+    "hardware": "HARDWARE",
+    "game": "GAMES"
+  },
+  "metrics": {
+    "requests": "Requests",
+    "response": "Response",
+    "availability": "Availability",
+    "players": "Players",
+    "mods": "Mods",
+    "tps": "TPS",
+    "memory": "Memory"
+  },
+  "status": {
+    "operational": "Operational",
+    "online": "Online",
+    "tracking": "Tracking",
+    "development": "Development",
+    "maintenance": "Maintenance"
+  },
+  "buttons": {
+    "openProject": "OPEN PROJECT →",
+    "back": "← BACK TO PROJECTS",
+    "github": "GitHub",
+    "documentation": "Documentation",
+    "live": "Open Project"
+  },
+  "tabs": {
+    "overview": "OVERVIEW",
+    "architecture": "ARCHITECTURE",
+    "liveData": "LIVE DATA",
+    "documentation": "DOCUMENTATION"
+  }
+}

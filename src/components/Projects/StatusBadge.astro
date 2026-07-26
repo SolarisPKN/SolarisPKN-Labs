@@ -1,0 +1,42 @@
+---
+// src/components/projects/StatusBadge.astro
+const { status, label } = Astro.props as { status: string; label: string };
+const colors: Record<string, string> = {
+  operational: '#22c55e',
+  online: '#22c55e',
+  tracking: '#eab308',
+  development: '#3b82f6',
+  maintenance: '#f97316',
+};
+const color = colors[status] || '#888';
+---
+
+<span class="status-badge" style={`--dot-color: ${color}`}>
+  <span class="dot"></span>
+  {label}
+</span>
+
+<style>
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #ccc;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--dot-color);
+    display: inline-block;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.9); }
+  }
+</style>

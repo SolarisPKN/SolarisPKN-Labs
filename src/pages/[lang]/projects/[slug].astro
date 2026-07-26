@@ -1,0 +1,247 @@
+---
+// src/pages/[lang]/projects/[slug].astro
+import { projects } from '../../../data/projects';
+import Layout from '../../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const lang of ['es', 'en']) {
+    for (const project of projects) {
+      paths.push({ params: { lang, slug: project.id } });
+    }
+  }
+  return paths;
+}
+
+const { lang, slug } = Astro.params;
+const project = projects.find(p => p.id === slug);
+
+// Cargar traducciones (igual que en index.astro)
+const t = await import(`../../../locales/${lang}/projects.json`);
+
+if (!project) {
+  return <Layout title="404" lang={lang}><h1>404</h1></Layout>;
+}
+
+const name = project.name[lang as 'es' | 'en'] || project.name.es;
+const description = project.description[lang as 'es' | 'en'] || project.description.es;
+
+// Sanitizar título para evitar caracteres especiales que rompan el parser
+const safeTitle = String(name)
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;')
+  .replace(/'/g, '&#39;');
+---
+
+<Layout title={t.hero.titulo} lang={lang}>
+  <main class="project-detail">
+    <div class="back-link">
+      <a href={`/${lang}/projects`}>{t.buttons.back}</a>
+    </div>
+
+    <header class="detail-header">
+      <div class="status-row">
+        <span class="status-badge" style={`--dot-color: ${project.status === 'operational' || project.status === 'online' ? '#22c55e' : project.status === 'tracking' ? '#eab308' : project.status === 'development' ? '#3b82f6' : '#f97316'}`}>
+          <span class="dot"></span>
+          {t.status[project.status] || project.status}
+        </span>
+        <span class="project-type">{project.type.toUpperCase()}</span>
+      </div>
+      <h1>{name}</h1>
+      <p class="description">{description}</p>
+    </header>
+
+    <section class="detail-metrics">
+      {project.metrics?.map((metric) => {
+        const label = t.metrics[metric.label.toLowerCase()] || metric.label;
+        return (
+          <div class="metric-card">
+            <span class="metric-icon">{metric.icon}</span>
+            <span class="metric-value">{metric.value}</span>
+            <span class="metric-label">{label}</span>
+          </div>
+        );
+      })}
+    </section>
+
+    <section class="detail-body">
+      <h2>{t.tabs.overview}</h2>
+      <div class="tech-tags">
+        {project.technologies.map(tag => <span class="tag">{tag}</span>)}
+      </div>
+      {project.details && (
+        <ul class="features">
+          <li><strong>Architecture:</strong> {project.details.architecture}</li>
+          <li><strong>Features:</strong> {project.details.features?.join(', ')}</li>
+          <li><strong>Uptime:</strong> {project.details.uptime}</li>
+          <li><strong>Last updated:</strong> {project.details.lastUpdated}</li>
+        </ul>
+      )}
+      <div class="action-links">
+        {project.links?.github && <a href={project.links.github} class="btn">{t.buttons.github}</a>}
+        {project.links?.docs && <a href={project.links.docs} class="btn">{t.buttons.documentation}</a>}
+        {project.links?.live && <a href={project.links.live} class="btn primary">{t.buttons.live}</a>}
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style is:global>
+  .project-detail {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  .back-link a {
+    color: #888;
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+  }
+  .back-link a:hover {
+    color: #fff;
+  }
+  .detail-header {
+    margin: 2rem 0 2.5rem;
+  }
+  .status-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #ccc;
+  }
+  .status-badge .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--dot-color);
+    display: inline-block;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.9); }
+  }
+  .project-type {
+    font-size: 0.7rem;
+    color: #888;
+    background: rgba(255,255,255,0.05);
+    padding: 0.1rem 0.6rem;
+    border-radius: 20px;
+  }
+  .detail-header h1 {
+    font-size: 2.8rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+    letter-spacing: -0.02em;
+  }
+  .description {
+    font-size: 1.15rem;
+    color: #bbb;
+    max-width: 700px;
+    line-height: 1.5;
+  }
+  .detail-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .metric-card {
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .metric-card .metric-icon {
+    font-size: 1.5rem;
+    display: block;
+  }
+  .metric-card .metric-value {
+    font-size: 1.6rem;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    color: #eee;
+    display: block;
+    margin: 0.2rem 0;
+  }
+  .metric-card .metric-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #888;
+    letter-spacing: 0.03em;
+  }
+  .detail-body {
+    background: #111;
+    border-radius: 10px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 1rem 0;
+  }
+  .tag {
+    font-size: 0.65rem;
+    background: rgba(255,255,255,0.05);
+    padding: 0.1rem 0.5rem;
+    border-radius: 12px;
+    color: #aaa;
+    border: 1px solid rgba(255,255,255,0.04);
+    letter-spacing: 0.02em;
+  }
+  .features {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+  }
+  .features li {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .action-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+  .btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    color: #aaa;
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+  }
+  .btn:hover {
+    border-color: rgba(255,255,255,0.3);
+    color: #fff;
+  }
+  .btn.primary {
+    background: #0ea5e9;
+    border-color: #0ea5e9;
+    color: #0a0a0a;
+  }
+  .btn.primary:hover {
+    background: #38bdf8;
+    border-color: #38bdf8;
+  }
+</style>
