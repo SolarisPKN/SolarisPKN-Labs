@@ -37,11 +37,15 @@ const getFlagSrc = (langCode: string): string => {
 };
 
 const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
+
+// URL base para usar en enlaces (opcional, para no hardcodear)
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://labs.solarispkn.com.ar';
 ---
 
 <!doctype html>
 <html lang={lang}>
   <head>
+    <!-- SEO incluye: title, description, canonical, hreflang, Open Graph, etc. -->
     <SEO
       title={title}
       description={description}
@@ -58,7 +62,7 @@ const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
     <!-- FUENTES -->
     <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin />
-	<link rel="canonical" href={`https://labs.solarispkn.com.ar${Astro.url.pathname}`} />
+    <!-- ELIMINADO: <link rel="canonical" ...> duplicado, ya lo genera SEO -->
 
     <style>
       @font-face {
@@ -129,7 +133,7 @@ const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
       <slot />
     </main>
 
-    <!-- FOOTER -->
+    <!-- FOOTER (opcionalmente usando siteUrl en lugar de hardcodear) -->
     <footer class="glass" style="margin-top: 4rem; text-align: center; font-size: 0.85rem;">
       <p>
         {common.footer.transparente}
@@ -140,11 +144,10 @@ const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
       </p>
     </footer>
 
-    <!-- ===== SCRIPTS CORREGIDOS ===== -->
-    <!-- 1. Selector de idioma (crítico) -->
-<script>
-  import '@scripts/layout.js';
-  import '@scripts/scroll-animations.js';
-</script>
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+      import '@scripts/layout.js';
+      import '@scripts/scroll-animations.js';
+    </script>
   </body>
 </html>

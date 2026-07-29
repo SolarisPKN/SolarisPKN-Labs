@@ -30,10 +30,22 @@ const {
   jobTitle = 'IT Infrastructure Specialist',
 } = Astro.props;
 
-// ===== OBTENER URL BASE DESDE CONFIGURACIÓN =====
+// ===== OBTENER URL BASE =====
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://labs.solarispkn.com.ar';
 const fullUrl = new URL(canonical ?? '/', siteUrl).toString();
 const fullImage = image.startsWith('http') ? image : new URL(image, siteUrl).toString();
+
+// ===== DETECTAR IDIOMA ACTUAL Y GENERAR HREFLANG =====
+const currentPath = Astro.url.pathname;
+// Detecta si la ruta empieza con /en/; por defecto asume español
+const currentLang = currentPath.startsWith('/en/') ? 'en' : 'es';
+// Elimina el prefijo de idioma para obtener la ruta "limpia"
+const pathWithoutLang = currentPath.replace(/^\/[a-z]{2}\//, '/');
+
+const alternateUrls = {
+  es: `${siteUrl}/es${pathWithoutLang}`,
+  en: `${siteUrl}/en${pathWithoutLang}`,
+};
 
 // ===== JSON-LD SEGÚN SCHEMA =====
 let jsonLd = {};
@@ -117,6 +129,11 @@ const ogLocaleAlternate = locale === 'es_AR' ? 'en_US' : 'es_AR';
 <title>{title} | SolarisPKN Labs</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={fullUrl} />
+
+<!-- ===== HREFLANG (alternativas de idioma) ===== -->
+<link rel="alternate" hreflang="es" href={alternateUrls.es} />
+<link rel="alternate" hreflang="en" href={alternateUrls.en} />
+<link rel="alternate" hreflang="x-default" href={alternateUrls.es} />
 
 <!-- ===== OPEN GRAPH ===== -->
 <meta property="og:title" content={title} />
