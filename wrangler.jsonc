@@ -1,7 +1,9 @@
 {
   "name": "solarispkn-labs",
   "compatibility_date": "2026-07-29",
+  "main": "src/worker.js",
   "assets": {
-    "directory": "dist"
+    "directory": "dist",
+    "binding": "ASSETS"
   }
 }
