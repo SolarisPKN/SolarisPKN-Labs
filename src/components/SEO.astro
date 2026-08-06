@@ -308,12 +308,23 @@ switch (schema) {
           '@type': 'Organization',
           '@id': `${siteUrl}/#organization`,
           'name': 'SolarisPKN Labs',
+          "location": {
+            "@id": "https://labs.solarispkn.com.ar/#place"
+          },
           'url': siteUrl,
           'founder': {
             '@type': 'Person',
             'name': author,
             '@id': `${siteUrl}/#person`
           }
+        },
+        {
+          "@type": "Place",
+         "@id": "https://labs.solarispkn.com.ar/#place",
+         "name": "SolarisPKN Labs",
+         "sameAs": [
+         "https://www.google.com/maps/place/SolarisPKN-Labs/"
+         ]
         }
       ]
     };
