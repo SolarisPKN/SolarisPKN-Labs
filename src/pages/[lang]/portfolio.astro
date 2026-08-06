@@ -28,7 +28,7 @@ const categorias = [...new Set(skills.certificados.map(c => c.categoria))];
 const academias = [...new Set(skills.certificados.map(c => c.academia))];
 ---
 
-<Layout title="Portfolio - Pablo Marchetti Orayen" lang={lang}>
+<Layout title="Portfolio - Pablo Marchetti Orayen" lang={lang} schema="person" certificates={skills.certificados} techSkills={skills.techIcons} coreSkills={skills.coreAreas.flatMap(area => area.items)}>
   <div class="portfolio-container">
 
     <button id="back-to-top" class="glass back-to-top" aria-label="Volver arriba">⬆️</button>

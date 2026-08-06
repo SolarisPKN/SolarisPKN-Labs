@@ -11,6 +11,9 @@ export interface Props {
   image?: string;
   schema?: 'person' | 'website' | 'article';
   canonical?: string;
+  certificates?: any[];
+  techSkills?: string[];
+  coreSkills?: string[];
 }
 
 const {
@@ -20,6 +23,9 @@ const {
   image = '/social.jpg',
   schema = 'website',
   canonical,
+  certificates = [],
+  techSkills = [],
+  coreSkills = [],
 } = Astro.props;
 
 // Cargar traducciones
@@ -53,8 +59,11 @@ const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://labs.solar
       canonical={canonical || Astro.url.pathname}
       locale={lang === 'es' ? 'es_AR' : 'en_US'}
       schema={schema}
-      author="Pablo Marchetti Orayen"
+      author="Pablo Sebastian Marchetti Orayen"
       jobTitle="IT Infrastructure Specialist"
+      certificates={certificates}
+      techSkills={techSkills}
+      coreSkills={coreSkills}
     />
 
     <ViewTransitions />
