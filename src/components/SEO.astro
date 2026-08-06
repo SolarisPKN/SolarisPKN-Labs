@@ -13,6 +13,10 @@ export interface Props {
   author?: string;
   tags?: string[];
   jobTitle?: string;
+  // !!!!! AÑADIMOS ESTAS PROPS PARA RECIBIR LOS DATOS DEL PORTFOLIO !!!!!
+  certificates?: any[];
+  techSkills?: string[];
+  coreSkills?: string[];
 }
 
 const {
@@ -25,9 +29,13 @@ const {
   schema = 'website',
   publishedTime,
   modifiedTime,
-  author = 'Pablo Marchetti Orayen',
+  author = 'Pablo Sebastian Marchetti Orayen',
   tags = [],
   jobTitle = 'IT Infrastructure Specialist',
+  // !!!!! RECIBIMOS LOS DATOS AQUÍ !!!!!
+  certificates = [],
+  techSkills = [],
+  coreSkills = []
 } = Astro.props;
 
 // ===== OBTENER URL BASE =====
@@ -47,57 +55,304 @@ const alternateUrls = {
   en: `${siteUrl}/en${pathWithoutLang}`,
 };
 
+// ===== MAPEO AUTOMÁTICO DE DATOS =====
+
+// 1. Mapeo de Credenciales (Certificaciones)
+//    Toma el array de certificados y lo transforma al formato de Schema.org
+const mappedCredentials = certificates.map(cert => ({
+  '@type': 'EducationalOccupationalCredential',
+  'name': cert.nombre,
+  'url': cert.link || undefined,
+  'credentialCategory': 'certification',
+  'recognizedBy': cert.academia ? { '@type': 'Organization', 'name': cert.academia } : undefined,
+  'image': cert.imagen || undefined,
+  'description': `${cert.categoria || ''} - ${cert.subcategoria || ''}`.trim() || undefined
+}));
+
+// 2. Mapeo de Habilidades (KnowsAbout)
+//    Combina las habilidades técnicas (techSkills) y las habilidades de las áreas principales (coreSkills)
+const allSkills = [...new Set([...coreSkills, ...techSkills])];
+const mappedKnowsAbout = allSkills.map(skill => skill);
+
+// 3. Mapeo de Ocupaciones (HasOccupation)
+//    Puedes extraerlo de tus datos o dejarlo estático como un array de strings.
+//    Lo dejamos como un array estático por ahora, pero podrías mapearlo también.
+const occupations = [
+  'Software Developer',
+  'DevOps Engineer',
+  'AI Developer',
+  'IT Infrastructure Specialist',
+  'Influencer',
+  'Streamer',
+  'Content Creator'
+];
+const mappedOccupations = occupations.map(occ => ({ '@type': 'Occupation', 'name': occ }));
+
+
 // ===== JSON-LD SEGÚN SCHEMA =====
 let jsonLd = {};
 switch (schema) {
   case 'person':
     jsonLd = {
       '@context': 'https://schema.org',
-      '@type': 'Person',
-      'name': author,
-      'url': siteUrl,
-      'image': fullImage,
-      'jobTitle': jobTitle,
-      'sameAs': [
-        'https://github.com/SolarisPKN',
-        'https://linkedin.com/in/solarispkn',
-        'https://youtube.com/@SolarisPKN',
-        'https://discord.gg/A9DW7S7Kaz',
-        'https://facebook.com/solarispkn',
-        'https://kick.com/Solarispkn',
-        'https://twitch.tv/solarispkn',
-        'https://instagram.com/solarispkn',
-        'https://tiktok.com/@solarispkn',
-        'https://x.com/SolarisPKN',
-        'https://linktr.ee/SolarisPKN',
-        'https://orcid.org/0009-0008-3003-1736'
+      '@graph': [
+        {
+          '@type': 'Person',
+          '@id': `${siteUrl}/#person`,
+          'name': 'Pablo Sebastian Marchetti Orayen',
+          'givenName': 'Pablo Sebastian',
+          'familyName': 'Marchetti Orayen',
+          'alternateName': [
+            'SolarisPKN',
+            'Pablo Kouta Nya',
+            'Solaris PKN',
+            'SolarisPKN_Live',
+            'SolarisPKN Streams',
+            'PabloKoutaNya',
+            'TecnOtakus'
+          ],
+          'description': description,
+          'url': siteUrl,
+          'image': {
+            '@type': 'ImageObject',
+            '@id': `${siteUrl}/#image`,
+            'url': fullImage
+          },
+          'jobTitle': jobTitle,
+          'knowsLanguage': ['es-AR', 'es', 'en'],
+          'nationality': {
+            '@type': 'Country',
+            'name': 'Argentina'
+          },
+          'worksFor': {
+            '@id': `${siteUrl}/#organization`
+          },
+          'founder': {
+           '@id': `${siteUrl}/#organization`
+          },
+          'contactPoint': {
+            '@type': 'ContactPoint',
+            'contactType': 'Business Contact',
+            'email': 'contacto@solarispkn.com.ar'
+          },
+          'hasCredential': mappedCredentials,
+          'hasOccupation': mappedOccupations,
+          'sameAs': [
+            'https://github.com/SolarisPKN',
+            'https://linkedin.com/in/solarispkn',
+            'https://youtube.com/@SolarisPKN',
+            'https://discord.gg/A9DW7S7Kaz',
+            'https://facebook.com/solarispkn',
+            'https://kick.com/Solarispkn',
+            'https://twitch.tv/solarispkn',
+            'https://instagram.com/solarispkn',
+            'https://tiktok.com/@solarispkn',
+            'https://x.com/SolarisPKN',
+            'https://linktr.ee/SolarisPKN',
+            'https://bsky.app/profile/solarispkn.com.ar',
+            'https://steamcommunity.com/id/pablokoutanya/',
+            'https://open.spotify.com/user/21hdk3nngnrfze7epsc6lbz6i',
+            'https://www.roblox.com/es/users/5863697496/profile',
+            'https://www.reddit.com/user/TecnOtakus/',
+            'https://www.ebay.com/usr/solarispkn',
+            'https://www.patreon.com/cw/SolarisPKN',
+            'https://cafecito.app/solarispkn',
+            'https://ko-fi.com/solarispkn',
+            'https://www.curseforge.com/members/solarispkn/projects',
+            'https://modrinth.com/user/SolarisPKN',
+            'https://www.nexusmods.com/profile/SolarisPKN',
+            'https://www.threads.com/@solarispkn',
+            'https://mastodon.social/@SolarisPKN',
+            'https://gravatar.com/solarispkn',
+            'https://gitlab.com/SolarisPKN',
+            'https://calendly.com/solarispkn',
+            'https://vimeo.com/solarispkn',
+            'https://www.figma.com/@SolarisPKN',
+            'https://public.tableau.com/app/profile/solaris.pkn/vizzes',
+            'https://www.salesforce.com/trailblazer/solarispkn',
+            'https://bitbucket.org/solarispkn/workspace/overview',
+            'https://www.spigotmc.org/members/pablokoutanya.128496/',
+            'https://www.udemy.com/user/pablokoutanya/',
+            'https://app.base44.com/@solarispkn',
+            'https://huggingface.co/SolarisPKN',
+            'https://www.workana.com/freelancer/69639f3a7401c8ef1bdd82572b8a51ba',
+            'https://lovable.dev/@solarispkn',
+            'https://www.upwork.com/freelancers/~012a19a4f28dd326c5',
+            'https://v0.app/@solarispkn',
+            'https://stackblitz.com/@SolarisPKN',
+            'https://hashnode.com/@solarispkn',
+            'https://dev.to/solarispkn',
+            'https://www.kaggle.com/solarispkn',
+            'https://codesandbox.io/u/SolarisPKN',
+            'https://codepen.io/SolarisPKN',
+            'https://www.dailymotion.com/user/SolarisPKN',
+            'https://www.sooplive.com/station/pablokoutany',
+            'https://linear.app/solarispkn/',
+            'https://truthsocial.com/@SolarisPKN',
+            'https://www.flickr.com/people/204857773@N06/',
+            'https://rumble.com/user/PabloKoutaNya',
+            'https://www.imdb.com/es/user/p.2sdmbkk3deexakbdrhka4wdauu',
+            'https://sketchfab.com/SolarisPKN',
+            'https://www.etsy.com/es/people/0w8wiyoqp0da4tra',
+            'https://medium.com/@SolarisPKN',
+            'https://dribbble.com/SolarisPKN',
+            'https://www.tumblr.com/solarispkn/',
+            'https://www.deviantart.com/pablokoutanya',
+            'https://www.fiverr.com/sellers/pablokoutanya',
+            'https://vgen.co/SolarisPKN',
+            'https://ar.pinterest.com/solarispkn/',
+            'https://www.freelancer.es/u/PabloKoutaNya',
+            'https://app.cghero.com/hire/SolarisPKN',
+            'https://app.devotedfusion.com/u/solarisp5958',
+            'https://www.artstation.com/solarispkn',
+            'https://tapas.io/SolarisPKN',
+            'https://dev.epicgames.com/community/profile/WmndD/SolarisPKN',
+            'https://solarispkn.newgrounds.com/',
+            'https://www.pixiv.net/en/users/62481761',
+            'https://learn.microsoft.com/es-mx/users/solarispkn/',
+            'https://www.freecodecamp.org/solarispkn',
+            'https://matrix.to/#/@solarispkn:matrix.org',
+            'https://launchpad.net/~solarispkn',
+            'https://gitflic.ru/user/solarispkn',
+            'https://gitea.com/SolarisPKN',
+            'https://solarispkn.itch.io/',
+            'https://goodreads.com/solarispkn/',
+            'https://www.planetminecraft.com/member/solarispkn/',
+            'https://www.sandboxgalaxy.com/member/solarispkn/',
+            'https://www.blogger.com/profile/01814088620497240673',
+            'https://www.xbox.com/es-MX/play/user/SolarisPKN',
+            'https://civitai.com/user/SolarisPKN',
+            'https://hub.docker.com/repositories/solarispkn',
+            'https://www.producthunt.com/@solarispkn',
+            'https://codeberg.org/SolarisPKN',
+            'https://replicate.com/solarispkn/',
+            'https://opencollective.com/solarispkn',
+            'https://www.indiehackers.com/SolarisPKN',
+            'https://builtbybit.com/members/solarispkn.890582/',
+            'https://jsfiddle.net/u/SolarisPKN',
+            'https://app.readthedocs.org/profiles/SolarisPKN/',
+            'https://sourceforge.net/u/solarispkn/profile/',
+            'https://vercel.com/solarispkn',
+            'https://solarispkn.appsmith.com',
+            'https://peerlist.io/solarispkn',
+            'https://solarispkn.gumroad.com/',
+            'https://adplist.org/members/user-87709d-msghljzd',
+            'https://codeforces.com/profile/SolarisPKN',
+            'https://leetcode.com/u/SolarisPKN/',
+            'https://railway.com/u/solarispkn',
+            'https://daily.dev/solarispkn',
+            'https://profile.edx.org/u/SolarisPKN',
+            'https://wokwi.com/makers/solarispkn',
+            'https://projecthub.arduino.cc/pablokoutanya',
+            'https://orcid.org/0009-0008-3003-1736'
+          ],
+          'identifier': [
+            {
+              '@type': 'PropertyValue',
+              'propertyID': 'ORCID',
+              'value': '0009-0008-3003-1736'
+            }
+          ],
+          // 🎯 AUTOMATIZADO DESDE EL JSON DEL PORTFOLIO
+          'knowsAbout': mappedKnowsAbout
+        },
+        {
+          '@type': 'Organization',
+          '@id': `${siteUrl}/#organization`,
+          'name': 'SolarisPKN Labs',
+          'url': siteUrl,
+          'founder': {
+            '@id': `${siteUrl}/#person`
+          }
+        },
+        {
+          '@type': 'WebSite',
+          '@id': `${siteUrl}/#website`,
+          'url': siteUrl,
+          'name': 'SolarisPKN Labs',
+          'publisher': {
+            '@id': `${siteUrl}/#organization`
+          }
+        },
+        {
+          '@type': 'WebPage',
+          '@id': fullUrl,
+          'url': fullUrl,
+          'isPartOf': {
+            '@id': `${siteUrl}/#website`
+          },
+          'about': {
+            '@id': `${siteUrl}/#person`
+          }
+        }
       ]
     };
     break;
   case 'website':
     jsonLd = {
       '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      'name': 'SolarisPKN Labs',
-      'url': siteUrl,
-      'description': description,
-      'potentialAction': {
-        '@type': 'SearchAction',
-        'target': `${siteUrl}/search?q={search_term_string}`,
-        'query-input': 'required name=search_term_string'
-      }
+      '@graph': [
+        {
+          '@type': 'WebSite',
+          '@id': `${siteUrl}/#website`,
+          'name': 'SolarisPKN Labs',
+          'url': siteUrl,
+          'description': description,
+          'potentialAction': {
+            '@type': 'SearchAction',
+            'target': `${siteUrl}/search?q={search_term_string}`,
+            'query-input': 'required name=search_term_string'
+          },
+          'publisher': {
+            '@id': `${siteUrl}/#organization`
+          }
+        },
+        {
+          '@type': 'Organization',
+          '@id': `${siteUrl}/#organization`,
+          'name': 'SolarisPKN Labs',
+          'url': siteUrl,
+          'founder': {
+            '@type': 'Person',
+            'name': author,
+            '@id': `${siteUrl}/#person`
+          }
+        }
+      ]
     };
     break;
+
   case 'article':
     jsonLd = {
       '@context': 'https://schema.org',
-      '@type': 'Article',
-      'headline': title,
-      'description': description,
-      'author': { '@type': 'Person', 'name': author },
-      'datePublished': publishedTime,
-      'dateModified': modifiedTime || publishedTime,
-      'image': fullImage
+      '@graph': [
+        {
+          '@type': 'Article',
+          '@id': `${siteUrl}/#article`,
+          'headline': title,
+          'description': description,
+          'author': { 
+            '@type': 'Person', 
+            'name': author,
+            '@id': `${siteUrl}/#person`
+          },
+          'datePublished': publishedTime,
+          'dateModified': modifiedTime || publishedTime,
+          'image': {
+            '@type': 'ImageObject',
+            'url': fullImage
+          },
+          'publisher': {
+            '@type': 'Organization',
+            'name': 'SolarisPKN Labs',
+            '@id': `${siteUrl}/#organization`
+          },
+          'isPartOf': {
+            '@type': 'WebSite',
+            '@id': `${siteUrl}/#website`
+          }
+        }
+      ]
     };
     break;
   default:
@@ -125,6 +380,7 @@ const ogLocaleAlternate = locale === 'es_AR' ? 'en_US' : 'es_AR';
 <meta name="google-site-verification" content="" />
 <meta name="msvalidate.01" content="" />
 <meta name="yandex-verification" content="" />
+<link rel="me" href="https://mastodon.social/@SolarisPKN" />
 
 <title>{title} | SolarisPKN Labs</title>
 <meta name="description" content={description} />
