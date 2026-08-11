@@ -8,9 +8,17 @@ export default {
       return env.ASSETS.fetch(request);
     }
 
-    // 2. Si ya tiene /es/ o /en/ → servir la página
     const segments = path.split('/').filter(Boolean);
+
+    // 2. Si ya tiene /es/ o /en/ como prefijo...
     if (segments.length > 0 && (segments[0] === 'es' || segments[0] === 'en')) {
+      // 2a. ...pero le falta la barra final → redirigir para agregarla
+      if (!path.endsWith('/')) {
+        const newUrl = new URL(url);
+        newUrl.pathname = path + '/';
+        return Response.redirect(newUrl.toString(), 301);
+      }
+      // 2b. Ya está bien formada → servir directo
       return env.ASSETS.fetch(request);
     }
 
@@ -19,8 +27,9 @@ export default {
     const preferEn = acceptLanguage.startsWith('en');
     const targetLang = preferEn ? 'en' : 'es';
 
-    // 4. Redirigir a /es o /en
-    const newPath = `/${targetLang}${path}`;
-    return Response.redirect(new URL(newPath, url), 302);
+    // 4. Redirigir a /es/ o /en/, garantizando la barra final, en un solo salto
+    let newPath = `/${targetLang}${path}`;
+    if (!newPath.endsWith('/')) newPath += '/';
+    return Response.redirect(new URL(newPath, url), 301);
   }
 };
