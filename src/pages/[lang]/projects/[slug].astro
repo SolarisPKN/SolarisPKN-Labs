@@ -23,15 +23,9 @@ export async function getStaticPaths() {
   return slugs;
 }
 
-// ==========================================
-// Obtener la raíz del proyecto
-// ==========================================
 const root = process.cwd();
 const { lang, slug } = Astro.params;
 
-// ==========================================
-// Construir rutas de archivos
-// ==========================================
 const projectDir = path.join(root, 'src', 'content', 'projects', slug);
 const metaPath = path.join(projectDir, 'project.json');
 const mdxFile = `index-${lang}.mdx`;
@@ -41,35 +35,31 @@ if (!fs.existsSync(metaPath) || !fs.existsSync(mdxPath)) {
   return Astro.redirect(`/${lang}/404`);
 }
 
-// ==========================================
-// Leer metadatos
-// ==========================================
 const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
 const t = await import(`../../../locales/${lang}/projects.json`);
 
-// ==========================================
-// Renderizar contenido MDX
-// ==========================================
 const contentRaw = fs.readFileSync(mdxPath, 'utf-8');
 const htmlContent = DOMPurify.sanitize(marked.parse(contentRaw));
 
-// ==========================================
-// Datos de API (opcional)
-// ==========================================
-let liveMetrics = null;
-if (meta.apiEndpoint) {
-  try {
-    const response = await fetch(meta.apiEndpoint);
-    if (response.ok) {
-      liveMetrics = await response.json();
-    }
-  } catch (error) {
-    console.error('Error fetching live metrics:', error);
-  }
-}
+const projectName = meta.name?.[lang] || slug;
+const safeTitle = String(projectName)
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;')
+  .replace(/'/g, '&#39;');
+
+// ID del proyecto: SIEMPRE el slug (nombre de carpeta) — ver nota en
+// sesión anterior sobre por qué meta.id es un campo legado que no hay
+// que usar acá (se desincroniza del nombre real de la carpeta).
+const projectId = slug;
+
+// URL del repo en GitHub (si está declarada) — se usa para linkear
+// el último commit. Si no está, el commit se muestra sin link.
+const githubUrl = meta.links?.github || '';
 ---
 
-<Layout title={meta.name?.[lang] || slug} lang={lang}>
+<Layout title={safeTitle} lang={lang}>
   <main class="project-detail">
     <div class="back-link">
       <a href={`/${lang}/projects`}>{t.buttons.back}</a>
@@ -83,34 +73,162 @@ if (meta.apiEndpoint) {
         </span>
         <span class="project-type">{meta.type.toUpperCase()}</span>
       </div>
-      <h1>{meta.name?.[lang] || slug}</h1>
+      <h1>{projectName}</h1>
       <p class="description">{meta.description?.[lang] || meta.shortDescription?.[lang] || ''}</p>
     </header>
 
-    <!-- Métricas (estáticas o desde API) -->
-    <section class="detail-metrics">
-      {(liveMetrics?.metrics || meta.metrics || []).map((metric) => (
+    <!-- ========================================================== -->
+    <!-- MÉTRICAS EN VIVO — GitHub + Cloudflare -->
+    <!-- ========================================================== -->
+    <section class="detail-metrics" id="metrics-container">
+      <h3 class="stats-group-title">📦 Repositorio</h3>
+      <div class="metrics-grid">
         <div class="metric-card">
-          <span class="metric-icon">{metric.icon}</span>
-          <span class="metric-value">{metric.value}</span>
-          <span class="metric-label">{t.metrics[metric.label.toLowerCase()] || metric.label}</span>
+          <span class="metric-icon">⭐</span>
+          <span class="metric-value" id="github-stars">—</span>
+          <span class="metric-label">Estrellas</span>
         </div>
-      ))}
+        <div class="metric-card">
+          <span class="metric-icon">🔀</span>
+          <span class="metric-value" id="github-forks">—</span>
+          <span class="metric-label">Forks</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-icon">👁️</span>
+          <span class="metric-value" id="github-watchers">—</span>
+          <span class="metric-label">Watchers</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-icon">🐛</span>
+          <span class="metric-value" id="github-issues-open">—</span>
+          <span class="metric-label">Issues abiertos</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-icon">✅</span>
+          <span class="metric-value" id="github-issues-closed">—</span>
+          <span class="metric-label">Issues cerrados</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-icon">🔃</span>
+          <span class="metric-value" id="github-prs-open">—</span>
+          <span class="metric-label">PRs abiertos</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-icon">🎉</span>
+          <span class="metric-value" id="github-prs-merged">—</span>
+          <span class="metric-label">PRs mergeados</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-icon">🏷️</span>
+          <span class="metric-value" id="github-releases">—</span>
+          <span class="metric-label">Releases</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-icon">📝</span>
+          <span class="metric-value" id="github-commits">—</span>
+          <span class="metric-label">Commits</span>
+        </div>
+      </div>
+
+      <!-- Badges: lenguaje principal, licencia, tamaño, fechas, fork/archived -->
+      <div class="repo-meta" id="repo-meta"></div>
+
+      <!-- Barra de lenguajes (oculta hasta tener datos) -->
+      <div class="lang-bar-wrapper" id="lang-bar-wrapper" style="display:none;">
+        <h4>Lenguajes</h4>
+        <div class="lang-bar" id="lang-bar"></div>
+        <div class="lang-legend" id="lang-legend"></div>
+      </div>
+
+      <!-- Topics del repo -->
+      <div class="topics-wrapper" id="topics-wrapper" style="display:none;">
+        <div class="topics-list" id="topics-list"></div>
+      </div>
+
+      <!-- Último commit -->
+      <div class="last-commit" id="last-commit-card" style="display:none;">
+        <span class="commit-icon">💾</span>
+        <div class="commit-info">
+          <a id="commit-message" href="#" target="_blank" rel="noopener"></a>
+          <span id="commit-meta" class="commit-meta"></span>
+        </div>
+      </div>
+
+      <h3 class="stats-group-title">🌐 Tráfico (Cloudflare)</h3>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <span class="metric-icon">📡</span>
+          <span class="metric-value" id="cf-requests">—</span>
+          <span class="metric-label">Solicitudes</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-icon">👥</span>
+          <span class="metric-value" id="cf-visitors">—</span>
+          <span class="metric-label">Visitantes</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-icon">📦</span>
+          <span class="metric-value" id="cf-bandwidth">—</span>
+          <span class="metric-label">Ancho de banda</span>
+        </div>
+      </div>
+
+      <p id="stats-update-time" class="stats-update-time">🔄 Cargando datos en vivo...</p>
     </section>
 
-    <!-- Contenido MDX -->
+    <!-- ========================================================== -->
+    <!-- PAGESPEED — scores + Core Web Vitals. Oculto hasta tener dato -->
+    <!-- real, no depende de ningún flag manual en project.json -->
+    <!-- ========================================================== -->
+    <section class="pagespeed-container" id="pagespeed-container" style="display:none;">
+      <h2>⚡ PageSpeed Insights</h2>
+      <div class="pagespeed-grid">
+        <div class="gauge-card">
+          <span class="gauge-label">Rendimiento</span>
+          <div class="gauge" id="gauge-performance">
+            <div class="needle" id="needle-performance"></div>
+          </div>
+          <div class="score" id="score-performance">0</div>
+        </div>
+        <div class="gauge-card">
+          <span class="gauge-label">SEO</span>
+          <div class="gauge" id="gauge-seo">
+            <div class="needle" id="needle-seo"></div>
+          </div>
+          <div class="score" id="score-seo">0</div>
+        </div>
+        <div class="gauge-card">
+          <span class="gauge-label">Accesibilidad</span>
+          <div class="gauge" id="gauge-accessibility">
+            <div class="needle" id="needle-accessibility"></div>
+          </div>
+          <div class="score" id="score-accessibility">0</div>
+        </div>
+        <div class="gauge-card">
+          <span class="gauge-label">Buenas prácticas</span>
+          <div class="gauge" id="gauge-bestpractices">
+            <div class="needle" id="needle-bestpractices"></div>
+          </div>
+          <div class="score" id="score-bestpractices">0</div>
+        </div>
+      </div>
+
+      <div class="vitals-grid" id="vitals-grid"></div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- CONTENIDO MDX Y RESTO -->
+    <!-- ========================================================== -->
     <section class="detail-body">
       <div class="markdown-content">
         <h2>{t.tabs.overview}</h2>
         <div set:html={htmlContent} />
       </div>
 
-      <!-- Tecnologías -->
       <div class="tech-tags">
         {meta.technologies?.map(tag => <span class="tag">{tag}</span>)}
       </div>
 
-      <!-- Detalles adicionales -->
       {meta.details && (
         <ul class="features">
           <li><strong>Architecture:</strong> {meta.details.architecture}</li>
@@ -120,7 +238,6 @@ if (meta.apiEndpoint) {
         </ul>
       )}
 
-      <!-- Enlaces -->
       <div class="action-links">
         {meta.links?.github && <a href={meta.links.github} class="btn">{t.buttons.github}</a>}
         {meta.links?.docs && <a href={meta.links.docs} class="btn">{t.buttons.documentation}</a>}
@@ -130,6 +247,294 @@ if (meta.apiEndpoint) {
   </main>
 </Layout>
 
+<!-- ============================================================ -->
+<!-- SCRIPT: fetch de Stats.json + render de todo -->
+<!-- ============================================================ -->
+<script define:vars={{ projectId, githubUrl }}>
+  (async function loadLiveStats() {
+    const statsUrl = `https://raw.githubusercontent.com/SolarisPKN/SolarisPKN-Stats/main/${projectId}/Stats.json`;
+
+    console.log('🔍 Intentando cargar estadísticas desde:', statsUrl);
+
+    const updateTimeEl = document.getElementById('stats-update-time');
+    if (!updateTimeEl) {
+      console.warn('Elemento #stats-update-time no encontrado');
+      return;
+    }
+
+    // IDs numéricos que se resetean a "—" si falla el fetch
+    const metricIds = [
+      'github-stars', 'github-forks', 'github-watchers',
+      'github-issues-open', 'github-issues-closed',
+      'github-prs-open', 'github-prs-merged',
+      'github-releases', 'github-commits',
+      'cf-requests', 'cf-visitors', 'cf-bandwidth',
+    ];
+    const gaugeIds = ['performance', 'seo', 'accessibility', 'bestpractices'];
+
+    try {
+      const response = await fetch(statsUrl);
+      console.log('📡 Respuesta del servidor:', response.status, response.statusText);
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status} - ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log('📊 Datos recibidos:', data);
+
+      if (data.updatedAt) {
+        const date = new Date(data.updatedAt);
+        updateTimeEl.textContent = `📊 Actualizado: ${date.toLocaleString('es-AR', { hour12: false })}`;
+      } else {
+        updateTimeEl.textContent = '📊 Datos actualizados (sin fecha)';
+      }
+
+      // ===== GITHUB =====
+      if (data.github) {
+        const gh = data.github;
+        updateMetric('github-stars', gh.stars || 0);
+        updateMetric('github-forks', gh.forks || 0);
+        updateMetric('github-watchers', gh.watchers || 0);
+        updateMetric('github-issues-open', gh.issues || 0);
+        updateMetric('github-issues-closed', gh.issuesClosed || 0);
+        updateMetric('github-prs-open', gh.pullRequestsOpen || 0);
+        updateMetric('github-prs-merged', gh.pullRequestsMerged || 0);
+        updateMetric('github-releases', gh.releases || 0);
+        updateMetric('github-commits', gh.totalCommits || 0);
+
+        renderRepoMeta(gh);
+        renderLanguages(gh.languages);
+        renderTopics(gh.topics);
+        renderLastCommit(gh.lastCommit, githubUrl);
+      } else {
+        console.warn('No hay datos de GitHub en el JSON');
+      }
+
+      // ===== CLOUDFLARE =====
+      if (data.cloudflare) {
+        const cf = data.cloudflare;
+        updateMetric('cf-requests', cf.requests || 0);
+        updateMetric('cf-visitors', cf.visitors || 0);
+        updateMetric('cf-bandwidth', formatBytes(cf.bandwidth || 0));
+      } else {
+        console.warn('No hay datos de Cloudflare en el JSON');
+      }
+
+      // ===== PAGESPEED (scores + core web vitals) =====
+      if (data.pagespeed) {
+        const container = document.getElementById('pagespeed-container');
+        if (container) container.style.display = '';
+        const ps = data.pagespeed;
+        animateGauge('performance', ps.performance || 0);
+        animateGauge('seo', ps.seo || 0);
+        animateGauge('accessibility', ps.accessibility || 0);
+        animateGauge('bestpractices', ps.bestPractices || 0);
+        renderVitals(ps);
+      } else {
+        console.warn('No hay datos de PageSpeed en el JSON');
+      }
+
+    } catch (error) {
+      console.error('❌ Error cargando estadísticas:', error);
+      updateTimeEl.textContent = `⚠️ Datos en vivo no disponibles (${error.message})`;
+      metricIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = '—';
+      });
+      gaugeIds.forEach(id => {
+        const scoreEl = document.getElementById(`score-${id}`);
+        if (scoreEl) scoreEl.textContent = '—';
+      });
+    }
+
+    // ===== FUNCIONES AUXILIARES =====
+
+    function updateMetric(id, value) {
+      const el = document.getElementById(id);
+      if (!el) {
+        console.warn(`Elemento con ID "${id}" no encontrado`);
+        return;
+      }
+      if (typeof value === 'number') {
+        animateCountUp(el, value);
+      } else {
+        el.textContent = value;
+      }
+    }
+
+    function animateCountUp(element, target, duration = 800) {
+      if (!element) return;
+      const startTime = performance.now();
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(eased * target);
+        element.textContent = current.toLocaleString();
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          element.textContent = target.toLocaleString();
+        }
+      }
+      requestAnimationFrame(update);
+    }
+
+    function animateGauge(id, targetScore) {
+      const needle = document.getElementById(`needle-${id}`);
+      const scoreEl = document.getElementById(`score-${id}`);
+      if (!needle || !scoreEl) {
+        console.warn(`Gauge ${id} no encontrado`);
+        return;
+      }
+
+      let current = 0;
+      const interval = setInterval(() => {
+        current++;
+        scoreEl.textContent = current;
+        const rotation = -90 + (current * 1.8);
+        needle.style.transform = `rotate(${rotation}deg)`;
+
+        if (current >= targetScore) {
+          clearInterval(interval);
+        }
+      }, 15);
+    }
+
+    function formatBytes(bytes) {
+      if (bytes === 0) return '0 B';
+      const k = 1024;
+      const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+    }
+
+    function formatSize(kb) {
+      return kb > 1024 ? (kb / 1024).toFixed(1) + ' MB' : kb + ' KB';
+    }
+
+    function formatDate(iso) {
+      return new Date(iso).toLocaleDateString('es-AR', { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+
+    // Badges de metadata del repo: lenguaje, licencia, tamaño, fechas, fork/archived
+    function renderRepoMeta(gh) {
+      const el = document.getElementById('repo-meta');
+      if (!el) return;
+      const badges = [];
+
+      if (gh.primaryLanguage) badges.push(`<span class="repo-badge">💻 ${gh.primaryLanguage}</span>`);
+      if (gh.license) badges.push(`<span class="repo-badge">📄 ${gh.license}</span>`);
+      if (gh.sizeKB) badges.push(`<span class="repo-badge">💾 ${formatSize(gh.sizeKB)}</span>`);
+      if (gh.createdAt) badges.push(`<span class="repo-badge">🌱 Creado ${formatDate(gh.createdAt)}</span>`);
+      if (gh.pushedAt) badges.push(`<span class="repo-badge">🚀 Último push ${formatDate(gh.pushedAt)}</span>`);
+      if (gh.isFork) badges.push(`<span class="repo-badge repo-badge-warn">🍴 Fork</span>`);
+      if (gh.isArchived) badges.push(`<span class="repo-badge repo-badge-warn">🗄️ Archivado</span>`);
+
+      el.innerHTML = badges.join('');
+    }
+
+    // Barra de lenguajes con los colores reales que manda GitHub
+    function renderLanguages(languages) {
+      if (!languages || !languages.length) return;
+      const wrapper = document.getElementById('lang-bar-wrapper');
+      const bar = document.getElementById('lang-bar');
+      const legend = document.getElementById('lang-legend');
+      if (!wrapper || !bar || !legend) return;
+
+      const total = languages.reduce((sum, l) => sum + (l.bytes || 0), 0);
+      if (total === 0) return;
+
+      bar.innerHTML = languages.map(l => {
+        const pct = (l.bytes / total) * 100;
+        return `<div class="lang-segment" style="width:${pct}%; background:${l.color || '#888'};" title="${l.name} ${pct.toFixed(1)}%"></div>`;
+      }).join('');
+
+      legend.innerHTML = languages.map(l => {
+        const pct = ((l.bytes / total) * 100).toFixed(1);
+        return `<span class="lang-legend-item"><span class="lang-dot" style="background:${l.color || '#888'};"></span>${l.name} <b>${pct}%</b></span>`;
+      }).join('');
+
+      wrapper.style.display = '';
+    }
+
+    function renderTopics(topics) {
+      if (!topics || !topics.length) return;
+      const wrapper = document.getElementById('topics-wrapper');
+      const list = document.getElementById('topics-list');
+      if (!wrapper || !list) return;
+      list.innerHTML = topics.map(t => `<span class="topic-pill">#${t}</span>`).join('');
+      wrapper.style.display = '';
+    }
+
+    function renderLastCommit(commit, ghUrl) {
+      if (!commit) return;
+      const card = document.getElementById('last-commit-card');
+      const msgEl = document.getElementById('commit-message');
+      const metaEl = document.getElementById('commit-meta');
+      if (!card || !msgEl || !metaEl) return;
+
+      const shortSha = (commit.sha || '').slice(0, 7);
+      const firstLine = (commit.message || '').split('\n')[0];
+      const date = commit.date ? formatDate(commit.date) : '';
+
+      msgEl.textContent = firstLine;
+      if (ghUrl && commit.sha) {
+        msgEl.href = `${ghUrl}/commit/${commit.sha}`;
+      } else {
+        msgEl.removeAttribute('href');
+        msgEl.style.cursor = 'default';
+      }
+
+      metaEl.textContent = shortSha ? `${shortSha} · ${date}` : date;
+      card.style.display = '';
+    }
+
+    // Core Web Vitals con semáforo según thresholds oficiales de Lighthouse
+    function vitalsClass(metricKey, value) {
+      const thresholds = {
+        fcp: [1800, 3000],
+        lcp: [2500, 4000],
+        tbt: [200, 600],
+        cls: [0.1, 0.25],
+        si: [3400, 5800],
+        tti: [3800, 7300],
+      };
+      const [good, mid] = thresholds[metricKey] || [Infinity, Infinity];
+      if (value <= good) return 'good';
+      if (value <= mid) return 'mid';
+      return 'poor';
+    }
+
+    function renderVitals(ps) {
+      const grid = document.getElementById('vitals-grid');
+      if (!grid) return;
+      const vitals = [
+        { key: 'fcp', label: 'First Contentful Paint', value: ps.firstContentfulPaint, unit: 'ms' },
+        { key: 'lcp', label: 'Largest Contentful Paint', value: ps.largestContentfulPaint, unit: 'ms' },
+        { key: 'tbt', label: 'Total Blocking Time', value: ps.totalBlockingTime, unit: 'ms' },
+        { key: 'cls', label: 'Cumulative Layout Shift', value: ps.cumulativeLayoutShift, unit: '' },
+        { key: 'si', label: 'Speed Index', value: ps.speedIndex, unit: 'ms' },
+        { key: 'tti', label: 'Time to Interactive', value: ps.timeToInteractive, unit: 'ms' },
+      ];
+      grid.innerHTML = vitals.map(v => {
+        const cls = vitalsClass(v.key, v.value);
+        const displayValue = v.key === 'cls' ? Number(v.value).toFixed(3) : Math.round(v.value);
+        return `<div class="vital-chip vital-${cls}">
+          <span class="vital-value">${displayValue}${v.unit}</span>
+          <span class="vital-label">${v.label}</span>
+        </div>`;
+      }).join('');
+    }
+  })();
+</script>
+
+<!-- ============================================================ -->
+<!-- ESTILOS -->
+<!-- ============================================================ -->
 <style is:global>
   .project-detail {
     max-width: 1000px;
@@ -142,12 +547,8 @@ if (meta.apiEndpoint) {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.8rem;
   }
-  .back-link a:hover {
-    color: #fff;
-  }
-  .detail-header {
-    margin: 2rem 0 2.5rem;
-  }
+  .back-link a:hover { color: #fff; }
+  .detail-header { margin: 2rem 0 2.5rem; }
   .status-row {
     display: flex;
     gap: 0.75rem;
@@ -195,11 +596,22 @@ if (meta.apiEndpoint) {
     max-width: 700px;
     line-height: 1.5;
   }
-  .detail-metrics {
+
+  /* ===== MÉTRICAS ===== */
+  .stats-group-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 2rem 0 0.75rem;
+    font-weight: 500;
+  }
+  .stats-group-title:first-child { margin-top: 0; }
+  .metrics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-    margin-bottom: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
   }
   .metric-card {
     background: #111;
@@ -208,12 +620,9 @@ if (meta.apiEndpoint) {
     padding: 1rem;
     text-align: center;
   }
-  .metric-card .metric-icon {
-    font-size: 1.5rem;
-    display: block;
-  }
+  .metric-card .metric-icon { font-size: 1.4rem; display: block; }
   .metric-card .metric-value {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 600;
     font-family: 'JetBrains Mono', monospace;
     color: #eee;
@@ -221,23 +630,223 @@ if (meta.apiEndpoint) {
     margin: 0.2rem 0;
   }
   .metric-card .metric-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
+    font-size: 0.65rem;
     color: #888;
+    text-transform: uppercase;
     letter-spacing: 0.03em;
   }
+
+  /* ===== METADATA DEL REPO ===== */
+  .repo-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+  .repo-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #aaa;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .repo-badge-warn {
+    border-color: rgba(255,121,198,0.3);
+    color: #FF79C6;
+    background: rgba(255,121,198,0.06);
+  }
+
+  /* ===== BARRA DE LENGUAJES ===== */
+  .lang-bar-wrapper { margin: 1.5rem 0; }
+  .lang-bar-wrapper h4 {
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .lang-bar {
+    display: flex;
+    height: 8px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.04);
+  }
+  .lang-segment { height: 100%; }
+  .lang-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.6rem;
+    font-size: 0.75rem;
+    color: #aaa;
+  }
+  .lang-legend-item { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .lang-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+  /* ===== TOPICS ===== */
+  .topics-wrapper { margin: 1rem 0; }
+  .topics-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .topic-pill {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 20px;
+    background: rgba(0,255,204,0.06);
+    border: 1px solid rgba(0,255,204,0.15);
+    color: #0ea5e9;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ===== ÚLTIMO COMMIT ===== */
+  .last-commit {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .commit-icon { font-size: 1.2rem; }
+  .commit-info { display: flex; flex-direction: column; gap: 0.15rem; overflow: hidden; }
+  .commit-info a {
+    color: #eee;
+    text-decoration: none;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .commit-info a:hover { color: #0ea5e9; text-decoration: underline; }
+  .commit-meta { font-size: 0.7rem; color: #777; font-family: 'JetBrains Mono', monospace; }
+
+  .stats-update-time {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 1.5rem;
+  }
+
+  /* ===== PAGESPEED GAUGES ===== */
+  .pagespeed-container { margin: 0 0 3rem; }
+  .pagespeed-container h2 {
+    font-family: 'JetBrains Mono', monospace;
+    color: #0ea5e9;
+    font-size: 1.3rem;
+    margin-bottom: 1.25rem;
+  }
+  .pagespeed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.25rem;
+  }
+  .gauge-card {
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 1.25rem 1rem 1rem;
+    text-align: center;
+  }
+  .gauge-label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #888;
+    margin-bottom: 0.9rem;
+  }
+  .gauge {
+    position: relative;
+    width: 110px;
+    height: 58px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .gauge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 110px;
+    height: 110px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 9px solid rgba(255,255,255,0.06);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    transform: rotate(-45deg);
+  }
+  .needle {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 3px;
+    height: 50px;
+    background: #FF79C6;
+    transform-origin: bottom center;
+    transform: rotate(-90deg);
+    transition: transform 0.1s linear;
+    border-radius: 2px;
+  }
+  .needle::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #FF79C6;
+  }
+  .score {
+    margin-top: 0.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #eee;
+  }
+
+  /* ===== CORE WEB VITALS ===== */
+  .vitals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+  .vital-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.6rem 0.5rem;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-left: 3px solid transparent;
+  }
+  .vital-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #eee;
+  }
+  .vital-label { font-size: 0.65rem; color: #888; text-align: center; line-height: 1.2; }
+  .vital-good { border-left-color: #50FA7B; }
+  .vital-mid { border-left-color: #eab308; }
+  .vital-poor { border-left-color: #ef4444; }
+
   .detail-body {
     background: #111;
     border-radius: 10px;
     padding: 1.5rem;
     border: 1px solid rgba(255,255,255,0.06);
   }
-  .tech-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin: 1rem 0;
-  }
+  .tech-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0; }
   .tag {
     font-size: 0.65rem;
     background: rgba(255,255,255,0.05);
@@ -247,21 +856,9 @@ if (meta.apiEndpoint) {
     border: 1px solid rgba(255,255,255,0.04);
     letter-spacing: 0.02em;
   }
-  .features {
-    list-style: none;
-    padding: 0;
-    margin: 1.5rem 0;
-  }
-  .features li {
-    padding: 0.4rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-  }
-  .action-links {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-top: 1.5rem;
-  }
+  .features { list-style: none; padding: 0; margin: 1.5rem 0; }
+  .features li { padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .action-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
   .btn {
     background: transparent;
     border: 1px solid rgba(255,255,255,0.1);
@@ -273,17 +870,7 @@ if (meta.apiEndpoint) {
     font-size: 0.8rem;
     transition: all 0.2s;
   }
-  .btn:hover {
-    border-color: rgba(255,255,255,0.3);
-    color: #fff;
-  }
-  .btn.primary {
-    background: #0ea5e9;
-    border-color: #0ea5e9;
-    color: #0a0a0a;
-  }
-  .btn.primary:hover {
-    background: #38bdf8;
-    border-color: #38bdf8;
-  }
+  .btn:hover { border-color: rgba(255,255,255,0.3); color: #fff; }
+  .btn.primary { background: #0ea5e9; border-color: #0ea5e9; color: #0a0a0a; }
+  .btn.primary:hover { background: #38bdf8; border-color: #38bdf8; }
 </style>
