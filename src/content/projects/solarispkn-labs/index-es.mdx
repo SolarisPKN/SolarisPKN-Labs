@@ -1,18 +1,250 @@
-# Documentación del Proyecto
+# 🔬 Bienvenidos a SolarisPKN-Labs
 
-## Arquitectura
+> **¿Qué pasa si simplemente intento hacerlo?**
 
-La infraestructura está distribuida en la red global de Cloudflare, utilizando Workers y Pages para el renderizado y la lógica de negocio.
+Esa pregunta aparece bastante seguido en mi cabeza.
 
-## Diagrama
+SolarisPKN-Labs nació justamente de eso: de mi necesidad de **experimentar, investigar y llevar una idea hasta donde pueda llegar**.
 
-![Diagrama de arquitectura](/images/projects/cloud-infrastructure/diagram.png)
+No siempre empiezo un proyecto sabiendo exactamente qué voy a construir. Muchas veces empiezo con una pregunta.
 
-## Configuración
+Y a partir de esa pregunta empieza el experimento.
 
-```bash
-# Instalación de dependencias
-npm install
+---
 
-# Build del proyecto
-npm run build
+## 🧪 No es solamente un portfolio
+
+SolarisPKN-Labs no nació para mostrar únicamente proyectos terminados.
+
+Es un lugar donde documento **el proceso detrás de ellos**.
+
+Cuando se me ocurre una idea, intento entender primero qué hay detrás: qué tecnologías existen, qué alternativas tengo, qué limitaciones aparecen, qué tan eficiente puede ser una solución y qué problemas puedo encontrar por el camino.
+
+Investigo.
+
+Pruebo.
+
+Rompo cosas.
+
+Cambio de estrategia.
+
+Vuelvo a probar.
+
+Y finalmente, cuando encuentro una solución que tiene sentido, la convierto en un proyecto.
+
+Por eso, dentro de Labs podés encontrar tanto proyectos terminados como experimentos, pruebas de concepto, herramientas, investigaciones y soluciones que nacieron simplemente de querer descubrir **si algo era posible**.
+
+---
+
+## 💡 Una pregunta puede convertirse en un sistema completo
+
+Un buen ejemplo es **SolarisPKN-Stats**.
+
+La idea original era extremadamente simple:
+
+> **¿Cómo puedo mostrar estadísticas en un sitio web estático y mantenerlas actualizadas automáticamente?**
+
+El sitio era estático.
+
+No quería depender de un backend tradicional.
+
+Entonces apareció una primera solución:
+
+```text
+API
+ ↓
+JSON
+ ↓
+JavaScript
+ ↓
+Sitio web
+```
+
+Perfecto.
+
+Pero inmediatamente apareció otra pregunta:
+
+> **¿Y quién genera ese JSON?**
+
+Y ahí empezó realmente el experimento.
+
+Empecé a investigar APIs, automatizaciones, GitHub Actions, Cloudflare Workers, diferentes formas de almacenar y actualizar información, y distintas maneras de obtener datos de múltiples plataformas.
+
+Después apareció otra pregunta:
+
+> **¿Cómo hago que todo esto sea eficiente?**
+
+Y después otra:
+
+> **¿Cómo hago que sea rápido?**
+
+Y otra:
+
+> **¿Cómo hago que sea seguro y fácil de mantener?**
+
+Y otra:
+
+> **¿Cómo puedo incorporar nuevas fuentes sin tener que modificar todo el sistema?**
+
+Una pregunta terminó convirtiéndose en una arquitectura completa.
+
+```text
+                   ┌──────────────┐
+                   │     APIs     │
+                   └──────┬───────┘
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │    Collectors   │
+                 └────────┬────────┘
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │  Processing     │
+                 └────────┬────────┘
+                          │
+                          ▼
+                     stats.json
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │   JavaScript    │
+                 └────────┬────────┘
+                          │
+                          ▼
+                    🌐 Website
+```
+
+Y durante ese camino aparecieron tecnologías y conceptos que originalmente ni siquiera formaban parte de la idea inicial.
+
+**Eso es Labs.**
+
+---
+
+## 🔎 Investigar antes de construir
+
+Una parte importante de mis proyectos es justamente esa investigación.
+
+Antes de decidir cómo implementar algo, intento entender qué opciones existen.
+
+Por ejemplo:
+
+* ¿REST o GraphQL?
+* ¿GitHub Actions o Cloudflare Workers?
+* ¿Cada cuánto actualizar los datos?
+* ¿Dónde almacenar la información?
+* ¿Cómo evitar escrituras innecesarias?
+* ¿Cómo reducir el consumo de recursos?
+* ¿Cómo manejar errores?
+* ¿Cómo hacer que el sistema sea modular?
+* ¿Cómo agregar una nueva fuente sin romper las existentes?
+* ¿Qué parte debería ejecutarse automáticamente?
+* ¿Qué parte debería permanecer estática?
+
+No busco simplemente **hacer que funcione**.
+
+Intento entender **por qué funciona y cuál es la mejor forma de hacerlo**.
+
+Y muchas veces esa investigación termina siendo más interesante que el proyecto original.
+
+---
+
+## 🧠 El resultado no es solamente el código
+
+Cada proyecto deja algo más.
+
+Deja conocimiento.
+
+Una API que investigué puede terminar siendo útil en otro proyecto.
+
+Una arquitectura que probé puede convertirse en la base de otra herramienta.
+
+Un problema que resolví puede evitarle horas de investigación a otra persona.
+
+Y una solución que descarté también puede ser útil si explica **por qué decidí no utilizarla**.
+
+Por eso intento documentar no solamente el resultado final, sino también el camino.
+
+```text
+Pregunta
+   ↓
+Investigación
+   ↓
+Experimentos
+   ↓
+Problemas
+   ↓
+Alternativas
+   ↓
+Decisiones
+   ↓
+Implementación
+   ↓
+Resultado
+   ↓
+Aprendizaje
+```
+
+---
+
+## 🌐 Todo está abierto
+
+Los proyectos de SolarisPKN-Labs están pensados para ser explorados.
+
+Podés mirar el código.
+
+Podés probar las herramientas.
+
+Podés estudiar la arquitectura.
+
+Podés modificar lo que quieras.
+
+Podés tomar una idea y convertirla en tu propio proyecto.
+
+Y si algo de lo que encontrás acá te ayuda a resolver un problema que tenías, entonces el experimento ya cumplió otra función.
+
+No hace falta que reproduzcas exactamente lo que hice.
+
+**La idea es que puedas partir desde donde yo llegué y llevarlo todavía más lejos.**
+
+---
+
+## 🧪 Un laboratorio en constante evolución
+
+SolarisPKN-Labs no es un proyecto terminado.
+
+Y probablemente nunca lo sea.
+
+Mientras siga apareciendo una pregunta que me dé curiosidad, probablemente termine apareciendo algún experimento para intentar responderla.
+
+Algunos van a funcionar.
+
+Otros no.
+
+Algunos van a convertirse en herramientas reales.
+
+Otros van a quedar como pruebas de concepto.
+
+Y seguramente algunos terminen enseñándome mucho más por haber fallado que por haber funcionado.
+
+Todo eso forma parte del laboratorio.
+
+---
+
+# 🚀 Bienvenidos a SolarisPKN-Labs
+
+Este es el lugar donde las ideas se convierten en experimentos.
+
+Donde los experimentos se convierten en proyectos.
+
+Y donde los proyectos se convierten en conocimiento que puede ser reutilizado por otros.
+
+**No solamente quiero mostrarte qué construí.**
+
+**Quiero mostrarte cómo llegué hasta ahí.**
+
+Así que explorá, probá, rompé cosas, aprendé y, si encontrás una idea que te interese...
+
+**hacé tu propio experimento.**
+
+> 🔬 **SolarisPKN-Labs — Experiment. Learn. Build. Share.**
