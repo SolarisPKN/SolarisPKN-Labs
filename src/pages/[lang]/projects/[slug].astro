@@ -250,6 +250,9 @@ const githubUrl = meta.links?.github || '';
 <!-- ============================================================ -->
 <!-- SCRIPT: fetch de Stats.json + render de todo -->
 <!-- ============================================================ -->
+ <script>
+  import '../../../scripts/projectExplainer.js';
+</script>
 <script define:vars={{ projectId, githubUrl }}>
   (async function loadLiveStats() {
     const statsUrl = `https://raw.githubusercontent.com/SolarisPKN/SolarisPKN-Stats/main/${projectId}/Stats.json`;

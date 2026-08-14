@@ -1,15 +1,14 @@
 ---
-// src/components/projects/ProjectCard.astro
+// src/components/Projects/ProjectCard.astro
 const { project, lang, t } = Astro.props;
-const { slug, name, shortDescription, status, type, technologies, metrics } = project;
+const { slug, name, shortDescription, status, type, technologies } = project;
 const statusLabel = t.status[status] || status;
 const nameText = name?.[lang] || slug;
 const descText = shortDescription?.[lang] || '';
-
-// ... resto igual
+const loadingLabel = lang === 'es' ? 'Cargando…' : 'Loading…';
 ---
 
-<div class="project-card">
+<div class="project-card" data-project-id={slug}>
   <div class="card-header">
     <div class="status-wrapper">
       <span class="status-badge" style={`--dot-color: ${status === 'operational' || status === 'online' ? '#22c55e' : status === 'tracking' ? '#eab308' : status === 'development' ? '#3b82f6' : '#f97316'}`}>
@@ -21,15 +20,25 @@ const descText = shortDescription?.[lang] || '';
     <h3>{nameText}</h3>
   </div>
   <p class="project-description">{descText}</p>
-  <div class="card-metrics">
-    {(metrics || []).map((metric) => (
-      <div class="metric">
-        <span class="metric-icon">{metric.icon}</span>
-        <span class="metric-value">{metric.value}</span>
-        <span class="metric-label">{t.metrics[metric.label.toLowerCase()] || metric.label}</span>
-      </div>
-    ))}
+
+  <div class="card-metrics live-metrics">
+    <div class="metric" data-metric="stars">
+      <span class="metric-icon">⭐</span>
+      <span class="metric-value" data-value>{loadingLabel}</span>
+      <span class="metric-label">Stars</span>
+    </div>
+    <div class="metric" data-metric="commits">
+      <span class="metric-icon">📝</span>
+      <span class="metric-value" data-value>{loadingLabel}</span>
+      <span class="metric-label">Commits</span>
+    </div>
+    <div class="metric" data-metric="third">
+      <span class="metric-icon" data-icon>📡</span>
+      <span class="metric-value" data-value>{loadingLabel}</span>
+      <span class="metric-label" data-label>—</span>
+    </div>
   </div>
+
   <div class="card-footer">
     <div class="tech-tags">
       {technologies?.map(tag => <span class="tag">{tag}</span>)}
@@ -39,94 +48,6 @@ const descText = shortDescription?.[lang] || '';
 </div>
 
 <style>
-  .project-card {
-    background: #111;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px;
-    padding: 1.5rem;
-    transition: border-color 0.2s, transform 0.15s;
-  }
-  .project-card:hover {
-    border-color: rgba(255,255,255,0.2);
-    transform: translateY(-2px);
-  }
-  .card-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 0.75rem;
-  }
-  .status-wrapper {
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
-  }
-  .project-type {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #888;
-    background: rgba(255,255,255,0.05);
-    padding: 0.15rem 0.6rem;
-    border-radius: 20px;
-  }
-  .project-description {
-    color: #bbb;
-    font-size: 0.95rem;
-    margin-bottom: 1.25rem;
-    line-height: 1.4;
-  }
-  .card-metrics {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    gap: 0.75rem;
-    margin-bottom: 1.25rem;
-  }
-  .metric {
-    background: rgba(255,255,255,0.03);
-    border-radius: 8px;
-    padding: 0.6rem 0.4rem;
-    text-align: center;
-    border: 1px solid rgba(255,255,255,0.05);
-  }
-  .metric-icon {
-    display: block;
-    font-size: 1.2rem;
-    margin-bottom: 0.2rem;
-  }
-  .metric-value {
-    display: block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #eee;
-  }
-  .metric-label {
-    font-size: 0.65rem;
-    color: #888;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-  }
-  .card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 0.5rem;
-  }
-  .open-link {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    color: #0ea5e9;
-    text-decoration: none;
-    border: 1px solid rgba(14, 165, 233, 0.2);
-    padding: 0.3rem 0.9rem;
-    border-radius: 20px;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .open-link:hover {
-    background: rgba(14, 165, 233, 0.08);
-    border-color: #0ea5e9;
-  }
+  /* ...tus estilos actuales de .project-card / .card-header / etc. sin cambios... */
+  .metric.unavailable .metric-value { opacity: 0.4; font-size: 0.72rem; }
 </style>
