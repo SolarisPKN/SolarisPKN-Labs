@@ -1,25 +1,28 @@
 {
-  "id": "SolarisPKN-Labs",
-  "type": "infrastructure",
+  "id": "SolarisPKN-Stats",
+  "type": "automation",
   "status": "operational",
-  "technologies": ["Cloudflare", "DNS", "TLS 1.3", "DNSSEC", "Astro", "Cloudflare Pages"],
+  "name": {
+    "es": "SolarisPKN-Stats",
+    "en": "SolarisPKN-Stats"
+  },
+  "shortDescription": {
+    "es": "Recolección automatizada de estadísticas multi-plataforma con GitHub, Cloudflare y PageSpeed Insights.",
+    "en": "Automated multi-platform stats collection across GitHub, Cloudflare, and PageSpeed Insights."
+  },
+  "technologies": ["GitHub Actions", "Cloudflare Workers", "GitHub API", "PageSpeed API"],
   "metrics": [
-    { "label": "Requests", "value": "12.4K", "icon": "🌐" },
-    { "label": "Response", "value": "142ms", "icon": "⚡" },
-    { "label": "Availability", "value": "99.9%", "icon": "🛡" }
+    { "label": "requests", "value": "—", "icon": "📡" },
+    { "label": "availability", "value": "99.9%", "icon": "🛡" }
   ],
   "links": {
-     "live": "https://labs.solarispkn.com.ar",
-     "docs": "https://labs.solarispkn.com.ar/arquitectura",
-     "github": "https://github.com/SolarisPKN/SolarisPKN-Labs"
+    "github": "https://github.com/SolarisPKN/SolarisPKN-Stats"
   },
   "details": {
-    "architecture": "Distributed edge network with Cloudflare Workers and Pages.",
-    "features": ["Global CDN", "Automatic SSL", "DDoS Protection", "Load Balancing"],
-    "uptime": "99.99%",
-    "lastUpdated": "2026-07-20"
+    "architecture": "Scheduler en Cloudflare Workers + conectores REST/GraphQL, salida en JSON abierto.",
+    "features": ["Multi-plataforma", "JSON abierto", "Cero mantenimiento"],
+    "uptime": "N/A",
+    "lastUpdated": "2026-08-14"
   },
-  "heroImage": "/images/projects/cloud-infrastructure/hero.webp",
-  "images": ["/images/projects/cloud-infrastructure/diagram.png"],
-  "apiEndpoint": "https://api.example.com/metrics/cloud-infrastructure"
+  "heroImage": ""
 }
