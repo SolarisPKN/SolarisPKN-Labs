@@ -38,5 +38,19 @@
     "architecture": "ARQUITECTURA",
     "liveData": "DATOS EN VIVO",
     "documentation": "DOCUMENTACIÓN"
+  },
+  "categories": {
+  "core": {
+    "title": "Core Labs",
+    "subtitle": "Los proyectos pilares de todo SolarisPKN — la base sobre la que se construye el resto."
+  },
+  "derived": {
+    "title": "Derived Labs",
+    "subtitle": "Proyectos que nacieron a partir de los Core Labs: soluciones adaptadas para clientes y casos reales."
+  },
+  "external": {
+    "title": "External Labs",
+    "subtitle": "Estudios, documentación y experimentación con plataformas fuera de nuestro ecosistema: Figma, Magic Patterns, GitLab y más."
   }
+}
 }

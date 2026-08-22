@@ -1,0 +1,93 @@
+{
+  "hero": {
+    "badge": "ESP32 · IoT · Automatización",
+    "tituloParte1": "Control remoto de PC",
+    "tituloDestacado": "sin depender del sistema operativo",
+    "descripcion": "SolarisPKN-Control es un sistema de encendido y apagado remoto basado en ESP32 y Arduino IoT Cloud. Simula físicamente el botón Power SW de la placa madre, así que funciona incluso si el sistema operativo está congelado o no responde."
+  },
+  "filosofia": {
+    "label": "Filosofía",
+    "quote": "Si el software se cuelga, el hardware sigue respondiendo."
+  },
+  "features": {
+    "label": "Funcionalidad",
+    "titulo": "Qué hace",
+    "items": [
+      { "emoji": "🔘", "label": "Encendido", "titulo": "Pulsación corta", "texto": "Simula una pulsación normal del botón Power — enciende la PC o dispara un apagado prolijo si el sistema operativo lo soporta." },
+      { "emoji": "⏻", "label": "Apagado forzado", "titulo": "Pulsación larga (15s)", "texto": "Mantiene la señal 15 segundos para forzar el apagado, igual que lo harías físicamente con el dedo en el gabinete." },
+      { "emoji": "🔋", "label": "Eficiencia", "titulo": "Firmware optimizado", "texto": "CPU del ESP32 reducida de 240 a 80 MHz, Bluetooth desactivado y WiFi en modo ahorro — pensado para andar prendido 24/7 sin consumir de más." },
+      { "emoji": "🧩", "label": "Independencia", "titulo": "Cero software en la PC", "texto": "No requiere instalar nada en el sistema operativo. Toda la lógica vive en el ESP32, aislada del equipo que controla." }
+    ]
+  },
+  "architecture": {
+    "label": "Arquitectura",
+    "titulo": "Cómo llega la señal al gabinete",
+    "flow": [
+      { "id": "Arduino IoT Cloud", "desc": "Panel / App" },
+      { "id": "ESP32", "desc": "Firmware C++" },
+      { "id": "Relé", "desc": "Aislación eléctrica" },
+      { "id": "Placa madre", "desc": "Pines Power SW" }
+    ],
+    "storageTitulo": "Firmware — mapeo de pines",
+    "storageCode": "#define RELAY_PIN 5\n#define PRESS_SHORT_MS 300\n#define PRESS_LONG_MS 15000\n\ndigitalWrite(RELAY_PIN, HIGH);\ndelay(duration);\ndigitalWrite(RELAY_PIN, LOW);",
+    "registryTitulo": "Arduino IoT Cloud — variable de control",
+    "registryCode": "CloudSwitch powerButton;\n\nvoid onPowerButtonChange() {\n  triggerPress(powerButton ? LONG : SHORT);\n}"
+  },
+  "connectors": {
+    "label": "Integraciones",
+    "titulo": "Con qué se conecta",
+    "viaLabel": "Vía",
+    "metricsLabel": "Puntos clave",
+    "items": [
+      {
+        "emoji": "☁️",
+        "name": "Arduino IoT Cloud",
+        "api": "Arduino Cloud API",
+        "desc": "Control remoto desde el dashboard oficial o la app móvil, sin exponer puertos propios a internet.",
+        "metrics": ["Autenticación propia de Arduino", "Variables sincronizadas en tiempo real", "Acceso desde cualquier dispositivo"]
+      },
+      {
+        "emoji": "🖥️",
+        "name": "VPN + Sunshine/Moonlight",
+        "api": "WireGuard / Tailscale",
+        "desc": "Combinado con streaming de escritorio para acceso remoto completo: encendés la PC y te conectás a la sesión, todo sin exponerla directamente a internet.",
+        "metrics": ["Casos de uso: gaming remoto, streaming 24/7", "Homelabs y servidores personales", "Estaciones de trabajo remotas"]
+      }
+    ]
+  },
+  "techStack": {
+    "label": "Stack",
+    "titulo": "Con qué está hecho",
+    "items": [
+      { "name": "ESP32", "role": "Microcontrolador principal" },
+      { "name": "Arduino IoT Cloud", "role": "Panel de control y variables" },
+      { "name": "C++", "role": "Firmware" },
+      { "name": "Módulo relé", "role": "Interfaz física con la placa madre" }
+    ]
+  },
+  "security": {
+    "label": "Seguridad",
+    "titulo": "Cómo se piensa la seguridad acá",
+    "items": [
+      "Sin conexión eléctrica directa entre el ESP32 y la placa madre — el relé aísla ambos circuitos.",
+      "No depende de accesos remotos por software (RDP, VNC) en el sistema operativo, así que reduce la superficie de ataque del equipo controlado.",
+      "El acceso remoto recomendado es siempre vía VPN (WireGuard/Tailscale), nunca exponiendo puertos directo a internet.",
+      "La autenticación de encendido/apagado queda delegada a Arduino IoT Cloud, no a un servidor propio expuesto."
+    ]
+  },
+  "roadmap": {
+    "label": "Roadmap",
+    "titulo": "Qué sigue",
+    "phases": [
+      {
+        "num": "v2.0",
+        "name": "Próximas mejoras",
+        "items": ["Wake-on-LAN híbrido", "Monitor de estado de la PC", "Notificaciones", "API local", "Automatización avanzada"]
+      }
+    ]
+  },
+  "cta": {
+    "titulo": "¿Querés armar el tuyo?",
+    "descripcion": "El proyecto es open source bajo licencia MIT, con documentación y diagramas de conexión completos en el repositorio de GitHub."
+  }
+}

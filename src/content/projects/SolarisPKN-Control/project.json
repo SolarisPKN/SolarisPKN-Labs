@@ -1,25 +1,20 @@
 {
-  "id": "SolarisPKN-Labs",
-  "type": "infrastructure",
-  "status": "operational",
-  "technologies": ["Cloudflare", "DNS", "TLS 1.3", "DNSSEC", "Astro", "Cloudflare Pages"],
-  "metrics": [
-    { "label": "Requests", "value": "12.4K", "icon": "🌐" },
-    { "label": "Response", "value": "142ms", "icon": "⚡" },
-    { "label": "Availability", "value": "99.9%", "icon": "🛡" }
-  ],
+  "id": "solarispkn-control",
+  "type": "hardware",
+  "status": "development",
+  "category": "core",
+  "name": { "es": "SolarisPKN-Control", "en": "SolarisPKN-Control" },
+  "shortDescription": {
+    "es": "Control remoto de encendido y apagado de PC vía ESP32 y Arduino IoT Cloud, sin depender del sistema operativo.",
+    "en": "Remote PC power control via ESP32 and Arduino IoT Cloud, independent of the operating system."
+  },
+  "technologies": ["ESP32", "Arduino IoT Cloud", "C++", "IoT"],
   "links": {
-     "live": "https://labs.solarispkn.com.ar",
-     "docs": "https://labs.solarispkn.com.ar/arquitectura",
-     "github": "https://github.com/SolarisPKN/SolarisPKN-Labs"
+    "github": "https://github.com/SolarisPKN/SolarisPKN-Control"
   },
   "details": {
-    "architecture": "Distributed edge network with Cloudflare Workers and Pages.",
-    "features": ["Global CDN", "Automatic SSL", "DDoS Protection", "Load Balancing"],
-    "uptime": "99.99%",
-    "lastUpdated": "2026-07-20"
-  },
-  "heroImage": "/images/projects/cloud-infrastructure/hero.webp",
-  "images": ["/images/projects/cloud-infrastructure/diagram.png"],
-  "apiEndpoint": "https://api.example.com/metrics/cloud-infrastructure"
+    "architecture": "ESP32 conectado a Arduino IoT Cloud, controla un relé cableado a los pines Power SW de la placa madre.",
+    "features": ["Encendido con pulsación corta", "Apagado forzado con pulsación larga (15s)", "Firmware optimizado para consumo"],
+    "uptime": "N/A"
+  }
 }

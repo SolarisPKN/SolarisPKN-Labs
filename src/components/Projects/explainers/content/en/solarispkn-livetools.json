@@ -1,0 +1,88 @@
+{
+  "hero": {
+    "badge": "Streaming · Automation · Production",
+    "tituloParte1": "Solaris Media Production Suite",
+    "tituloDestacado": "tools for content creators",
+    "descripcion": "SolarisPKN-LiveTools is a long-term initiative: a unified ecosystem of tools, automations, and integrations built for streaming production. It starts with a first public module and keeps growing over time."
+  },
+  "filosofia": {
+    "label": "Philosophy",
+    "quote": "Streaming platforms don't talk to each other — so we built the bridge."
+  },
+  "features": {
+    "label": "Current status",
+    "titulo": "What's available today",
+    "items": [
+      { "emoji": "🔄", "label": "Active module", "titulo": "StreamElements ↔ Streamer.bot Sync", "texto": "Syncs and migrates loyalty points between both platforms, so the community's history isn't lost when switching tools." },
+      { "emoji": "🧱", "label": "Architecture", "titulo": "Modular suite", "texto": "Each integration is an independent module — they're added one at a time, without depending on each other." },
+      { "emoji": "🚧", "label": "Growing", "titulo": "First public steps", "texto": "This is the first released module of a larger suite, still under active development." }
+    ]
+  },
+  "architecture": {
+    "label": "Architecture",
+    "titulo": "How the platforms connect",
+    "flow": [
+      { "id": "StreamElements", "desc": "Loyalty points" },
+      { "id": "Sync Module", "desc": "Integration" },
+      { "id": "Streamer.bot", "desc": "Loyalty points" }
+    ],
+    "storageTitulo": "Sync concept",
+    "storageCode": "// Reads balance from StreamElements\n// Writes equivalent balance to Streamer.bot\n// Keeps both sources consistent",
+    "registryTitulo": "Module status",
+    "registryCode": "status: \"active\"\nplatforms: [\"StreamElements\", \"Streamer.bot\"]\ntype: \"bidirectional sync\""
+  },
+  "connectors": {
+    "label": "Integrations",
+    "titulo": "Connected platforms",
+    "viaLabel": "Via",
+    "metricsLabel": "Key points",
+    "items": [
+      {
+        "emoji": "🎯",
+        "name": "StreamElements",
+        "api": "StreamElements API",
+        "desc": "Overlay, alert, and loyalty-points platform for streamers.",
+        "metrics": ["Points sync", "Community history migration"]
+      },
+      {
+        "emoji": "🤖",
+        "name": "Streamer.bot",
+        "api": "Streamer.bot API",
+        "desc": "Local automation engine for streams — actions, triggers, and chat bots.",
+        "metrics": ["Receives synced points", "Foundation for future automations"]
+      }
+    ]
+  },
+  "techStack": {
+    "label": "Stack",
+    "titulo": "What it's built with",
+    "items": [
+      { "name": "StreamElements API", "role": "Loyalty data source" },
+      { "name": "Streamer.bot API", "role": "Sync destination" },
+      { "name": "Webhooks", "role": "Inter-module communication" }
+    ]
+  },
+  "security": {
+    "label": "Security",
+    "titulo": "How access is handled",
+    "items": [
+      "Each module uses its own platform-specific credentials/API keys, without sharing secrets between integrations.",
+      "Designed to run locally or on your own infrastructure, not as a publicly exposed service."
+    ]
+  },
+  "roadmap": {
+    "label": "Roadmap",
+    "titulo": "Where the suite is headed",
+    "phases": [
+      {
+        "num": "Next",
+        "name": "Suite expansion",
+        "items": ["Additional cross-platform integrations", "Community management tools", "Production automation", "Creator-focused utilities", "Analytics and monitoring", "Multi-platform communication"]
+      }
+    ]
+  },
+  "cta": {
+    "titulo": "A growing suite",
+    "descripcion": "This is just the first public module. The GitHub repository documents the current status and the full roadmap."
+  }
+}

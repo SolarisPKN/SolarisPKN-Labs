@@ -1,25 +1,20 @@
 {
-  "id": "SolarisPKN-Labs",
-  "type": "infrastructure",
-  "status": "operational",
-  "technologies": ["Cloudflare", "DNS", "TLS 1.3", "DNSSEC", "Astro", "Cloudflare Pages"],
-  "metrics": [
-    { "label": "Requests", "value": "12.4K", "icon": "🌐" },
-    { "label": "Response", "value": "142ms", "icon": "⚡" },
-    { "label": "Availability", "value": "99.9%", "icon": "🛡" }
-  ],
+  "id": "solarispkn-livetools",
+  "type": "automation",
+  "status": "development",
+  "category": "core",
+  "name": { "es": "SolarisPKN-LiveTools", "en": "SolarisPKN-LiveTools" },
+  "shortDescription": {
+    "es": "Ecosistema de herramientas y automatizaciones para producción de streaming, con integraciones entre plataformas de creadores de contenido.",
+    "en": "Ecosystem of tools and automations for streaming production, with integrations across content-creator platforms."
+  },
+  "technologies": ["StreamElements", "Streamer.bot", "Webhooks", "Automation"],
   "links": {
-     "live": "https://labs.solarispkn.com.ar",
-     "docs": "https://labs.solarispkn.com.ar/arquitectura",
-     "github": "https://github.com/SolarisPKN/SolarisPKN-Labs"
+    "github": "https://github.com/SolarisPKN/SolarisPKN-LiveTools"
   },
   "details": {
-    "architecture": "Distributed edge network with Cloudflare Workers and Pages.",
-    "features": ["Global CDN", "Automatic SSL", "DDoS Protection", "Load Balancing"],
-    "uptime": "99.99%",
-    "lastUpdated": "2026-07-20"
-  },
-  "heroImage": "/images/projects/cloud-infrastructure/hero.webp",
-  "images": ["/images/projects/cloud-infrastructure/diagram.png"],
-  "apiEndpoint": "https://api.example.com/metrics/cloud-infrastructure"
+    "architecture": "Suite modular de integraciones — cada módulo conecta dos o más plataformas de streaming/producción entre sí.",
+    "features": ["Sincronización de puntos de lealtad StreamElements ↔ Streamer.bot", "Arquitectura modular y en expansión"],
+    "uptime": "N/A"
+  }
 }

@@ -1,0 +1,93 @@
+{
+  "hero": {
+    "badge": "ESP32 · IoT · Automation",
+    "tituloParte1": "Remote PC control",
+    "tituloDestacado": "without depending on the operating system",
+    "descripcion": "SolarisPKN-Control is a remote power-on/power-off system built on ESP32 and Arduino IoT Cloud. It physically simulates the motherboard's Power SW button, so it keeps working even if the operating system is frozen or unresponsive."
+  },
+  "filosofia": {
+    "label": "Philosophy",
+    "quote": "If the software freezes, the hardware still answers."
+  },
+  "features": {
+    "label": "Functionality",
+    "titulo": "What it does",
+    "items": [
+      { "emoji": "🔘", "label": "Power on", "titulo": "Short press", "texto": "Simulates a normal Power button press — turns the PC on, or triggers a graceful shutdown if the OS supports it." },
+      { "emoji": "⏻", "label": "Forced shutdown", "titulo": "Long press (15s)", "texto": "Holds the signal for 15 seconds to force a shutdown, exactly like holding the physical button on the case." },
+      { "emoji": "🔋", "label": "Efficiency", "titulo": "Optimized firmware", "texto": "ESP32 CPU underclocked from 240 to 80 MHz, Bluetooth disabled, and WiFi in power-save mode — built to run 24/7 without wasting power." },
+      { "emoji": "🧩", "label": "Independence", "titulo": "Zero software on the PC", "texto": "No installation needed on the operating system. All the logic lives on the ESP32, isolated from the machine it controls." }
+    ]
+  },
+  "architecture": {
+    "label": "Architecture",
+    "titulo": "How the signal reaches the case",
+    "flow": [
+      { "id": "Arduino IoT Cloud", "desc": "Dashboard / App" },
+      { "id": "ESP32", "desc": "C++ firmware" },
+      { "id": "Relay", "desc": "Electrical isolation" },
+      { "id": "Motherboard", "desc": "Power SW pins" }
+    ],
+    "storageTitulo": "Firmware — pin mapping",
+    "storageCode": "#define RELAY_PIN 5\n#define PRESS_SHORT_MS 300\n#define PRESS_LONG_MS 15000\n\ndigitalWrite(RELAY_PIN, HIGH);\ndelay(duration);\ndigitalWrite(RELAY_PIN, LOW);",
+    "registryTitulo": "Arduino IoT Cloud — control variable",
+    "registryCode": "CloudSwitch powerButton;\n\nvoid onPowerButtonChange() {\n  triggerPress(powerButton ? LONG : SHORT);\n}"
+  },
+  "connectors": {
+    "label": "Integrations",
+    "titulo": "What it connects to",
+    "viaLabel": "Via",
+    "metricsLabel": "Key points",
+    "items": [
+      {
+        "emoji": "☁️",
+        "name": "Arduino IoT Cloud",
+        "api": "Arduino Cloud API",
+        "desc": "Remote control from the official dashboard or mobile app, without exposing any ports of your own to the internet.",
+        "metrics": ["Arduino's own authentication", "Real-time synced variables", "Access from any device"]
+      },
+      {
+        "emoji": "🖥️",
+        "name": "VPN + Sunshine/Moonlight",
+        "api": "WireGuard / Tailscale",
+        "desc": "Paired with desktop streaming for full remote access: power the PC on and connect straight into the session, without exposing it directly to the internet.",
+        "metrics": ["Use cases: remote gaming, 24/7 streaming", "Homelabs and personal servers", "Remote workstations"]
+      }
+    ]
+  },
+  "techStack": {
+    "label": "Stack",
+    "titulo": "What it's built with",
+    "items": [
+      { "name": "ESP32", "role": "Main microcontroller" },
+      { "name": "Arduino IoT Cloud", "role": "Control panel and variables" },
+      { "name": "C++", "role": "Firmware" },
+      { "name": "Relay module", "role": "Physical interface with the motherboard" }
+    ]
+  },
+  "security": {
+    "label": "Security",
+    "titulo": "How security is handled here",
+    "items": [
+      "No direct electrical connection between the ESP32 and the motherboard — the relay isolates both circuits.",
+      "Doesn't rely on remote-access software (RDP, VNC) on the operating system, reducing the controlled machine's attack surface.",
+      "Recommended remote access is always via VPN (WireGuard/Tailscale), never exposing ports directly to the internet.",
+      "Power-on/off authentication is delegated to Arduino IoT Cloud, not to a self-hosted, exposed server."
+    ]
+  },
+  "roadmap": {
+    "label": "Roadmap",
+    "titulo": "What's next",
+    "phases": [
+      {
+        "num": "v2.0",
+        "name": "Upcoming improvements",
+        "items": ["Hybrid Wake-on-LAN", "PC status monitor", "Notifications", "Local API", "Advanced automation"]
+      }
+    ]
+  },
+  "cta": {
+    "titulo": "Want to build your own?",
+    "descripcion": "The project is open source under the MIT license, with full documentation and wiring diagrams available in the GitHub repository."
+  }
+}

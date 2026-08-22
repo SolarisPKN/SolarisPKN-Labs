@@ -1,0 +1,88 @@
+{
+  "hero": {
+    "badge": "Streaming · Automatización · Producción",
+    "tituloParte1": "Solaris Media Production Suite",
+    "tituloDestacado": "herramientas para creadores de contenido",
+    "descripcion": "SolarisPKN-LiveTools es una iniciativa a largo plazo: un ecosistema unificado de herramientas, automatizaciones e integraciones pensado para producción de streaming. Empieza con un primer módulo público y va a ir creciendo con el tiempo."
+  },
+  "filosofia": {
+    "label": "Filosofía",
+    "quote": "Las plataformas de streaming no se hablan entre sí — así que construimos el puente."
+  },
+  "features": {
+    "label": "Estado actual",
+    "titulo": "Qué hay disponible hoy",
+    "items": [
+      { "emoji": "🔄", "label": "Módulo activo", "titulo": "Sync StreamElements ↔ Streamer.bot", "texto": "Sincronización y migración de puntos de lealtad entre ambas plataformas, para no perder el historial de la comunidad al cambiar de herramienta." },
+      { "emoji": "🧱", "label": "Arquitectura", "titulo": "Suite modular", "texto": "Cada integración es un módulo independiente — se suman de a uno, sin depender entre sí." },
+      { "emoji": "🚧", "label": "En crecimiento", "titulo": "Primeros pasos públicos", "texto": "Este es el primer módulo liberado de una suite más grande, todavía en desarrollo activo." }
+    ]
+  },
+  "architecture": {
+    "label": "Arquitectura",
+    "titulo": "Cómo se conectan las plataformas",
+    "flow": [
+      { "id": "StreamElements", "desc": "Puntos de lealtad" },
+      { "id": "Módulo Sync", "desc": "Integración" },
+      { "id": "Streamer.bot", "desc": "Puntos de lealtad" }
+    ],
+    "storageTitulo": "Concepto de sincronización",
+    "storageCode": "// Lee balance en StreamElements\n// Escribe balance equivalente en Streamer.bot\n// Mantiene ambas fuentes consistentes",
+    "registryTitulo": "Estado del módulo",
+    "registryCode": "status: \"activo\"\nplataformas: [\"StreamElements\", \"Streamer.bot\"]\ntipo: \"sync bidireccional\""
+  },
+  "connectors": {
+    "label": "Integraciones",
+    "titulo": "Plataformas conectadas",
+    "viaLabel": "Vía",
+    "metricsLabel": "Puntos clave",
+    "items": [
+      {
+        "emoji": "🎯",
+        "name": "StreamElements",
+        "api": "StreamElements API",
+        "desc": "Plataforma de overlays, alertas y puntos de lealtad para streamers.",
+        "metrics": ["Sincronización de puntos", "Migración de historial de comunidad"]
+      },
+      {
+        "emoji": "🤖",
+        "name": "Streamer.bot",
+        "api": "Streamer.bot API",
+        "desc": "Motor de automatización local para streams — acciones, triggers y bots de chat.",
+        "metrics": ["Recepción de puntos sincronizados", "Base para automatizaciones futuras"]
+      }
+    ]
+  },
+  "techStack": {
+    "label": "Stack",
+    "titulo": "Con qué está hecho",
+    "items": [
+      { "name": "StreamElements API", "role": "Fuente de datos de lealtad" },
+      { "name": "Streamer.bot API", "role": "Destino de sincronización" },
+      { "name": "Webhooks", "role": "Comunicación entre módulos" }
+    ]
+  },
+  "security": {
+    "label": "Seguridad",
+    "titulo": "Cómo se maneja el acceso",
+    "items": [
+      "Cada módulo usa las credenciales/API keys propias de cada plataforma, sin compartir secretos entre integraciones.",
+      "Pensado para correr en local o en infraestructura propia, no como servicio expuesto públicamente."
+    ]
+  },
+  "roadmap": {
+    "label": "Roadmap",
+    "titulo": "Hacia dónde va la suite",
+    "phases": [
+      {
+        "num": "Próximo",
+        "name": "Expansión de la suite",
+        "items": ["Integraciones multiplataforma adicionales", "Herramientas de gestión de comunidad", "Automatización de producción", "Utilidades para creadores", "Analítica y monitoreo", "Comunicación multiplataforma"]
+      }
+    ]
+  },
+  "cta": {
+    "titulo": "Una suite en crecimiento",
+    "descripcion": "Este es solo el primer módulo público. El repositorio en GitHub documenta el estado actual y el roadmap completo del proyecto."
+  }
+}
