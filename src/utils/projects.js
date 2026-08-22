@@ -1,36 +1,37 @@
-// src/utils/projects.js
+// src/utils/explainers.js
 import fs from 'fs';
 import path from 'path';
 
 /**
- * Lee todos los proyectos desde src/content/projects/.
- * Fuente única de verdad — index.astro, core-labs.astro,
- * derived-labs.astro y external-labs.astro usan esta misma función,
- * para no repetir (y desincronizar) la lógica de lectura.
+ * Recorre src/components/Projects/explainers/ (menos la subcarpeta content/)
+ * buscando archivos .astro, sin importar en qué subcarpeta de categoría estén.
+ * El match es por nombre de archivo (minúscula), no por ubicación física —
+ * así un proyecto puede cambiar de categoría sin mover el .astro de lugar.
+ *
+ * Vive en su propio archivo (y no como función suelta dentro de [slug].astro)
+ * porque getStaticPaths() corre en un scope aislado en Astro: solo puede usar
+ * imports, nunca funciones/constantes declaradas como top-level del mismo
+ * archivo .astro. Este fue justo el bug que rompió el deploy.
  */
-export function loadAllProjects() {
+export function findExplainerAstroFiles() {
   const root = process.cwd();
-  const projectsBaseDir = path.join(root, 'src', 'content', 'projects');
-  const projects = [];
+  const explainersDir = path.join(root, 'src', 'components', 'Projects', 'explainers');
+  const found = {};
 
-  if (fs.existsSync(projectsBaseDir)) {
-    const slugs = fs.readdirSync(projectsBaseDir).filter(f =>
-      fs.statSync(path.join(projectsBaseDir, f)).isDirectory()
-    );
-    for (const slug of slugs) {
-      const metaPath = path.join(projectsBaseDir, slug, 'project.json');
-      if (fs.existsSync(metaPath)) {
-        const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
-        projects.push({ slug, ...meta });
+  function walk(dir) {
+    if (!fs.existsSync(dir)) return;
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        if (entry.name === 'content') continue;
+        walk(full);
+      } else if (entry.isFile() && entry.name.endsWith('.astro')) {
+        const key = entry.name.replace(/\.astro$/, '').toLowerCase();
+        found[key] = full;
       }
     }
   }
 
-  return projects;
-}
-
-export function loadProjectsByCategory(category) {
-  return loadAllProjects()
-    .filter(p => p.category === category)
-    .sort((a, b) => a.slug.localeCompare(b.slug));
+  walk(explainersDir);
+  return found;
 }
