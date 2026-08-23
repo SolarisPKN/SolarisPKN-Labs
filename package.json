@@ -2,16 +2,21 @@
   "name": "labs.solarispkn.com.ar",
   "type": "module",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=9.6.5"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "check": "astro check",
     "preview": "astro preview",
     "create-post": "node scripts/create-post.js"
   },
   "dependencies": {
-    "@astrojs/react": "^3.6.0",
-    "@astrojs/sitemap": "^3.3.0",
-    "astro": "^4.0.0",
+    "@astrojs/react": "^6.0.4",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.2.4",
     "dompurify": "^3.4.10",
     "highlight.js": "^11.11.1",
     "isomorphic-dompurify": "^3.17.0",
@@ -23,10 +28,13 @@
     "sharp": "^0.35.3"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
     "fast-glob": "^3.3.3",
     "fs-extra": "^11.3.5",
     "inquirer": "^14.0.2",
     "slugify": "^1.6.9",
+    "typescript": "^6.0.3",
+    "vite": "^8.2.2",
     "wrangler": "^4.125.0"
   }
 }

@@ -3,8 +3,7 @@
 import Layout from '../layouts/Layout.astro';
 
 const url = Astro.url.pathname;
-let lang = 'es';
-if (url.startsWith('/en/')) lang = 'en';
+const lang = url.startsWith('/en/') ? 'en' : 'es';
 
 const t = await import(`../locales/${lang}/404.json`);
 ---

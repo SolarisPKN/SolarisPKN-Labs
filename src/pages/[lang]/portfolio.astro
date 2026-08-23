@@ -9,7 +9,7 @@ export async function getStaticPaths() {
   ];
 }
 
-const { lang } = Astro.params;
+const lang = Astro.params.lang === 'en' ? 'en' : 'es';
 
 import Layout from '../../layouts/Layout.astro';
 const t = await import(`../../locales/${lang}/portfolio.json`);
@@ -20,8 +20,8 @@ const common = await import(`../../locales/${lang}/common.json`);
 const certificates = skills.certificados ?? [];
 const defaultCert = certificates[0] ?? null;
 
-const categorias = [...new Set(skills.certificados.map(c => c.categoria))];
-const academias = [...new Set(skills.certificados.map(c => c.academia))];
+const categorias: string[] = [...new Set<string>(skills.certificados.map((c) => String(c.categoria)))];
+const academias: string[] = [...new Set<string>(skills.certificados.map((c) => String(c.academia)))];
 ---
 
 <Layout title="Portfolio - Pablo Marchetti Orayen" lang={lang} schema="person" certificates={skills.certificados} techSkills={skills.techIcons} coreSkills={skills.coreAreas.flatMap(area => area.items)}>
@@ -299,7 +299,7 @@ const academias = [...new Set(skills.certificados.map(c => c.academia))];
     function initPortfolio() {
       cleanupPortfolio();
 
-      const section = document.querySelector('.certificaciones[data-certificates]');
+      const section = document.querySelector<HTMLElement>('.certificaciones[data-certificates]');
       let certificates = [];
 
       try {
@@ -320,8 +320,9 @@ const academias = [...new Set(skills.certificados.map(c => c.academia))];
       };
     }
 
-    if (!window.__portfolioListenersAttached) {
-      window.__portfolioListenersAttached = true;
+    const portfolioWindow = window as typeof window & { __portfolioListenersAttached?: boolean };
+    if (!portfolioWindow.__portfolioListenersAttached) {
+      portfolioWindow.__portfolioListenersAttached = true;
       document.addEventListener('astro:page-load', initPortfolio);
       document.addEventListener('astro:before-swap', () => cleanupPortfolio());
     }

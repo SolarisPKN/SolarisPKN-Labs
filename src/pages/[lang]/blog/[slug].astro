@@ -33,7 +33,8 @@ export async function getStaticPaths() {
 // Obtener la raíz del proyecto
 // ==========================================
 const root = process.cwd();
-const { lang, slug } = Astro.params;
+const { slug } = Astro.params;
+const lang = Astro.params.lang === 'en' ? 'en' : 'es';
 
 // ==========================================
 // Construir rutas de archivos
@@ -69,7 +70,7 @@ const { date, tags, category, heroImage, images } = meta;
 const contentRaw = fs.readFileSync(mdxPath, 'utf-8');
 // Eliminar frontmatter por si acaso (aunque ya no debería tener)
 const contentWithoutFrontmatter = contentRaw.replace(/^---[\s\S]*?---\s*/, '');
-const rawHtml = marked.parse(contentWithoutFrontmatter);
+const rawHtml = await marked.parse(contentWithoutFrontmatter);
 const htmlContent = DOMPurify.sanitize(rawHtml);
 
 // ==========================================

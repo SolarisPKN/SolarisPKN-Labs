@@ -9,7 +9,7 @@ export async function getStaticPaths() {
   ];
 }
 
-const { lang } = Astro.params;
+const lang = Astro.params.lang === 'en' ? 'en' : 'es';
 
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/security.css'; // 🎨 Estilos separados

@@ -14,7 +14,7 @@ export async function getStaticPaths() {
   ];
 }
 
-const { lang } = Astro.params;
+const lang = Astro.params.lang === 'en' ? 'en' : 'es';
 
 // ==========================================
 // Leer todos los posts del sistema de archivos
@@ -47,7 +47,7 @@ if (fs.existsSync(blogBaseDir)) {
 }
 
 // Ordenar por fecha (más reciente primero)
-posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 // Tags únicos
 const allTags = [...new Set(posts.flatMap(p => p.tags || []))];

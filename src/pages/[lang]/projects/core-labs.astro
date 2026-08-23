@@ -8,7 +8,7 @@ export async function getStaticPaths() {
   ];
 }
 
-const { lang } = Astro.params;
+const lang = Astro.params.lang === 'en' ? 'en' : 'es';
 ---
 
 <ProjectCategoryPage lang={lang} category="core" />

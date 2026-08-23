@@ -1,8 +1,9 @@
 import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
+  // Preserve Astro 4's HTML-aware whitespace behavior and visual spacing.
+  compressHTML: true,
   site: 'https://labs.solarispkn.com.ar',
   base: '/',
   output: 'static',
@@ -16,7 +17,6 @@ export default defineConfig({
     domains: ['labs.solarispkn.com.ar'],
   },
   integrations: [
-    react(),
     sitemap({
       filter: (page) => {
         // Excluir páginas que no tienen idioma o que no queremos indexar

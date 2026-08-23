@@ -1,7 +1,7 @@
 ---
 // src/layouts/Layout.astro
 import SEO from '@components/SEO.astro';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import "@styles/global.css";
 import esFlag from '../assets/flags/es.svg?url';
 import enFlag from '../assets/flags/en.svg?url';
@@ -64,7 +64,7 @@ const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://labs.solar
       coreSkills={coreSkills}
     />
 
-    <ViewTransitions />
+    <ClientRouter />
 
     <!-- FUENTES -->
     <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />

@@ -11,7 +11,7 @@ export async function getStaticPaths() {
   ];
 }
 
-const { lang } = Astro.params;
+const lang = Astro.params.lang === 'en' ? 'en' : 'es';
 const t = await import(`../../../locales/${lang}/projects.json`);
 ---
 
