@@ -3,6 +3,8 @@
 import SEO from '@components/SEO.astro';
 import { ViewTransitions } from 'astro:transitions';
 import "@styles/global.css";
+import esFlag from '../assets/flags/es.svg?url';
+import enFlag from '../assets/flags/en.svg?url';
 
 export interface Props {
   title: string;
@@ -31,18 +33,14 @@ const {
 // Cargar traducciones
 const common = await import(`../locales/${lang}/common.json`);
 
-// Cargar banderas desde src/assets/flags/
-const flagModules = import.meta.glob('/src/assets/flags/*.svg', {
-  eager: true,
-  as: 'url',
-});
+// Dos imports estáticos son más robustos que un glob y pasan por Vite.
+const flags = { es: esFlag, en: enFlag } as const;
 
-const getFlagSrc = (langCode: string): string => {
-  const key = `/src/assets/flags/${langCode}.svg`;
-  return flagModules[key] || `/images/flags/${langCode}.svg`;
-};
+const getFlagSrc = (langCode: string): string =>
+  flags[langCode as keyof typeof flags] ?? flags.es;
 
 const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
+const languagePath = /^\/404(?:\.html)?\/?$/.test(Astro.url.pathname) ? '/' : pathWithoutLang;
 
 // URL base para usar en enlaces (opcional, para no hardcodear)
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://labs.solarispkn.com.ar';
@@ -122,12 +120,12 @@ const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://labs.solar
             </button>
             <ul id="lang-dropdown" class="lang-dropdown" role="menu" aria-labelledby="lang-btn">
               <li role="menuitem">
-                <a href={`/es${pathWithoutLang}`} data-lang="es">
+                <a href={`/es${languagePath}`} data-lang="es">
                   <img src={getFlagSrc('es')} alt="Español" width="20" height="15" loading="lazy" /> Español
                 </a>
               </li>
               <li role="menuitem">
-                <a href={`/en${pathWithoutLang}`} data-lang="en">
+                <a href={`/en${languagePath}`} data-lang="en">
                   <img src={getFlagSrc('en')} alt="English" width="20" height="15" loading="lazy" /> English
                 </a>
               </li>

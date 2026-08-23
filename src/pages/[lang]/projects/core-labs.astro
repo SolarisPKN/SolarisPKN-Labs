@@ -1,39 +1,14 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
-import ProjectCard from '../../../components/Projects/ProjectCard.astro';
-import { loadProjectsByCategory } from '../../../utils/projects.js';
+import ProjectCategoryPage from '../../../components/Projects/ProjectCategoryPage.astro';
 
 export async function getStaticPaths() {
   return [
     { params: { lang: 'es' } },
-    { params: { lang: 'en' } }
+    { params: { lang: 'en' } },
   ];
 }
 
 const { lang } = Astro.params;
-const projects = loadProjectsByCategory('core');
-const t = await import(`../../../locales/${lang}/projects.json`);
 ---
 
-<Layout title={t.categories.core.title} lang={lang}>
-  <main class="projects-page">
-    <header class="page-header">
-      <h1>{t.categories.core.title}</h1>
-      <p class="subtitle">{t.categories.core.subtitle}</p>
-    </header>
-    <div class="projects-grid">
-      {projects.map(project => (
-        <ProjectCard project={project} lang={lang} t={t} />
-      ))}
-    </div>
-  </main>
-</Layout>
-
-<style>
-  .projects-page { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
-  .page-header { margin-bottom: 2rem; }
-  .page-header h1 { font-size: 2.4rem; font-weight: 600; letter-spacing: -0.02em; color: #fff; }
-  .subtitle { color: #aaa; font-size: 1.1rem; margin-top: 0.3rem; }
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
-  @media (max-width: 640px) { .projects-grid { grid-template-columns: 1fr; } }
-</style>
+<ProjectCategoryPage lang={lang} category="core" />

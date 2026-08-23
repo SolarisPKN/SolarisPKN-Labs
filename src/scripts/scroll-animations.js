@@ -1,34 +1,48 @@
-// src/scripts/scroll-animations.js
 function initScrollReveal() {
-  const reveals = document.querySelectorAll('[data-reveal]');
-  if (!reveals.length) return;
+  window.__scrollRevealCleanup?.();
 
-  // Asegurar estado inicial oculto con inline styles para mayor control
-  reveals.forEach(el => {
-    // Si ya tiene la clase visible, la removemos temporalmente
-    el.classList.remove('visible');
-    // Aplicamos estilo inicial inline (se sobrescribirá con la clase cuando sea visible)
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
+  const reveals = document.querySelectorAll('[data-reveal]');
+  if (reveals.length === 0) {
+    window.__scrollRevealCleanup = () => {};
+    return;
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    reveals.forEach((element) => element.classList.add('visible'));
+    window.__scrollRevealCleanup = () => {};
+    return;
+  }
+
+  reveals.forEach((element) => {
+    element.classList.remove('visible');
+    element.style.opacity = '0';
+    element.style.transform = 'translateY(30px)';
   });
 
-  // Pequeño retraso para que el navegador pinte los elementos y la transición de View Transitions se complete
-  setTimeout(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Aplicar clase y estilos finales
-          entry.target.classList.add('visible');
-          // Los estilos inline se sobrescriben con la clase, pero aseguramos el estado final
-          entry.target.style.opacity = '';
-          entry.target.style.transform = '';
-          observer.unobserve(entry.target);
-        }
+  let observer;
+  const timerId = window.setTimeout(() => {
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        entry.target.style.opacity = '';
+        entry.target.style.transform = '';
+        observer.unobserve(entry.target);
       });
     }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
 
-    reveals.forEach(el => observer.observe(el));
+    reveals.forEach((element) => observer.observe(element));
   }, 150);
+
+  window.__scrollRevealCleanup = () => {
+    clearTimeout(timerId);
+    observer?.disconnect();
+    window.__scrollRevealCleanup = () => {};
+  };
 }
 
-document.addEventListener('astro:page-load', initScrollReveal);
+if (!window.__scrollRevealListenersAttached) {
+  window.__scrollRevealListenersAttached = true;
+  document.addEventListener('astro:page-load', initScrollReveal);
+  document.addEventListener('astro:before-swap', () => window.__scrollRevealCleanup?.());
+}

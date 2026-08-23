@@ -16,13 +16,9 @@ const t = await import(`../../locales/${lang}/portfolio.json`);
 const skills = await import(`../../locales/${lang}/portfolioskills.json`);
 const common = await import(`../../locales/${lang}/common.json`);
 
-// 🔥 Mezclar aleatoriamente los certificados
-const shuffledCerts = skills.certificados 
-  ? [...skills.certificados].sort(() => Math.random() - 0.5)
-  : [];
-
-// El primer certificado será el seleccionado por defecto
-const defaultCert = shuffledCerts[0] || null;
+// El build conserva un orden determinista; el carrusel decide su muestra en el navegador.
+const certificates = skills.certificados ?? [];
+const defaultCert = certificates[0] ?? null;
 
 const categorias = [...new Set(skills.certificados.map(c => c.categoria))];
 const academias = [...new Set(skills.certificados.map(c => c.academia))];
@@ -45,13 +41,13 @@ const academias = [...new Set(skills.certificados.map(c => c.academia))];
           <p>📱 {t.contacto.whatsappTexto}<a href="https://wa.me/541170095771">{t.contacto.whatsapp}</a></p>
         </div>
         <div class="buttons-social">
-          <a href="https://www.linkedin.com/in/solarispkn" target="_blank" class="btn-social">
+          <a href="https://www.linkedin.com/in/solarispkn" target="_blank" rel="noopener noreferrer" class="btn-social">
             <img src="/images/portfolio/logos/linkedin.svg" alt="LinkedIn" loading="lazy" width="20" height="20" /> LinkedIn
           </a>
-          <a href="https://www.github.com/SolarisPKN" target="_blank" class="btn-social">
+          <a href="https://www.github.com/SolarisPKN" target="_blank" rel="noopener noreferrer" class="btn-social">
             <img src="/images/portfolio/logos/github.svg" alt="GitHub" loading="lazy" width="20" height="20" /> GitHub
           </a>
-          <a href="https://www.youtube.com/@SolarisPKN" target="_blank" class="btn-social">
+          <a href="https://www.youtube.com/@SolarisPKN" target="_blank" rel="noopener noreferrer" class="btn-social">
             <img src="/images/portfolio/logos/youtube.svg" alt="YouTube" loading="lazy" width="20" height="20" /> YouTube
           </a>
           <a href="/cv.pdf" download class="btn-social download">
@@ -175,7 +171,7 @@ const academias = [...new Set(skills.certificados.map(c => c.academia))];
     </section>
 
     <!-- ===== CERTIFICACIONES ===== -->
-    <section class="certificaciones glass reveal" data-reveal>
+    <section class="certificaciones glass reveal" data-reveal data-certificates={JSON.stringify(certificates)}>
       <h2>{t.certificationsTitle}</h2>
 
       <!-- FILTROS -->
@@ -218,7 +214,7 @@ const academias = [...new Set(skills.certificados.map(c => c.academia))];
             <p id="certDetalleAcademia">🏛️ {defaultCert?.academia || ''}</p>
             <p id="certDetalleCategoria">📂 {defaultCert?.categoria || ''}</p>
             <p id="certDetalleSubcategoria">🏷️ {defaultCert?.subcategoria || ''}</p>
-            <a id="certDetalleLink" href={defaultCert?.link || '#'} target="_blank">Ver certificado</a>
+            <a id="certDetalleLink" href={defaultCert?.link || '#'} target="_blank" rel="noopener noreferrer">Ver certificado</a>
             <span id="certDetalleId">ID: {defaultCert?.id || 'No disponible'}</span>
           </div>
         </div>
@@ -227,7 +223,7 @@ const academias = [...new Set(skills.certificados.map(c => c.academia))];
         <div class="cert-carousel-wrapper-vertical">
           <div class="cert-carousel-viewport" id="certCarouselViewport">
             <div class="cert-carousel-vertical" id="certCarouselVertical">
-              {shuffledCerts.map((cert, idx) => (
+              {certificates.map((cert, idx) => (
                 <div class="cert-thumb" 
                      data-index={idx}
                      data-nombre={cert.nombre}
@@ -293,33 +289,41 @@ const academias = [...new Set(skills.certificados.map(c => c.academia))];
   </div>
 
   <!-- ===== SCRIPTS (modularizados) ===== -->
-  <script type="module">
-    // Importamos las funciones de los scripts externos
+  <script>
     import { initBackToTop } from '@scripts/backToTop.js';
     import { initTechCarousel } from '@scripts/techCarousel.js';
     import { initCertificates } from '@scripts/certificates.js';
 
-    // Pasamos shuffledCerts al script de certificados
-    const certsData = shuffledCerts;
+    let cleanupPortfolio = () => {};
 
-    // Ejecutar en cada carga/navegación
-    document.addEventListener('astro:page-load', () => {
-      initBackToTop();
-      initTechCarousel();
-      initCertificates(certsData);
-    });
+    function initPortfolio() {
+      cleanupPortfolio();
 
-    // También ejecutar inmediatamente si la página ya está cargada (por si acaso)
-    if (document.readyState === 'complete') {
-      initBackToTop();
-      initTechCarousel();
-      initCertificates(certsData);
-    } else {
-      document.addEventListener('DOMContentLoaded', () => {
-        initBackToTop();
-        initTechCarousel();
-        initCertificates(certsData);
-      });
+      const section = document.querySelector('.certificaciones[data-certificates]');
+      let certificates = [];
+
+      try {
+        certificates = JSON.parse(section?.dataset.certificates ?? '[]');
+      } catch (error) {
+        console.warn('No se pudieron leer los certificados serializados.', error);
+      }
+
+      const cleanups = [
+        initBackToTop(),
+        initTechCarousel(),
+        initCertificates(certificates),
+      ].filter((cleanup) => typeof cleanup === 'function');
+
+      cleanupPortfolio = () => {
+        cleanups.forEach((cleanup) => cleanup());
+        cleanupPortfolio = () => {};
+      };
+    }
+
+    if (!window.__portfolioListenersAttached) {
+      window.__portfolioListenersAttached = true;
+      document.addEventListener('astro:page-load', initPortfolio);
+      document.addEventListener('astro:before-swap', () => cleanupPortfolio());
     }
   </script>
 </Layout>

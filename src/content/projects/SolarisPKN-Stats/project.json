@@ -2,6 +2,7 @@
   "id": "SolarisPKN-Stats",
   "type": "automation",
   "status": "operational",
+  "category": "core",
   "name": {
     "es": "SolarisPKN-Stats",
     "en": "SolarisPKN-Stats"

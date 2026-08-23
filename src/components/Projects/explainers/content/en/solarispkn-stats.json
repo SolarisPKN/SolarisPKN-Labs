@@ -1,0 +1,86 @@
+{
+  "hero": {
+    "badge": "Automated collection · Multi-platform · Open JSON",
+    "tituloParte1": "📊 Statistics that",
+    "tituloDestacado": "collect themselves",
+    "descripcion": "SolarisPKN-Stats connects your projects to GitHub, Cloudflare, and PageSpeed Insights. Configure it once and the system keeps collecting, storing, and exposing the data.",
+    "botonGithub": "View on GitHub",
+    "botonArquitectura": "View the live architecture →"
+  },
+  "filosofia": {
+    "label": "Philosophy",
+    "quote": "Configure once, collect automatically, store transparently, and use the data wherever it is needed."
+  },
+  "features": {
+    "label": "🧪 Features",
+    "titulo": "Designed to run without maintenance",
+    "items": [
+      { "emoji": "📋", "label": "Collection", "titulo": "Central project registry", "texto": "A single registry.json controls every project and connector. Adding a project never requires changing the core system." },
+      { "emoji": "💾", "label": "Storage", "titulo": "Structured, transparent JSON", "texto": "stats.json stores the current state and history/ keeps the time series. The open format is ready for dashboards, websites, or any analysis tool." },
+      { "emoji": "🤖", "label": "Automation", "titulo": "Zero manual intervention", "texto": "GitHub Actions deploys the system. A Cloudflare Worker collects data on independent schedules per connector. Once configured, operation is invisible." },
+      { "emoji": "🔌", "label": "Extensibility", "titulo": "Connector architecture", "texto": "A new platform means a new connector, without changing the core. Each project can combine platforms without artificial limits." }
+    ]
+  },
+  "architecture": {
+    "label": "🔍 Architecture",
+    "titulo": "Data flow",
+    "flow": [
+      { "id": "registry.json", "desc": "Source of truth" },
+      { "id": "Scheduler", "desc": "Cloudflare Worker" },
+      { "id": "Connector", "desc": "REST / GraphQL" },
+      { "id": "stats.json", "desc": "+ history/" }
+    ],
+    "storageTitulo": "📁 Storage structure",
+    "storageCode": "stats/\n├── project-a/\n│   ├── stats.json\n│   └── history/\n│       ├── 2024-01.json\n│       └── 2024-02.json\n└── project-b/\n    ├── stats.json\n    └── history/",
+    "registryTitulo": "⚙️ registry.json — example",
+    "registryCode": "{\n  \"projects\": [\n    {\n      \"id\": \"solarispkn-web\",\n      \"connectors\": [\n        \"github\",\n        \"cloudflare\",\n        \"pagespeed\"\n      ]\n    }\n  ]\n}"
+  },
+  "connectors": {
+    "label": "📡 Connectors",
+    "titulo": "Supported platforms",
+    "viaLabel": "via",
+    "metricsLabel": "Collected metrics",
+    "items": [
+      { "name": "GitHub", "emoji": "🐙", "api": "REST + GraphQL", "desc": "Collects detailed repository metrics: stars, forks, issues, pull requests, Dependabot alerts, Actions runs, and security events. GraphQL reduces the number of requests required.", "metrics": ["Stars & forks", "Issues & Pull Requests", "Dependabot alerts", "Actions runs", "Security events"] },
+      { "name": "Cloudflare", "emoji": "☁️", "api": "Cloudflare REST API", "desc": "Extracts account- and zone-level statistics: request volume, cache ratios, security events, and Worker performance metrics.", "metrics": ["Account analytics", "Zone-level stats", "Request volume", "Cache ratios"] },
+      { "name": "PageSpeed", "emoji": "⚡", "api": "PageSpeed Insights API", "desc": "Queries PageSpeed Insights for Core Web Vitals and web performance metrics on an independent schedule that protects API capacity.", "metrics": ["Performance score", "LCP", "FID / INP", "CLS", "TTFB"] }
+    ]
+  },
+  "techStack": {
+    "label": "🛠️ Technical stack",
+    "titulo": "Technologies",
+    "items": [
+      { "name": "GitHub Actions", "role": "CI/CD and deployment" },
+      { "name": "Cloudflare Workers", "role": "Collection runtime" },
+      { "name": "GitHub REST API", "role": "Repository metrics" },
+      { "name": "GitHub GraphQL", "role": "Optimized queries" },
+      { "name": "Cloudflare API", "role": "Platform statistics" },
+      { "name": "PageSpeed API", "role": "Web performance" }
+    ]
+  },
+  "security": {
+    "label": "🔐 Security",
+    "titulo": "Least privilege by design",
+    "items": [
+      "Credentials live exclusively in GitHub Secrets and Cloudflare Worker Secrets, never in source code",
+      "Two separate GitHub tokens: read-only for collection and write-only for publishing",
+      "The principle of least privilege is applied to every connector and platform"
+    ]
+  },
+  "roadmap": {
+    "label": "🗺️ Roadmap",
+    "titulo": "Project phases",
+    "phases": [
+      { "num": "01", "name": "Core", "items": ["Registry", "Connectors", "GitHub Actions", "Worker", "stats.json"] },
+      { "num": "02", "name": "Automation", "items": ["Scheduler", "Incremental updates", "History", "Optimized GraphQL"] },
+      { "num": "03", "name": "Integration", "items": ["Websites", "Dashboards", "Visualization tools"] },
+      { "num": "04", "name": "Ecosystem", "items": ["Cross-project aggregation", "Automated reports", "External integrations"] }
+    ]
+  },
+  "cta": {
+    "titulo": "📊 Start measuring what matters",
+    "descripcion": "Review the repository, study the architecture, and add your projects to the registry.",
+    "botonGithub": "View on GitHub",
+    "botonManifiesto": "Read the Manifesto →"
+  }
+}

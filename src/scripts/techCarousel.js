@@ -1,107 +1,83 @@
-// src/scripts/techCarousel.js
 export function initTechCarousel() {
   const track = document.getElementById('techCarouselTrack');
   const wrapper = document.getElementById('techCarouselWrapper');
-  if (!track || !wrapper) return;
+  if (!track || !wrapper || wrapper.dataset.initialized === 'true') return () => {};
 
-  const items = Array.from(track.children);
-  items.forEach(item => {
+  wrapper.dataset.initialized = 'true';
+  const controller = new AbortController();
+  const { signal } = controller;
+
+  Array.from(track.children).forEach((item) => {
     const clone = item.cloneNode(true);
+    clone.dataset.carouselClone = 'true';
+    clone.setAttribute('aria-hidden', 'true');
     track.appendChild(clone);
   });
 
   let currentTranslateX = 0;
-  let speed = 0.5;
   let isPaused = false;
   let isDragging = false;
   let startX = 0;
-  let prevTranslateX = 0;
-  let animationId = null;
+  let previousTranslateX = 0;
+  let animationId;
+  let resumeTimer;
 
-  function setTranslateX(value) {
+  const setTranslateX = (value) => {
     currentTranslateX = value;
     track.style.transform = `translateX(${value}px)`;
-  }
+  };
 
-  function animate() {
-    if (isPaused || isDragging) {
-      animationId = requestAnimationFrame(animate);
-      return;
+  const animate = () => {
+    if (!isPaused && !isDragging) {
+      currentTranslateX -= 0.5;
+      const maxTranslate = -(track.scrollWidth / 2);
+      if (currentTranslateX <= maxTranslate) currentTranslateX = 0;
+      setTranslateX(currentTranslateX);
     }
-    currentTranslateX -= speed;
-    const maxTranslate = -(track.scrollWidth / 2);
-    if (currentTranslateX <= maxTranslate) {
-      currentTranslateX = 0;
-    }
-    setTranslateX(currentTranslateX);
     animationId = requestAnimationFrame(animate);
-  }
+  };
 
-  wrapper.addEventListener('mousedown', (e) => {
+  const startDrag = (clientX) => {
     isDragging = true;
     isPaused = true;
-    startX = e.clientX;
-    prevTranslateX = currentTranslateX;
+    startX = clientX;
+    previousTranslateX = currentTranslateX;
     track.style.transition = 'none';
-    if (animationId) cancelAnimationFrame(animationId);
-  });
-  document.addEventListener('mousemove', (e) => {
+  };
+
+  const moveDrag = (clientX) => {
     if (!isDragging) return;
-    const diff = e.clientX - startX;
-    let newX = prevTranslateX + diff;
-    const maxX = 0;
-    const minX = -(track.scrollWidth / 2);
-    if (newX > maxX) newX = maxX;
-    if (newX < minX) newX = minX;
-    setTranslateX(newX);
-  });
-  document.addEventListener('mouseup', () => {
-    if (isDragging) {
-      isDragging = false;
-      setTimeout(() => {
-        isPaused = false;
-        if (!animationId) animate();
-      }, 1000);
-    }
-  });
+    const minimum = -(track.scrollWidth / 2);
+    const next = Math.max(minimum, Math.min(0, previousTranslateX + clientX - startX));
+    setTranslateX(next);
+  };
 
-  wrapper.addEventListener('touchstart', (e) => {
-    isDragging = true;
-    isPaused = true;
-    startX = e.touches[0].clientX;
-    prevTranslateX = currentTranslateX;
-    track.style.transition = 'none';
-    if (animationId) cancelAnimationFrame(animationId);
-  }, { passive: true });
-  document.addEventListener('touchmove', (e) => {
+  const endDrag = () => {
     if (!isDragging) return;
-    const diff = e.touches[0].clientX - startX;
-    let newX = prevTranslateX + diff;
-    const maxX = 0;
-    const minX = -(track.scrollWidth / 2);
-    if (newX > maxX) newX = maxX;
-    if (newX < minX) newX = minX;
-    setTranslateX(newX);
-  }, { passive: true });
-  document.addEventListener('touchend', () => {
-    if (isDragging) {
-      isDragging = false;
-      setTimeout(() => {
-        isPaused = false;
-        if (!animationId) animate();
-      }, 1000);
-    }
-  }, { passive: true });
+    isDragging = false;
+    clearTimeout(resumeTimer);
+    resumeTimer = window.setTimeout(() => {
+      isPaused = false;
+    }, 1000);
+  };
 
-  wrapper.addEventListener('mouseenter', () => { isPaused = true; });
-  wrapper.addEventListener('mouseleave', () => {
-    isPaused = false;
-    if (!animationId) animate();
-  });
+  wrapper.addEventListener('mousedown', (event) => startDrag(event.clientX), { signal });
+  document.addEventListener('mousemove', (event) => moveDrag(event.clientX), { signal });
+  document.addEventListener('mouseup', endDrag, { signal });
+  wrapper.addEventListener('touchstart', (event) => startDrag(event.touches[0].clientX), { signal, passive: true });
+  document.addEventListener('touchmove', (event) => moveDrag(event.touches[0].clientX), { signal, passive: true });
+  document.addEventListener('touchend', endDrag, { signal });
+  wrapper.addEventListener('mouseenter', () => { isPaused = true; }, { signal });
+  wrapper.addEventListener('mouseleave', () => { if (!isDragging) isPaused = false; }, { signal });
 
-  animate();
+  animationId = requestAnimationFrame(animate);
 
-  window.addEventListener('beforeunload', () => {
-    if (animationId) cancelAnimationFrame(animationId);
-  });
+  return () => {
+    controller.abort();
+    cancelAnimationFrame(animationId);
+    clearTimeout(resumeTimer);
+    track.querySelectorAll('[data-carousel-clone]').forEach((clone) => clone.remove());
+    track.style.transform = '';
+    delete wrapper.dataset.initialized;
+  };
 }

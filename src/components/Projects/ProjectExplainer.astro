@@ -1,5 +1,6 @@
 ---
 const { data } = Astro.props;
+const tabGroupId = 'project-connectors';
 ---
 
 <section class="pe-hero glass">
@@ -60,13 +61,29 @@ const { data } = Astro.props;
   <div class="glass connectors-tabs">
     <div class="pe-tabs-row" role="tablist">
       {data.connectors.items.map((c, i) => (
-        <button type="button" class:list={['pe-tab', { active: i === 0 }]} data-tab-index={i} role="tab" aria-selected={i === 0}>
+        <button
+          type="button"
+          id={`${tabGroupId}-tab-${i}`}
+          class:list={['pe-tab', { active: i === 0 }]}
+          data-tab-index={i}
+          role="tab"
+          aria-selected={i === 0}
+          aria-controls={`${tabGroupId}-panel-${i}`}
+          tabindex={i === 0 ? 0 : -1}
+        >
           <span>{c.emoji}</span> {c.name}
         </button>
       ))}
     </div>
     {data.connectors.items.map((c, i) => (
-      <div class:list={['pe-tab-panel', { active: i === 0 }]} data-panel-index={i}>
+      <div
+        id={`${tabGroupId}-panel-${i}`}
+        class:list={['pe-tab-panel', { active: i === 0 }]}
+        data-panel-index={i}
+        role="tabpanel"
+        aria-labelledby={`${tabGroupId}-tab-${i}`}
+        hidden={i !== 0}
+      >
         <h4>{c.emoji} {c.name}</h4>
         <p class="pe-tab-via">{data.connectors.viaLabel} {c.api}</p>
         <p>{c.desc}</p>
@@ -150,6 +167,7 @@ const { data } = Astro.props;
   .connectors-tabs { padding: 0; overflow: hidden; }
   .pe-tabs-row { display: flex; border-bottom: 1px solid rgba(0,255,204,0.2); }
   .pe-tab { flex: 1; padding: 1rem; background: transparent; border: none; color: rgba(224,224,224,0.5); font-size: 0.88rem; cursor: pointer; transition: all 0.2s; }
+  .pe-tab:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
   .pe-tab.active { background: rgba(0,255,204,0.08); color: var(--border-cyan); box-shadow: inset 0 -2px 0 var(--border-cyan); }
   .pe-tab-panel { display: none; padding: 1.75rem; }
   .pe-tab-panel.active { display: block; }

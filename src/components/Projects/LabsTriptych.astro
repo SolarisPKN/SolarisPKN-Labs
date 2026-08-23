@@ -1,43 +1,53 @@
 ---
 // src/components/Projects/LabsTriptych.astro
+import { Image } from 'astro:assets';
+
 export interface Props {
   lang: 'es' | 'en';
+  image?: ImageMetadata;
 }
-const { lang } = Astro.props;
 
-const copy = {
-  es: {
-    derived: { title: 'Derived Labs', desc: 'Proyectos que nacieron a partir de los Core Labs: soluciones adaptadas para clientes y casos reales.' },
-    core:    { title: 'Core Labs', desc: 'Los proyectos pilares de todo SolarisPKN — la base sobre la que se construye el resto.' },
-    external:{ title: 'External Labs', desc: 'Estudios, documentación y experimentación con plataformas fuera de nuestro ecosistema: Figma, Magic Patterns, GitLab y más.' }
-  },
-  en: {
-    derived: { title: 'Derived Labs', desc: 'Projects born from the Core Labs: solutions adapted for clients and real-world cases.' },
-    core:    { title: 'Core Labs', desc: 'The pillar projects of all SolarisPKN — the foundation everything else is built on.' },
-    external:{ title: 'External Labs', desc: 'Studies, documentation, and experimentation with platforms outside our ecosystem: Figma, Magic Patterns, GitLab, and more.' }
-  }
-};
-const t = copy[lang] ?? copy.es;
+const { lang, image } = Astro.props;
+const t = await import(`../../locales/${lang}/projects.json`);
 
 const panels = [
-  { key: 'derived',  href: `/${lang}/projects/derived-labs`,  accent: 'green', ...t.derived },
-  { key: 'core',     href: `/${lang}/projects/core-labs`,     accent: 'cyan',  ...t.core },
-  { key: 'external', href: `/${lang}/projects/external-labs`, accent: 'pink',  ...t.external }
+  { key: 'derived', href: `/${lang}/projects/derived-labs/`, accent: 'green', ...t.categories.derived },
+  { key: 'core', href: `/${lang}/projects/core-labs/`, accent: 'cyan', ...t.categories.core },
+  { key: 'external', href: `/${lang}/projects/external-labs/`, accent: 'pink', ...t.categories.external },
 ];
 
 const particles = [
-  {top:8,left:31,size:3,accent:'cyan'},{top:22,left:35,size:2,accent:'cyan'},{top:40,left:29,size:2,accent:'green'},
-  {top:58,left:36,size:3,accent:'cyan'},{top:76,left:31,size:2,accent:'green'},{top:14,left:69,size:2,accent:'pink'},
-  {top:30,left:63,size:3,accent:'pink'},{top:48,left:70,size:2,accent:'cyan'},{top:66,left:64,size:3,accent:'pink'},
-  {top:84,left:69,size:2,accent:'green'},{top:4,left:50,size:2,accent:'cyan'},{top:94,left:50,size:2,accent:'pink'},
-  {top:50,left:6,size:2,accent:'green'},{top:50,left:94,size:2,accent:'pink'}
+  { top: 8, left: 31, size: 3, accent: 'cyan' },
+  { top: 22, left: 35, size: 2, accent: 'cyan' },
+  { top: 40, left: 29, size: 2, accent: 'green' },
+  { top: 58, left: 36, size: 3, accent: 'cyan' },
+  { top: 76, left: 31, size: 2, accent: 'green' },
+  { top: 14, left: 69, size: 2, accent: 'pink' },
+  { top: 30, left: 63, size: 3, accent: 'pink' },
+  { top: 48, left: 70, size: 2, accent: 'cyan' },
+  { top: 66, left: 64, size: 3, accent: 'pink' },
+  { top: 84, left: 69, size: 2, accent: 'green' },
 ];
 ---
 
-<section class="labs-triptych" aria-label="Categorías de proyectos">
+<section class="labs-triptych" aria-label={t.portalAriaLabel}>
+  {image && (
+    <Image
+      class="labs-panorama"
+      src={image}
+      alt=""
+      widths={[768, 1200, 1600]}
+      sizes="(max-width: 768px) 100vw, min(1200px, 100vw)"
+      loading="eager"
+    />
+  )}
+
   <div class="labs-particles" aria-hidden="true">
-    {particles.map(p => (
-      <span class={`particle particle-${p.accent}`} style={`top:${p.top}%; left:${p.left}%; width:${p.size}px; height:${p.size}px;`} />
+    {particles.map((particle) => (
+      <span
+        class={`particle particle-${particle.accent}`}
+        style={`top:${particle.top}%; left:${particle.left}%; width:${particle.size}px; height:${particle.size}px;`}
+      />
     ))}
   </div>
 
@@ -46,11 +56,25 @@ const particles = [
     <path d="M66.7,0 L70,25 L63,50 L69,75 L66.7,100" />
   </svg>
 
-  {panels.map(p => (
-    <a href={p.href} class={`labs-panel labs-panel-${p.key} accent-${p.accent}`}>
+  {panels.map((panel) => (
+    <a
+      href={panel.href}
+      class={`labs-panel labs-panel-${panel.key} accent-${panel.accent}`}
+      aria-label={`${panel.title}: ${panel.subtitle}`}
+    >
+      {image && (
+        <Image
+          class="labs-mobile-image"
+          src={image}
+          alt=""
+          width={768}
+          loading="lazy"
+        />
+      )}
       <span class="labs-panel-content">
-        <h3>{p.title}</h3>
-        <p>{p.desc}</p>
+        <h2>{panel.title}</h2>
+        <p>{panel.subtitle}</p>
+        <span class="labs-panel-action" aria-hidden="true">{t.portalHint} <span>→</span></span>
       </span>
     </a>
   ))}
@@ -58,88 +82,211 @@ const particles = [
 
 <style>
   .labs-triptych {
-    --labs-cyan: #00FFCC;
-    --labs-green: #50FA7B;
-    --labs-pink: #FF79C6;
-    --labs-bg: #0B0B10;
+    --labs-cyan: #00ffcc;
+    --labs-green: #50fa7b;
+    --labs-pink: #ff79c6;
+    --labs-bg: #0b0b10;
     position: relative;
     width: 100%;
-    height: clamp(320px, 40vw, 460px);
-    background: var(--labs-bg, #0B0B10);
+    height: clamp(340px, 42vw, 500px);
+    background:
+      radial-gradient(120% 90% at 15% 15%, rgba(80, 250, 123, 0.2), transparent 55%),
+      radial-gradient(100% 90% at 50% 45%, rgba(0, 255, 204, 0.2), transparent 58%),
+      radial-gradient(120% 90% at 85% 85%, rgba(255, 121, 198, 0.2), transparent 55%),
+      var(--labs-bg);
     overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     isolation: isolate;
   }
+
+  .labs-panorama {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
   .labs-panel {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: flex-end;
-    text-decoration: none;
     color: #fff;
-    background:
-      radial-gradient(120% 90% at 20% 15%, rgba(0,255,204,0.35), transparent 55%),
-      radial-gradient(110% 90% at 80% 85%, rgba(255,121,198,0.32), transparent 55%),
-      radial-gradient(140% 100% at 50% 50%, rgba(80,250,127,0.18), transparent 60%),
-      var(--labs-bg-image, var(--labs-bg));
+    text-decoration: none;
+    background: linear-gradient(to top, rgba(11, 11, 16, 0.92), rgba(11, 11, 16, 0.08) 70%);
     filter: grayscale(0) brightness(0.92) saturate(1);
     transform: scale(1);
     transition: filter 0.35s ease, transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
     will-change: filter, transform;
+    z-index: 1;
   }
-  .labs-panel-derived  { clip-path: polygon(0% 0%, 0% 100%, 33.3% 100%, 31% 75%, 36% 50%, 30% 25%, 33.3% 0%); }
-  .labs-panel-core     { clip-path: polygon(33.3% 0%, 30% 25%, 36% 50%, 31% 75%, 33.3% 100%, 66.7% 100%, 69% 75%, 63% 50%, 70% 25%, 66.7% 0%); }
-  .labs-panel-external { clip-path: polygon(66.7% 0%, 70% 25%, 63% 50%, 69% 75%, 66.7% 100%, 100% 100%, 100% 0%); }
+
+  .labs-panel-derived {
+    clip-path: polygon(0 0, 0 100%, 33.3% 100%, 31% 75%, 36% 50%, 30% 25%, 33.3% 0);
+  }
+
+  .labs-panel-core {
+    clip-path: polygon(33.3% 0, 30% 25%, 36% 50%, 31% 75%, 33.3% 100%, 66.7% 100%, 69% 75%, 63% 50%, 70% 25%, 66.7% 0);
+  }
+
+  .labs-panel-external {
+    clip-path: polygon(66.7% 0, 70% 25%, 63% 50%, 69% 75%, 66.7% 100%, 100% 100%, 100% 0);
+  }
+
   .labs-triptych:has(.labs-panel:hover) .labs-panel:not(:hover),
   .labs-triptych:has(.labs-panel:focus-visible) .labs-panel:not(:focus-visible) {
-    filter: grayscale(1) brightness(0.45);
+    filter: grayscale(1) brightness(0.42);
   }
-  .labs-panel:hover, .labs-panel:focus-visible {
+
+  .labs-panel:hover,
+  .labs-panel:focus-visible {
     filter: grayscale(0) brightness(1.08) saturate(1.2);
     transform: scale(1.035);
-    z-index: 2;
+    z-index: 3;
   }
-  .labs-panel:focus-visible { outline: 2px solid var(--labs-cyan); outline-offset: -4px; }
-  .accent-green:hover, .accent-green:focus-visible { box-shadow: inset 0 0 60px rgba(80,250,127,0.35); }
-  .accent-cyan:hover,  .accent-cyan:focus-visible  { box-shadow: inset 0 0 60px rgba(0,255,204,0.35); }
-  .accent-pink:hover,  .accent-pink:focus-visible  { box-shadow: inset 0 0 60px rgba(255,121,198,0.35); }
+
+  .labs-panel:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: -6px;
+  }
+
+  .accent-green:hover,
+  .accent-green:focus-visible { box-shadow: inset 0 0 70px rgba(80, 250, 123, 0.34); }
+
+  .accent-cyan:hover,
+  .accent-cyan:focus-visible { box-shadow: inset 0 0 70px rgba(0, 255, 204, 0.34); }
+
+  .accent-pink:hover,
+  .accent-pink:focus-visible { box-shadow: inset 0 0 70px rgba(255, 121, 198, 0.34); }
+
   .labs-panel-content {
-    padding: 1.5rem 1.25rem;
-    width: 100%;
+    position: relative;
+    z-index: 2;
+    width: 33.333%;
+    padding: 2rem 1.4rem;
     text-align: center;
-    background: linear-gradient(to top, rgba(11,11,16,0.85) 20%, transparent 100%);
   }
-  .labs-panel-derived .labs-panel-content  { padding-right: 12%; }
-  .labs-panel-external .labs-panel-content { padding-left: 12%; }
-  .labs-panel h3 {
+
+  .labs-panel-derived .labs-panel-content { margin-right: auto; }
+  .labs-panel-core .labs-panel-content { margin-inline: auto; }
+  .labs-panel-external .labs-panel-content { margin-left: auto; }
+
+  .labs-panel h2 {
+    margin: 0 0 0.55rem;
     font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
-    margin: 0 0 0.5rem;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
   }
+
   .labs-panel p {
-    font-size: 0.8rem;
-    line-height: 1.45;
-    opacity: 0.85;
+    max-width: 34ch;
     margin: 0 auto;
-    max-width: 26ch;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    font-size: clamp(0.72rem, 1.1vw, 0.9rem);
+    line-height: 1.5;
+    opacity: 0.9;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
   }
-  .labs-crack { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-  .labs-crack path { fill: none; stroke: rgba(255,255,255,0.55); stroke-width: 0.35; filter: drop-shadow(0 0 2px var(--labs-cyan)); }
-  .labs-particles { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
-  .particle { position: absolute; border-radius: 50%; animation: labs-float 6s ease-in-out infinite; }
-  .particle-cyan  { background: var(--labs-cyan);  box-shadow: 0 0 6px var(--labs-cyan); }
+
+  .labs-panel-action {
+    display: inline-flex;
+    gap: 0.45rem;
+    margin-top: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .labs-mobile-image { display: none; }
+
+  .labs-crack,
+  .labs-particles {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 4;
+  }
+
+  .labs-crack path {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.55);
+    stroke-width: 0.35;
+    filter: drop-shadow(0 0 2px var(--labs-cyan));
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: labs-float 6s ease-in-out infinite;
+  }
+
+  .particle-cyan { background: var(--labs-cyan); box-shadow: 0 0 6px var(--labs-cyan); }
   .particle-green { background: var(--labs-green); box-shadow: 0 0 6px var(--labs-green); }
-  .particle-pink  { background: var(--labs-pink);  box-shadow: 0 0 6px var(--labs-pink); }
-  @keyframes labs-float { 0%, 100% { transform: translateY(0); opacity: 0.6; } 50% { transform: translateY(-8px); opacity: 1; } }
-  @media (max-width: 768px) {
-    .labs-triptych { height: auto; }
-    .labs-panel { position: static; clip-path: none !important; height: 160px; transform: none !important; }
-    .labs-crack { display: none; }
+  .particle-pink { background: var(--labs-pink); box-shadow: 0 0 6px var(--labs-pink); }
+
+  @keyframes labs-float {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50% { transform: translateY(-8px); opacity: 1; }
   }
+
+  @media (max-width: 768px) {
+    .labs-triptych {
+      display: grid;
+      height: auto;
+      overflow: visible;
+      background: none;
+      border: 0;
+      gap: 1rem;
+    }
+
+    .labs-panorama,
+    .labs-crack,
+    .labs-particles { display: none; }
+
+    .labs-panel {
+      position: relative;
+      min-height: 190px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      clip-path: none;
+      transform: none;
+      background:
+        linear-gradient(to right, rgba(11, 11, 16, 0.9), rgba(11, 11, 16, 0.25)),
+        radial-gradient(circle at center, rgba(0, 255, 204, 0.18), var(--labs-bg));
+    }
+
+    .labs-mobile-image {
+      display: block;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .labs-panel-derived .labs-mobile-image { object-position: left center; }
+    .labs-panel-core .labs-mobile-image { object-position: center; }
+    .labs-panel-external .labs-mobile-image { object-position: right center; }
+
+    .labs-panel-content {
+      width: 100%;
+      margin: 0;
+      padding: 1.5rem;
+      text-align: left;
+    }
+
+    .labs-panel p { margin: 0; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .particle { animation: none; }
-    .labs-panel { transition: filter 0.2s ease; transform: none !important; }
+    .labs-panel { transition: filter 0.2s ease; transform: none; }
   }
 </style>

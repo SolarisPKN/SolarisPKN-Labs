@@ -1,0 +1,125 @@
+---
+// src/components/Projects/ProjectCategoryPage.astro
+import Layout from '../../layouts/Layout.astro';
+import ProjectCard from './ProjectCard.astro';
+import { loadProjectsByCategory } from '../../utils/projects.js';
+
+type ProjectCategory = 'core' | 'derived' | 'external';
+
+export interface Props {
+  lang: 'es' | 'en';
+  category: ProjectCategory;
+}
+
+const { lang, category } = Astro.props;
+const t = await import(`../../locales/${lang}/projects.json`);
+const categoryCopy = t.categories[category];
+const projects = loadProjectsByCategory(category);
+---
+
+<Layout title={categoryCopy.title} description={categoryCopy.subtitle} lang={lang}>
+  <section class="projects-page">
+    <a class="back-link" href={`/${lang}/projects/`}>{t.buttons.back}</a>
+
+    <header class="page-header">
+      <h1>{categoryCopy.title}</h1>
+      <p>{categoryCopy.subtitle}</p>
+    </header>
+
+    {projects.length > 0 ? (
+      <div class="projects-grid">
+        {projects.map((project) => (
+          <ProjectCard project={project} lang={lang} t={t} />
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state" role="status">
+        <span aria-hidden="true">◇</span>
+        <p>{categoryCopy.empty}</p>
+      </div>
+    )}
+  </section>
+</Layout>
+
+{projects.length > 0 && (
+  <script>
+    import '../../scripts/projectCards.js';
+  </script>
+)}
+
+<style>
+  .projects-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    margin-bottom: 2rem;
+    color: #8b949e;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    text-decoration: none;
+  }
+
+  .back-link:hover { color: #00ffcc; }
+
+  .back-link:focus-visible {
+    outline: 2px solid #00ffcc;
+    outline-offset: 4px;
+  }
+
+  .page-header {
+    max-width: 800px;
+    margin-bottom: 2rem;
+  }
+
+  .page-header h1 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+
+  .page-header p {
+    margin: 0.6rem 0 0;
+    color: #aaa;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .empty-state {
+    display: grid;
+    place-items: center;
+    min-height: 220px;
+    padding: 2rem;
+    color: #aaa;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+  }
+
+  .empty-state span {
+    color: #00ffcc;
+    font-size: 2rem;
+  }
+
+  .empty-state p {
+    max-width: 58ch;
+    margin: 0.75rem 0 0;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 640px) {
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+</style>

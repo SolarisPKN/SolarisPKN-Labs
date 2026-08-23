@@ -1,6 +1,8 @@
 {
   "title": "Proyectos",
-  "subtitle": "Sistemas técnicos, experimentos e infraestructura desarrollados por SolarisPKN.",
+  "subtitle": "Tres familias de trabajo: productos propios, soluciones derivadas e investigación en plataformas externas.",
+  "portalAriaLabel": "Categorías de proyectos",
+  "portalHint": "Explorar categoría",
   "filters": {
     "all": "TODOS",
     "software": "SOFTWARE",
@@ -17,7 +19,10 @@
     "players": "Jugadores",
     "mods": "Mods",
     "tps": "TPS",
-    "memory": "Memoria"
+    "memory": "Memoria",
+    "noData": "Sin datos",
+    "unavailable": "No disponible",
+    "networkError": "Error de red"
   },
   "status": {
     "operational": "Operativo",
@@ -40,17 +45,20 @@
     "documentation": "DOCUMENTACIÓN"
   },
   "categories": {
-  "core": {
-    "title": "Core Labs",
-    "subtitle": "Los proyectos pilares de todo SolarisPKN — la base sobre la que se construye el resto."
-  },
-  "derived": {
-    "title": "Derived Labs",
-    "subtitle": "Proyectos que nacieron a partir de los Core Labs: soluciones adaptadas para clientes y casos reales."
-  },
-  "external": {
-    "title": "External Labs",
-    "subtitle": "Estudios, documentación y experimentación con plataformas fuera de nuestro ecosistema: Figma, Magic Patterns, GitLab y más."
+    "core": {
+      "title": "Core Labs",
+      "subtitle": "Los proyectos pilares de SolarisPKN: la base sobre la que se construye el resto.",
+      "empty": "No se encontraron proyectos Core. Revisá la integridad de los metadatos de proyectos."
+    },
+    "derived": {
+      "title": "Derived Labs",
+      "subtitle": "Trabajos para clientes, marcas y casos concretos que derivan de nuestra experiencia en Core Labs.",
+      "empty": "Los trabajos para clientes y las soluciones derivadas aparecerán acá."
+    },
+    "external": {
+      "title": "External Labs",
+      "subtitle": "Investigación y experimentación con plataformas externas como Figma, Trello, Magic Patterns y GitLab.",
+      "empty": "Las investigaciones y pruebas sobre plataformas externas aparecerán acá."
+    }
   }
-}
 }

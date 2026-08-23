@@ -1,260 +1,281 @@
-// src/scripts/certificates.js
-export function initCertificates(certs) {
-  const allCerts = certs || [];
-  if (!allCerts || allCerts.length === 0) {
-    const detalleNombre = document.getElementById('certDetalleNombre');
-    if (detalleNombre) detalleNombre.textContent = 'No hay certificados';
-    return;
+export function initCertificates(certificates) {
+  const section = document.querySelector('.certificaciones');
+  if (!section || section.dataset.initialized === 'true') return () => {};
+
+  section.dataset.initialized = 'true';
+  const allCertificates = Array.isArray(certificates) ? certificates : [];
+  const isSpanish = document.documentElement.lang === 'es';
+  const text = isSpanish
+    ? {
+        empty: 'No hay certificados',
+        selectedEmpty: 'No hay certificado seleccionado',
+        unnamed: 'Sin nombre',
+        certificate: 'Certificado',
+        open: 'Ver certificado',
+        noLink: 'Sin enlace',
+        unavailable: 'No disponible',
+        allSubcategories: 'Todas las subcategorías',
+      }
+    : {
+        empty: 'No certificates available',
+        selectedEmpty: 'No certificate selected',
+        unnamed: 'Untitled',
+        certificate: 'Certificate',
+        open: 'View certificate',
+        noLink: 'No link',
+        unavailable: 'Unavailable',
+        allSubcategories: 'All subcategories',
+      };
+
+  const elements = {
+    image: document.getElementById('certDetalleImagen'),
+    name: document.getElementById('certDetalleNombre'),
+    academy: document.getElementById('certDetalleAcademia'),
+    category: document.getElementById('certDetalleCategoria'),
+    subcategory: document.getElementById('certDetalleSubcategoria'),
+    link: document.getElementById('certDetalleLink'),
+    id: document.getElementById('certDetalleId'),
+    carousel: document.getElementById('certCarouselVertical'),
+    viewport: document.getElementById('certCarouselViewport'),
+    up: document.getElementById('carousel-up-vertical'),
+    down: document.getElementById('carousel-down-vertical'),
+    search: document.getElementById('cert-search'),
+    categoryFilter: document.getElementById('cert-filter-categoria'),
+    subcategoryFilter: document.getElementById('cert-filter-subcategoria'),
+    academyFilter: document.getElementById('cert-filter-academia'),
+    clear: document.getElementById('cert-clear-filters'),
+  };
+
+  if (Object.values(elements).some((element) => !element)) {
+    delete section.dataset.initialized;
+    return () => {};
   }
 
-  // Elementos del detalle
-  const detalleImg = document.getElementById('certDetalleImagen');
-  const detalleNombre = document.getElementById('certDetalleNombre');
-  const detalleAcademia = document.getElementById('certDetalleAcademia');
-  const detalleCategoria = document.getElementById('certDetalleCategoria');
-  const detalleSubcategoria = document.getElementById('certDetalleSubcategoria');
-  const detalleLink = document.getElementById('certDetalleLink');
-  const detalleId = document.getElementById('certDetalleId');
-
-  // Elementos del carrusel
-  const carouselContainer = document.getElementById('certCarouselVertical');
-  const viewport = document.getElementById('certCarouselViewport');
-  const upBtn = document.getElementById('carousel-up-vertical');
-  const downBtn = document.getElementById('carousel-down-vertical');
-
-  // Filtros
-  const searchInput = document.getElementById('cert-search');
-  const filterCategoria = document.getElementById('cert-filter-categoria');
-  const filterSubcategoria = document.getElementById('cert-filter-subcategoria');
-  const filterAcademia = document.getElementById('cert-filter-academia');
-  const clearBtn = document.getElementById('cert-clear-filters');
-
-  // Constantes
-  const THUMBS_PER_PAGE = 4;
-  const THUMB_HEIGHT = 70;
-  const GAP = 0.8 * 16;
-  const ITEM_HEIGHT = THUMB_HEIGHT + GAP;
-
-  // Estado
-  let allFiltered = [];
-  let displayedCerts = [];
+  const controller = new AbortController();
+  const { signal } = controller;
+  const thumbsPerPage = 4;
+  const itemHeight = 70 + (0.8 * 16);
+  let displayedCertificates = [];
   let currentIndex = 0;
-  let autoScrollTimer = null;
+  let autoScrollTimer;
+  let pauseTimer;
+  let debounceTimer;
   let isPaused = false;
-  let pauseTimeout = null;
-  let debounceTimer = null;
 
-  function getRandomSubset(arr, size = 20) {
-    if (!arr || arr.length === 0) return [];
-    const shuffled = [...arr].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, Math.min(size, shuffled.length));
-  }
+  const sample = (items, limit = 20) => {
+    const copy = [...items];
+    for (let index = copy.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [copy[index], copy[randomIndex]] = [copy[randomIndex], copy[index]];
+    }
+    return copy.slice(0, Math.min(limit, copy.length));
+  };
 
-  function renderThumbs() {
-    if (!carouselContainer) return;
-    carouselContainer.innerHTML = '';
-    displayedCerts.forEach((cert, idx) => {
-      const thumb = document.createElement('div');
-      thumb.className = 'cert-thumb';
-      if (idx === currentIndex) thumb.classList.add('active');
-      thumb.dataset.index = idx;
-      thumb.innerHTML = `
-        <img src="${cert.imagen || '/images/placeholder.webp'}" alt="${cert.nombre}" loading="lazy" />
-        <div class="thumb-info">
-          <span class="thumb-nombre">${cert.nombre}</span>
-          <span class="thumb-meta">${cert.academia || ''}</span>
-        </div>
-      `;
-      thumb.addEventListener('click', function() {
-        const index = parseInt(this.dataset.index);
-        selectThumb(index);
-      });
-      carouselContainer.appendChild(thumb);
-    });
-    updateCarouselPosition();
-  }
+  const updatePosition = () => {
+    elements.carousel.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+  };
 
-  function updateCarouselPosition() {
-    const offset = currentIndex * ITEM_HEIGHT;
-    carouselContainer.style.transform = `translateY(-${offset}px)`;
-  }
-
-  function selectThumb(index) {
-    if (index < 0 || index >= displayedCerts.length) return;
-    currentIndex = index;
-    document.querySelectorAll('.cert-thumb').forEach((el, i) => {
-      el.classList.toggle('active', i === currentIndex);
-    });
-    const cert = displayedCerts[currentIndex];
-    if (cert) mostrarDetalle(cert);
-    updateCarouselPosition();
-    pauseAutoScroll(30000);
-  }
-
-  function moveUp() {
-    if (displayedCerts.length === 0) return;
-    const maxIndex = Math.max(0, displayedCerts.length - THUMBS_PER_PAGE);
-    let newIndex = currentIndex - THUMBS_PER_PAGE;
-    if (newIndex < 0) newIndex = maxIndex;
-    selectThumb(newIndex);
-  }
-
-  function moveDown() {
-    if (displayedCerts.length === 0) return;
-    const maxIndex = Math.max(0, displayedCerts.length - THUMBS_PER_PAGE);
-    let newIndex = currentIndex + THUMBS_PER_PAGE;
-    if (newIndex > maxIndex) newIndex = 0;
-    selectThumb(newIndex);
-  }
-
-  function autoScrollStep() {
-    if (isPaused) return;
-    if (displayedCerts.length === 0) return;
-    if (displayedCerts.length <= THUMBS_PER_PAGE) {
-      if (currentIndex !== 0) selectThumb(0);
+  const showDetails = (certificate) => {
+    if (!certificate) {
+      elements.image.src = '/images/placeholder.webp';
+      elements.image.alt = text.certificate;
+      elements.name.textContent = text.selectedEmpty;
+      elements.academy.textContent = '';
+      elements.category.textContent = '';
+      elements.subcategory.textContent = '';
+      elements.link.href = '#';
+      elements.link.textContent = text.noLink;
+      elements.id.textContent = '';
       return;
     }
-    const maxIndex = Math.max(0, displayedCerts.length - THUMBS_PER_PAGE);
-    let nextIndex = currentIndex + THUMBS_PER_PAGE;
-    if (nextIndex > maxIndex) nextIndex = 0;
-    selectThumb(nextIndex);
-  }
 
-  function resetAutoScroll() {
-    if (autoScrollTimer) clearInterval(autoScrollTimer);
-    if (!isPaused && displayedCerts.length > 0) {
-      autoScrollTimer = setInterval(autoScrollStep, 4000);
+    elements.image.src = certificate.imagen || '/images/placeholder.webp';
+    elements.image.alt = certificate.nombre || text.certificate;
+    elements.name.textContent = certificate.nombre || text.unnamed;
+    elements.academy.textContent = `🏛️ ${certificate.academia || ''}`;
+    elements.category.textContent = `📂 ${certificate.categoria || ''}`;
+    elements.subcategory.textContent = `🏷️ ${certificate.subcategoria || ''}`;
+    elements.link.href = certificate.link || '#';
+    elements.link.textContent = certificate.link ? text.open : text.noLink;
+    elements.id.textContent = `ID: ${certificate.id || text.unavailable}`;
+  };
+
+  const selectThumb = (index, pause = true) => {
+    if (index < 0 || index >= displayedCertificates.length) return;
+    currentIndex = index;
+    elements.carousel.querySelectorAll('.cert-thumb').forEach((thumb, thumbIndex) => {
+      thumb.classList.toggle('active', thumbIndex === currentIndex);
+      thumb.setAttribute('aria-selected', String(thumbIndex === currentIndex));
+    });
+    showDetails(displayedCertificates[currentIndex]);
+    updatePosition();
+    if (pause) pauseAutoScroll();
+  };
+
+  const renderThumbs = () => {
+    const fragment = document.createDocumentFragment();
+
+    displayedCertificates.forEach((certificate, index) => {
+      const thumb = document.createElement('div');
+      thumb.className = 'cert-thumb';
+      thumb.dataset.index = String(index);
+      thumb.setAttribute('role', 'option');
+      thumb.tabIndex = 0;
+
+      const image = document.createElement('img');
+      image.src = certificate.imagen || '/images/placeholder.webp';
+      image.alt = certificate.nombre || text.certificate;
+      image.loading = 'lazy';
+      image.width = 50;
+      image.height = 50;
+
+      const info = document.createElement('div');
+      info.className = 'thumb-info';
+      const name = document.createElement('span');
+      name.className = 'thumb-nombre';
+      name.textContent = certificate.nombre || text.unnamed;
+      const academy = document.createElement('span');
+      academy.className = 'thumb-meta';
+      academy.textContent = certificate.academia || '';
+      info.append(name, academy);
+      thumb.append(image, info);
+
+      thumb.addEventListener('click', () => selectThumb(index), { signal });
+      thumb.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        selectThumb(index);
+      }, { signal });
+
+      fragment.appendChild(thumb);
+    });
+
+    elements.carousel.replaceChildren(fragment);
+    elements.carousel.setAttribute('role', 'listbox');
+    currentIndex = 0;
+    updatePosition();
+    selectThumb(0, false);
+  };
+
+  const resetAutoScroll = () => {
+    clearInterval(autoScrollTimer);
+    if (!isPaused && displayedCertificates.length > thumbsPerPage) {
+      autoScrollTimer = window.setInterval(() => {
+        const maximum = Math.max(0, displayedCertificates.length - thumbsPerPage);
+        const next = currentIndex + thumbsPerPage > maximum ? 0 : currentIndex + thumbsPerPage;
+        selectThumb(next, false);
+      }, 4000);
     }
-  }
+  };
 
   function pauseAutoScroll(duration = 30000) {
     isPaused = true;
-    if (pauseTimeout) clearTimeout(pauseTimeout);
-    pauseTimeout = setTimeout(() => {
+    clearTimeout(pauseTimer);
+    clearInterval(autoScrollTimer);
+    pauseTimer = window.setTimeout(() => {
       isPaused = false;
-      pauseTimeout = null;
       resetAutoScroll();
     }, duration);
   }
 
-  function mostrarDetalle(cert) {
-    if (!cert) {
-      detalleNombre.textContent = 'No hay certificado seleccionado';
-      detalleImg.src = '';
-      detalleAcademia.textContent = '';
-      detalleCategoria.textContent = '';
-      detalleSubcategoria.textContent = '';
-      detalleLink.href = '#';
-      detalleLink.textContent = '';
-      detalleId.textContent = '';
-      return;
-    }
-    detalleImg.src = cert.imagen || '/images/placeholder.webp';
-    detalleImg.alt = cert.nombre || 'Certificado';
-    detalleNombre.textContent = cert.nombre || 'Sin nombre';
-    detalleAcademia.textContent = `🏛️ ${cert.academia || ''}`;
-    detalleCategoria.textContent = `📂 ${cert.categoria || ''}`;
-    detalleSubcategoria.textContent = `🏷️ ${cert.subcategoria || ''}`;
-    detalleLink.href = cert.link || '#';
-    detalleLink.textContent = cert.link ? 'Ver certificado' : 'Sin enlace';
-    detalleId.textContent = `ID: ${cert.id || 'No disponible'}`;
-  }
+  const updateSubcategories = () => {
+    const selectedCategory = elements.categoryFilter.value;
+    const subcategories = new Set();
 
-  function applyFilters() {
-    if (debounceTimer) clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => {
-      const search = searchInput.value.toLowerCase();
-      const categoria = filterCategoria.value;
-      const subcategoria = filterSubcategoria.value;
-      const academia = filterAcademia.value;
+    allCertificates.forEach((certificate) => {
+      if (
+        (selectedCategory === 'all' || certificate.categoria === selectedCategory) &&
+        certificate.subcategoria
+      ) {
+        subcategories.add(certificate.subcategoria);
+      }
+    });
 
-      const filteredAll = allCerts.filter(cert => {
-        const matchSearch = cert.nombre.toLowerCase().includes(search);
-        const matchCategoria = categoria === 'all' || cert.categoria === categoria;
-        const matchSubcategoria = subcategoria === 'all' || (cert.subcategoria || '') === subcategoria;
-        const matchAcademia = academia === 'all' || cert.academia === academia;
-        return matchSearch && matchCategoria && matchSubcategoria && matchAcademia;
+    const defaultOption = document.createElement('option');
+    defaultOption.value = 'all';
+    defaultOption.textContent = text.allSubcategories;
+    const options = [...subcategories].sort().map((subcategory) => {
+      const option = document.createElement('option');
+      option.value = subcategory;
+      option.textContent = subcategory;
+      return option;
+    });
+    elements.subcategoryFilter.replaceChildren(defaultOption, ...options);
+  };
+
+  const applyFilters = () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = window.setTimeout(() => {
+      const query = elements.search.value.trim().toLocaleLowerCase();
+      const filtered = allCertificates.filter((certificate) => {
+        const name = String(certificate.nombre ?? '').toLocaleLowerCase();
+        return (
+          name.includes(query) &&
+          (elements.categoryFilter.value === 'all' || certificate.categoria === elements.categoryFilter.value) &&
+          (elements.subcategoryFilter.value === 'all' || (certificate.subcategoria || '') === elements.subcategoryFilter.value) &&
+          (elements.academyFilter.value === 'all' || certificate.academia === elements.academyFilter.value)
+        );
       });
 
-      allFiltered = filteredAll;
-      displayedCerts = getRandomSubset(filteredAll, 20);
-      currentIndex = 0;
+      displayedCertificates = sample(filtered);
       renderThumbs();
-      if (displayedCerts.length > 0) {
-        mostrarDetalle(displayedCerts[0]);
-        document.querySelectorAll('.cert-thumb').forEach((el, i) => {
-          el.classList.toggle('active', i === 0);
-        });
-      } else {
-        mostrarDetalle(null);
-      }
-      pauseAutoScroll(30000);
-      resetAutoScroll();
+      if (displayedCertificates.length === 0) showDetails(null);
+      pauseAutoScroll();
     }, 300);
-  }
+  };
 
-  function updateSubcategorias() {
-    const categoriaSeleccionada = filterCategoria.value;
-    const subcategorias = new Set();
-    allCerts.forEach(cert => {
-      if (categoriaSeleccionada === 'all' || cert.categoria === categoriaSeleccionada) {
-        if (cert.subcategoria) subcategorias.add(cert.subcategoria);
-      }
-    });
-    filterSubcategoria.innerHTML = '<option value="all">Todas las subcategorías</option>';
-    [...subcategorias].sort().forEach(sub => {
-      const opt = document.createElement('option');
-      opt.value = sub;
-      opt.textContent = sub;
-      filterSubcategoria.appendChild(opt);
-    });
-  }
-
-  // Eventos
-  searchInput.addEventListener('input', applyFilters);
-  filterCategoria.addEventListener('change', () => {
-    updateSubcategorias();
+  elements.search.addEventListener('input', applyFilters, { signal });
+  elements.categoryFilter.addEventListener('change', () => {
+    updateSubcategories();
     applyFilters();
-  });
-  filterSubcategoria.addEventListener('change', applyFilters);
-  filterAcademia.addEventListener('change', applyFilters);
-  clearBtn.addEventListener('click', () => {
-    searchInput.value = '';
-    filterCategoria.value = 'all';
-    filterAcademia.value = 'all';
-    updateSubcategorias();
-    filterSubcategoria.value = 'all';
+  }, { signal });
+  elements.subcategoryFilter.addEventListener('change', applyFilters, { signal });
+  elements.academyFilter.addEventListener('change', applyFilters, { signal });
+  elements.clear.addEventListener('click', () => {
+    elements.search.value = '';
+    elements.categoryFilter.value = 'all';
+    elements.academyFilter.value = 'all';
+    updateSubcategories();
+    elements.subcategoryFilter.value = 'all';
     applyFilters();
-  });
-  upBtn.addEventListener('click', moveUp);
-  downBtn.addEventListener('click', moveDown);
-
-  viewport.addEventListener('mouseenter', () => { isPaused = true; });
-  viewport.addEventListener('mouseleave', () => {
+  }, { signal });
+  elements.up.addEventListener('click', () => {
+    const maximum = Math.max(0, displayedCertificates.length - thumbsPerPage);
+    selectThumb(currentIndex - thumbsPerPage < 0 ? maximum : currentIndex - thumbsPerPage);
+  }, { signal });
+  elements.down.addEventListener('click', () => {
+    const maximum = Math.max(0, displayedCertificates.length - thumbsPerPage);
+    selectThumb(currentIndex + thumbsPerPage > maximum ? 0 : currentIndex + thumbsPerPage);
+  }, { signal });
+  elements.viewport.addEventListener('mouseenter', () => {
+    isPaused = true;
+    clearInterval(autoScrollTimer);
+  }, { signal });
+  elements.viewport.addEventListener('mouseleave', () => {
     isPaused = false;
-    if (pauseTimeout) clearTimeout(pauseTimeout);
+    clearTimeout(pauseTimer);
     resetAutoScroll();
-  });
-
-  // Inicialización
-  updateSubcategorias();
-  allFiltered = allCerts;
-  displayedCerts = getRandomSubset(allCerts, 20);
-  currentIndex = 0;
-  renderThumbs();
-  if (displayedCerts.length > 0) {
-    mostrarDetalle(displayedCerts[0]);
-    document.querySelectorAll('.cert-thumb').forEach((el, i) => {
-      el.classList.toggle('active', i === 0);
-    });
-  }
-  resetAutoScroll();
-
+  }, { signal });
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      if (autoScrollTimer) clearInterval(autoScrollTimer);
-    } else {
-      resetAutoScroll();
-    }
-  });
+    if (document.hidden) clearInterval(autoScrollTimer);
+    else resetAutoScroll();
+  }, { signal });
+
+  if (allCertificates.length === 0) {
+    elements.name.textContent = text.empty;
+    showDetails(null);
+  } else {
+    updateSubcategories();
+    displayedCertificates = sample(allCertificates);
+    renderThumbs();
+    resetAutoScroll();
+  }
+
+  return () => {
+    controller.abort();
+    clearInterval(autoScrollTimer);
+    clearTimeout(pauseTimer);
+    clearTimeout(debounceTimer);
+    delete section.dataset.initialized;
+  };
 }

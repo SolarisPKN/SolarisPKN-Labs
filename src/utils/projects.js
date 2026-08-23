@@ -1,37 +1,30 @@
-// src/utils/explainers.js
-import fs from 'fs';
-import path from 'path';
+// src/utils/projects.js
+import fs from 'node:fs';
+import path from 'node:path';
+
+const PROJECTS_DIR = path.join(process.cwd(), 'src', 'content', 'projects');
 
 /**
- * Recorre src/components/Projects/explainers/ (menos la subcarpeta content/)
- * buscando archivos .astro, sin importar en qué subcarpeta de categoría estén.
- * El match es por nombre de archivo (minúscula), no por ubicación física —
- * así un proyecto puede cambiar de categoría sin mover el .astro de lugar.
- *
- * Vive en su propio archivo (y no como función suelta dentro de [slug].astro)
- * porque getStaticPaths() corre en un scope aislado en Astro: solo puede usar
- * imports, nunca funciones/constantes declaradas como top-level del mismo
- * archivo .astro. Este fue justo el bug que rompió el deploy.
+ * Lee los metadatos de los subdirectorios directos de src/content/projects.
+ * Las carpetas sin project.json se ignoran de forma intencional.
  */
-export function findExplainerAstroFiles() {
-  const root = process.cwd();
-  const explainersDir = path.join(root, 'src', 'components', 'Projects', 'explainers');
-  const found = {};
+export function loadAllProjects() {
+  if (!fs.existsSync(PROJECTS_DIR)) return [];
 
-  function walk(dir) {
-    if (!fs.existsSync(dir)) return;
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      const full = path.join(dir, entry.name);
-      if (entry.isDirectory()) {
-        if (entry.name === 'content') continue;
-        walk(full);
-      } else if (entry.isFile() && entry.name.endsWith('.astro')) {
-        const key = entry.name.replace(/\.astro$/, '').toLowerCase();
-        found[key] = full;
-      }
-    }
-  }
+  return fs
+    .readdirSync(PROJECTS_DIR, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => {
+      const metadataPath = path.join(PROJECTS_DIR, entry.name, 'project.json');
+      if (!fs.existsSync(metadataPath)) return null;
 
-  walk(explainersDir);
-  return found;
+      const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf-8'));
+      return { slug: entry.name, ...metadata };
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.slug.localeCompare(b.slug, 'en'));
+}
+
+export function loadProjectsByCategory(category) {
+  return loadAllProjects().filter((project) => project.category === category);
 }

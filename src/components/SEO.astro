@@ -45,6 +45,7 @@ const fullImage = image.startsWith('http') ? image : new URL(image, siteUrl).toS
 
 // ===== DETECTAR IDIOMA ACTUAL Y GENERAR HREFLANG =====
 const currentPath = Astro.url.pathname;
+const isNotFound = /^\/404(?:\.html)?\/?$/.test(currentPath);
 // Detecta si la ruta empieza con /en/; por defecto asume español
 const currentLang = currentPath.startsWith('/en/') ? 'en' : 'es';
 // Elimina el prefijo de idioma para obtener la ruta "limpia"
@@ -384,7 +385,7 @@ const ogLocaleAlternate = locale === 'es_AR' ? 'en_US' : 'es_AR';
 <!-- ===== META BÁSICAS ===== -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+<meta name="robots" content={isNotFound ? 'noindex,follow' : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'} />
 <meta name="generator" content="Astro" />
 <meta name="author" content={author} />
 <meta name="theme-color" content="#0a0a0a" />
@@ -393,20 +394,19 @@ const ogLocaleAlternate = locale === 'es_AR' ? 'en_US' : 'es_AR';
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta name="format-detection" content="telephone=no" />
 
-<!-- ===== VERIFICACIÓN (placeholder) ===== -->
-<meta name="google-site-verification" content="" />
-<meta name="msvalidate.01" content="" />
-<meta name="yandex-verification" content="" />
 <link rel="me" href="https://mastodon.social/@SolarisPKN" />
 
 <title>{title} | SolarisPKN Labs</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={fullUrl} />
 
-<!-- ===== HREFLANG (alternativas de idioma) ===== -->
-<link rel="alternate" hreflang="es" href={alternateUrls.es} />
-<link rel="alternate" hreflang="en" href={alternateUrls.en} />
-<link rel="alternate" hreflang="x-default" href={alternateUrls.es} />
+{!isNotFound && (
+  <>
+    <link rel="alternate" hreflang="es" href={alternateUrls.es} />
+    <link rel="alternate" hreflang="en" href={alternateUrls.en} />
+    <link rel="alternate" hreflang="x-default" href={alternateUrls.es} />
+  </>
+)}
 
 <!-- ===== OPEN GRAPH ===== -->
 <meta property="og:title" content={title} />
@@ -430,11 +430,8 @@ const ogLocaleAlternate = locale === 'es_AR' ? 'en_US' : 'es_AR';
 <meta name="twitter:image:alt" content={title} />
 
 <!-- ===== ICONOS ===== -->
-<link rel="icon" href="/favicon.ico" sizes="any" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="apple-touch-icon" href="/icon-192.png" />
 <link rel="manifest" href="/manifest.webmanifest" />
 
 <!-- ===== JSON-LD ===== -->

@@ -1,140 +1,55 @@
 ---
 // src/pages/[lang]/projects/index.astro
 import Layout from '../../../layouts/Layout.astro';
-import fs from 'fs';
-import path from 'path';
-import ProjectCard from '../../../components/Projects/ProjectCard.astro';
+import LabsTriptych from '../../../components/Projects/LabsTriptych.astro';
+import triptychImage from '../../../assets/projects/labs-triptych.webp';
 
 export async function getStaticPaths() {
   return [
     { params: { lang: 'es' } },
-    { params: { lang: 'en' } }
+    { params: { lang: 'en' } },
   ];
 }
 
 const { lang } = Astro.params;
-
-// ==========================================
-// Leer todos los proyectos del sistema de archivos
-// ==========================================
-const root = process.cwd();
-const projectsBaseDir = path.join(root, 'src', 'content', 'projects');
-const projects = [];
-
-if (fs.existsSync(projectsBaseDir)) {
-  const projectSlugs = fs.readdirSync(projectsBaseDir).filter(f => {
-    const stat = fs.statSync(path.join(projectsBaseDir, f));
-    return stat.isDirectory();
-  });
-
-  for (const slug of projectSlugs) {
-    const metaPath = path.join(projectsBaseDir, slug, 'project.json');
-    if (fs.existsSync(metaPath)) {
-      const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
-      // También podrías leer las traducciones del nombre/descripción desde un archivo MDX,
-      // pero como los metadatos ya están en project.json, podemos usarlos directamente.
-      // Si quieres separar, puedes tener un locale para los nombres, pero por simplicidad
-      // mantenemos todo en project.json.
-      projects.push({
-        slug,
-        ...meta,
-      });
-    }
-  }
-}
-
-// Ordenar por algún criterio (ej. por id o por fecha si añades un campo)
-projects.sort((a, b) => a.id.localeCompare(b.id));
-
-// Cargar traducciones de UI
 const t = await import(`../../../locales/${lang}/projects.json`);
 ---
 
-<Layout title={t.title} lang={lang}>
-  <main class="projects-page">
+<Layout title={t.title} description={t.subtitle} lang={lang}>
+  <section class="projects-portal">
     <header class="page-header">
       <h1>{t.title}</h1>
-      <p class="subtitle">{t.subtitle}</p>
-      <div class="filter-bar">
-        <button class="filter-btn active">{t.filters.all}</button>
-        <button class="filter-btn">{t.filters.software}</button>
-        <button class="filter-btn">{t.filters.infrastructure}</button>
-        <button class="filter-btn">{t.filters.network}</button>
-        <button class="filter-btn">{t.filters.automation}</button>
-        <button class="filter-btn">{t.filters.hardware}</button>
-        <button class="filter-btn">{t.filters.game}</button>
-      </div>
+      <p>{t.subtitle}</p>
     </header>
 
-    <div class="projects-grid">
-      {projects.map(project => (
-        <ProjectCard
-          key={project.id}
-          project={project}
-          lang={lang}
-          t={t}
-        />
-      ))}
-    </div>
-  </main>
+    <LabsTriptych lang={lang} image={triptychImage} />
+  </section>
 </Layout>
-<script>
-  import '../../../scripts/projectCards.js';
-</script>
+
 <style>
-  .projects-page {
+  .projects-portal {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 1.5rem;
+    padding: 2rem 1.5rem 4rem;
   }
+
   .page-header {
-    margin-bottom: 3rem;
+    max-width: 780px;
+    margin-bottom: 2rem;
   }
+
   .page-header h1 {
-    font-size: 2.4rem;
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 600;
-    letter-spacing: -0.02em;
-    color: #fff;
+    letter-spacing: -0.03em;
   }
-  .subtitle {
+
+  .page-header p {
+    margin: 0.65rem 0 0;
     color: #aaa;
-    font-size: 1.1rem;
-    margin-top: 0.3rem;
-  }
-  .filter-bar {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    margin-top: 1.5rem;
-  }
-  .filter-btn {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.08);
-    color: #aaa;
-    padding: 0.3rem 1rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'JetBrains Mono', monospace;
-  }
-  .filter-btn:hover {
-    border-color: rgba(255,255,255,0.2);
-    color: #fff;
-  }
-  .filter-btn.active {
-    border-color: #0ea5e9;
-    color: #fff;
-    background: rgba(14, 165, 233, 0.08);
-  }
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 1.5rem;
-  }
-  @media (max-width: 640px) {
-    .projects-grid {
-      grid-template-columns: 1fr;
-    }
+    font-size: 1.05rem;
+    line-height: 1.6;
   }
 </style>

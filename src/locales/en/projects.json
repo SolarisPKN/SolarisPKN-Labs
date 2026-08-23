@@ -1,56 +1,64 @@
 {
-  "title": "Proyectos",
-  "subtitle": "Sistemas técnicos, experimentos e infraestructura desarrollados por SolarisPKN.",
+  "title": "Projects",
+  "subtitle": "Three families of work: our own products, derived solutions, and research on external platforms.",
+  "portalAriaLabel": "Project categories",
+  "portalHint": "Explore category",
   "filters": {
-    "all": "TODOS",
+    "all": "ALL",
     "software": "SOFTWARE",
-    "infrastructure": "INFRAESTRUCTURA",
-    "network": "RED",
-    "automation": "AUTOMATIZACIÓN",
+    "infrastructure": "INFRASTRUCTURE",
+    "network": "NETWORK",
+    "automation": "AUTOMATION",
     "hardware": "HARDWARE",
-    "game": "JUEGOS"
+    "game": "GAMES"
   },
   "metrics": {
-    "requests": "Solicitudes",
-    "response": "Respuesta",
-    "availability": "Disponibilidad",
-    "players": "Jugadores",
+    "requests": "Requests",
+    "response": "Response",
+    "availability": "Availability",
+    "players": "Players",
     "mods": "Mods",
     "tps": "TPS",
-    "memory": "Memoria"
+    "memory": "Memory",
+    "noData": "No data",
+    "unavailable": "Unavailable",
+    "networkError": "Network error"
   },
   "status": {
-    "operational": "Operativo",
-    "online": "En línea",
-    "tracking": "Monitoreo",
-    "development": "En desarrollo",
-    "maintenance": "Mantenimiento"
+    "operational": "Operational",
+    "online": "Online",
+    "tracking": "Tracking",
+    "development": "In development",
+    "maintenance": "Maintenance"
   },
   "buttons": {
-    "openProject": "ABRIR PROYECTO →",
-    "back": "← VOLVER A PROYECTOS",
+    "openProject": "OPEN PROJECT →",
+    "back": "← BACK TO PROJECTS",
     "github": "GitHub",
-    "documentation": "Documentación",
-    "live": "Abrir proyecto"
+    "documentation": "Documentation",
+    "live": "Open project"
   },
   "tabs": {
-    "overview": "RESUMEN",
-    "architecture": "ARQUITECTURA",
-    "liveData": "DATOS EN VIVO",
-    "documentation": "DOCUMENTACIÓN"
+    "overview": "OVERVIEW",
+    "architecture": "ARCHITECTURE",
+    "liveData": "LIVE DATA",
+    "documentation": "DOCUMENTATION"
   },
   "categories": {
-  "core": {
-    "title": "Core Labs",
-    "subtitle": "The pillar projects of all SolarisPKN — the foundation everything else is built on."
-  },
-  "derived": {
-    "title": "Derived Labs",
-    "subtitle": "Projects born from the Core Labs: solutions adapted for clients and real-world cases."
-  },
-  "external": {
-    "title": "External Labs",
-    "subtitle": "Studies, documentation, and experimentation with platforms outside our ecosystem: Figma, Magic Patterns, GitLab, and more."
+    "core": {
+      "title": "Core Labs",
+      "subtitle": "SolarisPKN's pillar projects: the foundation everything else is built on.",
+      "empty": "No Core projects were found. Check the integrity of the project metadata."
+    },
+    "derived": {
+      "title": "Derived Labs",
+      "subtitle": "Work for clients, brands, and concrete use cases derived from our Core Labs experience.",
+      "empty": "Client work and derived solutions will appear here."
+    },
+    "external": {
+      "title": "External Labs",
+      "subtitle": "Research and experimentation with external platforms such as Figma, Trello, Magic Patterns, and GitLab.",
+      "empty": "Research and experiments involving external platforms will appear here."
+    }
   }
-}
 }

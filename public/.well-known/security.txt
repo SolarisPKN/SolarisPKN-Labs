@@ -1,0 +1,11 @@
+# SolarisPKN Labs - Security Contact
+
+Contact: mailto:seguridad@solarispkn.com.ar
+
+Preferred-Languages: es, en
+
+Policy: https://labs.solarispkn.com.ar/security
+
+Canonical: https://labs.solarispkn.com.ar/.well-known/security.txt
+
+Expires: 2027-07-19T23:59:59Z

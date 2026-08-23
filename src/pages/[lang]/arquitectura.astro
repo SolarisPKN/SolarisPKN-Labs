@@ -35,78 +35,7 @@ const t = await import(`../../locales/${lang}/arquitectura.json`);
     <p style="margin-top: 1rem;">⚡ <strong>{t.notaInteractiva}</strong></p>
   </div>
 
-  <!-- ===== SCRIPT OPTIMIZADO ===== -->
   <script>
-    let mermaidInitialized = false;
-
-    async function initMermaid() {
-      // Evitar reinicializaciones innecesarias
-      if (mermaidInitialized) return;
-      mermaidInitialized = true;
-
-      try {
-        // Importar Mermaid solo cuando sea necesario (carga diferida)
-        const { default: mermaid } = await import(
-          /* webpackChunkName: "mermaid" */
-          'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
-        );
-
-        // Inicializar Mermaid con la configuración adecuada
-        mermaid.initialize({
-          startOnLoad: false,
-          theme: 'dark',
-          themeVariables: {
-            background: '#0B0B10',
-            primaryColor: '#1E1E2F',
-            primaryBorderColor: '#00FFCC',
-            lineColor: '#00FFCC',
-            tertiaryColor: '#1E1E2F',
-          },
-        });
-
-        // Buscar todos los elementos con clase 'mermaid'
-        const elements = document.querySelectorAll('.mermaid');
-        if (elements.length > 0) {
-          await mermaid.run({ nodes: elements });
-          console.log('✅ Mermaid inicializado correctamente');
-        }
-      } catch (error) {
-        console.warn('⚠️ Error al cargar Mermaid:', error);
-        // Fallback: mostrar el código en texto plano
-        const pre = document.querySelector('.mermaid');
-        if (pre) {
-          pre.style.display = 'block';
-          pre.style.whiteSpace = 'pre-wrap';
-          pre.textContent = pre.textContent || 'Diagrama no disponible';
-        }
-      }
-    }
-
-    // ===== ESTRATEGIA DE CARGA =====
-    // 1. Intentar cargar cuando el navegador esté inactivo (prioridad baja)
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(() => initMermaid(), { timeout: 3000 });
-    } else {
-      // 2. Fallback: cargar después de que la página esté completamente cargada
-      document.addEventListener('load', initMermaid, { once: true });
-    }
-
-    // 3. También en cada navegación con View Transitions (solo si no se ha inicializado)
-    document.addEventListener('astro:page-load', () => {
-      if (!mermaidInitialized) {
-        initMermaid();
-      } else {
-        // Si ya está inicializado, solo reiniciamos si hay nuevos nodos
-        const elements = document.querySelectorAll('.mermaid:not([data-processed])');
-        if (elements.length > 0) {
-          // Reimportar Mermaid y procesar los nuevos nodos
-          import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs')
-            .then(({ default: mermaid }) => {
-              mermaid.run({ nodes: elements });
-            })
-            .catch(err => console.warn('Error al procesar nuevos nodos Mermaid', err));
-        }
-      }
-    });
+    import '../../scripts/arquitectura.js';
   </script>
 </Layout>

@@ -1,26 +1,31 @@
 {
   "id": "SolarisPKN-Labs",
+  "category": "core",
   "type": "infrastructure",
   "status": "operational",
-  "category": "core",
-  "technologies": ["Cloudflare", "DNS", "TLS 1.3", "DNSSEC", "Astro", "Cloudflare Pages"],
+  "name": {
+    "es": "SolarisPKN-Labs",
+    "en": "SolarisPKN-Labs"
+  },
+  "shortDescription": {
+    "es": "Laboratorio técnico y portfolio de SolarisPKN, desplegado sobre la red global de Cloudflare.",
+    "en": "SolarisPKN's technical lab and portfolio, deployed on Cloudflare's global network."
+  },
+  "technologies": ["Cloudflare", "DNS", "TLS 1.3", "DNSSEC", "Astro", "Cloudflare Workers"],
   "metrics": [
     { "label": "Requests", "value": "12.4K", "icon": "🌐" },
     { "label": "Response", "value": "142ms", "icon": "⚡" },
     { "label": "Availability", "value": "99.9%", "icon": "🛡" }
   ],
   "links": {
-     "live": "https://labs.solarispkn.com.ar",
-     "docs": "https://labs.solarispkn.com.ar/arquitectura",
-     "github": "https://github.com/SolarisPKN/SolarisPKN-Labs"
+    "live": "https://labs.solarispkn.com.ar",
+    "docs": "https://labs.solarispkn.com.ar/arquitectura",
+    "github": "https://github.com/SolarisPKN/SolarisPKN-Labs"
   },
   "details": {
-    "architecture": "Distributed edge network with Cloudflare Workers and Pages.",
-    "features": ["Global CDN", "Automatic SSL", "DDoS Protection", "Load Balancing"],
+    "architecture": "Distributed edge network with Cloudflare Workers and static assets.",
+    "features": ["Global CDN", "Automatic SSL", "DDoS Protection", "Edge routing"],
     "uptime": "99.99%",
     "lastUpdated": "2026-07-20"
-  },
-  "heroImage": "/images/projects/cloud-infrastructure/hero.webp",
-  "images": ["/images/projects/cloud-infrastructure/diagram.png"],
-  "apiEndpoint": ""
+  }
 }
