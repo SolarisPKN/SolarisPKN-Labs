@@ -30,17 +30,30 @@ Características actuales:
 * Estructura para presentación de proyectos.
 * Navegación básica.
 * Despliegue mediante Cloudflare Pages.
+* Blog bilingüe con editor local guiado.
 
 Características planificadas:
 
 * Documentación técnica.
 * Catálogo de proyectos.
-* Blog de desarrollo.
 * Sección de arquitectura.
 * Integración con proyectos Open Source.
 * Presentación de firmware y herramientas.
-* Sistema de membresías y cuentas.
 * Sistema de productos y licencias.
+
+## Crear una publicación
+
+En Windows, hacé doble clic en `abrir-editor-posts.cmd`. El archivo inicia un servidor efímero enlazado únicamente a `127.0.0.1` y abre una interfaz visual en el navegador.
+
+El editor permite completar metadatos, español e inglés, Markdown, portada y galería. Valida nombres, tamaños y rutas, crea todos los archivos del blog y no sobrescribe publicaciones existentes. No usa autenticación porque no se expone a la red: vive y termina en tu propia PC.
+
+También podés iniciarlo con:
+
+```powershell
+npm run post-editor
+```
+
+La herramienta de consola sigue disponible con `npm run create-post`.
 
 ## Objetivos
 
@@ -58,24 +71,18 @@ El objetivo a largo plazo de SolarisPKN-Labs es convertirse en un punto central 
 
 Tecnologías actuales:
 
+* Astro
 * HTML
 * CSS
 * JavaScript
 * GitHub
 * Cloudflare Pages
 
-Tecnologías en evaluación para futuras versiones:
-
-* Astro
-* Cloudflare Workers
-* Cloudflare D1
-* GitHub Actions
-
 ## Sitio Web
 
 Sitio en producción:
 
-https://solarispkn.pages.dev
+https://labs.solarispkn.com.ar
 
 ## Repositorio
 
@@ -92,32 +99,6 @@ El objetivo es documentar proyectos, experimentos, aprendizajes y soluciones té
 En pocas palabras:
 
 Un proyecto diseñado para contener otros proyectos.
-
-## Hoja de Ruta
-
-### Fase 1
-
-* Sitio web inicial
-* Estructura base
-* Publicación pública
-
-### Fase 2
-
-* Sistema de documentación
-* Páginas de proyectos
-* Sección de arquitectura
-
-### Fase 3
-
-* Cuentas de usuario
-* Funciones de membresía
-* Organización avanzada de contenido
-
-### Fase 4
-
-* Distribución de productos
-* Sistema de licencias
-* Integraciones avanzadas
 
 ## Licencia
 

@@ -1,0 +1,227 @@
+> *"Knowledge dies when it is not shared."*
+
+I built my first website when I was fifteen. It had animations, music, and enough visual noise to make any accessibility specialist nervous. It was not elegant, but it was mine: I had written every line, broken it several times, and learned how to repair it.
+
+Years later, artificial intelligence changed the speed at which software can be produced. What used to take a month can now appear in twenty minutes. That is extraordinary, but speed has blurred an important distinction: having working code is not the same as understanding what was built.
+
+This is not an attack on AI-assisted programming. I use AI every day, and it has expanded what I can create. It is an argument for using it consciously: orchestrating, auditing, and editing instead of merely prompting and accepting.
+
+## Twenty minutes versus a month
+
+A capable agent can inspect a repository, propose an architecture, modify dozens of files, run tests, and leave a functional result before a person finishes reading the original implementation. That productivity is real.
+
+But when the tool performs the entire journey, we may receive the destination without having traveled the road. We see the final diff, read an explanation, and understand the general idea. We did not necessarily experience the decisions, dead ends, dependencies, or small discoveries that shaped it.
+
+That matters because software development is not only the production of files. It is the accumulation of judgment.
+
+Judgment grows by touching the system: following an import, seeing why a component fails, noticing that two unrelated styles share a variable, finding disagreement between documentation and code, or discovering a bug the AI missed because it never asked the question that occurred to us.
+
+AI can compress time. It cannot automatically transfer all the experience it compressed.
+
+## Where I come from
+
+I am self-taught. Much of what I know came from trying, failing, searching, comparing, and trying again. That way of learning is slower than receiving a finished answer, but it leaves traces: mental maps, intuitions, and questions that appear only when your hands are involved.
+
+Fatherhood reinforced this for me. Knowledge locked inside one person eventually disappears. What is shared can be questioned, improved, and inherited.
+
+That is why I care not only about creating projects but also about explaining how they were built. A finished product may solve one problem. A well-told process can help someone solve many others.
+
+## My first workflow with AI
+
+My earliest serious use of AI for programming was not autonomous. I asked for a piece of code, read it, copied it manually, placed it in the project, and dealt with whatever happened next.
+
+From the outside, this may seem inefficient. Why copy something by hand when an agent can edit the repository directly?
+
+Because the manual step forced contact.
+
+I had to decide where the code belonged. I saw the imports, compared naming conventions, and encountered the architecture instead of receiving it as an explanation after the fact. When something failed, I had to understand enough to locate the failure.
+
+Sometimes that process taught me a technique I had never used. Sometimes it exposed an assumption in the generated code. Sometimes I found a problem the AI had missed.
+
+The value was not in the mechanical act of copying. The value was in the friction: the small amount of resistance that required me to participate.
+
+## Theory versus practice
+
+The clearest analogy is the difference between reading a book about building a house and actually building one.
+
+A book can explain foundations, loads, materials, tools, and common mistakes. A good book may save years of confusion. But reading it does not give your hands the memory of measuring a board, correcting a crooked cut, or discovering that the wall described perfectly on paper does not match the floor in front of you.
+
+Passive vibe coding often resembles reading the book after someone else built the house.
+
+The AI can explain what it changed, describe the architecture, justify a dependency, and summarize the errors it fixed. That explanation is useful, but it is theory attached to an already completed action.
+
+Manual integration, auditing, or supervised agent work by clearly defined sectors is closer to entering the workshop.
+
+You inspect the materials, decide which part is built first, test each connection, and notice inconsistencies. You ask why one solution fits this project and another does not. You may still use powerful machinery, but you remain involved in construction.
+
+This is not a moral distinction. Theory is not inferior to practice, and practice without theory can repeat avoidable mistakes. The problem appears when we mistake an explanation for experience. The strongest learning happens when both reinforce each other.
+
+## Why passive vibe coding can be more aggressive
+
+By *vibe coding* I mean a specific pattern: describing the desired result, allowing the AI to make broad changes, and judging success mainly by whether the output appears to work.
+
+Used this way, the tool can be surprisingly intrusive. A small-sounding prompt may alter architecture, dependencies, naming, styling, data flow, and configuration. The change can spread far beyond the visible feature.
+
+The risk is not simply that AI writes bad code. Humans do that too. The risk is the asymmetry between the size of the change and the depth of human review.
+
+A person may ask for a button and receive a refactor. They may ask for a page and receive a new state-management model. They may ask to fix a build and receive changes that erase intentional behavior.
+
+If the result works at first glance, hidden costs may remain unnoticed: duplicated logic, inaccessible markup, incompatible conventions, weakened security boundaries, or a dependency nobody understands.
+
+Aggressiveness is therefore not only about how many files changed. It is about how much of the system was transformed without equivalent human absorption.
+
+## Three ways to work with AI
+
+| Approach | What the AI does | What the person does | Typical learning |
+| --- | --- | --- | --- |
+| Passive vibe coding | Interprets the goal and makes broad changes | Prompts, waits, and checks the visible result | High-level theory and product feedback |
+| Manual integration | Proposes code or steps | Copies, adapts, connects, tests, and repairs | Detailed system knowledge and new techniques |
+| Supervised work by sector | Operates autonomously inside a bounded area | Defines scope, audits decisions, integrates results, and validates the whole | Practical architecture, delegation, and system-level judgment |
+
+The third approach is often confused with vibe coding.
+
+Using an agent such as Codex to inspect a repository, implement a bounded change, run tests, and report evidence is not necessarily passive. It becomes practical collaboration when the human defines boundaries, understands decisions, examines the diff, and remains responsible for the result.
+
+The key question is not whether the AI edited files directly.
+
+The key question is: **who is still exercising judgment?**
+
+## Orchestrate
+
+Orchestration begins before code is written. It means dividing the problem into areas with clear responsibilities, dependencies, and acceptance criteria.
+
+Instead of asking, "Make my site better," we can define separate tasks:
+
+- analyze the content model;
+- improve the publication workflow;
+- preserve the existing visual system;
+- validate accessibility;
+- test the production build;
+- document the decisions.
+
+This changes the human role. We stop being a requester waiting for magic and become the person designing the work.
+
+Good orchestration also prevents agents from colliding. Without boundaries, they may solve the same problem differently, overwrite one another, or optimize locally while damaging the whole.
+
+A sector is not merely a folder. It is a contract: this is the problem, this is the permitted scope, these are the invariants, and this is the evidence required before integration.
+
+## Audit
+
+Auditing is where convenience becomes confidence. A useful audit does not ask only whether the code compiles. It asks:
+
+- Did the implementation preserve intended behavior?
+- Does it follow project conventions?
+- Are error states handled?
+- Is the interface accessible?
+- Did the change add unnecessary dependencies?
+- Are paths, inputs, and outputs constrained?
+- Does the production build match development?
+- Does the explanation match the actual diff?
+
+This is where humans can discover things the AI did not.
+
+An agent is excellent at following patterns in the repository. A person may notice that the pattern itself is wrong. An agent may validate the requested feature. A person may realize the request reflects a mistaken product assumption. An agent may pass the tests. A person may see that the tests omit the case that matters.
+
+AI can inspect more code than we can hold in working memory. Humans can change the question. That combination is stronger than either side alone.
+
+## Edit
+
+Editing is the moment when generated material becomes part of a deliberate system.
+
+It may mean rewriting a paragraph so it sounds like the author, simplifying a function, rejecting an abstraction, renaming a concept, restoring a design detail, or moving code to the layer where it belongs.
+
+Editing is not a ceremonial final pass. It is authorship.
+
+If we accept every generated decision, the project gradually reflects the defaults of the tools we use. The code may remain functional while losing coherence. The writing may remain grammatical while losing voice.
+
+To edit is to say: this part belongs, this part does not, and this is why.
+
+## The hidden curriculum of manual integration
+
+When we integrate work manually, we learn more than the specific solution.
+
+We learn how the repository is organized, which files are authoritative, how content becomes a route, how metadata becomes a card, how styles flow through components, and how the production platform interprets the build.
+
+We also acquire methods outside the original task:
+
+- making writes atomic;
+- validating paths;
+- separating data from presentation;
+- designing reversible migrations;
+- testing edge cases;
+- preserving unrelated changes in a shared repository.
+
+Manual work can become mindless too. Copying without reading is only slower automation. Learning appears when the person uses the integration step to ask questions.
+
+## When vibe coding is useful
+
+A fast exploratory prompt is often exactly the right tool for prototypes, disposable experiments, visual sketches, unfamiliar APIs, and low-risk ideas whose main purpose is to answer, "Could this work?"
+
+It can also help experienced developers compare approaches quickly. Experience provides the filter: they know which shortcuts are temporary, which assumptions need verification, and which generated patterns conflict with the final system.
+
+The mistake is not using vibe coding. The mistake is allowing a prototype workflow to silently become a production workflow.
+
+Speed is a mode, not a quality standard.
+
+## When to slow down
+
+The more persistent, public, sensitive, or interconnected a system becomes, the more human attention it deserves.
+
+Slow down when a change affects:
+
+- authentication or authorization;
+- personal or financial data;
+- deployment and infrastructure;
+- shared schemas;
+- accessibility;
+- destructive operations;
+- long-lived architecture;
+- content presented under your name.
+
+In those areas, explanations after the fact are not enough. We need traceability: what changed, why it changed, how it was validated, and how it can be reversed.
+
+## A practical workflow
+
+My preferred workflow now looks like this:
+
+1. **Define the outcome.** State what must become true and what must remain unchanged.
+2. **Inspect the real system.** Read the repository, conventions, and current behavior before proposing changes.
+3. **Divide the work into bounded sectors.** Content, interface, data, security, validation, and deployment should not become one vague prompt.
+4. **Let AI accelerate implementation.** Use it where it has leverage: search, repetition, comparison, generation, and testing.
+5. **Audit the evidence.** Review the diff, run relevant checks, and compare the result with the original intent.
+6. **Edit with ownership.** Keep, rewrite, or reject decisions consciously.
+7. **Explain what was learned.** Document the result, reasoning, and surprises.
+
+This workflow is slower than blind acceptance and much faster than doing everything alone. More importantly, it preserves the learning loop.
+
+## Responsibility cannot be delegated
+
+AI can write code, tests, documentation, and a convincing explanation of its own choices. It cannot assume our responsibility.
+
+If a project fails, harms someone, exposes data, or becomes impossible to maintain, saying that the model made the decision will not repair the consequences.
+
+Responsibility means knowing enough to approve the change honestly. It does not require understanding every byte; modern software has always depended on abstraction. It requires understanding the boundaries, risks, and evidence appropriate to the decision.
+
+The goal is not to compete with the machine at typing.
+
+The goal is to remain the author of the system.
+
+## What I want to pass on
+
+I do not want the next generation to reject AI in order to learn. Nor do I want it to confuse instantaneous results with mastery.
+
+I want them to have both: tools that multiply their reach and the patience to build judgment.
+
+A person who works only manually may spend time rediscovering solved problems. A person who only delegates may never develop the instinct to recognize when a solution is wrong. The productive path is the conversation between theory and practice.
+
+Read the book. Ask the AI. Study the explanation.
+
+Then enter the workshop.
+
+Touch the code. Follow dependencies. Break a small thing and repair it. Audit what changed. Compare alternatives. Discover what neither the prompt nor the first answer noticed.
+
+The future of programming will not be human versus machine. It will be defined by the quality of the relationship between them.
+
+And the best relationship is not passive.
+
+It is one in which we orchestrate, audit, edit, ask, practice, learn, and take responsibility.

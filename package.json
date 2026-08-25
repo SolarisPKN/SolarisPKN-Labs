@@ -11,7 +11,9 @@
     "build": "astro build",
     "check": "astro check",
     "preview": "astro preview",
-    "create-post": "node scripts/create-post.js"
+    "create-post": "node scripts/create-post.js",
+    "post-editor": "node scripts/post-editor/server.js",
+    "test:post-editor": "node --test scripts/post-service.test.js"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.4",

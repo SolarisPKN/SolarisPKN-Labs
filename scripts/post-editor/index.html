@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SolarisPKN · Editor local de posts</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">SolarisPKN Labs</p>
+      <h1>Editor local de posts</h1>
+      <p>Funciona solo en esta PC. No usa cuentas, nube ni autenticación web.</p>
+    </div>
+    <button id="shutdown" class="button ghost" type="button">Cerrar editor</button>
+  </header>
+
+  <main>
+    <form id="post-form">
+      <section class="panel intro">
+        <div>
+          <span class="step">01</span>
+          <h2>Identidad y publicación</h2>
+        </div>
+        <div class="grid three">
+          <label>Título en español <input id="title-es" maxlength="180" required></label>
+          <label>Slug <input id="slug" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" required><small>Se genera desde el título y después podés editarlo.</small></label>
+          <label>Fecha <input id="date" type="date" required></label>
+          <label>Categoría <input id="category" list="categories" placeholder="IA y Desarrollo"></label>
+          <label class="span-two">Etiquetas <input id="tags" list="tags" placeholder="AI, Programación, Aprendizaje"><small>Separadas por comas.</small></label>
+        </div>
+        <datalist id="categories"></datalist>
+        <datalist id="tags"></datalist>
+      </section>
+
+      <section class="panel">
+        <div>
+          <span class="step">02</span>
+          <h2>Edición bilingüe</h2>
+        </div>
+        <div class="language-head">
+          <div class="tabs" role="tablist" aria-label="Idioma de edición">
+            <button class="tab active" type="button" data-lang="es">Español</button>
+            <button class="tab" type="button" data-lang="en">English</button>
+          </div>
+          <label class="toggle"><input id="english-enabled" type="checkbox" checked> Publicar versión inglesa</label>
+        </div>
+
+        <div id="pane-es" class="language-pane active">
+          <label>Descripción para el listado <textarea id="description-es" rows="2" maxlength="320" required></textarea></label>
+          <div class="editor-grid">
+            <div>
+              <div class="toolbar" data-target="content-es">
+                <button type="button" data-wrap="**">Negrita</button><button type="button" data-prefix="## ">Título</button>
+                <button type="button" data-prefix="> ">Cita</button><button type="button" data-block="code">Código</button>
+              </div>
+              <label>Contenido Markdown <textarea id="content-es" class="content" rows="24" required></textarea></label>
+            </div>
+            <div><h3>Vista previa</h3><div id="preview-es" class="preview prose"></div></div>
+          </div>
+        </div>
+
+        <div id="pane-en" class="language-pane">
+          <label>Título en inglés <input id="title-en" maxlength="180"></label>
+          <label>Descripción para el listado <textarea id="description-en" rows="2" maxlength="320"></textarea></label>
+          <div class="editor-grid">
+            <div>
+              <div class="toolbar" data-target="content-en">
+                <button type="button" data-wrap="**">Bold</button><button type="button" data-prefix="## ">Heading</button>
+                <button type="button" data-prefix="> ">Quote</button><button type="button" data-block="code">Code</button>
+              </div>
+              <label>Markdown content <textarea id="content-en" class="content" rows="24"></textarea></label>
+            </div>
+            <div><h3>Preview</h3><div id="preview-en" class="preview prose"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div>
+          <span class="step">03</span>
+          <h2>Imágenes</h2>
+        </div>
+        <div class="grid two">
+          <label>Portada <input id="hero" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif"><small>Opcional. Máximo 10 MB.</small></label>
+          <label>Galería <input id="gallery" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,image/avif"><small>Opcional. Máximo total 30 MB.</small></label>
+        </div>
+        <div id="image-summary" class="file-summary">Todavía no seleccionaste imágenes.</div>
+      </section>
+
+      <section class="panel finish">
+        <div>
+          <span class="step">04</span>
+          <h2>Crear archivos</h2>
+          <p>Se validan las rutas y nunca se sobrescribe un post existente.</p>
+        </div>
+        <button id="submit" class="button primary" type="submit">Crear post</button>
+      </section>
+      <div id="status" class="status" aria-live="polite"></div>
+    </form>
+  </main>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
