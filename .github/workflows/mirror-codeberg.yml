@@ -1,0 +1,26 @@
+name: Mirror to Codeberg
+
+on:
+  schedule:
+    # Se ejecuta a las 00:00 UTC todos los domingos (puedes ajustarlo)
+    - cron: '0 0 * * 0'
+  workflow_dispatch: # Permite ejecutar el script manualmente con un botón en GitHub
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositorio original
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Necesario para copiar todo el historial y ramas
+
+      - name: Empujar hacia Codeberg
+        env:
+          TOKEN: ${{ secrets.CODEBERG_TOKEN }}
+          USERNAME: SolarisPKN # Reemplaza con tu usuario
+          REPO: SolarisPKN/SolarisPKN-Labs # Reemplaza con tu usuario/repo
+        run: |
+          git remote add codeberg https://$USERNAME:$TOKEN@codeberg.org/$REPO.git
+          git push codeberg --all --force
+          git push codeberg --tags --force
