@@ -1,0 +1,20 @@
+name: Mirror to GitFlic
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Domingos a las 00:00 UTC
+  workflow_dispatch:
+
+jobs:
+  sync-to-gitflic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo completo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push mirror a GitFlic
+        run: |
+          git remote add gitflic https://solarispkn:${{ secrets.GITFLIC_TOKEN }}@gitflic.ru/project/solarispkn/${{ github.event.repository.name }}.git
+          git push --prune --force gitflic "+refs/heads/*:refs/heads/*" "+refs/tags/*:refs/tags/*"
