@@ -1,0 +1,748 @@
+> **What's the point of a digital identity system if every time I switch platforms I have to prove who I am all over again?**
+
+## 🛤️ My problem starts between two places
+
+My routine is a little unusual.
+
+I live in La Tablada, but I also work in Villars.
+
+That means that during the week I end up moving between two places, two internet connections, two devices, and completely different contexts.
+
+And the trip isn't exactly:
+
+> *“Cool, I'll grab the laptop and be there in 15 minutes.”* 😅
+
+By public transport it can take **three or four hours**.
+
+By car, roughly an hour and a half.
+
+And since I'm obviously not going to carry a desktop PC back and forth every time I move between locations, I ended up building my workflow around two setups.
+
+```text
+🏠 La Tablada
+│
+├── Main PC
+├── Development
+├── Administration
+└── General work
+
+        ↕️
+
+🚌 / 🚗
+
+        ↕️
+
+🔧 Villars
+│
+├── Laptop
+├── Remote access
+├── Development
+└── Access to my services
+```
+
+So far, perfect.
+
+That's literally what technology is supposed to help with.
+
+I have my accounts.
+
+I have my services.
+
+I have remote access.
+
+I have synchronization.
+
+I have authentication.
+
+Everything is set up so I can switch devices without having to restart my digital life from scratch.
+
+Except when this shows up:
+
+## 🔐 “We need to verify your identity”
+
+And that's when the ritual begins.
+
+---
+
+## 🪪 Persona enters the scene
+
+Many platforms use **Persona** for identity verification.
+
+And conceptually, the process makes perfect sense.
+
+The platform needs to confirm that I'm a real person and that the identity I'm claiming actually belongs to me.
+
+So:
+
+1. 📸 I scan my ID
+2. 🤳 I complete facial verification
+3. 🔎 Persona validates the information
+4. ✅ My identity is confirmed
+
+Done.
+
+I have absolutely no problem with that.
+
+In fact, I'd rather a platform perform a proper verification than deal later with fake accounts, bots, fraud, or identity theft.
+
+The problem starts when I do exactly the same thing again a few days later.
+
+And then again.
+
+And again.
+
+And again.
+
+---
+
+## 🔁 Welcome to the infinite loop
+
+My experience ends up looking something like this:
+
+```text
+Platform A
+    │
+    ▼
+Persona
+    │
+    ▼
+🪪 National ID
+    │
+    ▼
+🤳 Face
+    │
+    ▼
+✅ Verified
+```
+
+Perfect.
+
+Then I open another platform:
+
+```text
+Platform B
+    │
+    ▼
+Persona
+    │
+    ▼
+🪪 NATIONAL ID AGAIN
+    │
+    ▼
+🤳 FACE AGAIN
+    │
+    ▼
+✅ VERIFIED AGAIN
+```
+
+And then:
+
+```text
+Platform C
+    │
+    ▼
+Persona
+    │
+    ▼
+🪪 National ID
+
+Me:
+ಠ_ಠ
+```
+
+😂
+
+And that's when the obvious question appears:
+
+> **Didn't we just do this?**
+
+---
+
+## 🤨 Persona already knows Persona verified me
+
+And this is the part that really bugs me.
+
+I'm not talking about completely different verification services.
+
+It's not:
+
+```text
+Company A → Persona
+
+Company B → Onfido
+
+Company C → Veriff
+```
+
+In that case, I'd completely understand that each provider has its own infrastructure.
+
+I'm talking about something more like:
+
+```text
+Company A ─┐
+Company B ─┼──► Persona
+Company C ─┤
+Company D ─┘
+```
+
+The same provider.
+
+The same document.
+
+The same face.
+
+The same person.
+
+Yet every integration behaves as if **this were the first time Persona had ever seen me in its life**.
+
+---
+
+## 💀 And it's not just clicking two buttons
+
+If the whole process were:
+
+> “Is this you?”
+
+> Yes.
+
+> ✅ Perfect.
+
+I wouldn't be writing this article.
+
+The process is considerably more of a pain in the ass than that.
+
+You have to:
+
+* 🪪 Find the physical ID
+* 📸 Scan it again
+* 💡 Find decent lighting
+* 🤳 Fit your face inside the oval
+* ↔️ Turn your head
+* 📷 Repeat the capture if it doesn't like the first one
+* ⏳ Wait for analysis
+* ✅ Wait for confirmation
+
+And if you happen to be working somewhere else, you get that beautiful moment of:
+
+> **“Where the hell did I leave my ID?”**
+
+😭
+
+All to prove something you've already proven before through the exact same provider.
+
+---
+
+## 💼 Then I found Persona Wallet
+
+As usual, whenever something technological feels off to me, I did what I probably shouldn't do because it eventually leads to me writing things like this:
+
+**I started digging into it.** 🧪
+
+And that's where something pretty interesting shows up:
+
+### Persona Wallet
+
+Conceptually, it's exactly what I'd expect from a digital identity system.
+
+A kind of wallet where your identity can be linked to credentials that have already been verified.
+
+I love the idea.
+
+Conceptually, something like this:
+
+```text
+            Persona Wallet
+                  │
+        ┌─────────┼─────────┐
+        ▼         ▼         ▼
+      🪪 ID      🤳 Face    🚗 License
+        │         │         │
+        └─────────┼─────────┘
+                  ▼
+           Verified Identity
+```
+
+Perfect.
+
+That makes much more sense.
+
+You upload your credentials.
+
+You prove who you are.
+
+You end up with a verified identity.
+
+And the next platform should be able to say:
+
+> **“This user already has an identity verified by Persona.”**
+
+Right?
+
+Well...
+
+In my experience:
+
+**nope.** 😂
+
+---
+
+## 🏝️ Every integration is still an island
+
+After using several platforms that integrate Persona, none of the ones I've encountered gave me something as simple as:
+
+**Verify with Persona Wallet**
+
+or:
+
+**Use existing Persona verification**
+
+The process still starts almost entirely from scratch.
+
+So we end up with something pretty absurd.
+
+We have an identity wallet.
+
+We have a verification provider.
+
+We have multiple services using that same provider.
+
+But the pieces don't really behave like an ecosystem.
+
+They feel like islands.
+
+```text
+Platform A     Platform B     Platform C
+    │              │              │
+    ▼              ▼              ▼
+ Persona         Persona         Persona
+    │              │              │
+    ▼              ▼              ▼
+ VERIFY          VERIFY          VERIFY
+    │              │              │
+    ▼              ▼              ▼
+   🪪             🪪             🪪
+```
+
+When intuitively I'd expect something more like:
+
+```text
+                 Persona
+                    │
+                    ▼
+          Verified Identity
+                    │
+          ┌─────────┼─────────┐
+          ▼         ▼         ▼
+      Platform A Platform B Platform C
+```
+
+Obviously, **with the user's consent**.
+
+And that last part matters a lot.
+
+---
+
+## ⚠️ I also don't want a global biometric database 💀
+
+I want to make something very clear here, because the lazy solution would be:
+
+> “Well, just let Persona store everything and let every company query the same identity.”
+
+And...
+
+**no.**
+
+Thanks. 😂
+
+That opens a pretty massive Pandora's box around:
+
+* 🔐 Privacy
+* 🧬 Biometric data
+* 🪪 Personal identification documents
+* 🏢 Customer separation
+* ⚖️ Regulation
+* 📝 Consent
+* 🗑️ Data retention and deletion
+* 🌎 Different laws depending on the country
+
+I also understand that companies using Persona can have completely different legal requirements.
+
+One platform may need one kind of proof.
+
+Another may need something else.
+
+One may require a recent verification.
+
+Another may need to retain specific evidence for compliance reasons.
+
+And the verification data is probably isolated between different customers or *tenants* precisely for security and privacy reasons.
+
+All of that is reasonable.
+
+But I think there's a massive difference between:
+
+> **Sharing my documents between companies**
+
+and:
+
+> **Allowing me to present a previously verified credential.**
+
+That second model is much more interesting to me.
+
+---
+
+## 🪪 The solution shouldn't be sharing my ID
+
+To me, the right model would look more like a digital credential.
+
+Persona verifies me once:
+
+```text
+🪪 Document
+      +
+🤳 Biometrics
+      │
+      ▼
+   Persona
+      │
+      ▼
+✅ Credential
+```
+
+And generates some kind of verifiable proof.
+
+Then a platform asks for:
+
+```text
+Platform X:
+
+I need to confirm:
+
+✅ Real person
+✅ Verified identity
+✅ Above a certain age
+✅ Valid document
+```
+
+And I authorize it through Persona:
+
+> **Share these verification results with Platform X**
+
+Done.
+
+The platform doesn't necessarily need another full photograph of my national ID.
+
+It needs to know that **a trusted verification authority has already confirmed specific information**.
+
+---
+
+## 🔐 Something like OAuth... but for identity
+
+Conceptually, you could think of the flow as something similar to OAuth.
+
+When an application wants access to GitHub, we don't do this:
+
+```text
+Give me your GitHub password
+```
+
+every single time.
+
+GitHub says:
+
+> **This application is requesting access to specific information.**
+
+And I authorize it.
+
+```text
+App
+ │
+ ▼
+GitHub
+ │
+ ▼
+Authorize?
+ │
+ ├── Public repositories
+ ├── Profile
+ └── Email
+
+      ✅ Allow
+```
+
+Why can't digital identity feel just as simple?
+
+Something like:
+
+```text
+Platform
+   │
+   ▼
+Persona
+   │
+   ▼
+This platform wants to verify:
+
+☑️ Identity
+☑️ Age requirement
+☑️ Valid document
+
+[ Authorize ]
+```
+
+Done.
+
+No need to photograph the piece of plastic in my wallet all over again.
+
+---
+
+## 🧠 Verify attributes, don't hand over documents
+
+And this is where an idea I like even more appears.
+
+Many platforms probably **don't even need to know every single piece of information on my ID**.
+
+Let's say a platform only needs to know that I'm over 18.
+
+Why should it necessarily receive:
+
+* Full name
+* ID number
+* Exact date of birth
+* Photograph of the document
+* Address
+* Other personal information
+
+when all it actually needs to know is:
+
+```text
+age >= 18 → true
+```
+
+🤷
+
+A properly designed digital identity system should let us prove **attributes**.
+
+Not necessarily hand over full documents.
+
+For example:
+
+```json
+{
+  "identity_verified": true,
+  "age_over_18": true,
+  "document_valid": true,
+  "verification_provider": "Persona"
+}
+```
+
+That would be much more elegant.
+
+And from a privacy perspective, potentially much better too.
+
+---
+
+## 🧩 Identity should be portable
+
+Today we already have plenty of portable technology concepts.
+
+We have:
+
+* 🔑 Passkeys
+* 🔐 OAuth
+* 🪪 Digital credentials
+* 🔏 Certificates
+* 🔗 Single Sign-On
+* ☁️ Federated accounts
+* 🔑 Tokens
+* 📱 Wallets
+
+Yet identity verification still has a workflow that looks suspiciously like:
+
+> **Take another picture of your ID.**
+
+There's clearly something we haven't fully solved yet.
+
+---
+
+## 🎯 Persona shouldn't have to verify me six times
+
+My criticism isn't that Persona verifies identities.
+
+Quite the opposite.
+
+**That's literally its job.**
+
+My criticism is that, from the user's perspective, the result of that verification seems to have very little portability.
+
+Because if Persona has already verified:
+
+```text
+Document → valid ✅
+Face → match ✅
+Person → verified ✅
+```
+
+then there should be some secure architecture capable of saying:
+
+> **This identity has already been verified. Do you want to reuse that verification for this platform?**
+
+And if that platform legally needs a fresh verification:
+
+Perfect.
+
+Ask me only for what actually needs to be refreshed.
+
+For example:
+
+```text
+Previous verification
+        │
+        ▼
+Document still valid ✅
+        │
+        ▼
+New facial check
+        │
+        ▼
+Current identity confirmed ✅
+```
+
+That alone would be massively better than starting completely from zero.
+
+---
+
+## 🚀 From repetitive KYC to reusable identity
+
+I think the conceptual shift should look like this:
+
+### Today
+
+```text
+Service
+   │
+   ▼
+Who are you?
+   │
+   ▼
+🪪 Document
+   │
+   ▼
+🤳 Face
+   │
+   ▼
+✅ Done
+
+
+Another service
+   │
+   ▼
+Who are you?
+
+Me:
+(╯°□°)╯︵ 🪪
+```
+
+### What I'd expect
+
+```text
+Service
+   │
+   ▼
+Persona
+   │
+   ▼
+Previously verified identity
+   │
+   ▼
+Authorize?
+   │
+   ▼
+✅ Done
+```
+
+Much faster.
+
+Much more convenient.
+
+And potentially with **less unnecessary exposure of personal information**.
+
+---
+
+## 💡 The ironic part
+
+We have infrastructure capable of recognizing my face.
+
+We have systems capable of analyzing identity documents.
+
+We have fraud detection.
+
+We have biometrics.
+
+We have artificial intelligence.
+
+We have APIs.
+
+We have digital wallets.
+
+We have cryptography.
+
+We have federated authentication.
+
+We have passkeys.
+
+But I still have to get out of my chair because:
+
+> **“Hang on, I need to find my ID again.”**
+
+😂
+
+Something is clearly missing there.
+
+---
+
+## 🎯 Conclusion
+
+Digital identity shouldn't mean:
+
+> **digitizing the exact same analog bureaucracy over and over forever.**
+
+It should mean that once we've proven specific information, we can **reuse that trust in a controlled, secure, and explicitly authorized way**.
+
+I don't want every company to have access to my documents.
+
+I don't want a platform to query my identity without permission.
+
+And I definitely don't want some gigantic biometric database accessible to everyone.
+
+I want something much simpler:
+
+> **I've already verified my identity with Persona. Ask me whether I want to reuse that verification.**
+
+One credential.
+
+One consent screen.
+
+One confirmation.
+
+Done. 🔐
+
+Because if every platform using the same provider forces me to start from scratch...
+
+then we didn't build digital identity.
+
+**We just turned bureaucracy into a web page.** 💀
+
+---
+
+### 💬 Has this happened to you too?
+
+If you've ever had to verify your identity across several platforms that use the same verification provider:
+
+**how many times did you end up photographing the exact same document?**
+
+Would you prefer a system where you could temporarily authorize a previously verified identity instead?
+
+Because after repeating this process enough times...
+
+**I definitely would.** 😂

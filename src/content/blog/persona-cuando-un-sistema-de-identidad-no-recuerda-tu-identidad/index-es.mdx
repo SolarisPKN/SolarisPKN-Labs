@@ -1,0 +1,748 @@
+> **¿De qué sirve un sistema de identidad digital si cada vez que cambio de plataforma tengo que volver a demostrar quién soy?**
+
+## 🛤️ Mi problema empieza entre dos lugares
+
+Mi rutina es bastante particular.
+
+Vivo en La Tablada, pero también trabajo en Villars.
+
+Eso significa que durante la semana termino moviéndome entre dos lugares, dos conexiones, dos dispositivos y contextos completamente diferentes.
+
+El viaje tampoco es precisamente:
+
+> *“Bueno, agarro la notebook y en 15 minutos estoy allá.”* 😅
+
+En transporte público pueden ser **tres o cuatro horas**.
+
+En vehículo, aproximadamente una hora y media.
+
+Y como obviamente no voy a andar transportando una PC de escritorio cada vez que cambio de lugar, terminé armando mi flujo de trabajo alrededor de dos setups.
+
+```text
+🏠 La Tablada
+│
+├── PC principal
+├── Desarrollo
+├── Administración
+└── Trabajo general
+
+        ↕️
+
+🚌 / 🚗
+
+        ↕️
+
+🔧 Villars
+│
+├── Laptop
+├── Control remoto
+├── Desarrollo
+└── Acceso a mis servicios
+```
+
+Hasta ahí, perfecto.
+
+La tecnología justamente existe para eso.
+
+Tengo mis cuentas.
+
+Tengo mis servicios.
+
+Tengo acceso remoto.
+
+Tengo sincronización.
+
+Tengo autenticación.
+
+Tengo todo preparado para poder cambiar de dispositivo sin arrancar mi vida digital desde cero.
+
+Excepto cuando aparece esto:
+
+## 🔐 “Necesitamos verificar tu identidad”
+
+Ahí empieza el ritual.
+
+---
+
+## 🪪 Persona entra en escena
+
+Muchas plataformas utilizan **Persona** para verificar identidad.
+
+Y el proceso, conceptualmente, está perfecto.
+
+La plataforma necesita comprobar que realmente soy una persona y que la identidad que estoy declarando me pertenece.
+
+Entonces:
+
+1. 📸 Escaneo mi documento
+2. 🤳 Hago reconocimiento facial
+3. 🔎 Persona valida la información
+4. ✅ Mi identidad queda confirmada
+
+Listo.
+
+No tengo ningún problema con eso.
+
+De hecho, prefiero que una plataforma haga una verificación seria antes que encontrarnos después con cuentas falsas, bots, fraude o suplantación de identidad.
+
+El problema empieza cuando hago exactamente lo mismo unos días después.
+
+Y después otra vez.
+
+Y otra.
+
+Y otra.
+
+---
+
+## 🔁 Bienvenido al loop infinito
+
+Mi experiencia termina siendo algo parecido a esto:
+
+```text
+Plataforma A
+    │
+    ▼
+Persona
+    │
+    ▼
+🪪 DNI
+    │
+    ▼
+🤳 Cara
+    │
+    ▼
+✅ Verificado
+```
+
+Perfecto.
+
+Después entro a otra plataforma:
+
+```text
+Plataforma B
+    │
+    ▼
+Persona
+    │
+    ▼
+🪪 DNI OTRA VEZ
+    │
+    ▼
+🤳 Cara OTRA VEZ
+    │
+    ▼
+✅ Verificado OTRA VEZ
+```
+
+Y después:
+
+```text
+Plataforma C
+    │
+    ▼
+Persona
+    │
+    ▼
+🪪 DNI
+
+Yo:
+ಠ_ಠ
+```
+
+😂
+
+Y ahí aparece la pregunta inevitable:
+
+> **¿No acabamos de hacer esto?**
+
+---
+
+## 🤨 Persona ya sabe que Persona me verificó
+
+Y esta es la parte que más ruido me hace.
+
+No estoy hablando de dos servicios completamente diferentes.
+
+No es:
+
+```text
+Empresa A → Persona
+
+Empresa B → Onfido
+
+Empresa C → Veriff
+```
+
+Ahí entendería perfectamente que cada proveedor tiene su propia infraestructura.
+
+Estoy hablando de algo más parecido a:
+
+```text
+Empresa A ─┐
+Empresa B ─┼──► Persona
+Empresa C ─┤
+Empresa D ─┘
+```
+
+El mismo proveedor.
+
+El mismo documento.
+
+La misma cara.
+
+La misma persona.
+
+Pero cada integración se comporta como si fuera **la primera vez que Persona me ve en su vida**.
+
+---
+
+## 💀 Y no es solamente tocar dos botones
+
+Si el proceso fuera:
+
+> “¿Sos vos?”
+
+> Sí.
+
+> ✅ Perfecto.
+
+No estaría escribiendo este artículo.
+
+El proceso implica algo bastante más rompebolas.
+
+Hay que:
+
+* 🪪 Buscar el documento físico
+* 📸 Escanearlo nuevamente
+* 💡 Encontrar iluminación decente
+* 🤳 Colocar la cara dentro del óvalo
+* ↔️ Girar la cabeza
+* 📷 Repetir la captura si no la toma bien
+* ⏳ Esperar el análisis
+* ✅ Esperar la confirmación
+
+Y si justo estás trabajando desde otro lugar, aparece el hermoso momento de:
+
+> **“¿Dónde mierda dejé el DNI?”**
+
+😭
+
+Todo para demostrar algo que ya demostraste anteriormente mediante exactamente el mismo proveedor.
+
+---
+
+## 💼 Entonces encontré Persona Wallet
+
+Como siempre que algo tecnológico me hace ruido, hice lo que probablemente no debería hacer porque después termino escribiendo estas cosas:
+
+**me puse a investigar.** 🧪
+
+Y ahí aparece algo bastante interesante:
+
+### Persona Wallet
+
+Conceptualmente, es justamente lo que yo esperaría de una identidad digital.
+
+Una especie de billetera donde tu identidad puede quedar vinculada con credenciales previamente verificadas.
+
+La idea me parece excelente.
+
+Algo conceptualmente parecido a:
+
+```text
+            Persona Wallet
+                  │
+        ┌─────────┼─────────┐
+        ▼         ▼         ▼
+      🪪 DNI     🤳 Face    🚗 ID
+        │         │         │
+        └─────────┼─────────┘
+                  ▼
+          Identidad verificada
+```
+
+Perfecto.
+
+Eso tiene muchísimo más sentido.
+
+Cargás tus credenciales.
+
+Demostrás quién sos.
+
+Queda una identidad verificada.
+
+Y la próxima plataforma debería poder decir:
+
+> **“Este usuario ya posee una identidad verificada por Persona.”**
+
+¿No?
+
+Bueno...
+
+En mi experiencia:
+
+**no.** 😂
+
+---
+
+## 🏝️ Cada integración sigue siendo una isla
+
+Después de usar varias plataformas que implementan Persona, ninguna de las que me encontré me permitió hacer algo tan sencillo como:
+
+**Verify with Persona Wallet**
+
+o:
+
+**Use existing Persona verification**
+
+El proceso sigue arrancando prácticamente desde cero.
+
+Entonces terminamos teniendo algo bastante absurdo.
+
+Tenemos una billetera de identidad.
+
+Tenemos un proveedor de verificación.
+
+Tenemos múltiples servicios usando ese mismo proveedor.
+
+Pero las piezas no terminan funcionando como un ecosistema.
+
+Se sienten como islas.
+
+```text
+Platform A     Platform B     Platform C
+    │              │              │
+    ▼              ▼              ▼
+ Persona         Persona         Persona
+    │              │              │
+    ▼              ▼              ▼
+ VERIFY          VERIFY          VERIFY
+    │              │              │
+    ▼              ▼              ▼
+   🪪             🪪             🪪
+```
+
+Cuando intuitivamente esperaría algo más parecido a:
+
+```text
+                 Persona
+                    │
+                    ▼
+          Verified Identity
+                    │
+          ┌─────────┼─────────┐
+          ▼         ▼         ▼
+      Platform A Platform B Platform C
+```
+
+Obviamente, **con consentimiento del usuario**.
+
+Y esa última parte es bastante importante.
+
+---
+
+## ⚠️ Ahora, tampoco quiero una base biométrica mundial 💀
+
+Acá quiero hacer una aclaración porque la solución fácil sería decir:
+
+> “Bueno, que Persona guarde todo y todas las empresas consulten la misma identidad.”
+
+Y...
+
+**no.**
+
+Gracias. 😂
+
+Eso abre una caja de Pandora bastante importante en materia de:
+
+* 🔐 Privacidad
+* 🧬 Datos biométricos
+* 🪪 Documentación personal
+* 🏢 Separación entre clientes
+* ⚖️ Regulaciones
+* 📝 Consentimiento
+* 🗑️ Retención y eliminación de datos
+* 🌎 Legislaciones diferentes según país
+
+También entiendo que las empresas que usan Persona pueden tener requisitos legales distintos.
+
+Una plataforma puede necesitar determinada comprobación.
+
+Otra puede necesitar otra.
+
+Una puede requerir una verificación reciente.
+
+Otra puede necesitar almacenar determinada evidencia para cumplir regulación.
+
+Y probablemente las verificaciones estén aisladas entre diferentes clientes o *tenants* precisamente por cuestiones de seguridad y privacidad.
+
+Todo eso es razonable.
+
+Pero creo que hay una diferencia enorme entre:
+
+> **Compartir mis documentos entre empresas**
+
+y:
+
+> **Permitir que yo presente una credencial previamente verificada.**
+
+Eso último me parece muchísimo más interesante.
+
+---
+
+## 🪪 La solución no debería ser compartir mi DNI
+
+Para mí, el modelo correcto sería algo parecido a una credencial digital.
+
+Persona verifica una vez:
+
+```text
+🪪 Documento
+      +
+🤳 Biometría
+      │
+      ▼
+   Persona
+      │
+      ▼
+✅ Credential
+```
+
+Y genera algún tipo de comprobante verificable.
+
+Después una plataforma solicita:
+
+```text
+Platform X:
+
+Necesito comprobar:
+
+✅ Persona real
+✅ Identidad verificada
+✅ Mayor de determinada edad
+✅ Documento válido
+```
+
+Y yo autorizo desde Persona:
+
+> **Compartir estas verificaciones con Platform X**
+
+Listo.
+
+La plataforma no necesariamente necesita recibir nuevamente una fotografía completa de mi DNI.
+
+Necesita saber que **una autoridad de verificación confiable ya comprobó determinada información**.
+
+---
+
+## 🔐 Algo parecido a OAuth... pero para identidad
+
+Conceptualmente, podríamos pensar el flujo como algo parecido a OAuth.
+
+Cuando una aplicación quiere acceder a GitHub no hacemos:
+
+```text
+Mandame tu contraseña de GitHub
+```
+
+cada vez.
+
+GitHub dice:
+
+> **Esta aplicación solicita acceso a determinada información.**
+
+Y yo autorizo.
+
+```text
+App
+ │
+ ▼
+GitHub
+ │
+ ▼
+¿Autorizar?
+ │
+ ├── Repositorios públicos
+ ├── Perfil
+ └── Email
+
+      ✅ Allow
+```
+
+¿Por qué la identidad digital no puede sentirse igual de simple?
+
+Algo como:
+
+```text
+Platform
+   │
+   ▼
+Persona
+   │
+   ▼
+Esta plataforma solicita verificar:
+
+☑️ Identidad
+☑️ Mayoría de edad
+☑️ Documento válido
+
+[ Autorizar ]
+```
+
+Y listo.
+
+No hace falta volver a fotografiar el plástico que tengo en la billetera.
+
+---
+
+## 🧠 Verificar atributos, no entregar documentos
+
+Y acá incluso aparece una idea que me parece todavía mejor.
+
+Muchas plataformas probablemente **ni siquiera necesitan conocer todos los datos de mi documento**.
+
+Supongamos que una plataforma solamente necesita saber que soy mayor de 18 años.
+
+¿Por qué debería necesariamente recibir:
+
+* Nombre completo
+* Número de documento
+* Fecha exacta de nacimiento
+* Foto del documento
+* Dirección
+* Otros datos
+
+cuando lo único que necesita saber es:
+
+```text
+age >= 18 → true
+```
+
+🤷
+
+Una identidad digital bien diseñada debería permitir demostrar **atributos**.
+
+No necesariamente entregar documentos completos.
+
+Por ejemplo:
+
+```json
+{
+  "identity_verified": true,
+  "age_over_18": true,
+  "document_valid": true,
+  "verification_provider": "Persona"
+}
+```
+
+Eso sería muchísimo más elegante.
+
+Y desde el punto de vista de privacidad, potencialmente muchísimo mejor.
+
+---
+
+## 🧩 La identidad debería ser portable
+
+Hoy tenemos un montón de conceptos tecnológicos portables.
+
+Tenemos:
+
+* 🔑 Passkeys
+* 🔐 OAuth
+* 🪪 Credenciales digitales
+* 🔏 Certificados
+* 🔗 Single Sign-On
+* ☁️ Cuentas federadas
+* 🔑 Tokens
+* 📱 Wallets
+
+Pero nuestra identidad sigue teniendo un flujo sorprendentemente parecido a:
+
+> **Sacale una foto al DNI otra vez.**
+
+Hay algo ahí que claramente todavía no terminamos de resolver.
+
+---
+
+## 🎯 Persona no debería verificarme seis veces
+
+Mi crítica no es que Persona verifique identidades.
+
+Al contrario.
+
+**Ese es literalmente su trabajo.**
+
+Mi crítica es que el resultado de esa verificación parece tener muy poca portabilidad desde la perspectiva del usuario.
+
+Porque si Persona ya verificó:
+
+```text
+Documento → válido ✅
+Cara → coincide ✅
+Persona → verificada ✅
+```
+
+entonces debería existir alguna arquitectura segura que permita decir:
+
+> **Esta identidad ya fue verificada anteriormente. ¿Querés reutilizar esa verificación para esta plataforma?**
+
+Y si por razones legales esa plataforma necesita una validación nueva:
+
+Perfecto.
+
+Pedime solamente lo que cambió.
+
+Por ejemplo:
+
+```text
+Verificación anterior
+        │
+        ▼
+Documento válido ✅
+        │
+        ▼
+Nueva prueba facial
+        │
+        ▼
+Identidad actual confirmada ✅
+```
+
+Eso ya sería muchísimo mejor que empezar absolutamente desde cero.
+
+---
+
+## 🚀 De KYC repetitivo a identidad reutilizable
+
+Creo que el cambio conceptual debería ser este:
+
+### Hoy
+
+```text
+Servicio
+   │
+   ▼
+¿Quién sos?
+   │
+   ▼
+🪪 Documento
+   │
+   ▼
+🤳 Cara
+   │
+   ▼
+✅ Listo
+
+
+Otro servicio
+   │
+   ▼
+¿Quién sos?
+
+Yo:
+(╯°□°)╯︵ 🪪
+```
+
+### Lo que esperaría
+
+```text
+Servicio
+   │
+   ▼
+Persona
+   │
+   ▼
+Identidad previamente verificada
+   │
+   ▼
+¿Autorizar?
+   │
+   ▼
+✅ Listo
+```
+
+Mucho más rápido.
+
+Mucho más cómodo.
+
+Y potencialmente con **menos exposición innecesaria de información personal**.
+
+---
+
+## 💡 La parte irónica
+
+Tenemos infraestructura para reconocer mi cara.
+
+Tenemos sistemas capaces de analizar documentos.
+
+Tenemos detección antifraude.
+
+Tenemos biometría.
+
+Tenemos inteligencia artificial.
+
+Tenemos APIs.
+
+Tenemos wallets digitales.
+
+Tenemos criptografía.
+
+Tenemos autenticación federada.
+
+Tenemos passkeys.
+
+Pero todavía tengo que levantarme de la silla porque:
+
+> **“Esperá que tengo que buscar el DNI otra vez.”**
+
+😂
+
+Algo claramente falta ahí.
+
+---
+
+## 🎯 Conclusión
+
+La identidad digital no debería significar:
+
+> **digitalizar el mismo trámite analógico infinitas veces.**
+
+Debería significar que una vez que demostramos determinada información, podemos **reutilizar esa confianza de manera controlada, segura y explícitamente autorizada**.
+
+No quiero que todas las empresas tengan acceso a mis documentos.
+
+No quiero que una plataforma pueda consultar mi identidad sin permiso.
+
+Y definitivamente no quiero una gigantesca base biométrica accesible por cualquiera.
+
+Quiero algo mucho más simple:
+
+> **Ya verifiqué mi identidad con Persona. Preguntame si quiero reutilizar esa verificación.**
+
+Una credencial.
+
+Un consentimiento.
+
+Una confirmación.
+
+Listo. 🔐
+
+Porque si cada plataforma que utiliza el mismo proveedor me obliga a empezar desde cero...
+
+entonces no construimos una identidad digital.
+
+**Simplemente convertimos la burocracia en una página web.** 💀
+
+---
+
+### 💬 ¿A ustedes también les pasa?
+
+Si alguna vez tuvieron que verificar su identidad en varias plataformas que utilizan el mismo proveedor:
+
+**¿cuántas veces terminaron fotografiando exactamente el mismo documento?**
+
+¿Preferirían un sistema donde pudieran autorizar temporalmente una identidad previamente verificada?
+
+Porque después de repetir el proceso suficientes veces...
+
+**yo definitivamente sí.** 😂
