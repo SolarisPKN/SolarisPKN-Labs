@@ -16,5 +16,5 @@ jobs:
 
       - name: Push mirror a GitFlic
         run: |
-          git remote add gitflic https://solarispkn:${{ secrets.GITFLIC_TOKEN }}@gitflic.ru/project/solarispkn/${{ github.event.repository.name }}.git
+          git remote add gitflic https://solarispkn:${{ secrets.GITFLIC_TOKEN }}@gitflic.ru/project/solarispkn/solarispkn-labs.git
           git push --prune --force gitflic "+refs/heads/*:refs/heads/*" "+refs/tags/*:refs/tags/*"
