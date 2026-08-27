@@ -1,0 +1,365 @@
+> **Si puedo abrir un repositorio, ejecutarlo y trabajar con él... ¿por qué no puedo simplemente dejarlo enlazado en mi perfil?**
+
+## 🔗 El problema: GitHub entra... pero no se queda
+
+StackBlitz me gusta muchísimo por una razón bastante simple: agarrás un repositorio de GitHub, lo abrís y en segundos tenés un entorno funcionando directamente desde el navegador.
+
+Sin instalaciones.
+
+Sin clonar nada manualmente.
+
+Sin preparar un entorno local.
+
+Abrís el proyecto y listo. 🚀
+
+Para repositorios compatibles —por ejemplo proyectos hechos con Astro— funciona espectacular.
+
+El problema aparece después.
+
+Porque ese proyecto que acabás de abrir, ejecutar e incluso modificar dentro de StackBlitz es básicamente **efímero desde el punto de vista de tu perfil público**.
+
+Podés usarlo.
+
+Podés compartir el enlace.
+
+Podés trabajar sobre él.
+
+Pero no podés decir:
+
+> **“Quiero que este repositorio aparezca permanentemente entre mis proyectos.”**
+
+Y ahí es donde la experiencia empieza a hacer un poco de ruido.
+
+---
+
+## 🧪 Obviamente intenté buscarle la vuelta
+
+Antes de llegar a esta conclusión probé varias cosas porque pensé:
+
+> *“Seguro hay alguna opción escondida que no estoy viendo.”*
+
+Pero no. 😅
+
+### 🔄 Sincronizar un proyecto
+
+Si creás un proyecto directamente dentro de StackBlitz, no existe un flujo realmente cómodo para convertirlo después en una representación sincronizada de un repositorio de GitHub.
+
+### 🍴 Hacer un fork interno
+
+Si abrís directamente un repositorio desde GitHub, tampoco existe una opción simple del estilo:
+
+**Agregar a mis proyectos**
+
+o
+
+**Mostrar en mi perfil**
+
+El proyecto funciona, pero queda separado de tu identidad pública dentro de StackBlitz.
+
+### 📚 Usar Collections
+
+Y esta era la solución que más lógica tenía para mí.
+
+StackBlitz ya tiene **Collections**, que conceptualmente son perfectas para organizar proyectos.
+
+El problema es que están orientadas a proyectos propios de StackBlitz.
+
+No puedo simplemente crear algo como:
+
+```text
+SolarisPKN Projects
+├── SolarisPKN-Labs
+├── SolarisPKN-Stats
+├── SolarisPKN-Transport
+└── Otros repositorios
+```
+
+y apuntar cada entrada a su correspondiente repositorio de GitHub abierto mediante StackBlitz.
+
+Y acá aparece la pregunta que me terminó llevando a escribir esto:
+
+> **Si StackBlitz ya sabe abrir el repositorio, ¿por qué necesita poseer el proyecto para poder mostrarlo en mi perfil?**
+
+---
+
+## 💡 No quiero otro GitHub
+
+Creo que este punto es importante.
+
+**No estoy proponiendo que StackBlitz clone todos nuestros repositorios y los almacene internamente.**
+
+Eso sería duplicar infraestructura sin demasiada necesidad.
+
+GitHub ya almacena el código.
+
+Git ya maneja las versiones.
+
+GitHub ya administra permisos, ramas, commits, releases y todo el historial.
+
+No necesito que StackBlitz haga de GitHub.
+
+Lo que quiero es muchísimo más simple:
+
+> **Que StackBlitz funcione también como índice de los proyectos que ya puede ejecutar.**
+
+---
+
+## 🗂️ Un índice, no un mirror
+
+La solución podría ser extremadamente liviana.
+
+Si mi cuenta de StackBlitz está vinculada con GitHub y yo abro un repositorio compatible, StackBlitz podría permitirme marcarlo como:
+
+**⭐ Mostrar en mi perfil**
+
+Internamente no necesitaría guardar prácticamente nada más que metadata.
+
+Conceptualmente podría ser algo tan simple como:
+
+```json
+{
+  "projects": [
+    {
+      "provider": "github",
+      "repository": "SolarisPKN/SolarisPKN-Labs",
+      "featured": true
+    },
+    {
+      "provider": "github",
+      "repository": "SolarisPKN/SolarisPKN-Stats",
+      "featured": true
+    }
+  ]
+}
+```
+
+Eso es todo.
+
+No hay que duplicar el repositorio.
+
+No hay que almacenar cientos de megabytes.
+
+No hay que mantener dos fuentes de verdad.
+
+GitHub sigue siendo el origen del proyecto.
+
+StackBlitz simplemente guarda **la referencia**.
+
+---
+
+## ⚙️ ¿Y cuando alguien abre el proyecto?
+
+Exactamente lo mismo que ocurre actualmente.
+
+```text
+Perfil de StackBlitz
+        │
+        ▼
+Proyecto indexado
+        │
+        ▼
+Repositorio de GitHub
+        │
+        ▼
+StackBlitz WebContainer
+        │
+        ▼
+Entorno ejecutable
+```
+
+La diferencia es que ahora existe una capa persistente que permite descubrir el proyecto desde el perfil del desarrollador.
+
+El código sigue viviendo en GitHub.
+
+StackBlitz solamente proporciona la experiencia interactiva.
+
+---
+
+## 🧠 Y creo que esto sería mejor incluso para StackBlitz
+
+Porque hay algo medio paradójico en el flujo actual.
+
+StackBlitz tiene una de sus características más potentes justamente en poder ejecutar proyectos externos...
+
+...pero después esos mismos proyectos prácticamente **desaparecen del ecosistema social de la plataforma**.
+
+Eso limita muchísimo el valor del perfil público.
+
+Un desarrollador podría tener:
+
+* 30 repositorios públicos en GitHub
+* 15 proyectos perfectamente compatibles con StackBlitz
+* varios proyectos web completamente funcionales
+
+y aun así entrar a su perfil de StackBlitz y tenerlo prácticamente vacío.
+
+🤨
+
+Desde el punto de vista técnico funciona.
+
+Desde el punto de vista de **Developer Experience**, se siente incompleto.
+
+---
+
+## 🌐 GitHub como backend, StackBlitz como experiencia
+
+Creo que ahí está la idea central.
+
+No convertir StackBlitz en otro hosting de repositorios.
+
+Sino aprovechar mejor la relación entre ambas plataformas.
+
+### GitHub
+
+Se encarga de:
+
+* Código
+* Git
+* Commits
+* Issues
+* Releases
+* Branches
+* Permisos
+* Historial
+
+### StackBlitz
+
+Se encarga de:
+
+* Ejecutar el proyecto
+* Mostrarlo
+* Permitir probarlo
+* Crear un entorno de desarrollo inmediato
+* Convertir un repositorio en una experiencia interactiva
+
+Y en el medio solamente falta una cosa:
+
+### 🔗 El índice
+
+Una capa mínima que diga:
+
+> **Estos son los repositorios que este desarrollador quiere mostrar en su perfil.**
+
+Nada más.
+
+---
+
+## 🚀 El perfil podría convertirse en un portfolio real
+
+Y acá es donde creo que la función pasaría de ser un pequeño detalle de UX a algo bastante más interesante.
+
+Hoy muchos perfiles de desarrollo están fragmentados.
+
+Tenés:
+
+```text
+GitHub → Código
+
+LinkedIn → Perfil profesional
+
+Portfolio → Proyectos seleccionados
+
+StackBlitz → Demos ejecutables
+
+Vercel / Netlify → Deployments
+```
+
+Pero StackBlitz tiene algo bastante especial:
+
+**puede transformar código en una experiencia ejecutable prácticamente instantánea.**
+
+Si además permitiera indexar repositorios externos en el perfil, ese perfil podría convertirse en una especie de:
+
+> **Portfolio interactivo de desarrollo.**
+
+No solamente mostrás una tarjeta diciendo que hiciste un proyecto.
+
+La persona entra.
+
+Abre el código.
+
+Ejecuta el proyecto.
+
+Lo modifica.
+
+Lo prueba.
+
+Todo desde el navegador.
+
+Eso tiene muchísimo más valor que una simple captura de pantalla.
+
+---
+
+## 🧩 Incluso las Collections tendrían muchísimo más sentido
+
+Imaginate poder crear:
+
+### 🌐 Web Projects
+
+* SolarisPKN-Labs
+* Portfolio
+* Experimentos con Astro
+
+### ⚙️ Backend & Automation
+
+* Workers
+* APIs
+* Automatizaciones
+
+### 🧪 Experiments
+
+* Prototipos
+* Pruebas
+* Conceptos
+
+Y que cada elemento simplemente referencie un repositorio externo.
+
+Ahí **Collections dejarían de organizar únicamente proyectos dentro de StackBlitz y pasarían a organizar el trabajo del desarrollador**.
+
+Para mí, esa diferencia es enorme.
+
+---
+
+## 🎯 Conclusión
+
+StackBlitz ya resolvió la parte difícil.
+
+Puede agarrar código externo, levantarlo en un WebContainer y darte un entorno de desarrollo completo directamente desde el navegador.
+
+Lo raro es que después falte una función muchísimo más sencilla:
+
+> **Poder guardar ese proyecto como referencia dentro de tu perfil.**
+
+No necesito que dupliquen mi código.
+
+No necesito almacenamiento adicional.
+
+No necesito otro sistema Git.
+
+Solamente necesito poder decir:
+
+**“Este repositorio es mío, ya lo abriste correctamente, quiero mostrarlo en mi perfil.”**
+
+Un índice.
+
+Una referencia.
+
+Un botón.
+
+Y listo. 🔗
+
+A veces una mejora enorme de UX no necesita una arquitectura enorme detrás.
+
+Y creo que este es uno de esos casos.
+
+---
+
+### 💬 ¿Qué opinás?
+
+Si usás StackBlitz junto con GitHub, seguramente alguna vez te encontraste con esta separación.
+
+¿Usarías tu perfil de StackBlitz como portfolio si pudieras agregar directamente tus repositorios de GitHub?
+
+Porque yo sí.
+
+**Y probablemente terminaría usando mucho más StackBlitz gracias a eso.** 🚀
