@@ -85,3 +85,63 @@ test('Turnstile server verification requires hostname and successful verdict',as
   assert.equal(await verifyChallenge('sample',cfg,req('/api/auth/start','POST',{}),'login'),false);
  }finally{globalThis.fetch=previous;}
 });
+
+test('Google OIDC requires signed nonce-bound token; state is one-use',async()=>{
+ const existingFetch=globalThis.fetch;
+ const kp=await crypto.subtle.generateKey({name:'RSASSA-PKCS1-v1_5',modulusLength:2048,publicExponent:new Uint8Array([1,0,1]),hash:'SHA-256'},true,['sign','verify']);
+ const jwk={...(await crypto.subtle.exportKey('jwk',kp.publicKey)),kid:'test-key-id',use:'sig',alg:'RS256'};
+ const fixtures={flow:null,uid:null,session:null,ident:null};
+ const db={prepare(sql){return {bind(...args){return {
+  async first(){
+   if(sql.includes('rate_buckets'))return {count:1};
+   if(sql.startsWith('UPDATE oauth_flows')){
+     if(!fixtures.flow||fixtures.flow.used||args[1]!==fixtures.flow.hash)return null;
+     fixtures.flow.used=true;return {pkce_verifier:fixtures.flow.verifier,nonce:fixtures.flow.nonce};
+   }
+   if(sql.startsWith('SELECT user_id FROM identities'))return fixtures.ident?{user_id:fixtures.uid}:null;
+   if(sql.startsWith('SELECT id FROM users'))return fixtures.uid?{id:fixtures.uid}:null;
+   return null;
+  },
+  async run(){
+   if(sql.startsWith('INSERT INTO oauth_flows'))fixtures.flow={hash:args[0],verifier:args[2],nonce:args[3],used:false};
+   if(sql.startsWith('INSERT INTO users'))fixtures.uid=args[0];
+   if(sql.startsWith('INSERT INTO identities'))fixtures.ident=true;
+   if(sql.startsWith('INSERT INTO sessions'))fixtures.session=args[0];
+   return {success:true,meta:{changes:1}};
+  }
+ };}};}};
+ const cfg=env({DB:db,GOOGLE_CLIENT_ID:'a-public-google-id',GOOGLE_CLIENT_SECRET:'fake-configured-app-secret'});
+ const base64=v=>Buffer.from(typeof v==='string'?v:JSON.stringify(v)).toString('base64url');
+ globalThis.fetch=async (url)=>{
+  const target=String(url);
+  if(target.includes('siteverify'))return Response.json({success:true,hostname:'labs.solarispkn.com.ar',action:'login'});
+  if(target.includes('oauth2.googleapis.com/token')){
+   const header=base64({alg:'RS256',kid:'test-key-id'});
+   const body=base64({iss:'https://accounts.google.com',aud:cfg.GOOGLE_CLIENT_ID,sub:'safe_subject_123',
+     nonce:fixtures.flow.nonce,iat:Math.floor(Date.now()/1000),exp:Math.floor(Date.now()/1000)+3600});
+   const text=header+'.'+body;
+   const signature=new Uint8Array(await crypto.subtle.sign('RSASSA-PKCS1-v1_5',kp.privateKey,new TextEncoder().encode(text)));
+   return Response.json({id_token:text+'.'+base64(signature)});
+  }
+  if(target.includes('googleapis.com/oauth2/v3/certs'))return Response.json({keys:[jwk]});
+  throw Error('Unexpected network fetch in OIDC test');
+ };
+ try{
+  const start=await handleAccountApi(req('/api/auth/start','POST',{provider:'google',turnstile:'unit-test-token'}),cfg);
+  assert.equal(start.status,200);
+  const authorization=new URL((await start.json()).authorize);
+  assert.equal(authorization.hostname,'accounts.google.com');
+  const state=authorization.searchParams.get('state');
+  assert.equal(authorization.searchParams.get('code_challenge_method'),'S256');
+  const cookie=start.headers.get('set-cookie').split(';')[0];
+  const url='/api/auth/callback/google?state='+encodeURIComponent(state)+'&code=fake-auth-code';
+  const callbackRequest=new Request(host+url,{headers:{cookie}});
+  const first=await handleAccountApi(callbackRequest,cfg);
+  assert.equal(first.status,303);
+  assert.match(first.headers.get('set-cookie'),/__Host-labs_session=/);
+  assert.ok(fixtures.session);
+  const second=await handleAccountApi(new Request(host+url,{headers:{cookie}}),cfg);
+  assert.equal(second.status,303);
+  assert.match(second.headers.get('location'),/auth=failed/);
+ }finally{globalThis.fetch=existingFetch;}
+});
