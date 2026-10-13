@@ -16,13 +16,21 @@ const pieces=sectors.map(s=>{
  return piece;
 });
 const layerColors={runtime:'#30d5d0',build:'#a88af2',content:'#6ada95',editorial:'#e5a56c',metrics:'#86b7f7'};
-const layers=Object.entries(
- model.internal.nodes.reduce((a,n)=>{a[n.group]=(a[n.group]||0)+1;return a;},{})
-).map(([name,value])=>({label:name,value,color:layerColors[name]||'#d1dae8'}));
+const layerCounts = new Map<string, number>();
+for (const node of model.internal.nodes) {
+  layerCounts.set(node.group, (layerCounts.get(node.group) || 0) + 1);
+}
+const layers = [...layerCounts.entries()].map(([label,value]) => ({
+  label, value, color:layerColors[label] || '#d1dae8'
+}));
 const statusColors={operational:'#36cfad',online:'#36cfad',development:'#9c92f5',tracking:'#e8b761',maintenance:'#d98181'};
-const statuses=Object.entries(
- projects.reduce((a,p)=>{a[p.status||'unclassified']=(a[p.status||'unclassified']||0)+1;return a;},{})
-).sort((a,b)=>b[1]-a[1]).map(([label,value])=>({label,value,color:statusColors[label]||'#96afcc'}));
+const statusCounts = new Map<string, number>();
+for (const project of projects) {
+  const status = project.status || 'unclassified';
+  statusCounts.set(status, (statusCounts.get(status) || 0) + 1);
+}
+const statuses = [...statusCounts.entries()].sort((a,b)=>b[1]-a[1])
+  .map(([label,value])=>({label,value,color:statusColors[label]||'#96afcc'}));
 const intTotal=model.internal.nodes.length||1;
 ---
 
