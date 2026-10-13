@@ -91,7 +91,8 @@ test('Google OIDC requires signed nonce-bound token; state is one-use',async()=>
  const kp=await crypto.subtle.generateKey({name:'RSASSA-PKCS1-v1_5',modulusLength:2048,publicExponent:new Uint8Array([1,0,1]),hash:'SHA-256'},true,['sign','verify']);
  const jwk={...(await crypto.subtle.exportKey('jwk',kp.publicKey)),kid:'test-key-id',use:'sig',alg:'RS256'};
  const fixtures={flow:null,uid:null,session:null,ident:null};
- const db={prepare(sql){return {bind(...args){return {
+ const trace=[];
+ const db={prepare(sql){trace.push(sql.slice(0,62));return {bind(...args){return {
   async first(){
    if(sql.includes('rate_buckets'))return {count:1};
    if(sql.startsWith('UPDATE oauth_flows')){
@@ -138,6 +139,7 @@ test('Google OIDC requires signed nonce-bound token; state is one-use',async()=>
   const callbackRequest=new Request(host+url,{headers:{cookie}});
   const first=await handleAccountApi(callbackRequest,cfg);
   assert.equal(first.status,303);
+  assert.equal(first.headers.get('location'),host+'/es/mi-cuenta/?auth=success',JSON.stringify(trace));
   assert.match(first.headers.get('set-cookie'),/__Host-labs_session=/);
   assert.ok(fixtures.session);
   const second=await handleAccountApi(new Request(host+url,{headers:{cookie}}),cfg);
