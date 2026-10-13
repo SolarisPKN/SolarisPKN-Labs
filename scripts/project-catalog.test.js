@@ -8,7 +8,6 @@ const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 const projectsDir = path.join(projectRoot, 'src', 'content', 'projects');
 const categories = new Set(['core', 'derived', 'external']);
 const publicProjectNames = new Set(["SolarisPKN-Engineer","SolarisPKN-IA","SolarisPKN-Arts","SolarisPKN-Transport","SolarisPKN-OS","SolarisPKN-Converter","Villars-Informa","Lubricantes-Villars","La-Cascada-de-Any-s","Analia-Orayen---Terapeuta-Integral","Figma-Lab","Replit-test01-mystic-","Replit-Test02-SoldierCards-","skills-introduction-to-github","SolarisPKN-Control","solarispkn-labs","SolarisPKN-LiveTools","SolarisPKN-Stats"]);
-const excluded = new Set(['solaris-learning-hub']);
 
 test('all public projects have bilingual metadata and a resolvable content page', () => {
   const folders = fs.readdirSync(projectsDir, { withFileTypes: true })
@@ -17,7 +16,6 @@ test('all public projects have bilingual metadata and a resolvable content page'
   assert.equal(folders.length, 18, 'Unexpected number of reviewed public projects');
   assert.deepEqual(new Set(folders), publicProjectNames);
   for (const folder of folders) {
-    assert.ok(!excluded.has(folder.toLowerCase()), 'Private repository must never appear in public catalog');
     const dir = path.join(projectsDir, folder);
     const metadata = JSON.parse(fs.readFileSync(path.join(dir, 'project.json'), 'utf8'));
     assert.ok(categories.has(metadata.category), folder + ': invalid category');
