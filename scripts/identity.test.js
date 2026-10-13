@@ -111,7 +111,7 @@ test('Google OIDC requires signed nonce-bound token; state is one-use',async()=>
   }
  };}};}};
  const cfg=env({DB:db,GOOGLE_CLIENT_ID:'a-public-google-id',GOOGLE_CLIENT_SECRET:'fake-configured-app-secret'});
- const base64=v=>Buffer.from(typeof v==='string'?v:JSON.stringify(v)).toString('base64url');
+ const base64=v=>Buffer.from(v instanceof Uint8Array?v:(typeof v==='string'?v:JSON.stringify(v))).toString('base64url');
  globalThis.fetch=async (url)=>{
   const target=String(url);
   if(target.includes('siteverify'))return Response.json({success:true,hostname:'labs.solarispkn.com.ar',action:'login'});
