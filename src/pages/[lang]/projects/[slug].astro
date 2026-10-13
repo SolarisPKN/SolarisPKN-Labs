@@ -59,7 +59,7 @@ const safeTitle = String(projectName)
 // ID del proyecto: SIEMPRE el slug en minúsculas. El repo SolarisPKN-Stats
 // guarda todo en kebab-case minúscula sin excepción — normalizar acá evita
 // que un nombre de carpeta con mayúsculas rompa el fetch de stats.
-const projectId = slug.toLowerCase();
+const projectId = String(meta.statsId || slug).toLowerCase();
 const githubUrl = meta.links?.github || '';
 
 // ==========================================
@@ -107,7 +107,7 @@ if (!CustomExplainer && !explainerData) {
 }
 ---
 
-<Layout title={safeTitle} lang={lang}>
+<Layout title={projectName} description={meta.shortDescription?.[lang] || ""} lang={lang}>
   <section class="project-detail">
     <div class="back-link">
       <a href={`/${lang}/projects`}>{t.buttons.back}</a>

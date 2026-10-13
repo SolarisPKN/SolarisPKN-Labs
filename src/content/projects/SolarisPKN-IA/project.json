@@ -1,0 +1,25 @@
+{
+  "id": "SolarisPKN-IA",
+  "category": "core",
+  "type": "automation",
+  "status": "development",
+  "name": {
+    "es": "SolarisPKN-IA",
+    "en": "SolarisPKN-IA"
+  },
+  "shortDescription": {
+    "es": "Arquitectura pública y ejemplos de referencia para construir un asistente de IA local, modular y orientado a la privacidad.",
+    "en": "Public architecture and reference examples for building a modular, privacy-first local AI assistant."
+  },
+  "technologies": [
+    "JavaScript",
+    "Node.js",
+    "MCP",
+    "IA local"
+  ],
+  "statsId": "solarispkn-ia",
+  "links": {
+    "github": "https://github.com/SolarisPKN/SolarisPKN-IA",
+    "docs": "https://github.com/SolarisPKN/SolarisPKN-IA/blob/main/README.es.md"
+  }
+}
