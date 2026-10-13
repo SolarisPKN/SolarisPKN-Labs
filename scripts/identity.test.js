@@ -77,10 +77,11 @@ test('Turnstile server verification requires hostname and successful verdict',as
  try{
   const cfg=env();
   globalThis.fetch=async()=>Response.json({success:true,hostname:'attacker.example',action:'login'});
-  assert.equal(await verifyChallenge('sample',cfg,req('/api/auth/start','POST',{})),false);
+  assert.equal(await verifyChallenge('sample',cfg,req('/api/auth/start','POST',{}),'login'),false);
   globalThis.fetch=async()=>Response.json({success:true,hostname:'labs.solarispkn.com.ar',action:'comment'});
-  assert.equal(await verifyChallenge('sample',cfg,req('/api/auth/start','POST',{})),true);
+  assert.equal(await verifyChallenge('sample',cfg,req('/api/auth/start','POST',{}),'comment'),true);
+  assert.equal(await verifyChallenge('sample',cfg,req('/api/auth/start','POST',{}),'sensitive'),false);
   globalThis.fetch=async()=>Response.json({success:false,hostname:'labs.solarispkn.com.ar',action:'login'});
-  assert.equal(await verifyChallenge('sample',cfg,req('/api/auth/start','POST',{})),false);
+  assert.equal(await verifyChallenge('sample',cfg,req('/api/auth/start','POST',{}),'login'),false);
  }finally{globalThis.fetch=previous;}
 });

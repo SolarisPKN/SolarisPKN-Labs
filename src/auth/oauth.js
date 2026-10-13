@@ -30,7 +30,7 @@ export function oauthCallback(origin, provider){
 export async function startOAuth(request,env,provider,body){
   if(!availableProviders(env).includes(provider))return json({error:'provider_disabled'},503);
   if(!body||typeof body.turnstile!=='string')return json({error:'verification_required'},400);
-  if(!(await verifyChallenge(body.turnstile,env,request)))return json({error:'verification_failed'},403);
+  if(!(await verifyChallenge(body.turnstile,env,request,'login')))return json({error:'verification_failed'},403);
   const state=token(32), verifier=token(32), nonce=token(32), stateHash=await digest(state);
   const challenge=await digest(verifier,'base64url');
   const time=now();

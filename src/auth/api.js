@@ -126,7 +126,7 @@ export async function handleAccountApi(request,env){
   if(text.length<3||text.length>1000||text.split(/https?:\/\//gi).length>3)return fail('invalid_comment',400);
   if(!(await limit(env.DB,'comment:'+user.id,600,3)))return fail('rate_limited',429);
   if(!(await verifyPublicPost(request,env,body.post)))return fail('unknown_post',404);
-  if(!(await verifyChallenge(body.turnstile,env,request)))return fail('verification_failed',403);
+  if(!(await verifyChallenge(body.turnstile,env,request,'comment')))return fail('verification_failed',403);
   const id=crypto.randomUUID();
   await env.DB.prepare("INSERT INTO comments(id,user_id,post_slug,body,status,created_at) VALUES(?,?,?,?,'pending',?)").bind(id,user.id,body.post,text,now()).run();
   return json({ok:true,status:'pending',id},202);
@@ -157,7 +157,7 @@ export async function handleAccountApi(request,env){
   const body=await jsonMutation(request,2500);
   if(!body||body.confirm!=='DELETE'||typeof body.turnstile!=='string')return fail('confirmation_required',400);
   if(user.session_created<now()-600)return fail('reauth_required',403);
-  if(!(await verifyChallenge(body.turnstile,env,request)))return fail('verification_failed',403);
+  if(!(await verifyChallenge(body.turnstile,env,request,'sensitive')))return fail('verification_failed',403);
   await env.DB.prepare('DELETE FROM users WHERE id=?').bind(user.id).run();
   const response=json({ok:true});response.headers.append('Set-Cookie',expiredSessionCookie());return response;
  }

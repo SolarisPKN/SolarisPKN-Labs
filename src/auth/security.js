@@ -44,7 +44,7 @@ export async function payload(request,max=4000){
  if(text.length>max)return null;
  try{const obj=JSON.parse(text);return obj&&typeof obj==='object'&&!Array.isArray(obj)?obj:null;}catch{return null;}
 }
-export async function verifyChallenge(value,env,request){
+export async function verifyChallenge(value,env,request,expectedAction){
  if(typeof value!=='string'||!value||value.length>2048||!env.TURNSTILE_SECRET)return false;
  const body=new URLSearchParams({secret:env.TURNSTILE_SECRET,response:value});
  try{
@@ -56,7 +56,7 @@ export async function verifyChallenge(value,env,request){
   const verdict=await response.json();
   const target=new URL(request.url);
   return verdict.success===true && verdict.hostname===target.hostname &&
-    (verdict.action==='login'||verdict.action==='comment'||verdict.action==='sensitive');
+    verdict.action===expectedAction;
  }catch{return false;}
 }
 export async function limit(db,source,windowSeconds,maxCount){
