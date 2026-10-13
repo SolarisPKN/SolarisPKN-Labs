@@ -59,7 +59,7 @@ const safeTitle = String(projectName)
 // ID del proyecto: SIEMPRE el slug en minúsculas. El repo SolarisPKN-Stats
 // guarda todo en kebab-case minúscula sin excepción — normalizar acá evita
 // que un nombre de carpeta con mayúsculas rompa el fetch de stats.
-const projectId = slug.toLowerCase();
+const projectId = String(meta.statsId || slug).toLowerCase();
 const githubUrl = meta.links?.github || '';
 
 // ==========================================
@@ -107,7 +107,7 @@ if (!CustomExplainer && !explainerData) {
 }
 ---
 
-<Layout title={safeTitle} lang={lang}>
+<Layout title={projectName} description={meta.shortDescription?.[lang] || ""} lang={lang}>
   <section class="project-detail">
     <div class="back-link">
       <a href={`/${lang}/projects`}>{t.buttons.back}</a>
@@ -281,8 +281,19 @@ if (!CustomExplainer && !explainerData) {
         {meta.links?.live && <a href={meta.links.live} class="btn primary">{t.buttons.live}</a>}
       </div>
     </section>
+    <section class="glass" data-labs-project-actions data-project={slug} data-lang={lang}
+      style="padding:1.5rem;margin:1.5rem 0;border:1px solid rgba(81,208,205,.25);border-radius:16px">
+      <h2>{lang==='es'?'Guardá y seguí este proyecto':'Save and follow this project'}</h2>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+        <button type="button" data-community-favorites hidden aria-pressed="false"></button>
+        <button type="button" data-community-follows hidden aria-pressed="false"></button>
+        <a href={('/'+lang+'/mi-cuenta/')}>{lang==='es'?'Mi cuenta':'My account'} →</a>
+      </div>
+      <p data-project-feedback role="status" style="color:#acd2db"></p>
+    </section>
   </section>
 </Layout>
+<script>import '../../../scripts/community.js';</script>
 
 <script>
   import '../../../scripts/projectExplainer.js';

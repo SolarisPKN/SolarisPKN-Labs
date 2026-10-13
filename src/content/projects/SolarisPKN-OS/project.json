@@ -1,0 +1,19 @@
+{
+  "id": "SolarisPKN-OS",
+  "category": "core",
+  "type": "software",
+  "status": "development",
+  "name": {
+    "es": "SolarisPKN-OS",
+    "en": "SolarisPKN-OS"
+  },
+  "shortDescription": {
+    "es": "Repositorio reservado para un posible proyecto SolarisPKN-OS. Aún no contiene implementación pública.",
+    "en": "Repository reserved for a potential SolarisPKN-OS project. No public implementation is available yet."
+  },
+  "technologies": [],
+  "statsId": "solarispkn-os",
+  "links": {
+    "github": "https://github.com/SolarisPKN/SolarisPKN-OS"
+  }
+}

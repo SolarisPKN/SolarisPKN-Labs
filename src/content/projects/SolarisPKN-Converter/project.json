@@ -1,0 +1,19 @@
+{
+  "id": "SolarisPKN-Converter",
+  "category": "core",
+  "type": "software",
+  "status": "development",
+  "name": {
+    "es": "SolarisPKN-Converter",
+    "en": "SolarisPKN-Converter"
+  },
+  "shortDescription": {
+    "es": "Repositorio reservado para SolarisPKN-Converter. Aún no contiene una herramienta de conversión pública.",
+    "en": "Repository reserved for SolarisPKN-Converter. No public conversion tool is available yet."
+  },
+  "technologies": [],
+  "statsId": "solarispkn-converter",
+  "links": {
+    "github": "https://github.com/SolarisPKN/SolarisPKN-Converter"
+  }
+}

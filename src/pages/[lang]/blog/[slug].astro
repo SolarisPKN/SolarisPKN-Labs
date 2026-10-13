@@ -97,9 +97,22 @@ const t = await import(`../../../locales/${lang}/blog.json`);
       </div>
     )}
 
-    <div class="glass" style="padding: 1.5rem; margin-top: 2rem; text-align: center; border: 1px solid rgba(255,255,255,0.1);">
-      <p style="opacity: 0.6;">💬 {t.comentariosEnConstruccion}</p>
-      <p style="font-size: 0.8rem; opacity: 0.4;">{t.comentariosPronto}</p>
-    </div>
+    <section class="glass" data-labs-comments data-post={slug} data-lang={lang}
+      style="padding:1.5rem;margin-top:2rem;border:1px solid rgba(255,255,255,.14);border-radius:16px">
+      <h2>{lang==='en'?'Community comments':'Comentarios de la comunidad'}</h2>
+      <ul data-comment-list style="padding-left:1.3rem;line-height:1.7"></ul>
+      <p data-comment-feedback role="status" style="color:#b5d6df"></p>
+      <form data-comment-form hidden>
+        <label for="labs-comment-body">{lang==='en'?'Your comment':'Tu comentario'}</label>
+        <textarea id="labs-comment-body" required minlength="3" maxlength="1000" rows="5"
+          style="display:block;width:100%;padding:.8rem;background:#101829;border:1px solid #456777;color:#fff;border-radius:9px"></textarea>
+        <div data-comment-verification style="margin:1rem 0"></div>
+        <button type="submit" style="border-radius:9px;padding:.7rem 1rem;background:#185457;border:1px solid #58e3d6;color:#fff">
+          {lang==='en'?'Submit for review':'Enviar para revisión'}
+        </button>
+      </form>
+      <a href={('/'+lang+'/mi-cuenta/')}>{lang==='en'?'My account':'Mi cuenta'} →</a>
+    </section>
   </article>
 </Layout>
+<script>import '../../../scripts/community.js';</script>

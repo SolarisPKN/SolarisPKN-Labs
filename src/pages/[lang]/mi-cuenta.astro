@@ -1,0 +1,91 @@
+---
+import Layout from '../../layouts/Layout.astro';
+export function getStaticPaths() { return [{params:{lang:'es'}},{params:{lang:'en'}}]; }
+const lang=Astro.params.lang==='en'?'en':'es';
+const en=lang==='en';
+---
+<Layout lang={lang} title={en?'My account | SolarisPKN ID':'Mi cuenta | SolarisPKN ID'}
+ description={en?'Privacy-first account dashboard':'Tu cuenta privada para guardar, seguir y participar'}>
+ <section class="identity" data-labs-account data-lang={lang}>
+   <header class="identity-hero glass">
+     <p class="identity-kicker">SOLARISPKN / IDENTITY</p>
+     <h1>{en?'My account':'Mi cuenta'}</h1>
+     <p>{en?'Follow projects, save your favorites and take part in the community without providing an email address to Labs.':'Seguí proyectos, guardá favoritos y participá de la comunidad sin entregar una dirección de correo a Labs.'}</p>
+     <div class="identity-benefits">
+       <span>✓ {en?'No Labs password':'Sin contraseña propia'}</span>
+       <span>✓ {en?'No mandatory email':'Sin correo obligatorio'}</span>
+       <span>✓ {en?'Free plan only':'Todo gratuito'}</span>
+     </div>
+   </header>
+   <p class="identity-message" data-identity-message role="status">{en?'Checking account availability…':'Comprobando disponibilidad de cuentas…'}</p>
+   <section class="identity-panel glass" data-identity-disabled hidden>
+     <h2>{en?'Accounts not active yet':'Cuentas todavía no activadas'}</h2>
+     <p>{en?'The administrator must configure private D1 storage, OAuth credentials and Turnstile before opening registration. The public site remains available.':'Para habilitar registros, hay que configurar D1 privado, credenciales OAuth y Turnstile. El resto del sitio sigue siendo público.'}</p>
+   </section>
+   <section class="identity-panel glass" data-identity-login hidden>
+     <h2>{en?'Secure sign-in':'Iniciar sesión de forma segura'}</h2>
+     <p>{en?'Use a configured external provider. Your password never reaches SolarisPKN-Labs.':'Ingresá con un proveedor habilitado. Tu contraseña nunca pasa por SolarisPKN-Labs.'}</p>
+     <div data-identity-turnstile="login"></div>
+     <div class="identity-buttons" data-identity-providers></div>
+     <p class="identity-muted">{en?'Passkeys and additional providers are undergoing security review and are not enabled yet.':'Las passkeys y otros proveedores están pendientes de una revisión de seguridad y no están activos todavía.'}</p>
+   </section>
+   <section data-identity-dashboard hidden class="identity-grid">
+     <article class="identity-panel glass">
+       <h2>{en?'Profile':'Perfil'}</h2>
+       <p data-identity-profile></p>
+       <label for="identity-alias">{en?'Public nickname':'Alias público'}</label>
+       <input id="identity-alias" maxlength="24" autocomplete="off" placeholder="mi_alias" />
+       <button type="button" data-identity-alias-save>{en?'Save nickname':'Guardar alias'}</button>
+       <p data-identity-methods></p>
+       <button type="button" data-identity-logout>{en?'Sign out':'Cerrar sesión'}</button>
+     </article>
+     <article class="identity-panel glass">
+       <h2>{en?'Favorites':'Favoritos'}</h2><ul data-identity-favorites></ul>
+       <h2>{en?'Followed projects':'Proyectos seguidos'}</h2><ul data-identity-follows></ul>
+       <a href={('/'+lang+'/projects/')}>{en?'Browse projects':'Explorar proyectos'} →</a>
+     </article>
+     <article class="identity-panel glass">
+       <h2>{en?'Preferences':'Preferencias'}</h2>
+       <label for="identity-language">{en?'Language':'Idioma'}</label>
+       <select id="identity-language"><option value="es">Español</option><option value="en">English</option></select>
+       <label for="identity-theme">{en?'Theme':'Apariencia'}</label>
+       <select id="identity-theme"><option value="system">System</option><option value="dark">Dark</option><option value="light">Light</option></select>
+       <button type="button" data-identity-preferences-save>{en?'Save preferences':'Guardar preferencias'}</button>
+       <h2>{en?'My comments':'Mis comentarios'}</h2><ul data-identity-comments></ul>
+     </article>
+     <article class="identity-panel glass">
+       <h2>{en?'Security & privacy':'Seguridad y privacidad'}</h2>
+       <p>{en?'Your private data lives in D1, not in GitHub.':'Tus datos privados están en D1, no en GitHub.'}</p>
+       <button type="button" data-identity-export>{en?'Export my data':'Exportar mis datos'}</button>
+       <p>{en?'Deletion is irreversible and requires a recent sign-in and verification.':'La eliminación es irreversible y requiere iniciar sesión recientemente y una verificación.'}</p>
+       <div data-identity-turnstile="sensitive"></div>
+       <button type="button" class="identity-danger" data-identity-delete>{en?'Delete account':'Eliminar cuenta'}</button>
+     </article>
+   </section>
+ </section>
+ <script>import '../../scripts/account.js';</script>
+</Layout>
+<style>
+.identity{max-width:1150px;margin:0 auto;padding:2rem 1rem;color:#eef8ff}
+.identity-hero{padding:2rem;border:1px solid #2b6c70;border-radius:22px;background:radial-gradient(at 90% 0%,rgba(128,85,200,.15),transparent 65%),#121d2d}
+.identity-kicker{font:.7rem 'JetBrains Mono',monospace;letter-spacing:.15em;color:#6de7df}
+.identity-hero h1{font-size:clamp(2rem,4vw,3rem);margin:.5rem 0}
+.identity-hero p{color:#bfcede;line-height:1.65;max-width:760px}
+.identity-benefits{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+.identity-benefits span{border-radius:30px;padding:.5rem .8rem;border:1px solid #457574;color:#c7eee4;font-size:.83rem}
+.identity-message{background:#17283a;border:1px solid #386077;border-radius:10px;padding:.9rem;margin:1rem 0}
+.identity-panel{background:#131e30;border:1px solid #33495e;border-radius:16px;padding:1.35rem;min-width:0}
+.identity-panel h2{margin:.4rem 0 1rem;font-size:1.25rem}
+.identity-panel p,.identity-panel li{font-size:.88rem;line-height:1.55;color:#bfd1de;overflow-wrap:anywhere}
+.identity-panel h2:not(:first-child){margin-top:1.5rem}
+.identity-panel label{display:block;font-size:.78rem;margin:.7rem 0 .3rem;color:#bed8e6}
+.identity-panel input,.identity-panel select{display:block;padding:.7rem;width:100%;max-width:350px;background:#101829;color:#eef9ff;border:1px solid #527080;border-radius:9px}
+.identity-panel button{margin:.7rem .5rem .5rem 0;border-radius:9px;padding:.7rem 1rem;border:1px solid #4fd5d2;background:#194951;color:#effeff;cursor:pointer}
+.identity-panel button:disabled{opacity:.45;cursor:not-allowed}
+.identity-panel button.identity-danger{border-color:#ec9098;background:#60333c}
+.identity-panel a{color:#73e0e0}.identity-muted{color:#96acbb}
+.identity-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.identity-buttons{display:flex;gap:.7rem;flex-wrap:wrap}
+[hidden]{display:none!important}
+@media(max-width:700px){.identity-grid{grid-template-columns:1fr}.identity{padding:1rem .5rem}}
+</style>

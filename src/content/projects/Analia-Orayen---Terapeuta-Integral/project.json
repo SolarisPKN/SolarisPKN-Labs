@@ -1,0 +1,19 @@
+{
+  "id": "Analia-Orayen---Terapeuta-Integral",
+  "category": "derived",
+  "type": "software",
+  "status": "development",
+  "name": {
+    "es": "Analia-Orayen---Terapeuta-Integral",
+    "en": "Analia-Orayen---Terapeuta-Integral"
+  },
+  "shortDescription": {
+    "es": "Proyecto digital para la marca profesional Analía Orayen — Terapeuta Integral; todavía sin aplicación pública en el repositorio.",
+    "en": "Digital project for the Analía Orayen — Terapeuta Integral professional brand; the repository has no public application yet."
+  },
+  "technologies": [],
+  "statsId": "analia-orayen---terapeuta-integral",
+  "links": {
+    "github": "https://github.com/SolarisPKN/Analia-Orayen---Terapeuta-Integral"
+  }
+}

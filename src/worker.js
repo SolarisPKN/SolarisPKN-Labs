@@ -1,3 +1,5 @@
+import { handleAccountApi } from './auth/api.js';
+
 const supportedLanguages = new Set(['es', 'en']);
 
 function getPreferredLanguage(header) {
@@ -21,6 +23,14 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
+
+    // Private API must be handled before static assets or locale redirects.
+    if (path.startsWith('/api/')) {
+      try { return await handleAccountApi(request, env); }
+      catch { return Response.json({ error: 'service_unavailable' }, {
+        status: 503, headers: { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' }
+      }); }
+    }
 
     // 1. Archivos estáticos → servir directamente
     if (/\.(?:html|css|js|png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|eot|json|xml|txt|pdf)$/i.test(path)) {
