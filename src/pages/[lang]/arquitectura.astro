@@ -14,7 +14,7 @@ const model = buildArchitectureMap(loadAllProjects(),lang);
 ---
 
 <Layout title={words.titulo} description={words.descripcion} lang={lang}>
-  <main class="architecture-dashboard">
+  <div class="architecture-dashboard">
     <header class="architecture-hero glass">
       <p class="arch-overline">SOLARISPKN / SYSTEM ARCHITECTURE</p>
       <h1>{words.titulo}</h1>
@@ -42,7 +42,7 @@ const model = buildArchitectureMap(loadAllProjects(),lang);
       </div>
       <p class="arch-disclaimer">{words.aclaracion}</p>
     </section>
-  </main>
+  </div>
 </Layout>
 
 <style>

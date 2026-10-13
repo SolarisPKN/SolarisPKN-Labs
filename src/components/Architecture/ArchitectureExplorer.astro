@@ -1,0 +1,201 @@
+---
+const { model, words, lang = 'es' } = Astro.props;
+const tabs = ['internal','ecosystem','planned'];
+const nodeWidth = 214;
+const nodeHeight = 76;
+const iconFor = { runtime:'🌐', build:'⚙️', content:'🗂️', editorial:'✍️', metrics:'📊', hub:'🧭', core:'🧬', derived:'🌱', external:'🧪', planned:'◇' };
+const nameLines = (text) => {
+  const parts = String(text||'').split(' ');
+  const lines = [''];
+  for (const word of parts) {
+    const index = lines.length - 1;
+    if ((lines[index]+' '+word).trim().length>24 && lines.length<2) lines.push(word);
+    else lines[index] = (lines[index]+' '+word).trim();
+  }
+  if (lines[1]?.length > 24) lines[1] = lines[1].slice(0,22)+'…';
+  return lines;
+};
+const wire = (a,b) => {
+ const sx=a.x+nodeWidth/2, sy=a.y+nodeHeight/2;
+ const tx=b.x+nodeWidth/2, ty=b.y+nodeHeight/2;
+ const d=Math.max(32,Math.abs(tx-sx)*.3);
+ return 'M '+sx+' '+sy+' C '+(sx+d)+' '+sy+' '+(tx-d)+' '+ty+' '+tx+' '+ty;
+};
+const data = JSON.stringify(model).replace(/</g,'\\u003c').replace(/>/g,'\\u003e');
+---
+
+<section class="arch-explorer glass" data-architecture-explorer>
+  <div class="arch-tabs" role="tablist" aria-label={words.vistas}>
+    {tabs.map((key, index) => (
+      <button type="button" role="tab" id={'arch-tab-'+key} data-arch-tab={key}
+        aria-selected={index===0} aria-controls={'arch-panel-'+key} tabindex={index===0?0:-1}
+        class:list={['arch-tab',{active:index===0}]}>
+        <span class="arch-tab-index">{String(index+1).padStart(2,'0')}</span>
+        {words.vistasNombres[key]}
+      </button>
+    ))}
+  </div>
+  <p class="arch-tab-intro" data-tab-desc>{words.vistasDesc.internal}</p>
+  <div class="arch-controls">
+    <div class="arch-search-wrap">
+      <label for="arch-search">{words.buscar}</label>
+      <input id="arch-search" type="search" data-arch-search placeholder={words.buscar} autocomplete="off" />
+    </div>
+    <div class="arch-filters" data-arch-filters role="group" aria-label={words.filtros}>
+      <button type="button" class="active" aria-pressed="true" data-arch-filter="all">{words.todos}</button>
+      {['runtime','content','build','editorial','metrics'].map(group=><button type="button" aria-pressed="false" data-arch-filter={group}>{group}</button>)}
+    </div>
+  </div>
+  <div class="arch-display">
+    <div class="arch-main-canvas">
+      <div class="arch-toolbar" role="group" aria-label={words.zoom}>
+        <button type="button" data-arch-zoom="in" aria-label={words.acercar} title={words.acercar}>+</button>
+        <button type="button" data-arch-zoom="out" aria-label={words.alejar} title={words.alejar}>−</button>
+        <button type="button" data-arch-zoom="fit" aria-label={words.restaurar} title={words.restaurar}>⌗</button>
+      </div>
+      {tabs.map((key,index)=>{
+        const graph = model[key];
+        const nodeMap=new Map(graph.nodes.map(n=>[n.id,n]));
+        return (
+          <div class="arch-view" id={'arch-panel-'+key} data-arch-view={key}
+            role="tabpanel" aria-labelledby={'arch-tab-'+key} hidden={index!==0}>
+            <svg class="arch-graph" data-arch-svg={key} viewBox={'0 0 '+graph.width+' '+graph.height}
+              xmlns="http://www.w3.org/2000/svg" role="group" aria-label={words.vistasNombres[key]}>
+              <defs>
+                <pattern id={'arch-grid-'+key} width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="#8ba5c3" opacity=".16"/></pattern>
+                <marker id={'arch-arrow-'+key} markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L6,3 L0,6" fill="none" stroke="#55d9d6" stroke-width="1.1"/>
+                </marker>
+              </defs>
+              <rect class="arch-grid-bg" width={graph.width} height={graph.height} fill={'url(#arch-grid-'+key+')'}/>
+              <g class="arch-edges">
+                {graph.edges.map((edge)=>{
+                  const a=nodeMap.get(edge.from), b=nodeMap.get(edge.to);
+                  return (
+                    <path data-arch-edge data-from={edge.from} data-to={edge.to}
+                      class:list={['arch-edge',{'is-planned':edge.kind==='planned','is-catalog':edge.kind==='catalog','is-cross':!!edge.source}]}
+                      d={wire(a,b)} marker-end={'url(#arch-arrow-'+key+')'}>
+                      <title>{edge.label||edge.kind}</title>
+                    </path>
+                  );
+                })}
+              </g>
+              <g class="arch-nodes">
+                {graph.nodes.map(node=>(
+                  <g data-arch-node data-id={node.id} data-group={node.group}
+                    class:list={['arch-node','arch-'+node.group]}
+                    role="button" tabindex="0" aria-label={node.label+' — '+node.description}
+                    transform={'translate('+node.x+' '+node.y+')'}>
+                    <title>{node.label+': '+node.description}</title>
+                    <rect width={nodeWidth} height={nodeHeight} rx="15" ry="15" class="arch-node-bg"/>
+                    <rect width="5" height={nodeHeight-20} x="11" y="10" rx="2.5" class="arch-accent"/>
+                    <text x="25" y="29" class="arch-node-title">
+                      {nameLines(node.label).map((line,i)=><tspan x="25" dy={i===0?'0':'19'}>{line}</tspan>)}
+                    </text>
+                    <text x="194" y="62" text-anchor="end" class="arch-node-icon">{iconFor[node.group]||'◉'}</text>
+                  </g>
+                ))}
+              </g>
+            </svg>
+          </div>
+        );
+      })}
+      <div class="arch-status-bar"><span data-arch-count></span><span>{words.zoom}: <strong data-arch-scale>100%</strong></span></div>
+    </div>
+    <aside class="arch-inspector" data-arch-inspector aria-live="polite">
+      <p class="arch-detail-overline">{words.seleccionar}</p>
+      <h3 data-arch-name>{model.internal.nodes[0].label}</h3>
+      <p data-arch-description>{model.internal.nodes[0].description}</p>
+      <dl class="arch-inspector-meta">
+        <div><dt>{words.grupo}</dt><dd data-arch-group>{model.internal.nodes[0].group}</dd></div>
+        <div><dt>{words.estado}</dt><dd data-arch-state>{model.internal.nodes[0].status}</dd></div>
+        <div><dt>{words.entradas}</dt><dd data-arch-in>0</dd></div>
+        <div><dt>{words.salidas}</dt><dd data-arch-out>0</dd></div>
+      </dl>
+      <div class="arch-node-chips" data-arch-chips></div>
+      <h4>{words.relacionado}</h4>
+      <ul class="arch-node-connections" data-arch-connections></ul>
+      <div class="arch-inspector-links" data-arch-links></div>
+    </aside>
+  </div>
+  <div class="arch-legend">
+    <span><i class="legend-line"></i>{words.verificado}</span>
+    <span><i class="legend-line legend-dotted"></i>{words.catalogo}</span>
+    <span><i class="legend-line legend-dashed"></i>{words.planificado}</span>
+  </div>
+  <noscript>
+    <p>{words.descripcion}</p>
+    <ul>{model.ecosystem.nodes.filter(n=>n.group!=='hub').map(n=><li>{n.label}: {n.description}</li>)}</ul>
+  </noscript>
+  <script type="application/json" data-arch-model set:html={data}></script>
+</section>
+<script>import '../../scripts/architecture-explorer.js';</script>
+<style>
+.arch-explorer{margin:1.5rem 0;border:1px solid rgba(121,144,168,.22);border-radius:20px;background:#0b101b;padding:1.15rem;color:#e7f1f8;overflow:hidden;}
+.arch-tabs{display:flex;gap:.7rem;flex-wrap:wrap;border-bottom:1px solid rgba(194,210,231,.13);padding-bottom:1rem}
+.arch-tab{background:rgba(21,31,48,.9);border:1px solid rgba(150,178,208,.16);border-radius:13px;padding:.85rem 1.1rem;color:#adbed0;font-size:.93rem;cursor:pointer;transition:background .2s,border-color .2s}
+.arch-tab.active{background:linear-gradient(135deg,rgba(20,197,178,.2),rgba(128,94,248,.17));color:#efffff;border-color:rgba(71,222,213,.56)}
+.arch-tab-index{color:#60dce2;font:600 .73rem 'JetBrains Mono',monospace;margin-right:.65rem;}
+.arch-tab-intro{color:#bdc9da;font-size:.92rem;margin:1.25rem .2rem;line-height:1.55}
+.arch-controls{display:flex;flex-wrap:wrap;align-items:end;gap:1rem;justify-content:space-between;margin-bottom:1rem}
+.arch-search-wrap{display:flex;flex-direction:column;gap:.4rem;flex:1;min-width:230px}
+.arch-search-wrap label{font-size:.75rem;color:#a9c0ce}
+.arch-search-wrap input{width:100%;padding:.7rem .9rem;color:#eef9ff;background:#111c2d;border:1px solid #294054;border-radius:10px;font-size:.9rem}
+.arch-filters{display:flex;flex-wrap:wrap;gap:.4rem}
+.arch-filters button{font-size:.74rem;background:#142037;border:1px solid #294054;color:#c1d1e5;padding:.5rem .7rem;border-radius:9px;cursor:pointer}
+.arch-filters button.active{background:rgba(55,201,192,.18);border-color:#36c8bc;color:#f5ffff}
+.arch-display{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:1rem;align-items:start}
+.arch-main-canvas{position:relative;border:1px solid rgba(79,132,170,.25);border-radius:14px;overflow:hidden;background:radial-gradient(circle at 80% 7%,rgba(71,61,177,.13),transparent 45%),radial-gradient(circle at 5% 90%,rgba(23,179,167,.11),transparent 60%),#090e19}
+.arch-toolbar{position:absolute;top:12px;right:12px;z-index:2;display:flex;gap:.4rem}
+.arch-toolbar button{width:35px;height:35px;border:1px solid #42617b;border-radius:8px;background:rgba(14,26,43,.94);color:#fff;cursor:pointer;font-size:1.2rem}
+.arch-view{width:100%;height:565px;overflow:hidden;touch-action:none;cursor:grab}
+.arch-view:active{cursor:grabbing}
+.arch-graph{width:100%;height:100%;display:block;user-select:none}
+.arch-node{cursor:pointer;outline:none}
+.arch-node-bg{fill:#152035;stroke:#445570;stroke-width:1.8;filter:drop-shadow(0 7px 6px rgba(0,0,0,.24))}
+.arch-node:hover .arch-node-bg,.arch-node.is-selected .arch-node-bg{fill:#1c3046;stroke:#55e6dc;stroke-width:2.8}
+.arch-node:focus-visible .arch-node-bg{stroke:#fff;stroke-width:3.5}
+.arch-node-title{fill:#ebf3ff;font:600 14px 'Inter',sans-serif;pointer-events:none}
+.arch-node-icon{fill:#91b8c9;font:16px sans-serif;pointer-events:none}
+.arch-accent{fill:#43cfd1}
+.arch-runtime .arch-accent{fill:#2edbd4}
+.arch-build .arch-accent{fill:#af91fc}
+.arch-content .arch-accent{fill:#66d893}
+.arch-editorial .arch-accent{fill:#e5aa77}
+.arch-metrics .arch-accent{fill:#78b8ff}
+.arch-hub .arch-accent{fill:#e886e5}
+.arch-derived .arch-accent{fill:#66d893}
+.arch-external .arch-accent{fill:#e7b36b}
+.arch-planned .arch-accent{fill:#d6b06d}
+.arch-planned .arch-node-bg{stroke-dasharray:6 4}
+.arch-edge{fill:none;stroke:#37bdbc;stroke-width:2;opacity:.35;transition:opacity .2s}
+.arch-edge.is-cross{stroke:#e3b360;stroke-width:3;opacity:.72}
+.arch-edge.is-catalog{stroke:#6a779c;stroke-dasharray:4 7;opacity:.22}
+.arch-edge.is-planned{stroke:#d1a968;stroke-dasharray:8 7;opacity:.55}
+.arch-edge.is-neighbor{opacity:.95;stroke-width:3}
+.arch-edge.is-dimmed{opacity:.04}
+.arch-node.is-dimmed{opacity:.11}
+.arch-status-bar{position:absolute;bottom:0;left:0;right:0;background:rgba(10,18,31,.88);border-top:1px solid rgba(83,116,150,.26);padding:.55rem .85rem;display:flex;justify-content:space-between;gap:1rem;font:.75rem 'JetBrains Mono',monospace;color:#c8dae8;pointer-events:none}
+.arch-inspector{padding:1.25rem;border:1px solid rgba(89,129,158,.25);border-radius:14px;background:rgba(16,24,41,.85);min-height:420px}
+.arch-detail-overline{font:.72rem 'JetBrains Mono',monospace;letter-spacing:.13em;text-transform:uppercase;color:#68e8dc;margin-top:0}
+.arch-inspector h3{font-size:1.22rem;overflow-wrap:anywhere;margin:.7rem 0}
+.arch-inspector [data-arch-description]{font-size:.88rem;line-height:1.6;color:#c1cede}
+.arch-inspector-meta{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:1.2rem 0}
+.arch-inspector-meta div{background:#111b2d;border:1px solid #21354b;border-radius:9px;padding:.55rem}
+.arch-inspector-meta dt{font-size:.69rem;color:#96afbe}.arch-inspector-meta dd{margin:.28rem 0 0;font-size:.88rem;color:#f0f5fc;overflow-wrap:anywhere}
+.arch-node-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin:.7rem 0}
+.arch-node-chips span{font-size:.7rem;border:1px solid rgba(72,216,204,.31);color:#a7f3e9;background:rgba(42,185,171,.09);border-radius:99px;padding:.25rem .55rem}
+.arch-inspector h4{font-size:.9rem;margin:1.2rem 0 .6rem}
+.arch-node-connections{font-size:.78rem;line-height:1.5;max-height:180px;overflow:auto;padding-left:1.15rem;color:#c5cfdd}
+.arch-node-connections li{margin:.3rem 0;overflow-wrap:anywhere}
+.arch-inspector-links{display:flex;flex-wrap:wrap;gap:.45rem}
+.arch-inspector-links a{display:inline-block;text-decoration:none;font-size:.8rem;padding:.5rem .7rem;border-radius:8px;border:1px solid #3aa5aa;color:#b9f4e9;background:#132c38}
+.arch-legend{display:flex;flex-wrap:wrap;gap:1.1rem;margin:.95rem .3rem .1rem;color:#acbfce;font-size:.77rem}
+.arch-legend span{display:flex;align-items:center;gap:.45rem}
+.legend-line{display:inline-block;width:30px;border-top:2px solid #36c6bd}
+.legend-dotted{border-top:2px dotted #8195bd}.legend-dashed{border-top:2px dashed #d5aa68}
+.arch-explorer button:focus-visible,.arch-search-wrap input:focus-visible{outline:2px solid #a4f6ef;outline-offset:3px}
+@media(max-width:1030px){.arch-display{grid-template-columns:1fr}.arch-inspector{min-height:0}.arch-view{height:475px}}
+@media(max-width:540px){.arch-explorer{padding:.55rem}.arch-tabs{gap:.35rem}.arch-tab{padding:.65rem .55rem;font-size:.76rem}.arch-tab-index{display:none}.arch-view{height:380px}.arch-inspector{padding:1rem}}
+@media(prefers-reduced-motion:reduce){.arch-tab,.arch-edge{transition:none}}
+</style>

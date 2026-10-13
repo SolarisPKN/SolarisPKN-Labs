@@ -21,6 +21,8 @@ jobs:
         run: npm ci
       - name: Validate project catalog
         run: node --test scripts/project-catalog.test.js
+      - name: Validate architecture model
+        run: node --test scripts/architecture-map.test.js
       - name: Run post editor tests
         run: npm run test:post-editor
       - name: Astro diagnostics
