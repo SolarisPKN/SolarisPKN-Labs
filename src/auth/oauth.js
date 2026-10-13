@@ -13,6 +13,19 @@ export const PROVIDERS = Object.freeze({
     scopes: 'openid',
     userinfo: null,
   },
+  microsoft: {
+    authorize: 'https://login.microsoftonline.com/consumers/oauth2/v2.0/authorize',
+    token: 'https://login.microsoftonline.com/consumers/oauth2/v2.0/token',
+    jwks: 'https://login.microsoftonline.com/consumers/discovery/v2.0/keys',
+    issuer: ['https://login.microsoftonline.com/9188040d-6c67-4c5b-b112-36a304b66dad/v2.0'],
+    scopes: 'openid',
+  },
+  yandex: {
+    authorize: 'https://oauth.yandex.com/authorize',
+    token: 'https://oauth.yandex.com/token',
+    userinfo: 'https://login.yandex.ru/info?format=json',
+    scopes: 'login:info',
+  },
   github: {
     authorize: 'https://github.com/login/oauth/authorize',
     token: 'https://github.com/login/oauth/access_token',
@@ -20,7 +33,7 @@ export const PROVIDERS = Object.freeze({
     scopes: 'read:user',
   },
 });
-const CONFIG = {google:['GOOGLE_CLIENT_ID','GOOGLE_CLIENT_SECRET'],github:['GITHUB_CLIENT_ID','GITHUB_CLIENT_SECRET']};
+const CONFIG = {google:['GOOGLE_CLIENT_ID','GOOGLE_CLIENT_SECRET'],github:['GITHUB_CLIENT_ID','GITHUB_CLIENT_SECRET'],microsoft:['MICROSOFT_CLIENT_ID','MICROSOFT_CLIENT_SECRET'],yandex:['YANDEX_CLIENT_ID','YANDEX_CLIENT_SECRET']};
 export const availableProviders = (env) =>
   Object.keys(PROVIDERS).filter(name=>CONFIG[name].every(key=>typeof env[key]==='string' && env[key].length>5));
 
@@ -46,7 +59,7 @@ export async function startOAuth(request,env,provider,body){
   url.searchParams.set('state',state);
   url.searchParams.set('code_challenge',challenge);
   url.searchParams.set('code_challenge_method','S256');
-  if(provider==='google')url.searchParams.set('nonce',nonce);
+  if(provider==='google'||provider==='microsoft')url.searchParams.set('nonce',nonce);
   const reply=json({authorize:url.toString()});
   reply.headers.append('Set-Cookie','__Host-labs_flow='+state+'; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=300');
   return reply;
@@ -70,7 +83,7 @@ function decodeB64(value){
   const binary=atob(value.replace(/-/g,'+').replace(/_/g,'/')+'='.repeat((4-value.length%4)%4));
   return Uint8Array.from(binary,c=>c.charCodeAt(0));
 }
-async function googleIdentity(idToken,nonce,clientId){
+async function oidcIdentity(provider,idToken,nonce,clientId){
  if(typeof idToken!=='string'||idToken.length>12000)throw Error('missing ID token');
  const parts=idToken.split('.');
  if(parts.length!==3)throw Error('invalid JWT');
@@ -78,16 +91,18 @@ async function googleIdentity(idToken,nonce,clientId){
  const body=JSON.parse(new TextDecoder().decode(decodeB64(parts[1])));
  const nowSeconds=Math.floor(Date.now()/1000);
  if(header.alg!=='RS256'||typeof header.kid!=='string')throw Error('unsupported JWT');
- if(!PROVIDERS.google.issuer.includes(body.iss)||body.aud!==clientId||
+ if(!PROVIDERS[provider].issuer.includes(body.iss)||body.aud!==clientId||
     typeof body.sub!=='string'||body.sub.length>256||
     body.nonce!==nonce||!Number.isSafeInteger(body.exp)||body.exp<=nowSeconds||
     !Number.isSafeInteger(body.iat)||body.iat>nowSeconds+60||
     (body.nbf!==undefined&&body.nbf>nowSeconds+60))throw Error('invalid ID claims');
- const response=await fetch(PROVIDERS.google.jwks,{headers:{Accept:'application/json'},signal:AbortSignal.timeout(6000)});
+ if(provider==='microsoft'&&body.tid!=='9188040d-6c67-4c5b-b112-36a304b66dad')throw Error('invalid consumer tenant');
+ const response=await fetch(PROVIDERS[provider].jwks,{headers:{Accept:'application/json'},signal:AbortSignal.timeout(6000)});
  if(!response.ok)throw Error('JWKS unavailable');
  const list=await response.json();
  const jwk=list.keys?.find(key=>key.kid===header.kid&&key.kty==='RSA'&&key.use!=='enc'&&(!key.alg||key.alg==='RS256'));
  if(!jwk)throw Error('signing key not found');
+ if(provider==='microsoft'&&jwk.issuer && ![body.iss,'https://login.microsoftonline.com/{tenantid}/v2.0'].includes(jwk.issuer))throw Error('invalid signing key issuer');
  const key=await crypto.subtle.importKey('jwk',jwk,{name:'RSASSA-PKCS1-v1_5',hash:'SHA-256'},false,['verify']);
  const data=new TextEncoder().encode(parts[0]+'.'+parts[1]);
  if(!(await crypto.subtle.verify('RSASSA-PKCS1-v1_5',key,decodeB64(parts[2]),data)))throw Error('invalid ID signature');
@@ -104,13 +119,25 @@ async function exchange(provider,code,flow,env,request){
  const response=await fetch(spec.token,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded',Accept:'application/json'},body:params,signal:AbortSignal.timeout(7000)});
  if(!response.ok)throw Error('token endpoint refused code');
  const body=await response.json();
- if(provider==='google')return googleIdentity(body.id_token,flow.nonce,env.GOOGLE_CLIENT_ID);
- if(typeof body.access_token!=='string'||body.access_token.length>4000||body.token_type?.toLowerCase()!=='bearer')throw Error('missing GitHub token');
- const profile=await fetch(spec.userinfo,{headers:{Authorization:'Bearer '+body.access_token,Accept:'application/vnd.github+json','User-Agent':'SolarisPKN-Labs'},signal:AbortSignal.timeout(6000)});
- if(!profile.ok)throw Error('GitHub user verification unavailable');
- const user=await profile.json();
- if(!Number.isSafeInteger(user.id)||user.id<1)return Promise.reject(Error('invalid GitHub user'));
- return String(user.id);
+ if(provider==='google'||provider==='microsoft')return oidcIdentity(provider,body.id_token,flow.nonce,env[provider.toUpperCase()+'_CLIENT_ID']);
+ if(typeof body.access_token!=='string'||body.access_token.length>4000)throw Error('missing OAuth token');
+ if(provider==='github'){
+   if(body.token_type?.toLowerCase()!=='bearer')throw Error('unexpected GitHub token type');
+   const profile=await fetch(spec.userinfo,{headers:{Authorization:'Bearer '+body.access_token,Accept:'application/vnd.github+json','User-Agent':'SolarisPKN-Labs'},signal:AbortSignal.timeout(6000)});
+   if(!profile.ok)throw Error('GitHub identity unavailable');
+   const user=await profile.json();
+   if(!Number.isSafeInteger(user.id)||user.id<1)throw Error('invalid GitHub user');
+   return String(user.id);
+ }
+ if(provider==='yandex'){
+   const profile=await fetch(spec.userinfo,{headers:{Authorization:'OAuth '+body.access_token,Accept:'application/json'},signal:AbortSignal.timeout(6000)});
+   if(!profile.ok)throw Error('Yandex identity unavailable');
+   const user=await profile.json();
+   const id=String(user.id||'');
+   if(!/^[0-9]{1,30}$/.test(id)||user.client_id!==env.YANDEX_CLIENT_ID)throw Error('invalid Yandex account or app');
+   return id;
+ }
+ throw Error('unsupported provider');
 }
 export async function handleOAuthCallback(request,env,provider){
  const url=new URL(request.url),origin=url.origin;

@@ -6,9 +6,9 @@ Se agregaron el código de Mi cuenta, endpoints del Worker, una migración D1 pr
 **No hay un sistema de usuarios en producción aún.** No vender este prototipo como sistema de autenticación auditado.
 
 ## Implementado y conectado
-- Google OpenID Connect y GitHub OAuth mediante Authorization Code + PKCE S256.
+- Google OpenID Connect, Microsoft personal-account OIDC, GitHub OAuth y Yandex OAuth mediante Authorization Code + PKCE S256.
 - Google: valida firma RSA de ID token usando JWKS, además de issuer, audience, nonce, expiración y subject.
-- GitHub: usa access token únicamente para validar el usuario con API GitHub. **No almacena tokens de proveedores**.
+- GitHub: usa access token únicamente para validar el usuario con API GitHub. Yandex verifica id y client_id recibidos desde Yandex ID. Microsoft restringido a cuentas personales y tenant consumers. **No almacena tokens de proveedores**.
 - Búsqueda de identidad por HMAC del identificador estable, no por correo.
 - Cookies HttpOnly, Secure, SameSite=Lax, prefijo __Host-. Sesiones revocables con expiración fija a 7 días.
 - Favoritos, seguimiento de proyectos, preferencias, alias público, exportación y eliminación de datos.
@@ -20,7 +20,7 @@ Se agregaron el código de Mi cuenta, endpoints del Worker, una migración D1 pr
 ## Aún NO implementado
 - Passkeys/WebAuthn y recuperación con códigos.
 - Fusión segura de dos proveedores en una cuenta.
-- Microsoft, Yandex, Baidu, Apple, LINE, Kakao, Naver y otros proveedores.
+- Baidu, Apple, LINE, Kakao, Naver y otros proveedores. Microsoft/Yandex quedan sujetos a configuracion y pruebas de integración reales.
 - Panel web de moderación y notificaciones automáticas a seguidores.
 - Test de penetración, E2E real con proveedor y verificación operativa con D1.
 La interfaz informa claramente qué falta; no contiene botones simulando esas capacidades.
@@ -32,10 +32,12 @@ La interfaz informa claramente qué falta; no contiene botones simulando esas ca
 3. Revisar migrations/0001_identity.sql. Aplicar primero las migraciones D1 locales y después remotamente (npx wrangler d1 migrations apply solarispkn-labs-identity --local; luego --remote). El paso --remote cambia recursos reales y no se hizo desde ChatGPT.
 4. Crear un widget gratuito de Cloudflare Turnstile limitado al dominio labs.solarispkn.com.ar. El sitio web debe cargar la site key pública y el Worker verificar cada token con el secret.
 5. Registrar Google OAuth Web con callback EXACTO https://labs.solarispkn.com.ar/api/auth/callback/google
-6. Registrar GitHub OAuth App con callback EXACTO https://labs.solarispkn.com.ar/api/auth/callback/github
+6. Registrar GitHub OAuth App con callback EXACTO https://labs.solarispkn.com.ar/api/auth/callback/github. Microsoft personal: https://labs.solarispkn.com.ar/api/auth/callback/microsoft. Yandex ID: https://labs.solarispkn.com.ar/api/auth/callback/yandex. Verificar que cada proveedor permita registro gratuito y los scopes mínimos.
 7. Guardar con la funcionalidad de Cloudflare Worker Secrets, nunca en Git:
    GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET,
    GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET,
+   MICROSOFT_CLIENT_ID, MICROSOFT_CLIENT_SECRET,
+   YANDEX_CLIENT_ID, YANDEX_CLIENT_SECRET,
    TURNSTILE_SITE_KEY, TURNSTILE_SECRET,
    IDENTITY_PEPPER (cadena aleatoria de alta entropía, longitud mínima 32).
    Es posible configurar secretos mediante npx wrangler secret put NOMBRE. No usar archivos .env versionados ni exponer secretos por CI.
@@ -68,7 +70,7 @@ Las consultas deben ejecutarse en el editor seguro de D1, NO en el repositorio. 
 
 ## Endpoints
 Públicos: GET /api/account/status; GET /api/comments?post=SLUG.
-OAuth: POST /api/auth/start; GET /api/auth/callback/google; GET /api/auth/callback/github.
+OAuth: POST /api/auth/start; GET /api/auth/callback/google; GET /api/auth/callback/github; GET /api/auth/callback/microsoft; GET /api/auth/callback/yandex.
 Autenticados: GET /api/account/me; GET /api/account/overview; POST /api/account/logout;
 GET/POST /api/account/favorites; GET/POST /api/account/follows;
 GET/POST /api/account/preferences; POST /api/account/profile;

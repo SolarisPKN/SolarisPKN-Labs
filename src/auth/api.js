@@ -58,7 +58,7 @@ export async function handleAccountApi(request,env){
  if(pathname.startsWith('/api/auth/callback/')){
   if(method!=='GET')return fail('method_not_allowed',405);
   const provider=pathname.slice('/api/auth/callback/'.length);
-  if(!/^(google|github)$/.test(provider))return fail('not_found',404);
+  if(!/^(google|github|microsoft|yandex)$/.test(provider))return fail('not_found',404);
   return handleOAuthCallback(request,env,provider);
  }
  if(pathname==='/api/auth/start'&&method==='POST'){

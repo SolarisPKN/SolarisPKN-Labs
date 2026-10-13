@@ -113,7 +113,7 @@ function accountReady(root){
    if(!status.enabled){show('disabled');say(en?'Registration is securely disabled until setup is completed.':'El registro está deshabilitado hasta completar la configuración segura.');return;}
    const box=$(root,'[data-identity-providers]');box.replaceChildren();
    for(const provider of status.providers){
-    const b=label('button',provider==='google'?'Google':'GitHub');
+    const b=label('button',({google:'Google',github:'GitHub',microsoft:'Microsoft',yandex:'Yandex'})[provider]||provider);
     b.type='button';
     b.addEventListener('click',async()=>{
      if(b.disabled)return;
@@ -123,7 +123,7 @@ function accountReady(root){
       if(!response){say(en?'Complete verification first':'Completá la verificación');return;}
       const result=await api('/api/auth/start',{provider,turnstile:response});
       const destination=new URL(result.authorize);
-      if(destination.protocol!=='https:'||!['accounts.google.com','github.com'].includes(destination.hostname))throw Error('invalid_redirect');
+      if(destination.protocol!=='https:'||!['accounts.google.com','github.com','login.microsoftonline.com','oauth.yandex.com'].includes(destination.hostname))throw Error('invalid_redirect');
       location.assign(destination.toString());
      }catch(e){say(e.message);refresh('login');}
      finally{b.disabled=false;}
