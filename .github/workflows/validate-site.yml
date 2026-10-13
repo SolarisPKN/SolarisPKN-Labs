@@ -23,6 +23,8 @@ jobs:
         run: node --test scripts/project-catalog.test.js
       - name: Validate architecture model
         run: node --test scripts/architecture-map.test.js
+      - name: Validate identity security
+        run: node --test scripts/identity.test.js
       - name: Run post editor tests
         run: npm run test:post-editor
       - name: Astro diagnostics
