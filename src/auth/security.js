@@ -10,7 +10,7 @@ export async function digest(value,output='hex',key=null){
  let bytes;
  if(key){
    if(typeof key!=='string'||key.length<32)throw Error('IDENTITY_PEPPER is not configured securely');
-   const imported=await crypto.subtle.importKey('raw',encoder.encode(key),'HMAC',{hash:'SHA-256'},false,['sign']);
+   const imported=await crypto.subtle.importKey('raw',encoder.encode(key),{name:'HMAC',hash:'SHA-256'},false,['sign']);
    bytes=new Uint8Array(await crypto.subtle.sign('HMAC',imported,encoder.encode(value)));
  }else{
    bytes=new Uint8Array(await crypto.subtle.digest('SHA-256',encoder.encode(value)));
