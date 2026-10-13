@@ -3,13 +3,15 @@ import Layout from '../../layouts/Layout.astro';
 import ArchitectureExplorer from '../../components/Architecture/ArchitectureExplorer.astro';
 import { loadAllProjects } from '../../utils/projects.js';
 import { buildArchitectureMap } from '../../utils/architecture-map.js';
+import esCopy from '../../locales/es/arquitectura.json';
+import enCopy from '../../locales/en/arquitectura.json';
 
 export async function getStaticPaths() {
   return [{params:{lang:'es'}},{params:{lang:'en'}}];
 }
 
 const lang = Astro.params.lang === 'en' ? 'en' : 'es';
-const words = (await import('../../locales/' + lang + '/arquitectura.json')).default;
+const words = lang === 'en' ? enCopy : esCopy;
 const model = buildArchitectureMap(loadAllProjects(),lang);
 ---
 
