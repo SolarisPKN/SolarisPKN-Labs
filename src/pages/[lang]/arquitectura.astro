@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ArchitectureExplorer from '../../components/Architecture/ArchitectureExplorer.astro';
+import ArchitectureMetrics from '../../components/Architecture/ArchitectureMetrics.astro';
 import { loadAllProjects } from '../../utils/projects.js';
 import { buildArchitectureMap } from '../../utils/architecture-map.js';
 import esCopy from '../../locales/es/arquitectura.json';
@@ -12,7 +13,8 @@ export async function getStaticPaths() {
 
 const lang = Astro.params.lang === 'en' ? 'en' : 'es';
 const words = lang === 'en' ? enCopy : esCopy;
-const model = buildArchitectureMap(loadAllProjects(),lang);
+const projects = loadAllProjects();
+const model = buildArchitectureMap(projects,lang);
 ---
 
 <Layout title={words.titulo} description={words.descripcion} lang={lang}>
@@ -29,6 +31,7 @@ const model = buildArchitectureMap(loadAllProjects(),lang);
       </div>
     </header>
     <ArchitectureExplorer model={model} lang={lang} words={words} />
+    <ArchitectureMetrics model={model} projects={projects} lang={lang} />
     <section class="arch-footer glass">
       <h2>{words.auditoriaTitulo}</h2>
       <p>{words.auditoriaTexto}</p>
