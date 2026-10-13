@@ -66,7 +66,7 @@ export async function handleAccountApi(request,env){
   if(!(await requireRate(request,env,'login',300,5)))return fail('rate_limited',429);
   const body=await payload(request,3000);
   if(!body||!availableProviders(env).includes(body.provider))return fail('provider_disabled',503);
-  return startOAuth(new Request(request,{body:JSON.stringify(body)}),env,body.provider);
+  return startOAuth(request,env,body.provider,body);
  }
  if(pathname==='/api/comments'&&method==='GET'){
   const slug=url.searchParams.get('post');

@@ -27,9 +27,8 @@ export const availableProviders = (env) =>
 export function oauthCallback(origin, provider){
   return origin+'/api/auth/callback/'+provider;
 }
-export async function startOAuth(request,env,provider){
+export async function startOAuth(request,env,provider,body){
   if(!availableProviders(env).includes(provider))return json({error:'provider_disabled'},503);
-  const body=await request.json().catch(()=>null);
   if(!body||typeof body.turnstile!=='string')return json({error:'verification_required'},400);
   if(!(await verifyChallenge(body.turnstile,env,request)))return json({error:'verification_failed'},403);
   const state=token(32), verifier=token(32), nonce=token(32), stateHash=await digest(state);
