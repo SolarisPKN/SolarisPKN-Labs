@@ -173,7 +173,7 @@ export async function handleOAuthCallback(request,env,provider){
    const session=token(32),sessionHash=await digest(session),time=now();
    await env.DB.prepare('INSERT INTO sessions(token_digest,user_id,created_at,expires_at) VALUES(?,?,?,?)')
       .bind(sessionHash,uid,time,time+7*24*3600).run();
-   const reply=Response.redirect(origin+'/es/mi-cuenta/?auth=success',303);
+   const reply=new Response(null,{status:303,headers:{Location:origin+'/es/mi-cuenta/?auth=success'}});
    reply.headers.append('Set-Cookie','__Host-labs_session='+session+'; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=604800');
    reply.headers.append('Set-Cookie',clearFlowCookie());
    reply.headers.set('Cache-Control','no-store');
