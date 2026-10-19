@@ -35,7 +35,8 @@ test('bilingual Tech/Gaming entrance links correctly and Tech introduces real La
   assert.equal(t.destinations.length,4,'Tech links must include projects, blog, portfolio and architecture');
   assert.deepEqual(t.destinations.map(x=>x.key),['projects','blog','portfolio','architecture']);
   assert.equal(t.focus.length,4);
-  assert.equal(t.playlists.length,4);
+  assert.equal(t.playlists.length,2);
+  assert.deepEqual(t.playlists.map(p=>p.label),lang==='es'?['Tecnología','Automotor']:['Technology','Automotive']);
   assert.match(file('src/pages/[lang]/under-construction.astro'),/getStaticPaths/);
  }
 });
@@ -71,34 +72,34 @@ test('hover particle fields use CSS animation with keyboard and reduced-motion s
  assert.doesNotMatch(source,/<script\b|setInterval|requestAnimationFrame|<canvas\b/,'no unnecessary JS or canvas loops');
 });
 
-test('embedded playlists load on page open, fill the video area and switch on click',()=>{
+test('only two live public playlists, dynamic queue and no Data API key',()=>{
  const player=file('src/components/Home/TechPlaylists.astro');
- const verified=[
- 'PLVxh46uVOYfb5YCI8AqG5jK_TB8p0vu9D',
- 'PLVxh46uVOYfYbTsYFmaZ31w8AyCOs9yuG',
- 'PLVxh46uVOYfYPPkf0sxzGOW0Ws8Tto1Jz',
- 'PLVxh46uVOYfbcY-IbZGORC1gU_DU04SeN'
- ];
- for(const id of verified)assert.ok(player.includes(id),'verified playlist missing '+id);
- assert.match(player,/youtube-nocookie\.com/);
- assert.match(player,/function play\(index,autoplay=false\)/);
- assert.match(player,/play\(0,false\)/,'first playlist should load on page open');
- assert.match(player,/:global\(\.tech-video-iframe\)/,'Astro scoped styles must reach dynamically created iframe');
- assert.match(player,/position:absolute;inset:0;width:100%;height:100%/,'iframe must fill the 16:9 surface');
- assert.ok(player.indexOf('player.src=')>player.indexOf('function play('),'iframe source is assigned inside play()');
- assert.match(player,/button.addEventListener\('click',\(\)=>play\(index,true\)\)/,'switch playlist directly from category selection');
+ const worker=file('src/worker.js');
+ const parser=file('src/utils/tech-playlist-feed.js');
+ const verified=['PLVxh46uVOYfb5YCI8AqG5jK_TB8p0vu9D','PLVxh46uVOYfYbTsYFmaZ31w8AyCOs9yuG'];
+ for(const id of verified)assert.ok(player.includes(id),'required playlist missing '+id);
+ assert.doesNotMatch(player,/PLVxh46uVOYfYPPkf0sxzGOW0Ws8Tto1Jz|PLVxh46uVOYfbcY-IbZGORC1gU_DU04SeN/,'retired playlists must not remain');
+ assert.match(player,/getPlaylist\(/,'read current playlist IDs from official IFrame player');
+ assert.match(player,/playVideoAt\(/,'select any listed video for same player');
+ assert.match(player,/play\(0,false\)|select\(0\)/,'load the first playlist automatically');
+ assert.match(player,/readyYouTubePlayer\(\)/,'initialize official keyless embedded player');
+ assert.match(player,/data-video-list/,'render playlist queue alongside the player');
+ assert.match(player,/tech-video-layout\{display:grid;grid-template-columns:/,'right sidebar visible on desktop');
+ assert.match(player,/function drawCombined\(/,'combine live player IDs with feed titles');
+ assert.match(player,/https:\/\/www\.youtube\.com\/iframe_api/);
+ assert.match(worker,/\/api\/tech-playlist/);
+ assert.match(worker,/fetchRecentPublicPlaylist/);
+ assert.match(parser,/\/feeds\/videos\.xml\?playlist_id=/,'public feed, no token');
+ assert.doesNotMatch(parser,/YOUTUBE_API_KEY|googleapis\.com\/youtube\/v3/,'no YouTube Data API key');
 });
 
-test('YouTube playlists are permitted by deployed Content Security Policy',()=>{
- const headers=file('public/_headers');
- const csp=headers.split('\n').find(line=>line.trim().startsWith('Content-Security-Policy:'));
- assert.ok(csp,'Content Security Policy header must exist');
- assert.match(csp,/frame-src\s+https:\/\/www\.youtube-nocookie\.com\b/,'privacy-friendly YouTube embed must be allowed');
- assert.match(csp,/frame-src[^;]*https:\/\/www\.youtube\.com\b/,'official YouTube embed fallback must be allowed');
- assert.match(csp,/frame-ancestors\s+'self'/,'frame-ancestors protection must remain intact');
- assert.match(csp,/script-src\s+'self'/,'first-party script policy must remain intact');
- const player=file('src/components/Home/TechPlaylists.astro');
- assert.match(player,/https:\/\/www\.youtube-nocookie\.com\/embed\/videoseries/,'embed URL must match CSP origin');
+test('Content Security Policy permits keyless YouTube player script and frames',()=>{
+ const csp=file('public/_headers').split('\n').find(line=>line.trim().startsWith('Content-Security-Policy:'));
+ assert.ok(csp);
+ assert.match(csp,/script-src[^;]*https:\/\/www\.youtube\.com/);
+ assert.match(csp,/frame-src\s+https:\/\/www\.youtube-nocookie\.com/);
+ assert.match(csp,/frame-ancestors\s+'self'/);
+ assert.match(csp,/script-src\s+'self'/);
 });
 
 test('original owner-supplied index.webp must be preserved byte for byte',()=>{
