@@ -100,6 +100,26 @@ function initializeTechPlaylists(){
   let currentIds=[];
   let pollTimer=null;
   let disposed=false;
+  let titlesObserver=null;
+  const titleCache=new Map();
+  async function enrichTitle(button,video,gen){
+   const cached=titleCache.get(video.id);
+   if(cached){
+    const titleEl=button.querySelector('.tech-queue-item-title');
+    if(titleEl)titleEl.textContent=cached;
+    return;
+   }
+   try{
+    const response=await fetch('/api/tech-video-title?id='+encodeURIComponent(video.id));
+    if(!response.ok)return;
+    const data=await response.json();
+    if(gen!==generation||disposed||!data.ok||typeof data.title!=='string')return;
+    titleCache.set(video.id,data.title);
+    video.title=data.title;
+    const titleEl=button.querySelector('.tech-queue-item-title');
+    if(button.isConnected&&titleEl)titleEl.textContent=data.title;
+   }catch{}
+  }
 
   function setCount(n){
    count.textContent=n?words.videoCount+': '+n:words.videoLoading;
@@ -158,11 +178,29 @@ function initializeTechPlaylists(){
      });
      parent.append(button);
    });
+   titlesObserver?.disconnect();
    queue.replaceChildren(parent);
    setCount(items.length);
+   // Titles outside YouTube's recent public feed are fetched lazily while
+   // their cards become visible; no API key, and no request flood on load.
+   const gen=generation;
+   const buttons=[...queue.querySelectorAll('.tech-queue-item')];
+   if('IntersectionObserver' in window){
+    titlesObserver=new IntersectionObserver((entries,observer)=>{
+      for(const entry of entries){
+       if(!entry.isIntersecting)continue;
+       observer.unobserve(entry.target);
+       const i=buttons.indexOf(entry.target);
+       if(i>=0&&!items[i].title)enrichTitle(entry.target,items[i],gen);
+      }
+    },{root:queue,rootMargin:'120px'});
+    buttons.forEach((button,i)=>{if(!items[i].title)titlesObserver.observe(button);});
+   }else{
+    buttons.slice(0,12).forEach((button,i)=>{if(!items[i].title)enrichTitle(button,items[i],gen);});
+   }
   }
   function drawCombined(){
-   const titles=new Map(recent.map(v=>[v.id,v.title]));
+   const titles=new Map([...titleCache,...recent.map(v=>[v.id,v.title])]);
    // getPlaylist() returns the currently available IDs in the official embedded player.
    // RSS is a recent-only fallback, never falsely labeled as the entire archive.
    const ids=liveIds.length?liveIds:recent.map(v=>v.id);
@@ -239,7 +277,7 @@ function initializeTechPlaylists(){
     placeholder.querySelector('p').textContent=words.videoUnavailable;
   });
   select(0);
-  const cleanup=()=>{disposed=true;clearTimeout(pollTimer);if(player?.destroy)player.destroy();document.removeEventListener('astro:before-swap',cleanup);};
+  const cleanup=()=>{disposed=true;titlesObserver?.disconnect();clearTimeout(pollTimer);if(player?.destroy)player.destroy();document.removeEventListener('astro:before-swap',cleanup);};
   document.addEventListener('astro:before-swap',cleanup,{once:true});
  });
 }
