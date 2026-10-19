@@ -1,0 +1,22 @@
+{
+  "pageTitle": "SolarisPKN — Elegí tu universo",
+  "eyebrow": "SOLARISPKN / DOS UNIVERSOS",
+  "heading": "Un universo. Dos formas de explorarlo.",
+  "lead": "La tecnología que construyo y el mundo gaming que comparto. Elegí por dónde empezar.",
+  "select": "Elegir una sección",
+  "tech": {
+    "title": "TECH",
+    "kicker": "INGENIERÍA · SOFTWARE · IA",
+    "description": "Proyectos, automatización, sistemas, hardware y experimentos del laboratorio SolarisPKN.",
+    "action": "Explorar Tech",
+    "status": "Disponible"
+  },
+  "gaming": {
+    "title": "GAMING",
+    "kicker": "STREAMS · JUEGOS · COMUNIDAD",
+    "description": "Un espacio para las transmisiones, los juegos y la comunidad. Estamos construyendo esta sección.",
+    "action": "Ver próximamente",
+    "status": "En desarrollo"
+  },
+  "note": "Dos mundos conectados por la curiosidad."
+}

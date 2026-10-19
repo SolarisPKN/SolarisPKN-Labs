@@ -1,0 +1,164 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TechPlaylists from '../../../components/Home/TechPlaylists.astro';
+import { loadAllProjects } from '../../../utils/projects.js';
+import esCopy from '../../../locales/es/tech-home.json';
+import enCopy from '../../../locales/en/tech-home.json';
+import fs from 'node:fs';
+import path from 'node:path';
+import '../../../styles/tech-landing.css';
+
+export function getStaticPaths() {
+  return [{ params: { lang:'es' } }, { params: { lang:'en' } }];
+}
+
+const lang = Astro.params.lang === 'en' ? 'en' : 'es';
+const copy = lang === 'en' ? enCopy : esCopy;
+const projectCatalog = loadAllProjects();
+const featuredSlugs = [
+  'SolarisPKN-IA','SolarisPKN-Engineer','SolarisPKN-LiveTools',
+  'SolarisPKN-Control','SolarisPKN-Transport','Villars-Informa'
+];
+const highlighted = featuredSlugs.map(slug => projectCatalog.find(p => p.slug === slug)).filter(Boolean);
+const root = process.cwd();
+const blogDir = path.join(root,'src','content','blog');
+const localizedPosts=[];
+if (fs.existsSync(blogDir)) {
+  for (const entry of fs.readdirSync(blogDir,{withFileTypes:true})) {
+    if (!entry.isDirectory()) continue;
+    const meta = path.join(blogDir,entry.name,'post.json');
+    const local = path.join(root,'src','locales',lang,'posts',entry.name+'.json');
+    const narrative = path.join(blogDir,entry.name,'index-'+lang+'.mdx');
+    if (!fs.existsSync(meta) || !fs.existsSync(local) || !fs.existsSync(narrative)) continue;
+    const m = JSON.parse(fs.readFileSync(meta,'utf8'));
+    const t = JSON.parse(fs.readFileSync(local,'utf8'));
+    localizedPosts.push({slug:entry.name,title:t.title||m.title||entry.name,
+      summary:t.description||m.description||'',date:m.date||'',
+      tags:Array.isArray(m.tags)?m.tags.slice(0,2):[]});
+  }
+}
+localizedPosts.sort((a,b)=>b.date.localeCompare(a.date));
+const recentPosts=localizedPosts.slice(0,3);
+const directoryRoutes={
+  projects:`/${lang}/projects/`,blog:`/${lang}/blog/`,
+  portfolio:`/${lang}/portfolio/`,architecture:`/${lang}/arquitectura/`
+};
+const focusDetails = (status) => (
+  status === 'operational' || status === 'online'
+    ? copy.active : status === 'development' ? copy.developing : copy.otherStatus
+);
+const dateLabel=(s) => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+  return new Intl.DateTimeFormat(lang==='es'?'es-AR':'en-US',
+    {month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(s+'T12:00:00Z'));
+};
+---
+
+<Layout title={`SolarisPKN Labs · ${copy.title}`} description={copy.intro} lang={lang}>
+  <div class="tech-landing">
+    <section class="tech-hero" aria-labelledby="tech-home-title">
+      <div class="tech-hero-content">
+        <a class="tech-back-worlds" href={`/${lang}/`}>← {copy.backGateway}</a>
+        <p class="tech-overline">{copy.eyebrow}</p>
+        <h1 id="tech-home-title">{copy.title}</h1>
+        <p class="tech-hero-intro">{copy.intro}</p>
+        <div class="tech-hero-actions">
+          <a class="tech-primary-action" href={directoryRoutes.projects}>{copy.primary} <span aria-hidden="true">↗</span></a>
+          <a class="tech-secondary-action" href={directoryRoutes.architecture}>{copy.secondary} <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="tech-hero-system" aria-hidden="true">
+        <span class="tech-orbit tech-orbit-one"></span>
+        <span class="tech-orbit tech-orbit-two"></span>
+        <span class="tech-orbit tech-orbit-three"></span>
+        <span class="tech-orbit-label">LABS<span class="tech-orbit-dot">·</span>PKN</span>
+        <span class="tech-orbit-code tech-code-one">[ SOFTWARE ]</span>
+        <span class="tech-orbit-code tech-code-two">[ SYSTEMS ]</span>
+        <span class="tech-orbit-code tech-code-three">[ HARDWARE ]</span>
+      </div>
+    </section>
+
+    <div class="tech-count-strip" aria-label={copy.eyebrow}>
+      <div><strong>{projectCatalog.length}</strong><span>{copy.stats.projects}</span></div>
+      <div><strong>{copy.focus.length}</strong><span>{copy.stats.areas}</span></div>
+      <div><strong>ES / EN</strong><span>{copy.stats.languages}</span></div>
+    </div>
+
+    <section class="tech-section" aria-labelledby="tech-paths-title">
+      <div class="tech-section-heading"><p class="tech-overline">01 / DISCOVER</p><h2 id="tech-paths-title">{copy.headingExplore}</h2><p>{copy.exploreLead}</p></div>
+      <div class="tech-directory-grid">
+        {copy.destinations.map(item=>(
+          <a href={directoryRoutes[item.key]} class:list={['tech-directory-card','tech-directory-'+item.key]}>
+            <span class="tech-directory-top"><span class="tech-directory-icon" aria-hidden="true">{item.icon}</span><span class="tech-card-arrow" aria-hidden="true">↗</span></span>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+            <span class="tech-text-link">{item.action} →</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="tech-section" aria-labelledby="tech-focus-title">
+      <div class="tech-section-heading"><p class="tech-overline">02 / EXPLORE</p><h2 id="tech-focus-title">{copy.focusHeading}</h2><p>{copy.focusLead}</p></div>
+      <div class="tech-focus-grid">
+        {copy.focus.map((area,index)=>(
+          <article class="tech-focus-card">
+            <span class="tech-focus-icon" aria-hidden="true">{area.icon}</span>
+            <span class="tech-focus-number">{String(index+1).padStart(2,'0')}</span>
+            <h3>{area.title}</h3>
+            <p>{area.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="tech-section" aria-labelledby="tech-projects-title">
+      <div class="tech-section-heading tech-section-heading-row">
+        <div><p class="tech-overline">03 / BUILD</p><h2 id="tech-projects-title">{copy.projectsHeading}</h2><p>{copy.projectsLead}</p></div>
+        <a class="tech-inline-action" href={directoryRoutes.projects}>{copy.allProjects} ↗</a>
+      </div>
+      <div class="tech-feature-grid">
+        {highlighted.map(p => (
+          <a class="tech-feature-card" href={`/${lang}/projects/${encodeURIComponent(p.slug)}/`}>
+            <div class="tech-feature-meta"><span>{p.category?.toUpperCase()||'CORE'}</span><span class="tech-feature-status">{focusDetails(p.status)}</span></div>
+            <h3>{p.name?.[lang]||p.slug}</h3>
+            <p>{p.shortDescription?.[lang]||''}</p>
+            <div class="tech-feature-bottom"><span>{(p.technologies||[]).slice(0,3).join(' · ')}</span><span>{copy.projectRead} ↗</span></div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="tech-section" aria-labelledby="tech-blog-title">
+      <div class="tech-section-heading tech-section-heading-row">
+        <div><p class="tech-overline">04 / LEARN</p><h2 id="tech-blog-title">{copy.blogHeading}</h2><p>{copy.blogLead}</p></div>
+        <a class="tech-inline-action" href={directoryRoutes.blog}>{copy.allBlog} ↗</a>
+      </div>
+      {recentPosts.length>0 ? (
+        <div class="tech-blog-grid">
+          {recentPosts.map((post,index)=>(
+            <a class="tech-blog-card" href={`/${lang}/blog/${encodeURIComponent(post.slug)}/`}>
+              <p class="tech-blog-meta"><span>{String(index+1).padStart(2,'0')} / BLOG</span><time>{dateLabel(post.date)}</time></p>
+              <h3>{post.title}</h3>
+              <p>{post.summary}</p>
+              <div><span>{post.tags.join(' · ')}</span><span class="tech-blog-arrow">{copy.blogRead} ↗</span></div>
+            </a>
+          ))}
+        </div>
+      ) : <p class="tech-empty-message">{copy.emptyBlog}</p>}
+    </section>
+
+    <section class="tech-section" aria-labelledby="tech-video-title">
+      <div class="tech-section-heading tech-section-heading-row">
+        <div><p class="tech-overline">05 / WATCH</p><h2 id="tech-video-title">{copy.videoHeading}</h2><p>{copy.videoLead}</p></div>
+        <a class="tech-inline-action" href="https://www.youtube.com/@SolarisPKN/playlists" target="_blank" rel="noopener noreferrer">{copy.channel} ↗</a>
+      </div>
+      <TechPlaylists words={copy} />
+    </section>
+
+    <section class="tech-outro">
+      <div><p class="tech-overline">OPEN SOURCE / DOCUMENTATION</p><h2>{copy.outroTitle}</h2><p>{copy.outroText}</p></div>
+      <a class="tech-primary-action" href="https://github.com/SolarisPKN" target="_blank" rel="noopener noreferrer">{copy.outroAction} ↗</a>
+    </section>
+  </div>
+</Layout>

@@ -1,0 +1,45 @@
+name: Tech Gaming gateway and site regression
+
+on:
+  pull_request:
+    paths:
+      - 'src/pages/**/index.astro'
+      - 'src/pages/**/tech/**'
+      - 'src/components/Home/**'
+      - 'src/locales/**/gateway.json'
+      - 'src/assets/index/**'
+      - 'scripts/home-gateway.test.js'
+      - '.github/workflows/home-gateway.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/pages/**/index.astro'
+      - 'src/pages/**/tech/**'
+      - 'src/components/Home/**'
+      - 'src/locales/**/gateway.json'
+      - 'src/assets/index/**'
+      - 'scripts/home-gateway.test.js'
+      - '.github/workflows/home-gateway.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-gateway:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Ensure bilingual gateway, existing Tech landing and original artwork
+        run: node --test scripts/home-gateway.test.js
+      - name: Recheck recovered architecture and catalog
+        run: node --test scripts/project-catalog.test.js scripts/architecture-map.test.js
+      - name: Astro diagnostics
+        run: npm run check
+      - name: Build website
+        run: npm run build
