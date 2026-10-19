@@ -5,7 +5,7 @@ const locales = ['es', 'en'];
 const graphs = locales.map(locale => JSON.parse(fs.readFileSync(new URL('../src/locales/' + locale + '/mindmap.json', import.meta.url), 'utf8')));
 const [es,en] = graphs;
 const uiKeys = ['title','subtitle','search','all','works','projects','areas','skills','full','focus','reset','fit','zoomIn','zoomOut','empty','hint','connections','open','applied','learning','exploring','nodes','edges','select','source','descriptionHeading','descriptionHint'];
-const vagueDescription = /^(Conocimiento del portfolio\\.?|Conocimiento técnico\\.?|Área del portfolio profesional\\.?|Especialidad en desarrollo\\.?|Portfolio skill\\.?|Technical skill\\.?|Portfolio domain\\.?|Development specialty\\.?)$/i;
+const vagueDescription = /^(Conocimiento del portfolio\.?|Conocimiento técnico\.?|Área del portfolio profesional\.?|Especialidad en desarrollo\.?|Portfolio skill\.?|Technical skill\.?|Portfolio domain\.?|Development specialty\.?)$/i;
 const required = ['person','work:exo','work:solarispkn','work:lubricantes-villars','work:thezapas','project:SolarisPKN-IA','project:SolarisPKN-Engineer','project:SolarisPKN-Control','skill:yocto','skill:raspberry-pi','skill:saltstack','skill:microsoft-azure'];
 for (const [i,g] of graphs.entries()){
   assert.equal(g.locale,locales[i], 'locale label mismatch');
