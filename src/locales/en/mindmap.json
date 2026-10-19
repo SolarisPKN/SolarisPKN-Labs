@@ -26,1335 +26,1337 @@
     "nodes": "nodes",
     "edges": "links",
     "select": "Select a node on the map",
-    "source": "Localized JSON data; relationship search (not vector RAG)."
+    "source": "Localized JSON data; relationship search (not vector RAG).",
+    "descriptionHeading": "What it is and what it is for",
+    "descriptionHint": "Select any node to read its description and explore its relationships."
   },
   "nodes": [
     {
       "id": "person",
       "type": "root",
       "label": "Pablo Marchetti Orayen",
-      "description": "Infrastructure, software, electronics, automation and AI."
+      "description": "Systems professional and creator of SolarisPKN. This map connects work experience, personal projects, and tools across infrastructure, development, electronics and AI."
     },
     {
       "id": "area:base-0",
       "type": "area",
       "label": "Operating Systems",
-      "description": "Professional portfolio domain."
+      "description": "Administration and maintenance of desktop and server operating systems, spanning Windows environments and GNU/Linux distributions."
     },
     {
       "id": "skill:windows-xp",
       "type": "skill",
       "label": "Windows XP",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Legacy Windows release relevant to compatibility, maintenance and examination of older PCs; it no longer receives modern security support."
     },
     {
       "id": "skill:windows-7",
       "type": "skill",
       "label": "Windows 7",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Microsoft operating system widely used on older desktops; today it is mainly a legacy environment."
     },
     {
       "id": "skill:windows-10",
       "type": "skill",
       "label": "Windows 10",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Microsoft desktop OS; managing drivers, applications, networking, accounts and services."
     },
     {
       "id": "skill:windows-11",
       "type": "skill",
       "label": "Windows 11",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Modern Microsoft OS with newer hardware and security requirements; administration and troubleshooting."
     },
     {
       "id": "skill:windows-server",
       "type": "skill",
       "label": "Windows Server",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Windows server family for roles, services, remote management, accounts and enterprise infrastructure."
     },
     {
       "id": "skill:debian",
       "type": "skill",
       "label": "Debian",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Stability-focused GNU/Linux distribution with packaged software, often used for servers and development."
     },
     {
       "id": "skill:ubuntu",
       "type": "skill",
       "label": "Ubuntu",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Debian-based Linux distribution used on servers, virtual machines and workstations."
     },
     {
       "id": "skill:linux-mint",
       "type": "skill",
       "label": "Linux Mint",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Desktop Linux distribution focused on approachable day-to-day use and administration."
     },
     {
       "id": "skill:lxle",
       "type": "skill",
       "label": "LXLE",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Lightweight Linux distribution intended for low-resource or older computers."
     },
     {
       "id": "area:base-1",
       "type": "area",
       "label": "Networking",
-      "description": "Professional portfolio domain."
+      "description": "Network design, configuration and troubleshooting: connectivity, addressing, naming, remote access and traffic security."
     },
     {
       "id": "skill:tcp-ip",
       "type": "skill",
       "label": "TCP/IP",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Networking protocol suite used to address and transport data between devices and networks."
     },
     {
       "id": "skill:dhcp",
       "type": "skill",
       "label": "DHCP",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Protocol that automatically assigns IP addresses, gateways and other network settings to devices."
     },
     {
       "id": "skill:dns",
       "type": "skill",
       "label": "DNS",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "System that resolves domain names to addresses and other records used by online services."
     },
     {
       "id": "skill:nat",
       "type": "skill",
       "label": "NAT",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Network Address Translation lets private networks communicate with other networks or the Internet."
     },
     {
       "id": "skill:ssh",
       "type": "skill",
       "label": "SSH",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Encrypted protocol for remote terminal access, administration and secure tunnels."
     },
     {
       "id": "skill:firewall",
       "type": "skill",
       "label": "Firewall",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Rule-based traffic filtering to allow or block connections between systems, services or networks."
     },
     {
       "id": "skill:qos",
       "type": "skill",
       "label": "QoS",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Network traffic prioritization to distribute bandwidth and manage latency under load."
     },
     {
       "id": "skill:openwrt",
       "type": "skill",
       "label": "OpenWRT",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Linux-based router operating system for configuring networks, services and advanced policies."
     },
     {
       "id": "skill:ubiquiti",
       "type": "skill",
       "label": "Ubiquiti",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Networking hardware and platforms for access points, links and managed connectivity."
     },
     {
       "id": "skill:samba",
       "type": "skill",
       "label": "Samba",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Software for sharing files and printers between Linux and Windows-compatible networks over SMB."
     },
     {
       "id": "skill:ddns",
       "type": "skill",
       "label": "DDNS",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Dynamic DNS updates a domain record when a connection's public IP address changes."
     },
     {
       "id": "skill:vpn",
       "type": "skill",
       "label": "VPN",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Virtual private network that establishes encrypted tunnels for remote access or site-to-site links."
     },
     {
       "id": "skill:acceso-remoto",
       "type": "skill",
       "label": "Remote Access",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Techniques for managing or supporting machines remotely via terminal, desktop or remote-control software."
     },
     {
       "id": "area:base-2",
       "type": "area",
       "label": "Infrastructure",
-      "description": "Professional portfolio domain."
+      "description": "Services behind apps and websites: servers, containers, hosting, databases and virtualization."
     },
     {
       "id": "skill:servidores-linux",
       "type": "skill",
       "label": "Linux Servers",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Linux hosts running applications and services, including users, networking, processes, security and upkeep."
     },
     {
       "id": "skill:vps",
       "type": "skill",
       "label": "VPS",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Virtual private server: isolated computing resources on a host machine for running services."
     },
     {
       "id": "skill:apache",
       "type": "skill",
       "label": "Apache",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Configurable HTTP server for publishing websites and applications, using modules and virtual hosts."
     },
     {
       "id": "skill:nginx",
       "type": "skill",
       "label": "Nginx",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Web server and reverse proxy for content delivery, TLS termination and request routing."
     },
     {
       "id": "skill:cloudflare",
       "type": "skill",
       "label": "Cloudflare",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Platform for DNS, CDN, security and edge services supporting Internet-facing apps."
     },
     {
       "id": "skill:github-pages",
       "type": "skill",
       "label": "GitHub Pages",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Static website hosting from a GitHub repository, supporting automated publication."
     },
     {
       "id": "skill:cloudflare-pages",
       "type": "skill",
       "label": "Cloudflare Pages",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Service for deploying static websites or web apps from connected repositories."
     },
     {
       "id": "skill:cpanel",
       "type": "skill",
       "label": "cPanel",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Shared-hosting administration panel for domains, email, files and databases."
     },
     {
       "id": "skill:wordpress",
       "type": "skill",
       "label": "WordPress",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Content management system for building and managing websites with themes and plugins."
     },
     {
       "id": "skill:let-s-encrypt",
       "type": "skill",
       "label": "Let's Encrypt",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Certificate authority that automates free TLS certificate issuance and renewal."
     },
     {
       "id": "skill:ssl-tls",
       "type": "skill",
       "label": "SSL/TLS",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Cryptographic protocols protecting communications; TLS is the modern standard used by HTTPS."
     },
     {
       "id": "skill:ftp",
       "type": "skill",
       "label": "FTP",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Traditional file-transfer protocol; not encrypted by default and unsuitable for untrusted networks."
     },
     {
       "id": "skill:sftp",
       "type": "skill",
       "label": "SFTP",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Secure file transfer over SSH with authentication and encryption."
     },
     {
       "id": "skill:mariadb",
       "type": "skill",
       "label": "MariaDB",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Relational database system compatible with many MySQL workloads."
     },
     {
       "id": "skill:phpmyadmin",
       "type": "skill",
       "label": "phpMyAdmin",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Web interface for managing MySQL/MariaDB tables, queries and users."
     },
     {
       "id": "skill:docker",
       "type": "skill",
       "label": "Docker",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Container platform for packaging apps with dependencies and running them consistently."
     },
     {
       "id": "skill:virtualbox",
       "type": "skill",
       "label": "VirtualBox",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Desktop hypervisor for running guest operating systems and virtual labs."
     },
     {
       "id": "skill:hyper-v",
       "type": "skill",
       "label": "Hyper-V",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Microsoft virtualization technology for creating and administering virtual machines."
     },
     {
       "id": "skill:kvm",
       "type": "skill",
       "label": "KVM",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Linux virtualization module using hardware acceleration for virtual machines."
     },
     {
       "id": "skill:qemu",
       "type": "skill",
       "label": "QEMU",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Emulator and virtualizer for running guest architectures, often combined with KVM."
     },
     {
       "id": "area:base-3",
       "type": "area",
       "label": "Hardware",
-      "description": "Professional portfolio domain."
+      "description": "Building, maintaining, repairing and physically optimizing computer hardware, from individual parts to cooling."
     },
     {
       "id": "skill:armado-de-pc",
       "type": "skill",
       "label": "PC Assembly",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Selecting, assembling and testing components to build stable, compatible computers."
     },
     {
       "id": "skill:pc-gamer",
       "type": "skill",
       "label": "Gaming PCs",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Configuring hardware and software for gaming PCs and graphics performance."
     },
     {
       "id": "skill:servidores",
       "type": "skill",
       "label": "Servers",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Machines dedicated to hosting services, with attention to availability, memory, storage and networking."
     },
     {
       "id": "skill:nas",
       "type": "skill",
       "label": "NAS",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Network-attached storage for shared files and, depending on setup, redundancy."
     },
     {
       "id": "skill:mini-pcs",
       "type": "skill",
       "label": "Mini PCs",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Compact computers for automation, lightweight servers or low-power everyday use."
     },
     {
       "id": "skill:optimizacion-termica",
       "type": "skill",
       "label": "Thermal Optimization",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Reducing temperatures through cleaning, airflow, thermal interfaces and cooling adjustments."
     },
     {
       "id": "skill:metal-liquido",
       "type": "skill",
       "label": "Liquid Metal",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Electrically conductive thermal interface material requiring insulation and careful handling."
     },
     {
       "id": "skill:recuperacion-bios-ch341a",
       "type": "skill",
       "label": "CH341A BIOS Recovery",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Using a CH341A programmer to read or rewrite firmware flash chips in compatible hardware."
     },
     {
       "id": "skill:diagnostico-de-hardware",
       "type": "skill",
       "label": "Hardware Diagnostics",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Locating hardware faults through symptoms, measurements, comparative tests and documented findings."
     },
     {
       "id": "skill:fuentes-de-alimentacion",
       "type": "skill",
       "label": "Power Supplies",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Components that convert and regulate power for devices and circuits; voltage and capacity are evaluated."
     },
     {
       "id": "skill:diseno-de-refrigeracion",
       "type": "skill",
       "label": "Cooling Design",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Planning airflow or liquid-cooling loops to remove heat from electronic hardware."
     },
     {
       "id": "skill:reparacion-de-hardware",
       "type": "skill",
       "label": "Hardware Repair",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Diagnosing, replacing or restoring physical parts to return hardware to service."
     },
     {
       "id": "skill:reemplazo-de-pantallas",
       "type": "skill",
       "label": "Display Replacement",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Replacing display panels while checking connectors, dimensions and compatibility."
     },
     {
       "id": "skill:reemplazo-de-condensadores",
       "type": "skill",
       "label": "Capacitor Replacement",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Replacing faulty capacitors while considering values, polarity and electrical specifications."
     },
     {
       "id": "area:base-4",
       "type": "area",
       "label": "Automation",
-      "description": "Professional portfolio domain."
+      "description": "Using scripts, scheduled services and connected devices to reduce repetitive work and coordinate processes."
     },
     {
       "id": "skill:batch",
       "type": "skill",
       "label": "Batch",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Windows command scripting for sequencing operations and automating simple tasks."
     },
     {
       "id": "skill:bash",
       "type": "skill",
       "label": "Bash",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Shell and scripting language widely used on Linux for administration and automation."
     },
     {
       "id": "skill:powershell",
       "type": "skill",
       "label": "PowerShell",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Object-oriented shell and automation language for Windows and other systems."
     },
     {
       "id": "skill:python-con-ia",
       "type": "skill",
       "label": "Python (with AI)",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Python used alongside AI assistance to write scripts, integrate services and process data."
     },
     {
       "id": "skill:cron",
       "type": "skill",
       "label": "Cron",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Unix scheduler that runs tasks according to specified times or recurring schedules."
     },
     {
       "id": "skill:programador-de-tareas",
       "type": "skill",
       "label": "Task Scheduler",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Windows Task Scheduler runs programs based on configured times, events or conditions."
     },
     {
       "id": "skill:webhooks",
       "type": "skill",
       "label": "Webhooks",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Event-triggered HTTP callbacks connecting apps and services automatically."
     },
     {
       "id": "skill:obs-websocket",
       "type": "skill",
       "label": "OBS Websocket",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Interface for controlling OBS scenes, sources and events from external tools."
     },
     {
       "id": "skill:streamer-bot",
       "type": "skill",
       "label": "Streamer.bot",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Automation tool responding to livestream events and controlling other applications."
     },
     {
       "id": "skill:esp32",
       "type": "skill",
       "label": "ESP32",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Wireless-capable microcontroller used for sensors, device control and IoT projects."
     },
     {
       "id": "skill:arduino",
       "type": "skill",
       "label": "Arduino",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Microcontroller platform and tooling for prototyping electronic circuits and behaviors."
     },
     {
       "id": "skill:google-home",
       "type": "skill",
       "label": "Google Home",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Connected-home ecosystem offering routines and voice control for compatible devices."
     },
     {
       "id": "area:base-5",
       "type": "area",
       "label": "Development",
-      "description": "Professional portfolio domain."
+      "description": "Building and maintaining software, websites and web services; version control and data storage."
     },
     {
       "id": "skill:html",
       "type": "skill",
       "label": "HTML",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Markup language defining the structure and semantics of web pages."
     },
     {
       "id": "skill:css",
       "type": "skill",
       "label": "CSS",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Styling language for presentation, responsive layout and visual design of web interfaces."
     },
     {
       "id": "skill:javascript",
       "type": "skill",
       "label": "JavaScript",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Programming language used for interactive websites and server-side services."
     },
     {
       "id": "skill:php",
       "type": "skill",
       "label": "PHP",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Server-side programming language widely used by websites and content systems."
     },
     {
       "id": "skill:astro",
       "type": "skill",
       "label": "Astro",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Web framework producing fast pages with components and minimal client-side JavaScript."
     },
     {
       "id": "skill:nodejs",
       "type": "skill",
       "label": "NodeJS",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Runtime that executes JavaScript outside browsers for tools, services and APIs."
     },
     {
       "id": "skill:react",
       "type": "skill",
       "label": "React",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Library for building user interfaces with components and state."
     },
     {
       "id": "skill:bootstrap",
       "type": "skill",
       "label": "Bootstrap",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "CSS and component toolkit for quickly building responsive interfaces."
     },
     {
       "id": "skill:git",
       "type": "skill",
       "label": "Git",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Distributed version-control system for source history, branches and collaboration."
     },
     {
       "id": "skill:github",
       "type": "skill",
       "label": "GitHub",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Platform for Git repositories, code reviews, issues and project automation."
     },
     {
       "id": "skill:mongodb",
       "type": "skill",
       "label": "MongoDB",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Document-oriented database storing flexible records in JSON-like structures."
     },
     {
       "id": "skill:sqlite",
       "type": "skill",
       "label": "SQLite",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Embedded SQL database stored in one file, useful for local apps and lightweight tools."
     },
     {
       "id": "skill:mysql",
       "type": "skill",
       "label": "MySQL",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Relational SQL database engine used by websites and services with structured data."
     },
     {
       "id": "area:base-6",
       "type": "area",
       "label": "Streaming",
-      "description": "Professional portfolio domain."
+      "description": "Capturing, producing and distributing live streams with interactive tools and audiovisual automation."
     },
     {
       "id": "skill:obs-studio",
       "type": "skill",
       "label": "OBS Studio",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Open-source software for capturing, mixing, recording and streaming audio/video."
     },
     {
       "id": "skill:streamelements",
       "type": "skill",
       "label": "StreamElements",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Service providing overlays, alerts and audience-interaction tools for streamers."
     },
     {
       "id": "skill:tiktok-studio",
       "type": "skill",
       "label": "TikTok Studio",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Application for creating livestreams and managing sources and scenes on TikTok."
     },
     {
       "id": "skill:discord",
       "type": "skill",
       "label": "Discord",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Community platform with voice, text, bots and integrations for coordination."
     },
     {
       "id": "skill:teamspeak",
       "type": "skill",
       "label": "TeamSpeak",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Voice communication system popular among gaming groups and communities."
     },
     {
       "id": "skill:camaras-virtuales",
       "type": "skill",
       "label": "Virtual Cameras",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Software-generated video inputs other applications can use as cameras."
     },
     {
       "id": "skill:multistreaming",
       "type": "skill",
       "label": "Multistreaming",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Broadcasting one production to several platforms while managing formats and bandwidth."
     },
     {
       "id": "skill:seo-para-creadores",
       "type": "skill",
       "label": "SEO for Creators",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Optimizing titles, descriptions and content organization to improve discoverability."
     },
     {
       "id": "area:base-7",
       "type": "area",
       "label": "Marketing",
-      "description": "Professional portfolio domain."
+      "description": "Measuring and improving digital presence, content and performance across websites and social platforms."
     },
     {
       "id": "skill:seo-tecnico",
       "type": "skill",
       "label": "Technical SEO",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Improvements to site structure, crawlability and performance for search engines."
     },
     {
       "id": "skill:google-analytics",
       "type": "skill",
       "label": "Google Analytics",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Website/app measurement platform for analyzing visits and events."
     },
     {
       "id": "skill:search-console",
       "type": "skill",
       "label": "Search Console",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Google tool for indexing, search queries and visibility diagnostics."
     },
     {
       "id": "skill:meta-pixel",
       "type": "skill",
       "label": "Meta Pixel",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Website event-tracking code for measuring interactions associated with Meta platforms."
     },
     {
       "id": "skill:google-tag-manager",
       "type": "skill",
       "label": "Google Tag Manager",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Tag manager for organizing measurement scripts without changing each page manually."
     },
     {
       "id": "skill:gestion-de-redes-sociales",
       "type": "skill",
       "label": "Social Media Management",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Planning, publishing and monitoring content and conversations across social platforms."
     },
     {
       "id": "skill:estrategia-de-contenido",
       "type": "skill",
       "label": "Content Strategy",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Defining audiences, goals, formats and scheduling for coherent communication."
     },
     {
       "id": "skill:youtube-seo",
       "type": "skill",
       "label": "YouTube SEO",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Optimizing video/channel metadata and organization for discoverability."
     },
     {
       "id": "skill:tiktok",
       "type": "skill",
       "label": "TikTok",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Short-video and livestream platform with publishing, community and analytics tools."
     },
     {
       "id": "skill:linkedin",
       "type": "skill",
       "label": "LinkedIn",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Professional network for presenting experience, projects and professional connections."
     },
     {
       "id": "area:base-8",
       "type": "area",
       "label": "Automotive Technology",
-      "description": "Professional portfolio domain."
+      "description": "Diagnosing automotive electrical and electronic systems using live data, sensors and control modules."
     },
     {
       "id": "skill:obd-ii",
       "type": "skill",
       "label": "OBD-II",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Vehicle diagnostics standard for reading faults and parameters through a compatible connector."
     },
     {
       "id": "skill:elm327",
       "type": "skill",
       "label": "ELM327",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Chip/interface commonly used by adapters connecting diagnostic tools to OBD-II."
     },
     {
       "id": "skill:torque-pro",
       "type": "skill",
       "label": "Torque Pro",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Android app for reading vehicle information through compatible OBD-II adapters."
     },
     {
       "id": "skill:diagnostico-electrico",
       "type": "skill",
       "label": "Electrical Diagnostics",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Troubleshooting power, ground, wiring, fuses and other electrical circuits."
     },
     {
       "id": "skill:diagramas-de-cableado",
       "type": "skill",
       "label": "Wiring Diagrams",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Schematics showing connections, components and electrical paths for testing and repair."
     },
     {
       "id": "skill:sensores",
       "type": "skill",
       "label": "Sensors",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Devices converting physical measurements into signals interpreted by electronic modules."
     },
     {
       "id": "skill:ecu",
       "type": "skill",
       "label": "ECU",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Electronic control unit processing signals and controlling engine or vehicle functions."
     },
     {
       "id": "skill:electronica-automotriz",
       "type": "skill",
       "label": "Automotive Electronics",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Study of electronic circuits, modules, communication and components used in vehicles."
     },
     {
       "id": "area:base-9",
       "type": "area",
       "label": "Electrical",
-      "description": "Professional portfolio domain."
+      "description": "Installing, controlling and protecting electrical circuits and equipment, including power conversion."
     },
     {
       "id": "skill:sistemas-solares",
       "type": "skill",
       "label": "Solar Systems",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Equipment harvesting solar energy, such as panels, controllers, batteries and inverters."
     },
     {
       "id": "skill:inversores",
       "type": "skill",
       "label": "Inverters",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Devices converting direct-current electrical power into alternating current."
     },
     {
       "id": "skill:conmutacion-220v",
       "type": "skill",
       "label": "220V Switching",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Controlled switching between mains circuits or power sources; safety protections are essential."
     },
     {
       "id": "skill:temporizadores",
       "type": "skill",
       "label": "Timers",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Circuits or devices triggering actions after a set delay or on an interval."
     },
     {
       "id": "skill:autocaravanas",
       "type": "skill",
       "label": "Motorhomes",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Electrical systems of recreational vehicles with batteries and mobile power supplies."
     },
     {
       "id": "skill:remolques",
       "type": "skill",
       "label": "Trailers",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Electrical wiring and lighting/power connections on trailers."
     },
     {
       "id": "skill:instalaciones-electricas",
       "type": "skill",
       "label": "Electrical Installations",
       "status": "applied",
-      "description": "Skill from the portfolio."
+      "description": "Installation and maintenance of power circuits, protective devices and electrical equipment."
     },
     {
       "id": "area:cloud",
       "type": "area",
       "label": "Cloud & DevOps",
-      "description": "Developing area of expertise."
+      "description": "Cloud infrastructure and automated software delivery/operations: services, testing and deployments."
     },
     {
       "id": "skill:microsoft-azure",
       "type": "skill",
       "label": "Microsoft Azure",
       "status": "learning",
-      "description": "Technical skill."
+      "description": "Microsoft cloud platform offering compute, storage, networking and identity services; explored in labs."
     },
     {
       "id": "skill:google-cloud-gcp",
       "type": "skill",
       "label": "Google Cloud (GCP)",
       "status": "learning",
-      "description": "Technical skill."
+      "description": "Google cloud platform for running apps, storing data and using managed services."
     },
     {
       "id": "skill:cloudflare-workers",
       "type": "skill",
       "label": "Cloudflare Workers",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "JavaScript/TypeScript execution environment at Cloudflare's edge."
     },
     {
       "id": "skill:saltstack",
       "type": "skill",
       "label": "SaltStack",
       "status": "learning",
-      "description": "Technical skill."
+      "description": "Configuration management and remote execution system for automating multiple machines."
     },
     {
       "id": "skill:github-actions",
       "type": "skill",
       "label": "GitHub Actions",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "GitHub-integrated workflow system for testing, building and automating tasks."
     },
     {
       "id": "skill:ci-cd",
       "type": "skill",
       "label": "CI/CD",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Continuous integration and delivery: repeatable testing and deployment linked to code changes."
     },
     {
       "id": "skill:aws",
       "type": "skill",
       "label": "AWS",
       "status": "learning",
-      "description": "Technical skill."
+      "description": "Amazon cloud platform providing on-demand infrastructure and managed services."
     },
     {
       "id": "area:ai",
       "type": "area",
       "label": "Artificial intelligence",
-      "description": "Developing area of expertise."
+      "description": "Integration of AI models, agents and tools that retrieve information or perform controlled tasks."
     },
     {
       "id": "skill:llm-locales",
       "type": "skill",
       "label": "Local LLMs",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Language models running on owned hardware for text generation and task assistance."
     },
     {
       "id": "skill:ollama",
       "type": "skill",
       "label": "Ollama",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Tool for downloading and running AI models locally through a CLI and API."
     },
     {
       "id": "skill:mcp",
       "type": "skill",
       "label": "MCP",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Model Context Protocol: standard interface connecting AI assistants to data and tools."
     },
     {
       "id": "skill:rag",
       "type": "skill",
       "label": "RAG",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Retrieval-augmented generation supplies external source passages as model context."
     },
     {
       "id": "skill:embeddings",
       "type": "skill",
       "label": "Embeddings",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Numerical content representations enabling semantic search and similarity comparisons."
     },
     {
       "id": "skill:agentes-ia",
       "type": "skill",
       "label": "AI agents",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Systems that plan actions and use tools to complete multi-step tasks with checks."
     },
     {
       "id": "skill:obsidian",
       "type": "skill",
       "label": "Obsidian",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Linked-note application for documenting ideas, relationships and knowledge maps."
     },
     {
       "id": "skill:enrutadores-de-modelos",
       "type": "skill",
       "label": "Model routers",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Components choosing an AI model based on requests, cost or available resources."
     },
     {
       "id": "area:data",
       "type": "area",
       "label": "Data & observability",
-      "description": "Developing area of expertise."
+      "description": "Collecting, transforming, visualizing and monitoring data to understand systems and support decisions."
     },
     {
       "id": "skill:etl",
       "type": "skill",
       "label": "ETL",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Extract, transform and load data between sources and destinations for further use."
     },
     {
       "id": "skill:pipelines-de-datos",
       "type": "skill",
       "label": "Data pipelines",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Automated sequences that gather, validate, transform and deliver information."
     },
     {
       "id": "skill:grafos-de-dependencias",
       "type": "skill",
       "label": "Dependency graphs",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Graphs of elements and relationships used to trace impacts, dependencies and flows."
     },
     {
       "id": "skill:power-bi",
       "type": "skill",
       "label": "Power BI",
       "status": "learning",
-      "description": "Technical skill."
+      "description": "Microsoft tool for modeling data and building analytical reports and dashboards."
     },
     {
       "id": "skill:pmtiles",
       "type": "skill",
       "label": "PMTiles",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "File format for serving map tiles from a single addressable resource."
     },
     {
       "id": "skill:openstreetmap",
       "type": "skill",
       "label": "OpenStreetMap",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Collaborative open geographic dataset used for maps and mapping services."
     },
     {
       "id": "skill:metricas-de-sistemas",
       "type": "skill",
       "label": "System metrics",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Measurements such as CPU, memory, latency and errors used to assess service health."
     },
     {
       "id": "area:embedded",
       "type": "area",
       "label": "Embedded systems",
-      "description": "Developing area of expertise."
+      "description": "Hardware and software built for specific devices: boards, firmware, signals and resource constraints."
     },
     {
       "id": "skill:raspberry-pi",
       "type": "skill",
       "label": "Raspberry Pi",
       "status": "learning",
-      "description": "Technical skill."
+      "description": "Single-board computer used in education, compact servers and electronic prototypes."
     },
     {
       "id": "skill:yocto",
       "type": "skill",
       "label": "Yocto",
       "status": "learning",
-      "description": "Technical skill."
+      "description": "Project and toolset for building custom Linux distributions for devices."
     },
     {
       "id": "skill:bitbake",
       "type": "skill",
       "label": "BitBake",
       "status": "learning",
-      "description": "Technical skill."
+      "description": "Task and recipe executor powering build workflows such as Yocto."
     },
     {
       "id": "skill:gpio",
       "type": "skill",
       "label": "GPIO",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Digital general-purpose input/output pins for reading signals and controlling circuits."
     },
     {
       "id": "skill:firmware",
       "type": "skill",
       "label": "Firmware",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Low-level software that starts and controls essential functions of electronic devices."
     },
     {
       "id": "skill:reles",
       "type": "skill",
       "label": "Relays",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Electrically controlled switches allowing control circuits to operate external loads."
     },
     {
       "id": "skill:bajo-consumo",
       "type": "skill",
       "label": "Low power",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Device design for lowering energy use through sleep modes, duty cycles and hardware choices."
     },
     {
       "id": "area:programming",
       "type": "area",
       "label": "Development tooling",
-      "description": "Developing area of expertise."
+      "description": "Languages, frameworks and utilities for building, testing, administering and troubleshooting apps and services."
     },
     {
       "id": "skill:c",
       "type": "skill",
       "label": "C#",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "C# programming language in the .NET ecosystem for typed applications, services and tools."
     },
     {
       "id": "skill:net",
       "type": "skill",
       "label": ".NET",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Microsoft runtime and libraries for desktop applications, web apps and services."
     },
     {
       "id": "skill:avalonia",
       "type": "skill",
       "label": "Avalonia",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Cross-platform framework for building .NET desktop interfaces using XAML."
     },
     {
       "id": "skill:go",
       "type": "skill",
       "label": "Go",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Compiled language suited to concurrent programs, networking tools and services."
     },
     {
       "id": "skill:typescript",
       "type": "skill",
       "label": "TypeScript",
       "status": "learning",
-      "description": "Technical skill."
+      "description": "Typed JavaScript superset that helps catch mistakes before runtime."
     },
     {
       "id": "skill:ffmpeg",
       "type": "skill",
       "label": "FFmpeg",
       "status": "learning",
-      "description": "Technical skill."
+      "description": "Toolset for converting, analyzing, capturing and processing audio/video."
     },
     {
       "id": "skill:adb",
       "type": "skill",
       "label": "ADB",
       "status": "applied",
-      "description": "Technical skill."
+      "description": "Android Debug Bridge: interface for debugging, controlling and exchanging files with Android devices."
     },
     {
       "id": "skill:tmux",
       "type": "skill",
       "label": "tmux",
       "status": "learning",
-      "description": "Technical skill."
+      "description": "Terminal multiplexer preserving sessions and enabling multiple panes/windows remotely."
     },
     {
       "id": "skill:lvm",
       "type": "skill",
       "label": "LVM",
       "status": "learning",
-      "description": "Technical skill."
+      "description": "Linux Logical Volume Manager for allocating, growing and rearranging storage."
     },
     {
       "id": "work:solarispkn",
       "type": "work",
       "label": "SolarisPKN",
       "period": "2015–",
-      "description": "Founder, infrastructure, automation, development and homelab."
+      "description": "Personal project and brand established in 2015, bringing together servers, networking, software, automation and AI into tools and services."
     },
     {
       "id": "work:lubricantes-villars",
       "type": "work",
       "label": "Lubricantes Villars",
       "period": "2018–",
-      "description": "Automotive electrical and electronics technician."
+      "description": "Automotive electrical and electronics work: troubleshooting with OBD-II, sensors, ECUs and fault repair."
     },
     {
       "id": "work:thezapas",
       "type": "work",
       "label": "TheZapas",
       "period": "2021–2022",
-      "description": "Debian administration, web servers, DNS and e-commerce."
+      "description": "Infrastructure administration for an online store in 2021–2022: Debian servers, DNS, HTTPS and hosting."
     },
     {
       "id": "work:exo",
       "type": "work",
       "label": "EXO",
       "period": "2026–",
-      "description": "Systems Administrator; enterprise practice with Salt, Docker, Azure and Yocto."
+      "description": "Systems Administrator role begun in October 2026, including tasks and labs with SaltStack, Docker, Azure and Yocto."
     },
     {
       "id": "project:SolarisPKN-IA",
       "type": "project",
       "label": "SolarisPKN-IA",
-      "description": "Local AI assistant, tool orchestration and memory.",
+      "description": "Local AI assistant and agent system coordinating models, memory, MCP tools and permission-controlled automation.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-IA"
     },
     {
       "id": "project:SolarisPKN-Engineer",
       "type": "project",
       "label": "SolarisPKN-Engineer",
-      "description": "Source and binary dependency analysis, graphs and documentation.",
+      "description": "Tool for examining source code, executables and files, mapping dependencies and documenting components.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-Engineer"
     },
     {
       "id": "project:SolarisPKN-AntiCli",
       "type": "project",
       "label": "SolarisPKN-AntiCli",
-      "description": "SSH GUI and server operations automation.",
+      "description": "Interface for operating servers over SSH, including commands, automations and flow diagrams.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-AntiCli"
     },
     {
       "id": "project:SolarisPKN-Control",
       "type": "project",
       "label": "SolarisPKN-Control",
-      "description": "Physical remote PC power control with ESP32.",
+      "description": "Remote-device control project including physical PC power-on through ESP32 hardware.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-Control"
     },
     {
       "id": "project:SolarisPKN-LiveTools",
       "type": "project",
       "label": "SolarisPKN-LiveTools",
-      "description": "Chat, mobile camera, publishing and media automation.",
+      "description": "Livestream production tools including multichat, mobile camera, publishing and audiovisual source coordination.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-LiveTools"
     },
     {
       "id": "project:SolarisPKN-Transport",
       "type": "project",
       "label": "SolarisPKN-Transport",
-      "description": "Integration and validation of rail and bus timetables.",
+      "description": "Tools for combining public transit data, checking sources and displaying buses and trains.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-Transport"
     },
     {
       "id": "project:Villars-Informa",
       "type": "project",
       "label": "Villars-Informa",
-      "description": "Local information portal, maps, content and transit.",
+      "description": "Community information website for Villars, covering news, services, maps and local transport.",
       "url": "https://github.com/SolarisPKN/Villars-Informa"
     },
     {
       "id": "project:SolarisPKN-Stats",
       "type": "project",
       "label": "SolarisPKN-Stats",
-      "description": "Connectors, metrics and scheduled data collection.",
+      "description": "Project for gathering statistics across platforms through connectors and scheduled tasks.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-Stats"
     },
     {
       "id": "project:SolarisPKN-Labs",
       "type": "project",
       "label": "SolarisPKN-Labs",
-      "description": "Project hub, website and portfolio.",
+      "description": "Website bringing together SolarisPKN projects, documentation and this bilingual professional portfolio.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-Labs"
     },
     {
       "id": "project:SolarisPKN-Arts",
       "type": "project",
       "label": "SolarisPKN-Arts",
-      "description": "Creative projects and assets.",
+      "description": "Repository for creative projects and graphical resources within the SolarisPKN ecosystem.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-Arts"
     },
     {
       "id": "project:SolarisPKN-OS",
       "type": "project",
       "label": "SolarisPKN-OS",
-      "description": "Operating system concept; repository currently has no code.",
+      "description": "Concept for a custom operating system; presented as an idea without a published implementation.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-OS"
     },
     {
       "id": "project:SolarisPKN-Converter",
       "type": "project",
       "label": "SolarisPKN-Converter",
-      "description": "Media conversion concept; repository currently has no code.",
+      "description": "Concept for a media file conversion utility; no implementation code is published yet.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-Converter"
     },
     {
       "id": "project:Lubricantes-Villars",
       "type": "project",
       "label": "Lubricantes-Villars",
-      "description": "Website for the technical business.",
+      "description": "Website for an automotive electrical/electronics products and services business.",
       "url": "https://github.com/SolarisPKN/Lubricantes-Villars"
     },
     {
       "id": "project:La-Cascada-de-Any-s",
       "type": "project",
       "label": "La-Cascada-de-Any-s",
-      "description": "Small business website.",
+      "description": "Commercial website project for presenting a business and its content online.",
       "url": "https://github.com/SolarisPKN/La-Cascada-de-Any-s"
     },
     {
       "id": "project:Analia-Orayen---Terapeuta-Integral",
       "type": "project",
       "label": "Analia-Orayen---Terapeuta-Integral",
-      "description": "Professional services website.",
+      "description": "Presentation website communicating a professional's services and contact information.",
       "url": "https://github.com/SolarisPKN/Analia-Orayen---Terapeuta-Integral"
     },
     {
       "id": "project:Figma-Lab",
       "type": "project",
       "label": "Figma-Lab",
-      "description": "Design and prototyping experiments.",
+      "description": "Experimental workspace for learning interface design and prototyping screens with Figma.",
       "url": "https://github.com/SolarisPKN/Figma-Lab"
     },
     {
       "id": "project:Replit-test01-mystic-",
       "type": "project",
       "label": "Replit-test01-mystic-",
-      "description": "Replit development experiment.",
+      "description": "Development exercise in Replit for experimenting with app generation and editing.",
       "url": "https://github.com/SolarisPKN/Replit-test01-mystic-"
     },
     {
       "id": "project:Replit-Test02-SoldierCards-",
       "type": "project",
       "label": "Replit-Test02-SoldierCards-",
-      "description": "Replit application experiment.",
+      "description": "Replit app experiment focused on practicing interface construction and presentation.",
       "url": "https://github.com/SolarisPKN/Replit-Test02-SoldierCards-"
     },
     {
       "id": "project:skills-introduction-to-github",
       "type": "project",
       "label": "skills-introduction-to-github",
-      "description": "GitHub learning exercises.",
+      "description": "Introductory GitHub exercises covering repositories, changes, commits and collaboration workflow.",
       "url": "https://github.com/SolarisPKN/skills-introduction-to-github"
     },
     {
       "id": "project:solaris-learning-hub",
       "type": "project",
       "label": "solaris-learning-hub",
-      "description": "Private learning repository."
+      "description": "Private repository for organizing technical learning experiments, notes and materials."
     }
   ],
   "edges": [
