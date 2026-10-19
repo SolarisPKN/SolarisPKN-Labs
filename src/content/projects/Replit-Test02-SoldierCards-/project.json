@@ -1,0 +1,24 @@
+{
+  "id": "Replit-Test02-SoldierCards-",
+  "category": "external",
+  "type": "game",
+  "status": "development",
+  "name": {
+    "es": "Replit-Test02-SoldierCards-",
+    "en": "Replit-Test02-SoldierCards-"
+  },
+  "shortDescription": {
+    "es": "Experimento Soldier Power Surge desarrollado con herramientas de Replit, orientado a explorar una interfaz de juego.",
+    "en": "Soldier Power Surge experiment built with Replit tools to explore a game-oriented interface."
+  },
+  "technologies": [
+    "Replit",
+    "TypeScript",
+    "React"
+  ],
+  "statsId": "replit-test02-soldiercards-",
+  "links": {
+    "github": "https://github.com/SolarisPKN/Replit-Test02-SoldierCards-",
+    "docs": "https://replit.com/@SolarisPKN/Soldier-Power-Surge"
+  }
+}
