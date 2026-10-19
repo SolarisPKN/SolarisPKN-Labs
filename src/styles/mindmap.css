@@ -29,3 +29,25 @@
 @media(max-width:820px) { .mindmap-main {grid-template-columns:1fr;}#mindmap-svg{height:460px}.mindmap-detail{max-height:360px;} }
 @media(max-width:480px) { #mindmap-svg{height:380px;}.mindmap-toolbar button{flex:1 1 90px;} }
 @media(prefers-reduced-motion:reduce){ .mindmap-node,.mindmap-stage{animation:none!important;transition:none!important;} }
+
+/* Node encyclopedia: localized explanations in the existing detail sidebar. */
+.mindmap-detail .mindmap-description-heading {
+  color: #a3eade;
+  font-size: .8rem;
+  letter-spacing: .045em;
+  margin: 1.1rem 0 .45rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.mindmap-detail .mindmap-description {
+  margin: 0;
+  padding: .85rem .9rem;
+  border-left: 3px solid #63d7b8;
+  border-radius: 0 8px 8px 0;
+  background: rgba(111,224,198,.07);
+  color: #f2f9fa;
+  font-size: .91rem;
+  line-height: 1.7;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
