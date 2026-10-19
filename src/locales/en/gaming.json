@@ -1,0 +1,30 @@
+{
+  "title": "SolarisPKN Gaming · Under construction",
+  "eyebrow": "SOLARISPKN / GAMING",
+  "headline": "The Gaming universe is taking shape.",
+  "intro": "Streams, gameplay, videos and community will have their own home. While we build it, you can return to the world selector or explore the Tech lab.",
+  "badge": "IN DEVELOPMENT",
+  "back": "Back to the worlds",
+  "tech": "Explore Tech",
+  "sections": [
+    {
+      "id": "directos",
+      "title": "Live streams",
+      "emoji": "🔴",
+      "description": "A dedicated home for livestreams and stream news."
+    },
+    {
+      "id": "videos",
+      "title": "Videos",
+      "emoji": "🎬",
+      "description": "Clips, episodes, highlights and gaming content."
+    },
+    {
+      "id": "comunidad",
+      "title": "Community",
+      "emoji": "💬",
+      "description": "A place to meet, share ideas and play together."
+    }
+  ],
+  "pending": "Coming soon"
+}
