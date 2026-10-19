@@ -1,0 +1,118 @@
+{
+  "eyebrow": "SOLARISPKN / TECH LAB",
+  "title": "Technology built, tested and shared.",
+  "intro": "SolarisPKN Labs brings together my work in systems, software, automation, AI, hardware and electronics. It's a place to explain how solutions work, document experiments and share what I've learned.",
+  "primary": "Explore projects",
+  "secondary": "Explore architecture",
+  "stats": {
+    "projects": "documented projects",
+    "areas": "areas of exploration",
+    "languages": "languages"
+  },
+  "headingExplore": "Find your path through Labs",
+  "exploreLead": "Start with the area that interests you most: technical projects, articles, experience or system architecture.",
+  "destinations": [
+    {
+      "key": "projects",
+      "icon": "⌘",
+      "title": "Projects and tools",
+      "description": "Explore Core, Derived and External Labs repositories and bilingual documentation.",
+      "action": "Browse catalog"
+    },
+    {
+      "key": "blog",
+      "icon": "✍",
+      "title": "Technical blog",
+      "description": "Analysis, implementation experience, research and software development notes.",
+      "action": "Read articles"
+    },
+    {
+      "key": "portfolio",
+      "icon": "◉",
+      "title": "Portfolio and skills",
+      "description": "My professional experience, education and interactive technical knowledge graph.",
+      "action": "Explore profile"
+    },
+    {
+      "key": "architecture",
+      "icon": "◇",
+      "title": "Ecosystem architecture",
+      "description": "Explore Labs components and the documented connections between projects.",
+      "action": "Open explorer"
+    }
+  ],
+  "focusHeading": "What gets built and explored",
+  "focusLead": "From infrastructure to physical devices: fields that intersect in real projects.",
+  "focus": [
+    {
+      "icon": "🖥️",
+      "title": "Systems and cloud",
+      "description": "Linux, Windows, networking, servers, virtualization, containers and cloud labs."
+    },
+    {
+      "icon": "⚙️",
+      "title": "Software and automation",
+      "description": "Web applications, scripts, Git, service integration, CI and operations tooling."
+    },
+    {
+      "icon": "🤖",
+      "title": "AI and agents",
+      "description": "Local models, MCP, memory, RAG and assisted automation with verification and permissions."
+    },
+    {
+      "icon": "🔧",
+      "title": "Hardware and electronics",
+      "description": "Diagnostics, repairs, cooling, ESP32, IoT and automotive electrical systems."
+    }
+  ],
+  "projectsHeading": "Projects to start with",
+  "projectsLead": "A selection from the public catalog. Every card links to bilingual technical documentation.",
+  "allProjects": "See all projects",
+  "projectRead": "Explore project",
+  "active": "Operational",
+  "developing": "In development",
+  "otherStatus": "Monitoring",
+  "blogHeading": "Ideas, problems and lessons learned",
+  "blogLead": "Published Labs articles pulled directly from the blog—not demos or invented content.",
+  "allBlog": "Visit the blog",
+  "blogRead": "Read article",
+  "emptyBlog": "New articles will appear here.",
+  "videoHeading": "Workshop and video tutorials",
+  "videoLead": "Technical content from my channel: PC builds, automotive repairs, tutorials and computing tools.",
+  "channel": "Visit the channel",
+  "videoPick": "Select a playlist to play it here.",
+  "videoPlay": "Play playlist",
+  "videoOpen": "Open on YouTube",
+  "videoPrivacy": "The YouTube player loads only when you select a playlist.",
+  "videoIframe": "Player: ",
+  "playlists": [
+    {
+      "key": "pc",
+      "label": "Hardware & PCs",
+      "title": "TecnOtakus: PC Tutorials",
+      "description": "PC assembly, components and repair."
+    },
+    {
+      "key": "auto",
+      "label": "Automotive electronics",
+      "title": "Lubricantes Villars: Automotive Videos",
+      "description": "Work and repairs carried out in the workshop."
+    },
+    {
+      "key": "solarispkn",
+      "label": "Technical tutorials",
+      "title": "SolarisPKN Tutorials",
+      "description": "Technical guides and experiences published on the channel."
+    },
+    {
+      "key": "internet",
+      "label": "Computing",
+      "title": "SolarisPKN Computing Tutorials",
+      "description": "Software, web services and useful tools."
+    }
+  ],
+  "outroTitle": "Want to see how it's built?",
+  "outroText": "Most of these projects include public source code, documentation or examples. Browse the ecosystem and its repositories directly.",
+  "outroAction": "Explore on GitHub",
+  "backGateway": "Switch between Tech and Gaming"
+}
