@@ -1,0 +1,60 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import es from '../../../locales/es/gaming.json';
+import en from '../../../locales/en/gaming.json';
+
+export function getStaticPaths(){
+  return [{params:{lang:'es'}},{params:{lang:'en'}}];
+}
+const lang=Astro.params.lang==='en'?'en':'es';
+const t=lang==='en'?en:es;
+---
+
+<Layout title={t.title} description={t.intro} lang={lang} navigation="gaming">
+  <div class="gaming-home">
+    <section class="gaming-hero" aria-labelledby="gaming-home-title">
+      <div class="gaming-overline">{t.eyebrow}</div>
+      <div class="gaming-chip"><span aria-hidden="true">✦</span> {t.badge}</div>
+      <h1 id="gaming-home-title">{t.headline}</h1>
+      <p>{t.intro}</p>
+      <div class="gaming-actions">
+        <a href={`/${lang}/`} class="gaming-back">← {t.back}</a>
+        <a href={`/${lang}/tech/`} class="gaming-tech">{t.tech} ↗</a>
+      </div>
+      <div class="gaming-glow" aria-hidden="true"></div>
+    </section>
+    <section class="gaming-preview" aria-label={t.badge}>
+      {t.sections.map(section=>(
+        <article id={section.id} class="gaming-preview-card">
+          <span class="gaming-emoji" aria-hidden="true">{section.emoji}</span>
+          <h2>{section.title}</h2>
+          <p>{section.description}</p>
+          <span class="gaming-upcoming">{t.pending}</span>
+        </article>
+      ))}
+    </section>
+  </div>
+</Layout>
+
+<style>
+.gaming-home{max-width:1240px;margin:0 auto;padding:clamp(1rem,3vw,2.8rem);color:#f8f3ff}
+.gaming-hero{position:relative;overflow:hidden;isolation:isolate;padding:clamp(2rem,5vw,5rem);border:1px solid rgba(213,151,255,.4);border-radius:25px;background:radial-gradient(circle at 87% 25%,rgba(205,91,255,.26),transparent 44%),radial-gradient(circle at 10% 88%,rgba(72,155,255,.15),transparent 45%),#111025;box-shadow:0 24px 50px rgba(0,0,0,.24)}
+.gaming-overline{font:700 .73rem 'JetBrains Mono',monospace;letter-spacing:.18em;color:#d6a4ff;margin-bottom:1rem}
+.gaming-chip{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem .8rem;border-radius:999px;border:1px solid rgba(228,190,255,.35);color:#e6caff;background:rgba(120,35,160,.23);font:700 .72rem 'JetBrains Mono',monospace}
+.gaming-hero h1{font-size:clamp(2.1rem,5.4vw,4.6rem);letter-spacing:-.05em;line-height:1.1;max-width:15ch;margin:1.1rem 0}
+.gaming-hero>p{max-width:69ch;font-size:clamp(.98rem,1.4vw,1.1rem);line-height:1.8;color:#d5cce8}
+.gaming-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.6rem}
+.gaming-actions a{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;font-weight:750;border-radius:11px;padding:.75rem 1rem;transition:transform .2s}
+.gaming-actions a:hover{transform:translateY(-2px)}
+.gaming-back{background:#c690ff;color:#150f22}
+.gaming-tech{border:1px solid rgba(131,247,226,.6);color:#90ffe8;background:rgba(0,155,140,.09)}
+.gaming-preview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:1.3rem}
+.gaming-preview-card{min-width:0;scroll-margin-top:10rem;display:flex;flex-direction:column;gap:.7rem;min-height:225px;padding:1.6rem;border:1px solid rgba(208,170,242,.23);border-radius:18px;background:linear-gradient(130deg,rgba(53,30,74,.58),rgba(16,19,34,.93))}
+.gaming-emoji{font-size:1.55rem}
+.gaming-preview-card h2{font-size:1.2rem}
+.gaming-preview-card p{color:#c7b9d9;font-size:.91rem;line-height:1.7}
+.gaming-upcoming{color:#d7aaff;font:700 .72rem 'JetBrains Mono',monospace;letter-spacing:.04em;margin-top:auto}
+.gaming-home a:focus-visible{outline:3px solid #e8baff;outline-offset:3px}
+@media(max-width:800px){.gaming-preview{grid-template-columns:1fr}.gaming-preview-card{min-height:0}.gaming-hero{padding:2rem 1.3rem}}
+@media(prefers-reduced-motion:reduce){.gaming-actions a{transition:none}.gaming-actions a:hover{transform:none}}
+</style>
