@@ -1,0 +1,23 @@
+{
+  "id": "skills-introduction-to-github",
+  "category": "external",
+  "type": "software",
+  "status": "development",
+  "name": {
+    "es": "skills-introduction-to-github",
+    "en": "skills-introduction-to-github"
+  },
+  "shortDescription": {
+    "es": "Ejercicio guiado de GitHub Skills sobre ramas, commits y pull requests; no es un producto SolarisPKN.",
+    "en": "GitHub Skills guided exercise covering branches, commits and pull requests; not a SolarisPKN product."
+  },
+  "technologies": [
+    "GitHub",
+    "GitHub Actions",
+    "Markdown"
+  ],
+  "statsId": "skills-introduction-to-github",
+  "links": {
+    "github": "https://github.com/SolarisPKN/skills-introduction-to-github"
+  }
+}
