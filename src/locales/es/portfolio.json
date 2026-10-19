@@ -22,22 +22,73 @@
     "texto": "Profesional de Infraestructura IT, Linux y Soporte Técnico con experiencia práctica en Windows, Linux, redes, infraestructura web, hosting VPS, hardware y administración de sistemas. He desplegado y administrado servidores Linux, VPS, sitios web, servicios autohospedados, servicios cloud y servidores de videojuegos, configurando dominios, DNS, HTTPS, certificados SSL/TLS, Cloudflare, GitHub, WordPress y cPanel. También cuento con experiencia práctica en redes, SSH, Samba, OpenWRT, Ubiquiti, diagnóstico de hardware, monitorización de servidores, administración remota e integración entre entornos Windows y Linux. Mi forma de trabajar se basa en resolver problemas técnicos reales mediante investigación, documentación oficial, experimentación práctica y el uso de IA como herramienta de apoyo, aplicando buenas prácticas de seguridad, copias de seguridad, documentación y protección de datos."
   },
   "experiencia": {
-    "titulo": "Experiencia",
-    "item1": {
-      "titulo": "SolarisPKN",
-      "fecha": "2015 - Actualidad",
-      "texto": "Fundador y Administrador de SolarisPKN. Responsable de infraestructura IT, soporte técnico, administración de sistemas Linux y Windows, hosting web y desarrollo de soluciones para proyectos propios, particulares y PyMEs. Administración de VPS, servicios autohospedados, GitHub, Cloudflare Pages, WordPress y cPanel. Configuración de redes, DNS, HTTPS, SSL/TLS, SSH, OpenWRT y equipos Ubiquiti. Implementación de automatizaciones, infraestructura para streaming, integración con IA, SEO técnico y gestión de plataformas online. Experiencia adquirida mediante proyectos reales, aplicando buenas prácticas de seguridad, backups, documentación y protección de datos."
-    },
-    "item2": {
-      "titulo": "Lubricantes Villars",
-      "fecha": "2018 - Actualidad",
-      "texto": "Técnico en diagnóstico electrónico y electricidad automotriz. Diagnóstico computarizado mediante escáneres OBD-II, interpretación de códigos DTC y análisis de parámetros en tiempo real. Diagnóstico de sensores, actuadores y módulos ECU. Reparación de sistemas eléctricos vehiculares, interpretación de diagramas eléctricos, mantenimiento preventivo, resolución sistemática de fallas y asesoramiento técnico a clientes."
-    },
-    "item3": {
-      "titulo": "TheZapas",
-      "fecha": "2021 - 2022",
-      "texto": "Administrador de infraestructura tecnológica para una plataforma de comercio electrónico. Administración de servidores Linux Debian mediante SSH, despliegue y mantenimiento de sitios web, administración de hosting, dominios, DNS, HTTPS y certificados SSL/TLS. Monitorización de infraestructura, resolución de incidentes, optimización de rendimiento, implementación de SEO técnico y soporte para las operaciones del comercio electrónico."
-    }
+    "titulo": "Experiencia profesional",
+    "items": [
+      {
+        "id": "exo",
+        "titulo": "EXO",
+        "cargo": "Administrador de Sistemas",
+        "fecha": "Octubre de 2026 – Actualidad",
+        "texto": "Administración de sistemas y formación práctica en infraestructura corporativa. Laboratorios de automatización con SaltStack, contenedores Docker, entornos Microsoft Azure y compilación de Linux embebido con Yocto. Resolución de incidencias y documentación técnica.",
+        "tecnologias": [
+          "SaltStack",
+          "Docker",
+          "Microsoft Azure",
+          "Linux",
+          "Yocto"
+        ],
+        "logo": "Exo.webp",
+        "initials": "EXO"
+      },
+      {
+        "id": "solarispkn",
+        "titulo": "SolarisPKN",
+        "cargo": "Fundador · Infraestructura, automatización y desarrollo",
+        "fecha": "2015 – Actualidad",
+        "texto": "Diseño y administración de infraestructura para proyectos propios y clientes: servidores Linux y Windows, redes, hosting, VPS, Cloudflare, herramientas de desarrollo, automatización, streaming e integración de IA. Ecosistema de proyectos documentados en GitHub.",
+        "tecnologias": [
+          "Linux",
+          "Redes",
+          "Cloudflare",
+          "GitHub",
+          "Automatización",
+          "IA"
+        ],
+        "logo": "SolarisPKN.webp",
+        "initials": "SP"
+      },
+      {
+        "id": "lubricantes",
+        "titulo": "Lubricantes Villars",
+        "cargo": "Técnico en electricidad y electrónica automotriz",
+        "fecha": "2018 – Actualidad",
+        "texto": "Diagnóstico electrónico de vehículos mediante OBD-II y análisis de códigos DTC, sensores, actuadores, módulos ECU y diagramas eléctricos. Reparaciones y resolución de fallas para clientes.",
+        "tecnologias": [
+          "OBD-II",
+          "ECU",
+          "Electrónica",
+          "Diagnóstico"
+        ],
+        "logo": "LubricantesVilllars.webp",
+        "initials": "LV"
+      },
+      {
+        "id": "thezapas",
+        "titulo": "TheZapas",
+        "cargo": "Administrador de infraestructura tecnológica",
+        "fecha": "2021 – 2022",
+        "texto": "Administración de servidores Debian por SSH para una plataforma de comercio electrónico: despliegues web, hosting, dominios, DNS, HTTPS, certificados SSL/TLS, rendimiento, incidentes y SEO técnico.",
+        "tecnologias": [
+          "Debian",
+          "SSH",
+          "DNS",
+          "HTTPS",
+          "Hosting"
+        ],
+        "logo": null,
+        "initials": "TZ"
+      }
+    ]
   },
   "formacion": {
     "titulo": "Formación",
