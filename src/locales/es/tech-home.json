@@ -78,41 +78,35 @@
   "blogRead": "Leer artículo",
   "emptyBlog": "Los próximos artículos aparecerán aquí.",
   "videoHeading": "Taller y tutoriales en video",
-  "videoLead": "Contenido técnico de mi canal: armados de PC, reparación automotriz, tutoriales y herramientas informáticas.",
+  "videoLead": "Dos listas públicas de SolarisPKN: tecnología e informática, y mecánica y electrónica automotriz. Elegí un video del panel lateral para reproducirlo.",
   "channel": "Visitar el canal",
-  "videoPick": "Elegí una lista para reproducirla aquí.",
+  "videoPick": "Elegí una lista y un video.",
   "videoPlay": "Reproducir lista",
   "videoOpen": "Abrir en YouTube",
-  "videoPrivacy": "El reproductor de YouTube solo se carga cuando elegís una lista.",
+  "videoPrivacy": "Los videos se consultan de YouTube al abrir la página.",
   "videoIframe": "Reproductor: ",
   "playlists": [
     {
       "key": "pc",
-      "label": "Hardware y PC",
+      "label": "Tecnología",
       "title": "TecnOtakus: Tutoriales PC",
       "description": "Armado, componentes y reparación de computadoras."
     },
     {
       "key": "auto",
-      "label": "Mecánica y electrónica",
+      "label": "Automotor",
       "title": "Lubricantes Villars: Videos del Automotor",
       "description": "Trabajos y reparaciones realizados en el taller."
-    },
-    {
-      "key": "solarispkn",
-      "label": "Tutoriales técnicos",
-      "title": "Tutoriales de SolarisPKN",
-      "description": "Experiencias y guías técnicas publicadas en el canal."
-    },
-    {
-      "key": "internet",
-      "label": "Informática",
-      "title": "Tutoriales Informáticos de SolarisPKN",
-      "description": "Herramientas, sitios web y uso de software."
     }
   ],
   "outroTitle": "¿Querés ver cómo está hecho?",
   "outroText": "La mayoría de estos proyectos tiene código, documentación o ejemplos públicos. Podés recorrer el ecosistema y ver los repositorios directamente.",
   "outroAction": "Explorar en GitHub",
-  "backGateway": "Cambiar entre Tech y Gaming"
+  "backGateway": "Cambiar entre Tech y Gaming",
+  "videoQueueHeading": "Videos de esta lista",
+  "videoLoading": "Cargando videos actuales de YouTube…",
+  "videoUnavailable": "No se pudo cargar el listado. Podés abrir la playlist en YouTube.",
+  "videoCount": "Videos disponibles",
+  "videoFallback": "Video",
+  "videoPartial": "YouTube puede limitar los elementos devueltos. Abrí la lista completa en YouTube."
 }
