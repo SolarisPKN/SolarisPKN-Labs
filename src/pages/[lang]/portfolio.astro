@@ -17,6 +17,16 @@ const t = await import(`../../locales/${lang}/portfolio.json`);
 const skills = await import(`../../locales/${lang}/portfolioskills.json`);
 const common = await import(`../../locales/${lang}/common.json`);
 const mindmap = (await import(`../../locales/${lang}/mindmap.json`)).default;
+// Assets are discovered at build time. Missing (not-yet-committed) logos
+// gracefully fall back to initials; TheZapas intentionally has no logo.
+const experienceLogoModules = import.meta.glob('../../assets/portfolio/experience/*.{webp,png,jpg,jpeg,svg,avif}', {
+  eager: true,
+  query: '?url',
+  import: 'default'
+});
+const experienceLogos: Record<string, string> = Object.fromEntries(
+  Object.entries(experienceLogoModules).map(([path, asset]) => [path.split('/').pop()!, String(asset)])
+);
 
 // El build conserva un orden determinista; el carrusel decide su muestra en el navegador.
 const certificates = skills.certificados ?? [];
@@ -88,23 +98,42 @@ const academias: string[] = [...new Set<string>(skills.certificados.map((c) => S
   </p>
 </section>
 
-    <!-- ===== EXPERIENCIA ===== -->
-    <section class="experiencia glass reveal" data-reveal>
-      <h2>{t.experiencia.titulo}</h2>
-      <div class="experiencia-item">
-        <h3>{t.experiencia.item1.titulo}</h3>
-        <p class="fecha">{t.experiencia.item1.fecha}</p>
-        <p>{t.experiencia.item1.texto}</p>
-      </div>
-      <div class="experiencia-item">
-        <h3>{t.experiencia.item2.titulo}</h3>
-        <p class="fecha">{t.experiencia.item2.fecha}</p>
-        <p>{t.experiencia.item2.texto}</p>
-      </div>
-      <div class="experiencia-item">
-        <h3>{t.experiencia.item3.titulo}</h3>
-        <p class="fecha">{t.experiencia.item3.fecha}</p>
-        <p>{t.experiencia.item3.texto}</p>
+    <!-- ===== EXPERIENCIA / EXPERIENCE ===== -->
+    <section class="experiencia glass reveal" data-reveal aria-labelledby="experience-heading">
+      <h2 id="experience-heading">{t.experiencia.titulo}</h2>
+      <div class="experience-grid">
+        {t.experiencia.items.map((item) => {
+          const logo = item.logo ? experienceLogos[item.logo] : null;
+          return (
+            <article class="experience-card">
+              <div class="experience-card-head">
+                <div class="experience-brand" aria-hidden="true">
+                  {logo ? (
+                    <img
+                      src={logo}
+                      alt=""
+                      width="88"
+                      height="88"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <span class="experience-initials">{item.initials}</span>
+                  )}
+                </div>
+                <div class="experience-heading">
+                  <h3>{item.titulo}</h3>
+                  <p class="experience-role">{item.cargo}</p>
+                  <p class="fecha">{item.fecha}</p>
+                </div>
+              </div>
+              <p class="experience-description">{item.texto}</p>
+              <ul class="experience-tags" aria-label={lang === 'es' ? 'Tecnologías y áreas' : 'Technologies and domains'}>
+                {item.tecnologias.map((tag) => <li>{tag}</li>)}
+              </ul>
+            </article>
+          );
+        })}
       </div>
     </section>
 
