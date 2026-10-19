@@ -11,6 +11,17 @@ on:
       - 'public/_headers'
       - 'src/components/Home/TechPlaylists.astro'
       - 'scripts/home-gateway.test.js'
+      - 'scripts/contextual-nav.test.js'
+      - 'src/layouts/Layout.astro'
+      - 'src/components/Layout/**'
+      - 'src/pages/**/gaming/**'
+      - 'src/locales/**/gaming.json'
+      - 'src/locales/**/common.json'
+      - 'src/scripts/layout.js'
+      - 'src/scripts/backToTop.js'
+      - 'src/styles/global.css'
+      - 'src/styles/portfolio.css'
+      - 'src/pages/**/portfolio.astro'
       - 'scripts/tech-playlist-feed.test.js'
       - 'src/utils/tech-playlist-feed.js'
       - 'src/worker.js'
@@ -27,6 +38,17 @@ on:
       - 'public/_headers'
       - 'src/components/Home/TechPlaylists.astro'
       - 'scripts/home-gateway.test.js'
+      - 'scripts/contextual-nav.test.js'
+      - 'src/layouts/Layout.astro'
+      - 'src/components/Layout/**'
+      - 'src/pages/**/gaming/**'
+      - 'src/locales/**/gaming.json'
+      - 'src/locales/**/common.json'
+      - 'src/scripts/layout.js'
+      - 'src/scripts/backToTop.js'
+      - 'src/styles/global.css'
+      - 'src/styles/portfolio.css'
+      - 'src/pages/**/portfolio.astro'
       - 'scripts/tech-playlist-feed.test.js'
       - 'src/utils/tech-playlist-feed.js'
       - 'src/worker.js'
@@ -49,6 +71,8 @@ jobs:
         run: npm ci
       - name: Ensure bilingual gateway, existing Tech landing and original artwork
         run: node --test scripts/home-gateway.test.js
+      - name: Contextual navigation and universal back-to-top
+        run: node --test scripts/contextual-nav.test.js
       - name: Live public YouTube playlist endpoint
         run: node --test scripts/tech-playlist-feed.test.js
       - name: Recheck recovered architecture and catalog
