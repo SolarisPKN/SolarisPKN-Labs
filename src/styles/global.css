@@ -207,3 +207,29 @@ body {
       font-size-adjust: 0.5; /* aproximación al ratio de Inter */
     }
   }
+/* Site-wide scroll-to-top action (SVG with rounded strokes, no emoji glyph). */
+.back-to-top{
+  position:fixed;
+  right:clamp(.8rem,2vw,1.7rem);
+  bottom:clamp(.85rem,2vw,1.7rem);
+  z-index:200;
+  display:grid;
+  place-items:center;
+  width:52px;
+  height:52px;
+  padding:0;
+  border:1.5px solid rgba(0,255,204,.72);
+  border-radius:50%;
+  background:rgba(10,24,33,.9);
+  backdrop-filter:blur(14px);
+  color:#abfff0;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  cursor:pointer;
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+.back-to-top[hidden]{display:none}
+.back-to-top:hover{transform:translateY(-3px);border-color:#ff79c6;box-shadow:0 0 18px rgba(0,255,204,.23)}
+.back-to-top:focus-visible{outline:3px solid #ff79c6;outline-offset:4px}
+.back-to-top svg{display:block;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:600px){.back-to-top{width:46px;height:46px;right:.85rem;bottom:.85rem}}
+@media(prefers-reduced-motion:reduce){.back-to-top{transition:none}.back-to-top:hover{transform:none}}
