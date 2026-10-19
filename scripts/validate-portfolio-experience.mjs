@@ -22,7 +22,29 @@ assert.ok(portfolio.includes('experienceLogoModules') && portfolio.includes('exp
 for(const [id,filename] of Object.entries(expectedImages)){
   if(!filename)continue;
   const file=path.join(root,'src/assets/portfolio/experience',filename);
-  if(fs.existsSync(file))assert.ok(fs.statSync(file).size>0,'empty image '+file);
-  else console.warn('Logo pending Git commit:',filename,'('+id+')');
+  assert.ok(fs.existsSync(file),'required original logo missing: '+filename+' ('+id+')');
+  assert.ok(fs.statSync(file).size>0,'empty original logo '+file);
 }
-console.log('Experience portfolio OK: ES/EN, 4 entries, 4 optional employer logos.');
+console.log('Experience portfolio OK: ES/EN, 4 entries, 4 bundled employer logos.');
+
+const fullEs=JSON.parse(fs.readFileSync(path.join(root,'src/locales/es/portfolio.json'),'utf8'));
+const fullEn=JSON.parse(fs.readFileSync(path.join(root,'src/locales/en/portfolio.json'),'utf8'));
+for (const [lang,data] of [['es',fullEs],['en',fullEn]]) {
+  assert.ok(data.hero.kicker && data.hero.headline && data.hero.resumen,'missing hero '+lang);
+  assert.ok(data.hero.verExperiencia && data.hero.verConocimientos,'missing hero links '+lang);
+  assert.equal(data.aptitudesMini.length,4,'missing hero domains '+lang);
+  assert.ok(data.about.intro && data.about.points.length===4,'missing about overview '+lang);
+  assert.ok(Array.isArray(data.sobreMi.parrafos) && data.sobreMi.parrafos.length>=3,'missing profile narrative '+lang);
+  assert.equal(data.formacion.grupos.length,5,'incomplete education '+lang);
+  assert.ok(data.formacion.grupos.every(x=>x.tipo&&x.titulo&&x.institucion&&x.descripcion&&Array.isArray(x.temas)),'education metadata '+lang);
+  assert.match(data.formacion.grupos[0].institucion,/Adultos 2000/,'formal qualification missing '+lang);
+  assert.match(data.formacion.grupos[4].institucion,/EXO/,'practice lab attribution missing '+lang);
+  const taxonomy=JSON.parse(fs.readFileSync(path.join(root,'src/locales',lang,'portfolioskills.json'),'utf8'));
+  assert.equal(taxonomy.coreAreas.length,9,'knowledge grouping incomplete '+lang);
+  assert.ok(taxonomy.coreAreas.every(x=>x.title&&x.icon&&x.items.length>=5&&x.items.length<=8),'knowledge grouping is too long or sparse '+lang);
+}
+const markup=fs.readFileSync(path.join(root,'src/pages/[lang]/portfolio.astro'),'utf8');
+for(const marker of ['t.hero.kicker','t.hero.headline','t.sobreMi.parrafos.map','t.formacion.grupos.map','id="conocimientos"','id="certificaciones"','logo-missing']){
+  assert.ok(markup.includes(marker),'markup is missing '+marker);
+}
+console.log('Complete bilingual hero, biography, education, expertise and fallback validated.');
