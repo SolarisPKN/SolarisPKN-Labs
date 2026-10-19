@@ -6,7 +6,7 @@ const root = path.resolve(import.meta.dirname, '..');
 const load = lang => JSON.parse(fs.readFileSync(path.join(root,'src','locales',lang,'portfolio.json'),'utf8')).experiencia;
 const es=load('es'),en=load('en');
 const expected=['exo','solarispkn','lubricantes','thezapas'];
-const expectedImages={exo:'Exo.webp',solarispkn:'SolarisPKN.webp',lubricantes:'LubricantesVilllars.webp',thezapas:null};
+const expectedImages={exo:'Exo.webp',solarispkn:'SolarisPKN.webp',lubricantes:'LubricantesVilllars.webp',thezapas:'TheZapas.webp'};
 for(const [lang,experience] of [['es',es],['en',en]]){
   assert.ok(experience.titulo,'missing title for '+lang);
   assert.deepEqual(experience.items.map(x=>x.id),expected,'experience order changed');
@@ -25,4 +25,4 @@ for(const [id,filename] of Object.entries(expectedImages)){
   if(fs.existsSync(file))assert.ok(fs.statSync(file).size>0,'empty image '+file);
   else console.warn('Logo pending Git commit:',filename,'('+id+')');
 }
-console.log('Experience portfolio OK: ES/EN, 4 entries, 3 optional logos, TheZapas no-logo fallback.');
+console.log('Experience portfolio OK: ES/EN, 4 entries, 4 optional employer logos.');
