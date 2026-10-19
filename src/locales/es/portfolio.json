@@ -1,12 +1,17 @@
 {
   "hero": {
-    "nombre": "Pablo Marchetti Orayen"
+    "nombre": "Pablo Marchetti Orayen",
+    "kicker": "ADMINISTRACIÓN DE SISTEMAS · AUTOMATIZACIÓN · DESARROLLO",
+    "headline": "Conecto infraestructura, software e IA para resolver problemas reales.",
+    "resumen": "Administro sistemas Linux y Windows, trabajo con redes y cloud, y desarrollo herramientas de automatización, software e integración de inteligencia artificial. Combino experiencia profesional, proyectos propios y aprendizaje práctico.",
+    "verExperiencia": "Ver experiencia",
+    "verConocimientos": "Explorar conocimientos"
   },
   "aptitudesMini": [
-    "🖥️ Infraestructura IT",
-    "🐧 Administración Linux",
-    "🌐 Redes y Hosting",
-    "🔧 Soporte Técnico"
+    "Sistemas y cloud",
+    "Automatización y DevOps",
+    "Desarrollo de software",
+    "IA aplicada e IoT"
   ],
   "contacto": {
     "email": "PabloKoutaNya@gmail.com",
@@ -18,8 +23,13 @@
   },
   "sobreMi": {
     "titulo": "Sobre mí",
-    "perfil": "MI PERFIL",
-    "texto": "Profesional de Infraestructura IT, Linux y Soporte Técnico con experiencia práctica en Windows, Linux, redes, infraestructura web, hosting VPS, hardware y administración de sistemas. He desplegado y administrado servidores Linux, VPS, sitios web, servicios autohospedados, servicios cloud y servidores de videojuegos, configurando dominios, DNS, HTTPS, certificados SSL/TLS, Cloudflare, GitHub, WordPress y cPanel. También cuento con experiencia práctica en redes, SSH, Samba, OpenWRT, Ubiquiti, diagnóstico de hardware, monitorización de servidores, administración remota e integración entre entornos Windows y Linux. Mi forma de trabajar se basa en resolver problemas técnicos reales mediante investigación, documentación oficial, experimentación práctica y el uso de IA como herramienta de apoyo, aplicando buenas prácticas de seguridad, copias de seguridad, documentación y protección de datos."
+    "perfil": "ENFOQUE",
+    "parrafos": [
+      "Actualmente me desempeño como Administrador de Sistemas en EXO, trabajando y aprendiendo en entornos corporativos con Linux, SaltStack, Docker, Microsoft Azure y Yocto. Mi experiencia también incluye hosting, redes, mantenimiento de servidores y diagnóstico técnico.",
+      "Desde 2015 desarrollo SolarisPKN, un ecosistema de proyectos propios donde conecto aplicaciones web, automatizaciones, herramientas para streaming, asistentes de IA y servicios autohospedados. Me interesa tanto diseñar la arquitectura como implementar, probar, documentar y corregir sus componentes.",
+      "También tengo experiencia en electrónica y diagnóstico automotriz. Ese recorrido me dio una mirada práctica: investigar la causa de un problema, medir resultados y mantener soluciones que puedan utilizarse de verdad."
+    ],
+    "texto": "Mi trabajo combina administración de sistemas, desarrollo de herramientas, automatización, IA aplicada y resolución práctica de problemas."
   },
   "experiencia": {
     "titulo": "Experiencia profesional",
@@ -91,24 +101,63 @@
     ]
   },
   "formacion": {
-    "titulo": "Formación",
-    "curso1": {
-      "titulo": "DKA Formación – Curso Online: Administrador de Servidores",
-      "id": "eU9IUTsvJf",
-      "items": [
-        "Administración de Linux y Windows Server",
-        "Administración remota y mantenimiento",
-        "Seguridad y endurecimiento de servidores"
-      ],
-      "verLink": "Ver"
-    },
-    "curso2": {
-      "titulo": "Fundación Carlos Slim – Curso Online: Desarrollador Front-End",
-      "id": "dk3mhbtwf",
-      "items": [
-        "Desarrollo de interfaces web responsivas"
-      ]
-    }
+    "titulo": "Formación y aprendizaje continuo",
+    "intro": "Base académica completa, cursos documentados y formación técnica que llevo a la práctica en proyectos y laboratorios.",
+    "certificadoTexto": "Explorar las constancias y certificaciones de formación",
+    "grupos": [
+      {
+        "tipo": "Educación formal",
+        "titulo": "Bachiller en Ciencias Sociales y Humanidades",
+        "institucion": "Programa Adultos 2000",
+        "descripcion": "Estudios secundarios completos.",
+        "temas": []
+      },
+      {
+        "tipo": "Curso técnico",
+        "titulo": "Administrador de Servidores",
+        "institucion": "DKA Formación",
+        "descripcion": "Administración de servidores, mantenimiento y seguridad.",
+        "temas": [
+          "Linux y Windows Server",
+          "Administración remota",
+          "Buenas prácticas de seguridad"
+        ]
+      },
+      {
+        "tipo": "Curso técnico",
+        "titulo": "Desarrollador Front-End",
+        "institucion": "Fundación Carlos Slim",
+        "descripcion": "Fundamentos del desarrollo de interfaces web.",
+        "temas": [
+          "HTML y CSS",
+          "Interfaces responsivas",
+          "Desarrollo web"
+        ]
+      },
+      {
+        "tipo": "Formación complementaria",
+        "titulo": "Gestión de proyectos con metodologías ágiles y enfoques Lean",
+        "institucion": "Fundación Telefónica",
+        "descripcion": "Organización del trabajo, mejora continua y metodologías ágiles.",
+        "temas": [
+          "Agilidad",
+          "Lean",
+          "Gestión de proyectos"
+        ]
+      },
+      {
+        "tipo": "Aprendizaje aplicado · 2026",
+        "titulo": "Laboratorios de infraestructura y automatización",
+        "institucion": "Práctica profesional en EXO",
+        "descripcion": "Experiencias de aprendizaje en entornos técnicos; no se presentan como títulos académicos.",
+        "temas": [
+          "SaltStack",
+          "Docker",
+          "Azure",
+          "Yocto"
+        ]
+      }
+    ]
   },
   "aptitudes": {
     "titulo": "Aptitudes e idiomas",
@@ -141,39 +190,35 @@
   },
   "estudios": {
     "titulo": "Estudios y Logros",
-    "interesesTitulo": "Intereses",
+    "interesesTitulo": "Intereses y líneas de investigación",
     "intereses": [
-      "🎓 Bachillerato – Ciencias Sociales y Humanidades",
-      "📜 Más de 50 certificaciones técnicas",
-      "🖥️ Infraestructura IT",
-      "🐧 Administración Linux",
-      "💻 Desarrollo Web",
-      "🤖 Automatización e IA",
-      "🔧 Electrónica y Hardware",
-      "🔬 Investigación Tecnológica"
+      "IA local y herramientas para agentes",
+      "Automatización de infraestructura",
+      "IoT y control de dispositivos",
+      "Video, streaming y multimedia",
+      "Hardware, electrónica y diagnóstico",
+      "Software abierto y aprendizaje continuo"
     ],
     "verMas": "Ver más"
   },
   "about": {
-    "title": "Acerca de mí",
-    "intro": "10+ años desarrollando soluciones tecnológicas e infraestructura IT.",
+    "title": "Sobre mí",
+    "intro": "De administrar servidores a construir herramientas: me gusta entender cómo funciona un sistema completo y hacerlo más útil, confiable y eficiente.",
     "points": [
-      "Linux & Windows",
-      "Servidores y VPS",
-      "Hosting Web",
-      "Infraestructura IT",
-      "Soporte Técnico",
-      "Redes",
-      "IA aplicada"
+      "Operación de Linux, Windows y redes",
+      "Automatización e infraestructura cloud",
+      "Desarrollo e integración de servicios",
+      "IA local, hardware y sistemas conectados"
     ]
   },
-  "coreAreasTitle": "Áreas de conocimiento",
+  "coreAreasTitle": "Áreas de conocimiento y práctica",
   "techCarouselTitle": "Tecnologías",
   "certificationsTitle": "Certificaciones",
   "certificationsFilter": "Filtrar por empresa",
   "certificationsSearch": "Buscar certificado...",
-  "philosophy": "Creo que la tecnología debe resolver problemas reales. Mi metodología combina investigación, documentación oficial, experimentación práctica y el uso de IA como herramienta de apoyo para construir soluciones confiables. Siempre priorizo las buenas prácticas de seguridad, documentación, copias de seguridad, privacidad y mejora continua.",
+  "philosophy": "La mejor tecnología es la que resuelve un problema de forma verificable. Investigo, pruebo, mido, documento y mejoro; la IA es una herramienta más dentro de ese proceso.",
   "mindMapTitle": "Mapa de habilidades",
   "mindMapPlaceholder": "Próximamente: mapa interactivo de habilidades y tecnologías.",
-  "mindMapSubtext": "Este espacio mostrará visualmente las tecnologías, herramientas y competencias que forman parte de mi experiencia profesional."
+  "mindMapSubtext": "Este espacio mostrará visualmente las tecnologías, herramientas y competencias que forman parte de mi experiencia profesional.",
+  "coreAreasIntro": "Competencias que utilizo en trabajo profesional, laboratorios y proyectos. Agrupadas por soluciones, no por versiones de software."
 }
