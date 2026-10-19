@@ -22,22 +22,73 @@
     "texto": "IT Infrastructure, Linux and Technical Support professional with hands-on experience in Windows, Linux, networking, web infrastructure, VPS hosting, hardware and systems administration. I have deployed and managed Linux servers, VPS instances, websites, self-hosted services, cloud services and game servers, configuring domains, DNS, HTTPS, SSL/TLS certificates, Cloudflare, GitHub, WordPress and cPanel. I also have practical experience with networking, SSH, Samba, OpenWRT, Ubiquiti, hardware diagnostics, server monitoring, remote administration and Windows/Linux integration. My approach focuses on solving real technical problems through research, official documentation, hands-on experimentation and AI-assisted workflows while applying security best practices, backups, documentation and data protection."
   },
   "experiencia": {
-    "titulo": "Experience",
-    "item1": {
-      "titulo": "SolarisPKN",
-      "fecha": "2015 - Present",
-      "texto": "Founder and Administrator of SolarisPKN. Responsible for IT infrastructure, technical support, Linux and Windows systems administration, web hosting and technology solutions for personal projects, private clients and small businesses. Administration of VPS servers, self-hosted services, GitHub, Cloudflare Pages, WordPress and cPanel. Configuration of networking, DNS, HTTPS, SSL/TLS, SSH, OpenWRT and Ubiquiti devices. Development of automation workflows, streaming infrastructure, AI integrations, technical SEO and online platform management. Experience built through real-world projects while applying security best practices, backups, documentation and data protection."
-    },
-    "item2": {
-      "titulo": "Lubricantes Villars",
-      "fecha": "2018 - Present",
-      "texto": "Performed computerized diagnostics, automotive electrical troubleshooting and automotive electronics support. Responsibilities included OBD-II diagnostics, sensor, actuator and ECU analysis, DTC interpretation, electrical system diagnosis and repair, automotive wiring diagram interpretation, preventive maintenance, systematic troubleshooting and technical customer assistance."
-    },
-    "item3": {
-      "titulo": "TheZapas",
-      "fecha": "2021 - 2022",
-      "texto": "Responsible for the administration, maintenance and optimization of the IT infrastructure supporting an e-commerce platform. Linux (Debian) server administration through SSH, website deployment and maintenance, web hosting management, domain, DNS, HTTPS and SSL/TLS administration, infrastructure monitoring, incident resolution, performance optimization, technical SEO implementation and technical support for e-commerce operations."
-    }
+    "titulo": "Professional experience",
+    "items": [
+      {
+        "id": "exo",
+        "titulo": "EXO",
+        "cargo": "Systems Administrator",
+        "fecha": "October 2026 – Present",
+        "texto": "Systems administration and hands-on learning in enterprise infrastructure. Labs involving SaltStack automation, Docker containers, Microsoft Azure, and embedded Linux builds with Yocto. Troubleshooting and technical documentation.",
+        "tecnologias": [
+          "SaltStack",
+          "Docker",
+          "Microsoft Azure",
+          "Linux",
+          "Yocto"
+        ],
+        "logo": "Exo.webp",
+        "initials": "EXO"
+      },
+      {
+        "id": "solarispkn",
+        "titulo": "SolarisPKN",
+        "cargo": "Founder · Infrastructure, automation and development",
+        "fecha": "2015 – Present",
+        "texto": "Infrastructure design and administration for personal projects and clients: Linux and Windows servers, networking, hosting, VPS, Cloudflare, development tools, automation, streaming and AI integration. Projects documented on GitHub.",
+        "tecnologias": [
+          "Linux",
+          "Networking",
+          "Cloudflare",
+          "GitHub",
+          "Automation",
+          "AI"
+        ],
+        "logo": "SolarisPKN.webp",
+        "initials": "SP"
+      },
+      {
+        "id": "lubricantes",
+        "titulo": "Lubricantes Villars",
+        "cargo": "Automotive electrical and electronics technician",
+        "fecha": "2018 – Present",
+        "texto": "Vehicle diagnostics using OBD-II and DTC interpretation, sensor and actuator testing, ECU analysis and automotive wiring diagrams. Repairs and systematic troubleshooting for customers.",
+        "tecnologias": [
+          "OBD-II",
+          "ECU",
+          "Electronics",
+          "Diagnostics"
+        ],
+        "logo": "LubricantesVilllars.webp",
+        "initials": "LV"
+      },
+      {
+        "id": "thezapas",
+        "titulo": "TheZapas",
+        "cargo": "IT Infrastructure Administrator",
+        "fecha": "2021 – 2022",
+        "texto": "Managed Debian servers via SSH for an e-commerce platform: website deployment, hosting, domains, DNS, HTTPS, SSL/TLS certificates, performance, incident response and technical SEO.",
+        "tecnologias": [
+          "Debian",
+          "SSH",
+          "DNS",
+          "HTTPS",
+          "Hosting"
+        ],
+        "logo": null,
+        "initials": "TZ"
+      }
+    ]
   },
   "formacion": {
     "titulo": "Education",
