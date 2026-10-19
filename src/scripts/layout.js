@@ -1,3 +1,5 @@
+import {initBackToTop} from './backToTop.js';
+
 function initLanguageSelector() {
   window.__languageSelectorCleanup?.();
 
@@ -38,6 +40,16 @@ function initLanguageSelector() {
 
 if (!window.__languageSelectorListenersAttached) {
   window.__languageSelectorListenersAttached = true;
-  document.addEventListener('astro:page-load', initLanguageSelector);
-  document.addEventListener('astro:before-swap', () => window.__languageSelectorCleanup?.());
+  let cleanupBackToTop=()=>{};
+  const initLayout=()=>{
+    cleanupBackToTop();
+    initLanguageSelector();
+    cleanupBackToTop=initBackToTop();
+  };
+  document.addEventListener('astro:page-load',initLayout);
+  document.addEventListener('astro:before-swap',()=>{
+    window.__languageSelectorCleanup?.();
+    cleanupBackToTop();
+    cleanupBackToTop=()=>{};
+  });
 }
