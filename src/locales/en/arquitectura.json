@@ -1,5 +1,41 @@
 {
-  "titulo": "SolarisPKN Live Architecture",
-  "descripcion": "Everything you see here is open source (public repositories). Only paid services are symbolically encrypted.",
-  "notaInteractiva": "Soon you will be able to click on each node to see live logs."
+  "titulo": "SolarisPKN ecosystem architecture",
+  "descripcion": "Explore Labs internals, the public project catalog and documented connections between tools, data pipelines and websites. An explorable map built from public sources.",
+  "resumen": "Architecture overview",
+  "publicos": "Public projects",
+  "modulos": "Documented modules and processes",
+  "relaciones": "Verified cross-project links",
+  "vistas": "Technical views",
+  "vistasNombres": {
+    "internal": "Inside Labs",
+    "ecosystem": "Ecosystem",
+    "planned": "Planned"
+  },
+  "vistasDesc": {
+    "internal": "From browser and Worker to Astro build, content, and published telemetry.",
+    "ecosystem": "Core, Derived and External Labs, with documented dependencies.",
+    "planned": "Not implemented: future ideas are never presented as live features."
+  },
+  "buscar": "Search components or projects",
+  "seleccionar": "Select a node",
+  "filtros": "Filters",
+  "todos": "All",
+  "zoom": "Zoom and pan",
+  "acercar": "Zoom in",
+  "alejar": "Zoom out",
+  "restaurar": "Fit diagram",
+  "abrir": "Open project page",
+  "verFuente": "View source or evidence",
+  "grupo": "Group",
+  "estado": "Status",
+  "entradas": "Incoming",
+  "salidas": "Outgoing",
+  "relacionado": "Connected to",
+  "sinResultados": "No nodes match these filters.",
+  "verificado": "Documented connection",
+  "catalogo": "Catalog grouping",
+  "planificado": "Proposal only",
+  "auditoriaTitulo": "Evidence-backed interconnections",
+  "auditoriaTexto": "Every cross-repository link is grounded in public source or documentation. Catalog lines represent grouping, not a running integration.",
+  "aclaracion": "This public diagram does not represent the private SolarisPKN-IA runtime, private permissions, sessions or logs. Stats values are published snapshots, not real-time telemetry. D1, KV, R2 and licensing are future ideas only."
 }
