@@ -25,8 +25,8 @@ const playlists = words.playlists.map((p) => ({
       <div class="tech-video-placeholder" data-video-placeholder>
         <span class="tech-video-play-icon" aria-hidden="true">▶</span>
         <p>{words.videoPick}</p>
-        <button type="button" data-video-play class="tech-video-start">{words.videoPlay} ↗</button>
-        <small>{words.videoPrivacy}</small>
+
+
       </div>
     </div>
     <div class="tech-video-info" aria-live="polite">
@@ -34,7 +34,7 @@ const playlists = words.playlists.map((p) => ({
       <h3 data-video-title>{playlists[0].title}</h3>
       <p data-video-description>{playlists[0].description}</p>
       <div class="tech-video-links">
-        <button type="button" data-video-play-alt>{words.videoPlay} ↗</button>
+        
         <a data-video-link href={playlists[0].url} target="_blank" rel="noopener noreferrer">{words.videoOpen} ↗</a>
       </div>
     </div>
@@ -46,40 +46,34 @@ function initializeTechPlaylists(){
   if(root.dataset.initialized==='1')return;
   root.dataset.initialized='1';
   const options=[...root.querySelectorAll('[data-playlist]')];
-  let active=0;
   const display=root.querySelector('[data-video-display]');
-  const placeholder=root.querySelector('[data-video-placeholder]');
   const title=root.querySelector('[data-video-title]');
   const description=root.querySelector('[data-video-description]');
   const link=root.querySelector('[data-video-link]');
-  function select(index){
-   active=index;
-   options.forEach((button,i)=>{
-     button.classList.toggle('chosen',i===index);
-     button.setAttribute('aria-pressed',String(i===index));
-   });
-   const info=playlistInfo[index];
-   title.textContent=info.title;
-   description.textContent=info.description;
-   link.href=info.url;
-   // A changed playlist requires an explicit click, avoiding background video/network activity.
-   display.replaceChildren(placeholder);
+  function play(index,autoplay=false){
+    const info=playlistInfo[index];
+    if(!info || !/^[A-Za-z0-9_-]{25,50}$/.test(info.id))return;
+    options.forEach((button,i)=>{
+      button.classList.toggle('chosen',i===index);
+      button.setAttribute('aria-pressed',String(i===index));
+    });
+    title.textContent=info.title;
+    description.textContent=info.description;
+    link.href=info.url;
+    const player=document.createElement('iframe');
+    player.className='tech-video-iframe';
+    player.title=iframePrefix+info.title;
+    player.setAttribute('loading',index===0&&!autoplay?'eager':'lazy');
+    player.setAttribute('allow','autoplay; encrypted-media; picture-in-picture; fullscreen');
+    player.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+    player.setAttribute('allowfullscreen','');
+    player.src='https://www.youtube-nocookie.com/embed/videoseries?list='+encodeURIComponent(info.id)+'&playsinline=1&rel=0'+(autoplay?'&autoplay=1':'');
+    display.replaceChildren(player);
   }
-  function play(){
-   const info=playlistInfo[active];
-   const player=document.createElement('iframe');
-   player.title=iframePrefix+info.title;
-   player.setAttribute('loading','lazy');
-   player.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-   player.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
-   player.setAttribute('allowfullscreen','');
-   player.src='https://www.youtube-nocookie.com/embed/videoseries?list='+encodeURIComponent(info.id);
-   player.className='tech-video-iframe';
-   display.replaceChildren(player);
-  }
-  options.forEach((b,index)=>b.addEventListener('click',()=>select(index)));
-  root.querySelector('[data-video-play]').addEventListener('click',play);
-  root.querySelector('[data-video-play-alt]').addEventListener('click',play);
+  options.forEach((button,index)=>button.addEventListener('click',()=>play(index,true)));
+  // Load the default playlist as a real full-size player immediately.
+  // Starting audio automatically is intentionally avoided by browser policy.
+  play(0,false);
  });
 }
 document.addEventListener('astro:page-load',initializeTechPlaylists);
@@ -94,13 +88,13 @@ else initializeTechPlaylists();
 .tech-playlist-option:focus-visible,.tech-video-links button:focus-visible,.tech-video-start:focus-visible{outline:3px solid #ff79c6;outline-offset:2px}
 .tech-playlist-number{color:#00ffcc;font:700 .7rem 'JetBrains Mono',monospace}
 .tech-video-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(220px,1fr);gap:1.2rem;align-items:stretch}
-.tech-video-display{min-width:0;background:radial-gradient(circle at 50% 40%,rgba(34,106,112,.22),transparent 60%),#050911;border-radius:13px;aspect-ratio:16/9;overflow:hidden;border:1px solid #273a4b}
+.tech-video-display{position:relative;min-width:0;background:radial-gradient(circle at 50% 40%,rgba(34,106,112,.22),transparent 60%),#050911;border-radius:13px;aspect-ratio:16/9;overflow:hidden;border:1px solid #273a4b}
 .tech-video-placeholder{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;padding:1rem;text-align:center}
 .tech-video-play-icon{width:64px;height:64px;display:grid;place-items:center;border:1px solid #5ce5d0;background:rgba(0,255,204,.07);color:#5ce5d0;border-radius:50%;font-size:1.5rem}
 .tech-video-placeholder p{font-weight:600;line-height:1.3}
 .tech-video-placeholder small{font-size:.72rem;color:#97aab9;max-width:31ch}
 .tech-video-start,.tech-video-links button{background:#00d8b2;color:#041517;padding:.62rem .95rem;border:0;border-radius:9px;cursor:pointer;font-weight:800;font-family:inherit}
-.tech-video-iframe{width:100%;height:100%;border:0;display:block}
+.tech-video-display :global(.tech-video-iframe){position:absolute;inset:0;width:100%;height:100%;border:0;display:block;aspect-ratio:16/9}
 .tech-video-info{display:flex;flex-direction:column;justify-content:center;gap:.8rem;padding:.5rem}
 .tech-video-info .tech-overline{font:700 .72rem 'JetBrains Mono',monospace;color:#63f0d5;letter-spacing:.1em}
 .tech-video-info h3{font-size:clamp(1.3rem,2.2vw,1.9rem);line-height:1.2;overflow-wrap:anywhere}

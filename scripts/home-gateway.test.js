@@ -71,7 +71,7 @@ test('hover particle fields use CSS animation with keyboard and reduced-motion s
  assert.doesNotMatch(source,/<script\b|setInterval|requestAnimationFrame|<canvas\b/,'no unnecessary JS or canvas loops');
 });
 
-test('embedded playlists are real SolarisPKN series and YouTube loads only on user click',()=>{
+test('embedded playlists load on page open, fill the video area and switch on click',()=>{
  const player=file('src/components/Home/TechPlaylists.astro');
  const verified=[
  'PLVxh46uVOYfb5YCI8AqG5jK_TB8p0vu9D',
@@ -81,9 +81,12 @@ test('embedded playlists are real SolarisPKN series and YouTube loads only on us
  ];
  for(const id of verified)assert.ok(player.includes(id),'verified playlist missing '+id);
  assert.match(player,/youtube-nocookie\.com/);
- assert.match(player,/function play\(/);
- assert.match(player,/data-video-play/);
- assert.ok(player.indexOf('player.src=')>player.indexOf('function play('),'iframe loaded before click');
+ assert.match(player,/function play\(index,autoplay=false\)/);
+ assert.match(player,/play\(0,false\)/,'first playlist should load on page open');
+ assert.match(player,/:global\(\.tech-video-iframe\)/,'Astro scoped styles must reach dynamically created iframe');
+ assert.match(player,/position:absolute;inset:0;width:100%;height:100%/,'iframe must fill the 16:9 surface');
+ assert.ok(player.indexOf('player.src=')>player.indexOf('function play('),'iframe source is assigned inside play()');
+ assert.match(player,/button.addEventListener\('click',\(\)=>play\(index,true\)\)/,'switch playlist directly from category selection');
 });
 
 test('YouTube playlists are permitted by deployed Content Security Policy',()=>{
