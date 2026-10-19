@@ -29,7 +29,7 @@ const worlds = [
     <p>{words.lead}</p>
   </header>
 
-  <div class="world-scene" aria-label={words.select}>
+  <div class="world-scene">
     <Image
       src={gatewayArtwork}
       class="world-artwork"
@@ -40,23 +40,12 @@ const worlds = [
       fetchpriority="high"
       decoding="async"
     />
-    <div class="world-areas">
-      {worlds.map((world) => (
-        <a
-          class:list={['world-hotspot', 'world-hit-'+world.id]}
-          href={world.href}
-          aria-label={world.copy.title + ' — ' + world.copy.description}
-          aria-describedby={'world-card-'+world.id}
-          title={world.copy.action}
-        ></a>
-      ))}
-    </div>
   </div>
 
-  <!-- Navigation stays BELOW the artwork, never over faces, icons or the central SolarisPKN logo. -->
+  <!-- Exactly two navigation cards below the image; no click targets layered over artwork. -->
   <nav class="world-choice-grid" aria-label={words.select}>
     {worlds.map((world) => (
-      <a id={'world-card-'+world.id} class:list={['world-choice', 'world-'+world.id]} href={world.href}>
+      <a class:list={['world-choice', 'world-'+world.id]} href={world.href}>
         <span class="world-topline">
           <span class="world-category">{world.copy.kicker}</span>
           <span class="world-state">{world.copy.status}</span>
@@ -81,14 +70,8 @@ const worlds = [
 .world-overline{font:700 .72rem 'JetBrains Mono',monospace;letter-spacing:.17em;color:#8debdc}
 .world-gateway-intro h1{font-size:clamp(1.9rem,4vw,3.2rem);line-height:1.12;text-wrap:balance;letter-spacing:-.035em;margin:.65rem 0}
 .world-gateway-intro p{font-size:clamp(.92rem,1.3vw,1.05rem);color:#c7d7e3;line-height:1.65}
-.world-scene{position:relative;isolation:isolate;width:100%;aspect-ratio:3/2;overflow:hidden;border:1px solid rgba(220,230,255,.26);border-radius:20px;background:#050615;box-shadow:0 15px 55px rgba(0,0,0,.32)}
-.world-artwork{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;z-index:-1}
-.world-areas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));position:absolute;inset:0}
-.world-hotspot{display:block;position:relative;outline-offset:-6px;transition:background .2s ease}
-.world-hotspot:hover{background:rgba(255,255,255,.045)}
-.world-hotspot:focus-visible{outline:3px solid white;background:rgba(255,255,255,.09)}
-.world-hit-gaming:hover{box-shadow:inset 0 0 70px rgba(185,106,255,.15)}
-.world-hit-tech:hover{box-shadow:inset 0 0 70px rgba(30,223,211,.15)}
+.world-scene{width:100%;overflow:hidden;border:1px solid rgba(220,230,255,.26);border-radius:20px;background:#050615;box-shadow:0 15px 55px rgba(0,0,0,.32)}
+.world-artwork{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:contain;object-position:center}
 .world-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(.7rem,1.4vw,1.2rem);margin-top:clamp(.7rem,1.4vw,1.2rem)}
 .world-choice{display:flex;flex-direction:column;align-items:flex-start;gap:.68rem;min-width:0;min-height:206px;padding:clamp(1.1rem,2vw,1.7rem);border:1px solid rgba(216,235,250,.2);border-radius:17px;background:linear-gradient(115deg,rgba(23,17,40,.96),rgba(14,19,35,.98));text-decoration:none;color:#f8faff;transition:border-color .2s,background .2s,transform .2s}
 .world-tech{background:linear-gradient(115deg,rgba(11,31,40,.96),rgba(14,19,35,.98))}
@@ -121,5 +104,5 @@ const worlds = [
   .world-title{font-size:1.65rem}
   .world-description{font-size:.85rem}
 }
-@media(prefers-reduced-motion:reduce){.world-choice,.world-hotspot{transition:none}.world-choice:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){.world-choice{transition:none}.world-choice:hover{transform:none}}
 </style>
