@@ -41,22 +41,34 @@ test('bilingual Tech/Gaming entrance links correctly and Tech introduces real La
 });
 
 
-test('gateway respects original artwork: Gaming left, Tech right, captions below without cropping',()=>{
+test('one original panorama with two clickable jagged halves (Gaming left, Tech right)',()=>{
  const source=file('src/components/Home/WorldGateway.astro');
  const asset=path.join(root,'src/assets/index/index.webp');
- const before=source.indexOf("id: 'gaming'");
- const after=source.indexOf("id: 'tech'");
- assert.ok(before>=0&&after>before,'Gaming must occupy the left half and Tech the right');
- assert.match(source,/aspect-ratio:3\/2/,'preserve original 1536x1024 artwork ratio');
- assert.match(source,/object-fit:contain/,'entire image must be visible');
- assert.ok(source.indexOf('class="world-scene"') < source.indexOf('class="world-choice-grid"'),'text navigation must sit below artwork');
- assert.doesNotMatch(source,/world-image-dim|world-midmark|world-seam|world-copy[^-]/,'no giant overlays or center seam over illustrations');
- assert.doesNotMatch(source,/world-areas|world-hotspot|world-hit-/,'image must have no hidden duplicate navigation targets');
- assert.equal((source.match(/<a\b/g)||[]).length,1,'only one mapped card anchor template can exist');
- assert.equal((source.match(/worlds\.map/g)||[]).length,1,'the exactly two world links must only be rendered in the card grid');
- assert.match(source,/worlds\s*=\s*\[[\s\S]*?id: 'gaming'[\s\S]*?id: 'tech'[\s\S]*?\]/,'Gaming card must be left of Tech');
- assert.match(source,/\.world-artwork\{[^}]*height:auto/,'artwork must display naturally without overlays');
- assert.ok(fs.existsSync(asset));
+ const gaming=source.indexOf("id: 'gaming'");
+ const tech=source.indexOf("id: 'tech'");
+ assert.ok(gaming>=0&&tech>gaming,'Gaming must be to the left of Tech');
+ assert.match(source,/class="world-split"/,'one shared visual surface');
+ assert.match(source,/aspect-ratio:3\/2/,'original 1536x1024 aspect ratio must be preserved');
+ assert.match(source,/object-fit:contain/,'do not crop the original artwork');
+ assert.equal((source.match(/<Image\b/g)||[]).length,1,'only one original panorama image');
+ assert.equal((source.match(/<a\b/g)||[]).length,1,'one anchor template produces the two clickable halves');
+ assert.equal((source.match(/worlds\.map/g)||[]).length,1,'each half gets exactly one link');
+ assert.match(source,/world-gaming\{clip-path:polygon/,'jagged left-hand clickable area');
+ assert.match(source,/world-tech\{clip-path:polygon/,'complementary jagged right-hand clickable area');
+ assert.match(source,/world-crack-line/,'visible crack along shared boundary');
+ assert.doesNotMatch(source,/world-choice-grid|world-hotspot|world-areas|labs-panel/,'no detached cards or duplicate buttons');
+ assert.ok(fs.existsSync(asset),'original artwork missing');
+});
+
+test('hover particle fields use CSS animation with keyboard and reduced-motion support',()=>{
+ const source=file('src/components/Home/WorldGateway.astro');
+ assert.match(source,/world-particles/,'particles must exist in both halves');
+ assert.match(source,/particles\.map/,'reused lightweight spark elements');
+ assert.match(source,/@keyframes world-drift/,'GPU-friendly hover animation');
+ assert.match(source,/:is\(:hover,:focus-visible\)/,'hover and keyboard focus reveal');
+ assert.match(source,/@media\(prefers-reduced-motion:reduce\)/,'motion preferences honored');
+ assert.match(source,/@media\(max-width:760px\)/,'mobile keeps both halves of one picture');
+ assert.doesNotMatch(source,/<script\b|setInterval|requestAnimationFrame|<canvas\b/,'no unnecessary JS or canvas loops');
 });
 
 test('embedded playlists are real SolarisPKN series and YouTube loads only on user click',()=>{
