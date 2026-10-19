@@ -1,0 +1,34 @@
+name: Portfolio mindmap validation
+on:
+  pull_request:
+    paths:
+      - 'src/locales/**/mindmap.json'
+      - 'src/pages/**/portfolio.astro'
+      - 'src/scripts/mindmap.js'
+      - 'src/styles/mindmap.css'
+      - 'scripts/validate-mindmap.mjs'
+      - '.github/workflows/portfolio-mindmap.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/locales/**/mindmap.json'
+      - 'src/pages/**/portfolio.astro'
+      - 'src/scripts/mindmap.js'
+      - 'src/styles/mindmap.css'
+      - 'scripts/validate-mindmap.mjs'
+      - '.github/workflows/portfolio-mindmap.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: node --check src/scripts/mindmap.js
+      - run: node scripts/validate-mindmap.mjs
+      - run: npm run build
