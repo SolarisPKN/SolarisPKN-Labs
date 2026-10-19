@@ -14,7 +14,7 @@ const scriptConfig=JSON.stringify({playlistInfo:playlists,words:{
  videoFallback:words.videoFallback,
  videoPartial:words.videoPartial,
  videoCount:words.videoCount
-}}).replace(/</g,'\u003c');
+}}).replace(/</g,'\\u003c');
 ---
 
 <div class="tech-video-shell" data-tech-playlists>
