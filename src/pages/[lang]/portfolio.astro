@@ -39,8 +39,6 @@ const academias: string[] = [...new Set<string>(skills.certificados.map((c) => S
 <Layout title="Portfolio - Pablo Marchetti Orayen" lang={lang} schema="person" certificates={skills.certificados} techSkills={skills.techIcons} coreSkills={skills.coreAreas.flatMap(area => area.items)}>
   <div class="portfolio-container">
 
-    <button id="back-to-top" class="glass back-to-top" aria-label="Volver arriba">⬆️</button>
-
     <!-- ===== HERO ===== -->
     <section class="hero-portfolio glass" aria-labelledby="portfolio-name">
       <div class="hero-text">
@@ -362,7 +360,6 @@ const academias: string[] = [...new Set<string>(skills.certificados.map((c) => S
 
   <!-- ===== SCRIPTS (modularizados) ===== -->
   <script>
-    import { initBackToTop } from '@scripts/backToTop.js';
     import { initTechCarousel } from '@scripts/techCarousel.js';
     import { initCertificates } from '@scripts/certificates.js';
     import { initMindMap } from '@scripts/mindmap.js';
@@ -382,7 +379,6 @@ const academias: string[] = [...new Set<string>(skills.certificados.map((c) => S
       }
 
       const cleanups = [
-        initBackToTop(),
         initTechCarousel(),
         initCertificates(certificates),
         initMindMap(),
