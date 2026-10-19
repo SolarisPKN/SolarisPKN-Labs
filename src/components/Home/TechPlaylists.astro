@@ -14,7 +14,7 @@ const scriptConfig=JSON.stringify({playlistInfo:playlists,words:{
  videoFallback:words.videoFallback,
  videoPartial:words.videoPartial,
  videoCount:words.videoCount
-}}).replace(/</g,'\\u003c');
+}}).replace(/</g,'\u003c');
 ---
 
 <div class="tech-video-shell" data-tech-playlists>
@@ -46,17 +46,19 @@ const scriptConfig=JSON.stringify({playlistInfo:playlists,words:{
       <div class="tech-queue-header">
         <h3>{words.videoQueueHeading}</h3>
         <span data-video-count aria-live="polite">{words.videoLoading}</span>
-        <script type="application/json" data-tech-config set:html={scriptConfig}></script>
-</div>
+      </div>
       <div class="tech-queue-list" data-video-list role="list">
-        <p class="tech-queue-me<script>import '../../scripts/tech-playlists.js';</script>
-cument.addEventListener('astro:before-swap',cleanup,{once:true});
- });
-}
-document.addEventListener('astro:page-load',initializeTechPlaylists);
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initializeTechPlaylists,{once:true});
-else initializeTechPlaylists();
-</script>
+        <p class="tech-queue-message">{words.videoLoading}</p>
+      </div>
+      <p class="tech-queue-footnote" data-video-warning hidden>{words.videoPartial}</p>
+      <a class="tech-queue-more" data-video-more href={playlists[0].url} target="_blank" rel="noopener noreferrer">{words.videoOpen} ↗</a>
+    </aside>
+  </div>
+  <script type="application/json" data-tech-config set:html={scriptConfig}></script>
+</div>
+
+<script>import '../../scripts/tech-playlists.js';</script>
+
 
 <style>
 .tech-video-shell{border:1px solid rgba(177,221,236,.18);border-radius:20px;background:rgba(5,12,23,.68);padding:clamp(.75rem,1.9vw,1.35rem)}
