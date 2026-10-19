@@ -1,0 +1,19 @@
+{
+  "id": "La-Cascada-de-Any-s",
+  "category": "derived",
+  "type": "software",
+  "status": "development",
+  "name": {
+    "es": "La-Cascada-de-Any-s",
+    "en": "La-Cascada-de-Any-s"
+  },
+  "shortDescription": {
+    "es": "Proyecto de la marca La Cascada de Any's, dedicada a artesanías y sabores; su web todavía no está publicada en el código.",
+    "en": "Brand project for La Cascada de Any's, focused on crafts and flavors; no website implementation is published in the repository yet."
+  },
+  "technologies": [],
+  "statsId": "la-cascada-de-any-s",
+  "links": {
+    "github": "https://github.com/SolarisPKN/La-Cascada-de-Any-s"
+  }
+}

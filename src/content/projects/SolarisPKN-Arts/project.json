@@ -1,0 +1,22 @@
+{
+  "id": "SolarisPKN-Arts",
+  "category": "core",
+  "type": "software",
+  "status": "development",
+  "name": {
+    "es": "SolarisPKN-Arts",
+    "en": "SolarisPKN-Arts"
+  },
+  "shortDescription": {
+    "es": "Repositorio de recursos visuales y arte de la identidad SolarisPKN; su documentación pública todavía es mínima.",
+    "en": "Visual assets and artwork for the SolarisPKN identity; public documentation is currently minimal."
+  },
+  "technologies": [
+    "Recursos gráficos",
+    "Branding"
+  ],
+  "statsId": "solarispkn-arts",
+  "links": {
+    "github": "https://github.com/SolarisPKN/SolarisPKN-Arts"
+  }
+}

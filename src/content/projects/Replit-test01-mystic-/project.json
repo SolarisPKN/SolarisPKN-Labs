@@ -1,0 +1,24 @@
+{
+  "id": "Replit-test01-mystic-",
+  "category": "external",
+  "type": "software",
+  "status": "development",
+  "name": {
+    "es": "Replit-test01-mystic-",
+    "en": "Replit-test01-mystic-"
+  },
+  "shortDescription": {
+    "es": "Experimento Mystic Harmony Hub en Replit, con estructura web y servidor API para explorar un producto digital.",
+    "en": "Mystic Harmony Hub experiment on Replit with a web frontend and API server for exploring a digital product."
+  },
+  "technologies": [
+    "Replit",
+    "TypeScript",
+    "Node.js"
+  ],
+  "statsId": "replit-test01-mystic-",
+  "links": {
+    "github": "https://github.com/SolarisPKN/Replit-test01-mystic-",
+    "docs": "https://replit.com/@SolarisPKN/Mystic-Harmony-Hub"
+  }
+}

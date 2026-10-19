@@ -1,5 +1,41 @@
 {
-  "titulo": "Arquitectura en vivo de SolarisPKN",
-  "descripcion": "Todo lo que ves aquí es código abierto (repositorios públicos). Solo los servicios de pago están cifrados simbólicamente.",
-  "notaInteractiva": "Pronto podrás hacer clic en cada nodo para ver logs en tiempo real."
+  "titulo": "Arquitectura del ecosistema SolarisPKN",
+  "descripcion": "Explorá el funcionamiento interno de Labs, los 18 proyectos públicos del catálogo y las relaciones documentadas entre herramientas, datos y sitios. Un mapa navegable construido a partir de fuentes públicas.",
+  "resumen": "Resumen de la arquitectura",
+  "publicos": "Proyectos públicos",
+  "modulos": "Módulos y procesos documentados",
+  "relaciones": "Relaciones entre proyectos verificadas",
+  "vistas": "Vistas técnicas",
+  "vistasNombres": {
+    "internal": "Dentro de Labs",
+    "ecosystem": "Ecosistema",
+    "planned": "Planificado"
+  },
+  "vistasDesc": {
+    "internal": "Del navegador al Worker, al build Astro, al contenido y a la telemetría.",
+    "ecosystem": "Core, Derived y External Labs con dependencias y documentación verificadas.",
+    "planned": "Ideas todavía no implementadas: nunca se muestran como funciones activas."
+  },
+  "buscar": "Buscar componentes o proyectos",
+  "seleccionar": "Seleccionar nodo",
+  "filtros": "Filtros",
+  "todos": "Todos",
+  "zoom": "Zoom y desplazamiento",
+  "acercar": "Acercar",
+  "alejar": "Alejar",
+  "restaurar": "Restablecer vista",
+  "abrir": "Abrir ficha",
+  "verFuente": "Ver código o evidencia",
+  "grupo": "Grupo",
+  "estado": "Estado",
+  "entradas": "Entradas",
+  "salidas": "Salidas",
+  "relacionado": "Conectado con",
+  "sinResultados": "No se encontraron nodos para este filtro.",
+  "verificado": "Conexión documentada",
+  "catalogo": "Agrupación del catálogo",
+  "planificado": "Solo propuesta",
+  "auditoriaTitulo": "Interconexiones con evidencia",
+  "auditoriaTexto": "Cada enlace entre repositorios deriva de código o documentación públicos. Los enlaces del catálogo son agrupaciones, no conexiones funcionales.",
+  "aclaracion": "La arquitectura pública no representa el runtime privado de SolarisPKN-IA ni incluye permisos, sesiones o logs internos. Los datos de Stats son instantáneas publicadas, no telemetría en tiempo real. D1, KV, R2 y licencias figuran únicamente como ideas futuras."
 }

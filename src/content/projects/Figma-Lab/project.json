@@ -1,0 +1,24 @@
+{
+  "id": "Figma-Lab",
+  "category": "external",
+  "type": "software",
+  "status": "development",
+  "name": {
+    "es": "Figma-Lab",
+    "en": "Figma-Lab"
+  },
+  "shortDescription": {
+    "es": "Laboratorio de interfaces creado con herramientas de Figma; contiene una interfaz experimental para visualizar componentes de SolarisPKN-Stats.",
+    "en": "Interface laboratory created with Figma tools; includes an experimental UI showcasing SolarisPKN-Stats concepts."
+  },
+  "technologies": [
+    "Figma Make",
+    "React",
+    "TypeScript",
+    "Vite"
+  ],
+  "statsId": "figma-lab",
+  "links": {
+    "github": "https://github.com/SolarisPKN/Figma-Lab"
+  }
+}
