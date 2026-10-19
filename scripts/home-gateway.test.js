@@ -86,6 +86,18 @@ test('embedded playlists are real SolarisPKN series and YouTube loads only on us
  assert.ok(player.indexOf('player.src=')>player.indexOf('function play('),'iframe loaded before click');
 });
 
+test('YouTube playlists are permitted by deployed Content Security Policy',()=>{
+ const headers=file('public/_headers');
+ const csp=headers.split('\n').find(line=>line.trim().startsWith('Content-Security-Policy:'));
+ assert.ok(csp,'Content Security Policy header must exist');
+ assert.match(csp,/frame-src\s+https:\/\/www\.youtube-nocookie\.com\b/,'privacy-friendly YouTube embed must be allowed');
+ assert.match(csp,/frame-src[^;]*https:\/\/www\.youtube\.com\b/,'official YouTube embed fallback must be allowed');
+ assert.match(csp,/frame-ancestors\s+'self'/,'frame-ancestors protection must remain intact');
+ assert.match(csp,/script-src\s+'self'/,'first-party script policy must remain intact');
+ const player=file('src/components/Home/TechPlaylists.astro');
+ assert.match(player,/https:\/\/www\.youtube-nocookie\.com\/embed\/videoseries/,'embed URL must match CSP origin');
+});
+
 test('original owner-supplied index.webp must be preserved byte for byte',()=>{
  const asset=path.join(root,'src/assets/index/index.webp');
  assert.ok(fs.existsSync(asset),'Missing original index.webp. Publish owner file to feature branch before merging');
