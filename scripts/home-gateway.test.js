@@ -73,7 +73,7 @@ test('hover particle fields use CSS animation with keyboard and reduced-motion s
 });
 
 test('only two live public playlists, dynamic queue and no Data API key',()=>{
- const player=file('src/components/Home/TechPlaylists.astro');
+ const player=file('src/components/Home/TechPlaylists.astro')+'\n'+file('src/scripts/tech-playlists.js');
  const worker=file('src/worker.js');
  const parser=file('src/utils/tech-playlist-feed.js');
  const verified=['PLVxh46uVOYfb5YCI8AqG5jK_TB8p0vu9D','PLVxh46uVOYfYbTsYFmaZ31w8AyCOs9yuG'];
