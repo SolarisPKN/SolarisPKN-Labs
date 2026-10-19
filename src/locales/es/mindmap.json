@@ -26,1335 +26,1337 @@
     "nodes": "nodos",
     "edges": "conexiones",
     "select": "Seleccioná un nodo del mapa",
-    "source": "Datos de JSON localizados; búsqueda relacional (no RAG vectorial)."
+    "source": "Datos de JSON localizados; búsqueda relacional (no RAG vectorial).",
+    "descriptionHeading": "Qué es y para qué sirve",
+    "descriptionHint": "Seleccioná cualquier nodo para conocerlo y explorar sus relaciones."
   },
   "nodes": [
     {
       "id": "person",
       "type": "root",
       "label": "Pablo Marchetti Orayen",
-      "description": "Infraestructura, software, electrónica, automatización e IA."
+      "description": "Profesional de sistemas y creador de SolarisPKN. El mapa conecta experiencia laboral, proyectos propios y herramientas de infraestructura, desarrollo, electrónica e IA."
     },
     {
       "id": "area:base-0",
       "type": "area",
       "label": "Sistemas Operativos",
-      "description": "Área del portfolio profesional."
+      "description": "Administración y mantenimiento de sistemas operativos de escritorio y servidor, desde entornos Windows hasta distribuciones GNU/Linux."
     },
     {
       "id": "skill:windows-xp",
       "type": "skill",
       "label": "Windows XP",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Versión histórica de Windows; útil para compatibilidad, mantenimiento y análisis de equipos antiguos, sin soporte moderno de seguridad."
     },
     {
       "id": "skill:windows-7",
       "type": "skill",
       "label": "Windows 7",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Sistema operativo de Microsoft utilizado en equipos tradicionales; hoy es principalmente un entorno heredado."
     },
     {
       "id": "skill:windows-10",
       "type": "skill",
       "label": "Windows 10",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Sistema operativo de escritorio de Microsoft; gestión de controladores, aplicaciones, red, cuentas y servicios."
     },
     {
       "id": "skill:windows-11",
       "type": "skill",
       "label": "Windows 11",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Sistema operativo de Microsoft con requisitos de hardware y seguridad modernos; administración y resolución de problemas."
     },
     {
       "id": "skill:windows-server",
       "type": "skill",
       "label": "Windows Server",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Familia Windows para servidores: roles, servicios, administración remota, cuentas e infraestructura empresarial."
     },
     {
       "id": "skill:debian",
       "type": "skill",
       "label": "Debian",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Distribución GNU/Linux orientada a estabilidad y paquetes; base habitual de servidores y entornos de desarrollo."
     },
     {
       "id": "skill:ubuntu",
       "type": "skill",
       "label": "Ubuntu",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Distribución Linux basada en Debian, utilizada en servidores, máquinas virtuales y estaciones de trabajo."
     },
     {
       "id": "skill:linux-mint",
       "type": "skill",
       "label": "Linux Mint",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Distribución Linux de escritorio pensada para facilitar el uso y la administración cotidiana."
     },
     {
       "id": "skill:lxle",
       "type": "skill",
       "label": "LXLE",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Distribución Linux ligera para aprovechar computadoras con recursos limitados o hardware antiguo."
     },
     {
       "id": "area:base-1",
       "type": "area",
       "label": "Redes",
-      "description": "Área del portfolio profesional."
+      "description": "Diseño, configuración y diagnóstico de redes: conectividad, direccionamiento, nombres, acceso remoto y seguridad del tráfico."
     },
     {
       "id": "skill:tcp-ip",
       "type": "skill",
       "label": "TCP/IP",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Conjunto de protocolos que permite direccionar y transportar datos entre dispositivos y redes."
     },
     {
       "id": "skill:dhcp",
       "type": "skill",
       "label": "DHCP",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Protocolo que asigna automáticamente IP, puerta de enlace y otros parámetros de red a dispositivos."
     },
     {
       "id": "skill:dns",
       "type": "skill",
       "label": "DNS",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Sistema que resuelve nombres de dominio a direcciones y otros registros necesarios para los servicios."
     },
     {
       "id": "skill:nat",
       "type": "skill",
       "label": "NAT",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Traducción de direcciones de red: conecta redes privadas con otros segmentos o con Internet."
     },
     {
       "id": "skill:ssh",
       "type": "skill",
       "label": "SSH",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Protocolo cifrado para acceder y administrar sistemas remotos mediante una terminal o túneles."
     },
     {
       "id": "skill:firewall",
       "type": "skill",
       "label": "Firewall",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Filtro de tráfico según reglas para permitir o bloquear conexiones entre equipos, servicios o redes."
     },
     {
       "id": "skill:qos",
       "type": "skill",
       "label": "QoS",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Priorización del tráfico de red para repartir ancho de banda y controlar latencia bajo carga."
     },
     {
       "id": "skill:openwrt",
       "type": "skill",
       "label": "OpenWRT",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Sistema Linux para routers que permite configurar redes, servicios y reglas avanzadas."
     },
     {
       "id": "skill:ubiquiti",
       "type": "skill",
       "label": "Ubiquiti",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Equipos y plataformas de red usados para gestionar puntos de acceso, enlaces y conectividad."
     },
     {
       "id": "skill:samba",
       "type": "skill",
       "label": "Samba",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Software que comparte archivos e impresoras entre Linux y redes compatibles con Windows mediante SMB."
     },
     {
       "id": "skill:ddns",
       "type": "skill",
       "label": "DDNS",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "DNS dinámico: actualiza un nombre de dominio cuando cambia la IP pública de una conexión."
     },
     {
       "id": "skill:vpn",
       "type": "skill",
       "label": "VPN",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Red privada virtual que crea túneles cifrados para acceso remoto o conexión segura entre redes."
     },
     {
       "id": "skill:acceso-remoto",
       "type": "skill",
       "label": "Acceso Remoto",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Técnicas para administrar o asistir equipos a distancia mediante consola, escritorio o herramientas de control."
     },
     {
       "id": "area:base-2",
       "type": "area",
       "label": "Infraestructura",
-      "description": "Área del portfolio profesional."
+      "description": "Servicios que sostienen aplicaciones y sitios web: servidores, contenedores, alojamiento, bases de datos y virtualización."
     },
     {
       "id": "skill:servidores-linux",
       "type": "skill",
       "label": "Servidores Linux",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Sistemas Linux que alojan aplicaciones y servicios; incluyen cuentas, red, procesos, seguridad y mantenimiento."
     },
     {
       "id": "skill:vps",
       "type": "skill",
       "label": "VPS",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Servidor privado virtual: recursos de cómputo aislados en una máquina anfitriona para alojar servicios."
     },
     {
       "id": "skill:apache",
       "type": "skill",
       "label": "Apache",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Servidor HTTP configurable que publica páginas y aplicaciones web, con módulos y hosts virtuales."
     },
     {
       "id": "skill:nginx",
       "type": "skill",
       "label": "Nginx",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Servidor web y proxy inverso para servir contenido, gestionar TLS y distribuir solicitudes."
     },
     {
       "id": "skill:cloudflare",
       "type": "skill",
       "label": "Cloudflare",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Plataforma de DNS, CDN, seguridad y servicios de borde para aplicaciones publicadas en Internet."
     },
     {
       "id": "skill:github-pages",
       "type": "skill",
       "label": "GitHub Pages",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Alojamiento de sitios estáticos a partir de un repositorio GitHub, con publicación automatizable."
     },
     {
       "id": "skill:cloudflare-pages",
       "type": "skill",
       "label": "Cloudflare Pages",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Servicio para desplegar sitios estáticos o aplicaciones web conectadas a un repositorio."
     },
     {
       "id": "skill:cpanel",
       "type": "skill",
       "label": "cPanel",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Panel de administración de hosting compartido: dominios, correo, archivos y bases de datos."
     },
     {
       "id": "skill:wordpress",
       "type": "skill",
       "label": "WordPress",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Sistema de gestión de contenidos para crear sitios y administrarlos con temas y extensiones."
     },
     {
       "id": "skill:let-s-encrypt",
       "type": "skill",
       "label": "Let's Encrypt",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Autoridad certificadora que automatiza la emisión y renovación de certificados TLS gratuitos."
     },
     {
       "id": "skill:ssl-tls",
       "type": "skill",
       "label": "SSL/TLS",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Protocolos criptográficos que protegen comunicaciones; TLS es el estándar moderno usado por HTTPS."
     },
     {
       "id": "skill:ftp",
       "type": "skill",
       "label": "FTP",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Protocolo clásico de transferencia de archivos; sin cifrado por defecto, conviene evitarlo en redes abiertas."
     },
     {
       "id": "skill:sftp",
       "type": "skill",
       "label": "SFTP",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Transferencia segura de archivos a través de SSH, con autenticación y cifrado."
     },
     {
       "id": "skill:mariadb",
       "type": "skill",
       "label": "MariaDB",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Sistema de bases de datos relacionales compatible con numerosos usos de MySQL."
     },
     {
       "id": "skill:phpmyadmin",
       "type": "skill",
       "label": "phpMyAdmin",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Interfaz web para administrar tablas, consultas y usuarios en bases MySQL o MariaDB."
     },
     {
       "id": "skill:docker",
       "type": "skill",
       "label": "Docker",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Plataforma de contenedores para empaquetar aplicaciones con sus dependencias y ejecutarlas de forma consistente."
     },
     {
       "id": "skill:virtualbox",
       "type": "skill",
       "label": "VirtualBox",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Hipervisor de escritorio para ejecutar sistemas invitados y crear laboratorios virtuales."
     },
     {
       "id": "skill:hyper-v",
       "type": "skill",
       "label": "Hyper-V",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Tecnología de virtualización de Microsoft para crear y administrar máquinas virtuales."
     },
     {
       "id": "skill:kvm",
       "type": "skill",
       "label": "KVM",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Módulo de virtualización de Linux que utiliza aceleración de hardware para máquinas virtuales."
     },
     {
       "id": "skill:qemu",
       "type": "skill",
       "label": "QEMU",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Emulador y virtualizador que ejecuta arquitecturas invitadas, frecuentemente junto con KVM."
     },
     {
       "id": "area:base-3",
       "type": "area",
       "label": "Hardware",
-      "description": "Área del portfolio profesional."
+      "description": "Montaje, mantenimiento, reparación y optimización física de equipos informáticos, desde componentes hasta refrigeración."
     },
     {
       "id": "skill:armado-de-pc",
       "type": "skill",
       "label": "Armado de PC",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Selección, montaje y verificación de componentes para construir computadoras compatibles y estables."
     },
     {
       "id": "skill:pc-gamer",
       "type": "skill",
       "label": "PC Gamer",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Configuración de hardware y software de equipos orientados a juegos y rendimiento gráfico."
     },
     {
       "id": "skill:servidores",
       "type": "skill",
       "label": "Servidores",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Equipos dedicados a ofrecer servicios con atención a disponibilidad, memoria, almacenamiento y red."
     },
     {
       "id": "skill:nas",
       "type": "skill",
       "label": "NAS",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Almacenamiento conectado a la red para compartir archivos y, según el equipo, ofrecer redundancia."
     },
     {
       "id": "skill:mini-pcs",
       "type": "skill",
       "label": "Mini PCs",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Computadoras compactas para automatización, servidores ligeros o uso general con bajo consumo."
     },
     {
       "id": "skill:optimizacion-termica",
       "type": "skill",
       "label": "Optimización Térmica",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Mejora de temperaturas mediante limpieza, flujo de aire, contacto térmico y ajustes de refrigeración."
     },
     {
       "id": "skill:metal-liquido",
       "type": "skill",
       "label": "Metal Líquido",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Material térmico conductor usado entre superficies; requiere aislamiento y manejo cuidadoso."
     },
     {
       "id": "skill:recuperacion-bios-ch341a",
       "type": "skill",
       "label": "Recuperación BIOS CH341A",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Uso de un programador CH341A para leer o regrabar memorias flash de firmware en equipos compatibles."
     },
     {
       "id": "skill:diagnostico-de-hardware",
       "type": "skill",
       "label": "Diagnóstico de Hardware",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Localización de fallas mediante síntomas, mediciones, pruebas cruzadas y registro de resultados."
     },
     {
       "id": "skill:fuentes-de-alimentacion",
       "type": "skill",
       "label": "Fuentes de Alimentación",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Componentes que convierten y regulan energía para circuitos y equipos; se revisan tensiones y capacidad."
     },
     {
       "id": "skill:diseno-de-refrigeracion",
       "type": "skill",
       "label": "Diseño de Refrigeración",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Planificación de ventilación o circuitos líquidos para disipar calor en equipos electrónicos."
     },
     {
       "id": "skill:reparacion-de-hardware",
       "type": "skill",
       "label": "Reparación de Hardware",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Diagnóstico y reemplazo o recuperación de piezas físicas para restablecer un equipo."
     },
     {
       "id": "skill:reemplazo-de-pantallas",
       "type": "skill",
       "label": "Reemplazo de Pantallas",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Sustitución de paneles de visualización verificando conectores, dimensiones y compatibilidad."
     },
     {
       "id": "skill:reemplazo-de-condensadores",
       "type": "skill",
       "label": "Reemplazo de Condensadores",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Cambio de capacitores defectuosos considerando valor, polaridad y características eléctricas."
     },
     {
       "id": "area:base-4",
       "type": "area",
       "label": "Automatización",
-      "description": "Área del portfolio profesional."
+      "description": "Uso de scripts, servicios programados y dispositivos conectados para reducir tareas repetitivas y coordinar procesos."
     },
     {
       "id": "skill:batch",
       "type": "skill",
       "label": "Batch",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Lenguaje de comandos de Windows para encadenar operaciones y automatizar tareas simples."
     },
     {
       "id": "skill:bash",
       "type": "skill",
       "label": "Bash",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Intérprete de comandos y lenguaje de scripting común en Linux para administración y automatización."
     },
     {
       "id": "skill:powershell",
       "type": "skill",
       "label": "PowerShell",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Shell y lenguaje de automatización orientado a objetos para Windows y otros sistemas."
     },
     {
       "id": "skill:python-con-ia",
       "type": "skill",
       "label": "Python (con IA)",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Lenguaje Python usado con apoyo de herramientas de IA para crear scripts, integrar servicios y procesar datos."
     },
     {
       "id": "skill:cron",
       "type": "skill",
       "label": "Cron",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Planificador Unix que ejecuta tareas automáticamente según fechas u horarios configurados."
     },
     {
       "id": "skill:programador-de-tareas",
       "type": "skill",
       "label": "Programador de Tareas",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Servicio de Windows para lanzar programas según horarios, eventos o condiciones definidas."
     },
     {
       "id": "skill:webhooks",
       "type": "skill",
       "label": "Webhooks",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Llamadas HTTP disparadas por eventos para conectar aplicaciones y servicios automáticamente."
     },
     {
       "id": "skill:obs-websocket",
       "type": "skill",
       "label": "OBS Websocket",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Interfaz que permite controlar escenas, fuentes y eventos de OBS desde herramientas externas."
     },
     {
       "id": "skill:streamer-bot",
       "type": "skill",
       "label": "Streamer.bot",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Herramienta de automatización que reacciona a eventos de transmisiones y controla otras aplicaciones."
     },
     {
       "id": "skill:esp32",
       "type": "skill",
       "label": "ESP32",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Microcontrolador con conectividad inalámbrica usado en proyectos de sensores, control y dispositivos IoT."
     },
     {
       "id": "skill:arduino",
       "type": "skill",
       "label": "Arduino",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Plataforma de microcontroladores y herramientas para prototipar circuitos y comportamientos electrónicos."
     },
     {
       "id": "skill:google-home",
       "type": "skill",
       "label": "Google Home",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Ecosistema de hogar conectado con rutinas y control por voz para dispositivos compatibles."
     },
     {
       "id": "area:base-5",
       "type": "area",
       "label": "Desarrollo",
-      "description": "Área del portfolio profesional."
+      "description": "Creación y mantenimiento de software, sitios y servicios web; control de versiones y almacenamiento de datos."
     },
     {
       "id": "skill:html",
       "type": "skill",
       "label": "HTML",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Lenguaje de marcado que define la estructura y semántica de páginas web."
     },
     {
       "id": "skill:css",
       "type": "skill",
       "label": "CSS",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Lenguaje de estilos para presentación, distribución adaptable y apariencia de interfaces web."
     },
     {
       "id": "skill:javascript",
       "type": "skill",
       "label": "JavaScript",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Lenguaje de programación para interfaces web interactivas y servicios en ejecución."
     },
     {
       "id": "skill:php",
       "type": "skill",
       "label": "PHP",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Lenguaje de backend muy utilizado en aplicaciones web y sistemas de contenidos."
     },
     {
       "id": "skill:astro",
       "type": "skill",
       "label": "Astro",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Framework web que genera páginas rápidas con componentes y una carga mínima de JavaScript."
     },
     {
       "id": "skill:nodejs",
       "type": "skill",
       "label": "NodeJS",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Entorno que ejecuta JavaScript fuera del navegador para herramientas, servicios y APIs."
     },
     {
       "id": "skill:react",
       "type": "skill",
       "label": "React",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Biblioteca para crear interfaces de usuario mediante componentes y estado."
     },
     {
       "id": "skill:bootstrap",
       "type": "skill",
       "label": "Bootstrap",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Conjunto de estilos y componentes que acelera la construcción de interfaces adaptables."
     },
     {
       "id": "skill:git",
       "type": "skill",
       "label": "Git",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Sistema distribuido de control de versiones para historial, ramas y colaboración en código."
     },
     {
       "id": "skill:github",
       "type": "skill",
       "label": "GitHub",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Plataforma de repositorios Git, revisiones, incidencias y automatización de proyectos."
     },
     {
       "id": "skill:mongodb",
       "type": "skill",
       "label": "MongoDB",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Base de datos orientada a documentos que almacena registros flexibles en estructuras similares a JSON."
     },
     {
       "id": "skill:sqlite",
       "type": "skill",
       "label": "SQLite",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Base de datos SQL integrada en un archivo, útil para aplicaciones locales y herramientas pequeñas."
     },
     {
       "id": "skill:mysql",
       "type": "skill",
       "label": "MySQL",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Motor relacional SQL empleado por aplicaciones web y servicios con datos estructurados."
     },
     {
       "id": "area:base-6",
       "type": "area",
       "label": "Streaming",
-      "description": "Área del portfolio profesional."
+      "description": "Captura, producción y distribución de transmisiones en vivo, con herramientas de interacción y automatización audiovisual."
     },
     {
       "id": "skill:obs-studio",
       "type": "skill",
       "label": "OBS Studio",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Software de código abierto para capturar, mezclar, grabar y emitir audio y video."
     },
     {
       "id": "skill:streamelements",
       "type": "skill",
       "label": "StreamElements",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Servicio de overlays, alertas y herramientas de interacción para creadores en directo."
     },
     {
       "id": "skill:tiktok-studio",
       "type": "skill",
       "label": "TikTok Studio",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Aplicación para producir transmisiones y gestionar fuentes y escenas en TikTok."
     },
     {
       "id": "skill:discord",
       "type": "skill",
       "label": "Discord",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Plataforma de comunidades con voz, texto, bots e integraciones para coordinación."
     },
     {
       "id": "skill:teamspeak",
       "type": "skill",
       "label": "TeamSpeak",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Sistema de comunicaciones de voz, frecuente en comunidades y equipos de juegos."
     },
     {
       "id": "skill:camaras-virtuales",
       "type": "skill",
       "label": "Cámaras Virtuales",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Fuentes de video por software que otras aplicaciones reconocen como si fueran cámaras."
     },
     {
       "id": "skill:multistreaming",
       "type": "skill",
       "label": "Multistreaming",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Emisión de una misma producción a varias plataformas, gestionando formatos y ancho de banda."
     },
     {
       "id": "skill:seo-para-creadores",
       "type": "skill",
       "label": "SEO para Creadores",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Optimización de títulos, descripciones y organización del contenido para mejorar su descubrimiento."
     },
     {
       "id": "area:base-7",
       "type": "area",
       "label": "Marketing",
-      "description": "Área del portfolio profesional."
+      "description": "Medición y optimización de presencia digital, contenidos y rendimiento de sitios y plataformas sociales."
     },
     {
       "id": "skill:seo-tecnico",
       "type": "skill",
       "label": "SEO Técnico",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Mejoras de estructura, indexabilidad y rendimiento de sitios para motores de búsqueda."
     },
     {
       "id": "skill:google-analytics",
       "type": "skill",
       "label": "Google Analytics",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Plataforma de medición de visitas y eventos para analizar el uso de sitios y aplicaciones."
     },
     {
       "id": "skill:search-console",
       "type": "skill",
       "label": "Search Console",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Herramienta de Google que muestra indexación, consultas y problemas de presencia en buscadores."
     },
     {
       "id": "skill:meta-pixel",
       "type": "skill",
       "label": "Meta Pixel",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Código de seguimiento de eventos en sitios web para medir interacciones vinculadas a Meta."
     },
     {
       "id": "skill:google-tag-manager",
       "type": "skill",
       "label": "Google Tag Manager",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Administrador de etiquetas que organiza scripts de medición sin editar cada página manualmente."
     },
     {
       "id": "skill:gestion-de-redes-sociales",
       "type": "skill",
       "label": "Gestión de Redes Sociales",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Planificación, publicación y seguimiento de contenidos y conversaciones en plataformas sociales."
     },
     {
       "id": "skill:estrategia-de-contenido",
       "type": "skill",
       "label": "Estrategia de Contenido",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Definición de públicos, objetivos, formatos y calendario para comunicar con coherencia."
     },
     {
       "id": "skill:youtube-seo",
       "type": "skill",
       "label": "YouTube SEO",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Optimización de metadatos y estructura de videos y canales para facilitar descubrimiento."
     },
     {
       "id": "skill:tiktok",
       "type": "skill",
       "label": "TikTok",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Plataforma de video corto y directos con herramientas de publicación, comunidad y análisis."
     },
     {
       "id": "skill:linkedin",
       "type": "skill",
       "label": "LinkedIn",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Red profesional para presentar experiencia, proyectos y establecer contactos laborales."
     },
     {
       "id": "area:base-8",
       "type": "area",
       "label": "Tecnología Automotriz",
-      "description": "Área del portfolio profesional."
+      "description": "Diagnóstico de sistemas eléctricos y electrónicos del automóvil, con lectura de datos, sensores y módulos de control."
     },
     {
       "id": "skill:obd-ii",
       "type": "skill",
       "label": "OBD-II",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Estándar de diagnóstico vehicular para consultar fallas y parámetros mediante un conector compatible."
     },
     {
       "id": "skill:elm327",
       "type": "skill",
       "label": "ELM327",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Chip e interfaz habituales en adaptadores que comunican herramientas de diagnóstico con OBD-II."
     },
     {
       "id": "skill:torque-pro",
       "type": "skill",
       "label": "Torque Pro",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Aplicación Android que consulta datos del vehículo usando adaptadores OBD-II compatibles."
     },
     {
       "id": "skill:diagnostico-electrico",
       "type": "skill",
       "label": "Diagnóstico Eléctrico",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Búsqueda de fallas en alimentación, masa, cableado, fusibles y circuitos eléctricos."
     },
     {
       "id": "skill:diagramas-de-cableado",
       "type": "skill",
       "label": "Diagramas de Cableado",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Esquemas que muestran conexiones, componentes y recorridos eléctricos para medir y reparar."
     },
     {
       "id": "skill:sensores",
       "type": "skill",
       "label": "Sensores",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Dispositivos que convierten magnitudes físicas en señales interpretables por módulos electrónicos."
     },
     {
       "id": "skill:ecu",
       "type": "skill",
       "label": "ECU",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Unidad electrónica que procesa señales y controla funciones del motor u otros sistemas del vehículo."
     },
     {
       "id": "skill:electronica-automotriz",
       "type": "skill",
       "label": "Electrónica Automotriz",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Estudio de circuitos, módulos, comunicación y componentes electrónicos integrados en vehículos."
     },
     {
       "id": "area:base-9",
       "type": "area",
       "label": "Electricidad",
-      "description": "Área del portfolio profesional."
+      "description": "Instalación, control y protección de circuitos y equipos eléctricos, incluyendo conversiones de energía."
     },
     {
       "id": "skill:sistemas-solares",
       "type": "skill",
       "label": "Sistemas Solares",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Equipos que aprovechan energía solar, como paneles, controladores, baterías e inversores."
     },
     {
       "id": "skill:inversores",
       "type": "skill",
       "label": "Inversores",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Equipos que transforman energía eléctrica de corriente continua en corriente alterna."
     },
     {
       "id": "skill:conmutacion-220v",
       "type": "skill",
       "label": "Conmutación 220V",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Cambio controlado entre circuitos o fuentes de alimentación de red; requiere medidas de seguridad."
     },
     {
       "id": "skill:temporizadores",
       "type": "skill",
       "label": "Temporizadores",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Circuitos o dispositivos que activan acciones tras un tiempo definido o según un intervalo."
     },
     {
       "id": "skill:autocaravanas",
       "type": "skill",
       "label": "Autocaravanas",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Instalaciones y equipos eléctricos de vehículos habitables, con baterías y fuentes de energía móviles."
     },
     {
       "id": "skill:remolques",
       "type": "skill",
       "label": "Remolques",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Instalaciones eléctricas y conexiones de iluminación o alimentación en unidades remolcadas."
     },
     {
       "id": "skill:instalaciones-electricas",
       "type": "skill",
       "label": "Instalaciones Eléctricas",
       "status": "applied",
-      "description": "Conocimiento del portfolio."
+      "description": "Montaje y mantenimiento de circuitos de alimentación, protecciones y dispositivos eléctricos."
     },
     {
       "id": "area:cloud",
       "type": "area",
       "label": "Cloud y DevOps",
-      "description": "Especialidad en desarrollo."
+      "description": "Implementación de infraestructura en la nube y prácticas de entrega y operación automatizadas: servicios, pruebas y despliegues."
     },
     {
       "id": "skill:microsoft-azure",
       "type": "skill",
       "label": "Microsoft Azure",
       "status": "learning",
-      "description": "Conocimiento técnico."
+      "description": "Plataforma cloud de Microsoft con servicios de cómputo, almacenamiento, red e identidad; utilizada en laboratorios."
     },
     {
       "id": "skill:google-cloud-gcp",
       "type": "skill",
       "label": "Google Cloud (GCP)",
       "status": "learning",
-      "description": "Conocimiento técnico."
+      "description": "Plataforma cloud de Google para ejecutar aplicaciones, almacenar datos y usar servicios gestionados."
     },
     {
       "id": "skill:cloudflare-workers",
       "type": "skill",
       "label": "Cloudflare Workers",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Entorno de ejecución de código JavaScript/TypeScript cercano al usuario en la red de Cloudflare."
     },
     {
       "id": "skill:saltstack",
       "type": "skill",
       "label": "SaltStack",
       "status": "learning",
-      "description": "Conocimiento técnico."
+      "description": "Sistema de gestión de configuración y ejecución remota para automatizar múltiples máquinas."
     },
     {
       "id": "skill:github-actions",
       "type": "skill",
       "label": "GitHub Actions",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Sistema de flujos CI/CD integrado en GitHub para pruebas, compilaciones y otras tareas."
     },
     {
       "id": "skill:ci-cd",
       "type": "skill",
       "label": "CI/CD",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Integración y entrega continuas: pruebas y despliegues repetibles conectados al ciclo de cambios."
     },
     {
       "id": "skill:aws",
       "type": "skill",
       "label": "AWS",
       "status": "learning",
-      "description": "Conocimiento técnico."
+      "description": "Plataforma cloud de Amazon con infraestructura bajo demanda y servicios administrados."
     },
     {
       "id": "area:ai",
       "type": "area",
       "label": "Inteligencia artificial",
-      "description": "Especialidad en desarrollo."
+      "description": "Integración de modelos de IA, agentes y herramientas que recuperan información o ejecutan tareas bajo control."
     },
     {
       "id": "skill:llm-locales",
       "type": "skill",
       "label": "LLM locales",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Modelos de lenguaje ejecutados en infraestructura propia para generar texto o ayudar con tareas."
     },
     {
       "id": "skill:ollama",
       "type": "skill",
       "label": "Ollama",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Herramienta para descargar y ejecutar modelos de IA localmente mediante CLI y API."
     },
     {
       "id": "skill:mcp",
       "type": "skill",
       "label": "MCP",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Model Context Protocol: interfaz estandarizada para conectar asistentes de IA con datos y herramientas."
     },
     {
       "id": "skill:rag",
       "type": "skill",
       "label": "RAG",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Generación aumentada con recuperación: añade fragmentos de fuentes externas al contexto del modelo."
     },
     {
       "id": "skill:embeddings",
       "type": "skill",
       "label": "Embeddings",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Representaciones numéricas del contenido que permiten búsqueda semántica y comparación de similitud."
     },
     {
       "id": "skill:agentes-ia",
       "type": "skill",
       "label": "Agentes IA",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Sistemas que planifican acciones y usan herramientas para completar tareas con pasos y verificaciones."
     },
     {
       "id": "skill:obsidian",
       "type": "skill",
       "label": "Obsidian",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Aplicación de notas enlazadas para documentar ideas, relaciones y mapas de conocimiento."
     },
     {
       "id": "skill:enrutadores-de-modelos",
       "type": "skill",
       "label": "Enrutadores de modelos",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Componentes que seleccionan un modelo de IA según la solicitud, el costo o los recursos disponibles."
     },
     {
       "id": "area:data",
       "type": "area",
       "label": "Datos y observabilidad",
-      "description": "Especialidad en desarrollo."
+      "description": "Recolección, transformación, representación y seguimiento de datos para comprender sistemas y apoyar decisiones."
     },
     {
       "id": "skill:etl",
       "type": "skill",
       "label": "ETL",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Extracción, transformación y carga de datos entre fuentes y destinos para su utilización."
     },
     {
       "id": "skill:pipelines-de-datos",
       "type": "skill",
       "label": "Pipelines de datos",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Secuencias automatizadas que recolectan, validan, transforman y entregan información."
     },
     {
       "id": "skill:grafos-de-dependencias",
       "type": "skill",
       "label": "Grafos de dependencias",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Representaciones de elementos y sus relaciones para rastrear impactos, dependencias o flujos."
     },
     {
       "id": "skill:power-bi",
       "type": "skill",
       "label": "Power BI",
       "status": "learning",
-      "description": "Conocimiento técnico."
+      "description": "Herramienta de Microsoft para modelar datos y construir informes y paneles de análisis."
     },
     {
       "id": "skill:pmtiles",
       "type": "skill",
       "label": "PMTiles",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Formato de archivo para servir teselas de mapas desde un único recurso direccionable."
     },
     {
       "id": "skill:openstreetmap",
       "type": "skill",
       "label": "OpenStreetMap",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Proyecto colaborativo de datos geográficos abiertos usado en mapas y servicios cartográficos."
     },
     {
       "id": "skill:metricas-de-sistemas",
       "type": "skill",
       "label": "Métricas de sistemas",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Indicadores como CPU, memoria, latencia y errores para evaluar el estado de un servicio."
     },
     {
       "id": "area:embedded",
       "type": "area",
       "label": "Sistemas embebidos",
-      "description": "Especialidad en desarrollo."
+      "description": "Software y hardware dedicados a dispositivos concretos: placas, firmware, señales y restricciones de recursos."
     },
     {
       "id": "skill:raspberry-pi",
       "type": "skill",
       "label": "Raspberry Pi",
       "status": "learning",
-      "description": "Conocimiento técnico."
+      "description": "Computadora de placa única utilizada en educación, servidores compactos y prototipos electrónicos."
     },
     {
       "id": "skill:yocto",
       "type": "skill",
       "label": "Yocto",
       "status": "learning",
-      "description": "Conocimiento técnico."
+      "description": "Proyecto y conjunto de herramientas para construir distribuciones Linux personalizadas para dispositivos."
     },
     {
       "id": "skill:bitbake",
       "type": "skill",
       "label": "BitBake",
       "status": "learning",
-      "description": "Conocimiento técnico."
+      "description": "Motor de tareas y recetas que ejecuta procesos de compilación en entornos como Yocto."
     },
     {
       "id": "skill:gpio",
       "type": "skill",
       "label": "GPIO",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Pines digitales de entrada y salida usados para leer señales o controlar circuitos."
     },
     {
       "id": "skill:firmware",
       "type": "skill",
       "label": "Firmware",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Software de bajo nivel que inicia y controla funciones esenciales de dispositivos electrónicos."
     },
     {
       "id": "skill:reles",
       "type": "skill",
       "label": "Relés",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Interruptores controlados eléctricamente que permiten accionar cargas desde circuitos de control."
     },
     {
       "id": "skill:bajo-consumo",
       "type": "skill",
       "label": "Bajo consumo",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Diseño de dispositivos para reducir gasto energético mediante suspensión, ciclos y elección de hardware."
     },
     {
       "id": "area:programming",
       "type": "area",
       "label": "Herramientas de desarrollo",
-      "description": "Especialidad en desarrollo."
+      "description": "Lenguajes, entornos y utilidades para construir, probar, administrar y diagnosticar aplicaciones y servicios."
     },
     {
       "id": "skill:c",
       "type": "skill",
       "label": "C#",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Lenguaje C# del ecosistema .NET para aplicaciones, servicios y herramientas con tipos estáticos."
     },
     {
       "id": "skill:net",
       "type": "skill",
       "label": ".NET",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Plataforma de ejecución y bibliotecas de Microsoft para aplicaciones de escritorio, web y servicios."
     },
     {
       "id": "skill:avalonia",
       "type": "skill",
       "label": "Avalonia",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Framework multiplataforma para crear interfaces de escritorio con .NET y XAML."
     },
     {
       "id": "skill:go",
       "type": "skill",
       "label": "Go",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Lenguaje compilado orientado a concurrencia y herramientas de red y servicios."
     },
     {
       "id": "skill:typescript",
       "type": "skill",
       "label": "TypeScript",
       "status": "learning",
-      "description": "Conocimiento técnico."
+      "description": "Extensión tipada de JavaScript que ayuda a detectar errores antes de ejecutar código."
     },
     {
       "id": "skill:ffmpeg",
       "type": "skill",
       "label": "FFmpeg",
       "status": "learning",
-      "description": "Conocimiento técnico."
+      "description": "Suite de herramientas para convertir, analizar, capturar y procesar audio y video."
     },
     {
       "id": "skill:adb",
       "type": "skill",
       "label": "ADB",
       "status": "applied",
-      "description": "Conocimiento técnico."
+      "description": "Android Debug Bridge: interfaz para depurar, controlar e intercambiar archivos con dispositivos Android."
     },
     {
       "id": "skill:tmux",
       "type": "skill",
       "label": "tmux",
       "status": "learning",
-      "description": "Conocimiento técnico."
+      "description": "Multiplexor de terminal que conserva sesiones y permite varias ventanas en una conexión remota."
     },
     {
       "id": "skill:lvm",
       "type": "skill",
       "label": "LVM",
       "status": "learning",
-      "description": "Conocimiento técnico."
+      "description": "Administrador de volúmenes lógicos en Linux para asignar, ampliar y reorganizar almacenamiento."
     },
     {
       "id": "work:solarispkn",
       "type": "work",
       "label": "SolarisPKN",
       "period": "2015–",
-      "description": "Fundador, infraestructura, automatización, desarrollo y homelab."
+      "description": "Proyecto y marca propia: desde 2015 integra servidores, redes, software, automatizaciones e IA en herramientas y servicios."
     },
     {
       "id": "work:lubricantes-villars",
       "type": "work",
       "label": "Lubricantes Villars",
       "period": "2018–",
-      "description": "Técnico en electrónica y electricidad automotriz."
+      "description": "Experiencia en electricidad y electrónica automotriz: diagnóstico con OBD-II, sensores, ECU y reparación de fallas."
     },
     {
       "id": "work:thezapas",
       "type": "work",
       "label": "TheZapas",
       "period": "2021–2022",
-      "description": "Administración Debian, servidores web, DNS y comercio electrónico."
+      "description": "Administración de la infraestructura de una tienda en línea entre 2021 y 2022: servidores Debian, DNS, HTTPS y hosting."
     },
     {
       "id": "work:exo",
       "type": "work",
       "label": "EXO",
       "period": "2026–",
-      "description": "Administrador de Sistemas; práctica empresarial con Salt, Docker, Azure y Yocto."
+      "description": "Rol de Administrador de Sistemas iniciado en octubre de 2026; incluye tareas y laboratorios con SaltStack, Docker, Azure y Yocto."
     },
     {
       "id": "project:SolarisPKN-IA",
       "type": "project",
       "label": "SolarisPKN-IA",
-      "description": "Asistente IA local, orquestación de herramientas y memoria.",
+      "description": "Sistema local de asistentes y agentes que coordina modelos, memoria, herramientas MCP y automatizaciones con permisos.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-IA"
     },
     {
       "id": "project:SolarisPKN-Engineer",
       "type": "project",
       "label": "SolarisPKN-Engineer",
-      "description": "Análisis de dependencias y binarios, grafos y documentación.",
+      "description": "Herramienta para inspeccionar código, ejecutables y archivos, construir grafos de dependencias y documentar componentes.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-Engineer"
     },
     {
       "id": "project:SolarisPKN-AntiCli",
       "type": "project",
       "label": "SolarisPKN-AntiCli",
-      "description": "GUI para SSH y automatización de operaciones de servidores.",
+      "description": "Interfaz para operar servidores mediante SSH, con comandos, automatizaciones y diagramas de flujo.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-AntiCli"
     },
     {
       "id": "project:SolarisPKN-Control",
       "type": "project",
       "label": "SolarisPKN-Control",
-      "description": "Encendido remoto físico de PC con ESP32.",
+      "description": "Proyecto de control remoto de dispositivos: incorpora el encendido físico de PC mediante ESP32.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-Control"
     },
     {
       "id": "project:SolarisPKN-LiveTools",
       "type": "project",
       "label": "SolarisPKN-LiveTools",
-      "description": "Chat, cámara móvil, publicación y automatización audiovisual.",
+      "description": "Herramientas para producciones en vivo: multichat, cámara móvil, publicación y coordinación de fuentes audiovisuales.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-LiveTools"
     },
     {
       "id": "project:SolarisPKN-Transport",
       "type": "project",
       "label": "SolarisPKN-Transport",
-      "description": "Integración y validación de horarios ferroviarios y de colectivos.",
+      "description": "Herramientas para integrar datos de transporte, comprobar fuentes y representar colectivos y trenes.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-Transport"
     },
     {
       "id": "project:Villars-Informa",
       "type": "project",
       "label": "Villars-Informa",
-      "description": "Portal de información local, mapas, contenidos y transporte.",
+      "description": "Sitio comunitario de Villars con noticias, servicios, mapas y datos locales de transporte.",
       "url": "https://github.com/SolarisPKN/Villars-Informa"
     },
     {
       "id": "project:SolarisPKN-Stats",
       "type": "project",
       "label": "SolarisPKN-Stats",
-      "description": "Conectores, métricas y recolección programada.",
+      "description": "Proyecto para reunir estadísticas de distintas plataformas mediante conectores y procesos programados.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-Stats"
     },
     {
       "id": "project:SolarisPKN-Labs",
       "type": "project",
       "label": "SolarisPKN-Labs",
-      "description": "Centro de proyectos, sitio web y portfolio.",
+      "description": "Sitio que agrupa proyectos SolarisPKN, documentación y el portfolio profesional con contenido bilingüe.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-Labs"
     },
     {
       "id": "project:SolarisPKN-Arts",
       "type": "project",
       "label": "SolarisPKN-Arts",
-      "description": "Proyectos y recursos creativos.",
+      "description": "Repositorio orientado a proyectos creativos y recursos gráficos dentro del ecosistema SolarisPKN.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-Arts"
     },
     {
       "id": "project:SolarisPKN-OS",
       "type": "project",
       "label": "SolarisPKN-OS",
-      "description": "Idea de sistema operativo; repositorio actualmente sin código.",
+      "description": "Propuesta de sistema operativo propio; el repositorio se presenta como concepto, sin implementación publicada.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-OS"
     },
     {
       "id": "project:SolarisPKN-Converter",
       "type": "project",
       "label": "SolarisPKN-Converter",
-      "description": "Idea de conversión de medios; repositorio actualmente sin código.",
+      "description": "Idea de una utilidad para convertir archivos multimedia; todavía sin código de implementación publicado.",
       "url": "https://github.com/SolarisPKN/SolarisPKN-Converter"
     },
     {
       "id": "project:Lubricantes-Villars",
       "type": "project",
       "label": "Lubricantes-Villars",
-      "description": "Sitio comercial del emprendimiento técnico.",
+      "description": "Sitio web del emprendimiento de servicios y productos de electricidad y electrónica automotriz.",
       "url": "https://github.com/SolarisPKN/Lubricantes-Villars"
     },
     {
       "id": "project:La-Cascada-de-Any-s",
       "type": "project",
       "label": "La-Cascada-de-Any-s",
-      "description": "Sitio web comercial.",
+      "description": "Proyecto de sitio comercial para presentar un negocio y sus contenidos en Internet.",
       "url": "https://github.com/SolarisPKN/La-Cascada-de-Any-s"
     },
     {
       "id": "project:Analia-Orayen---Terapeuta-Integral",
       "type": "project",
       "label": "Analia-Orayen---Terapeuta-Integral",
-      "description": "Sitio web de presentación profesional.",
+      "description": "Sitio de presentación para comunicar servicios y datos de contacto de una profesional.",
       "url": "https://github.com/SolarisPKN/Analia-Orayen---Terapeuta-Integral"
     },
     {
       "id": "project:Figma-Lab",
       "type": "project",
       "label": "Figma-Lab",
-      "description": "Pruebas de diseño y prototipado.",
+      "description": "Espacio de pruebas para aprender diseño de interfaces y prototipar pantallas con Figma.",
       "url": "https://github.com/SolarisPKN/Figma-Lab"
     },
     {
       "id": "project:Replit-test01-mystic-",
       "type": "project",
       "label": "Replit-test01-mystic-",
-      "description": "Prueba de desarrollo con Replit.",
+      "description": "Ejercicio de desarrollo realizado en Replit para probar generación y edición de una aplicación.",
       "url": "https://github.com/SolarisPKN/Replit-test01-mystic-"
     },
     {
       "id": "project:Replit-Test02-SoldierCards-",
       "type": "project",
       "label": "Replit-Test02-SoldierCards-",
-      "description": "Experimento de aplicación con Replit.",
+      "description": "Experimento de aplicación con Replit centrado en practicar construcción y presentación de interfaces.",
       "url": "https://github.com/SolarisPKN/Replit-Test02-SoldierCards-"
     },
     {
       "id": "project:skills-introduction-to-github",
       "type": "project",
       "label": "skills-introduction-to-github",
-      "description": "Ejercicios de formación en GitHub.",
+      "description": "Ejercicios introductorios de GitHub: repositorios, cambios, commits y flujo de colaboración.",
       "url": "https://github.com/SolarisPKN/skills-introduction-to-github"
     },
     {
       "id": "project:solaris-learning-hub",
       "type": "project",
       "label": "solaris-learning-hub",
-      "description": "Repositorio privado de aprendizaje."
+      "description": "Repositorio privado para ordenar experimentos, notas y materiales de aprendizaje técnico."
     }
   ],
   "edges": [
