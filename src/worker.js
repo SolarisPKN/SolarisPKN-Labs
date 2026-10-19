@@ -23,6 +23,28 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
+    // Public oEmbed titles for videos already visible in the playlist sidebar.
+    // Fixed upstream host + validated video IDs; no Data API credential required.
+    if(path === '/api/tech-video-title'){
+      if(request.method !== 'GET')return new Response('Method not allowed',{status:405});
+      const id=url.searchParams.get('id')||'';
+      if(!/^[A-Za-z0-9_-]{11}$/.test(id))return Response.json({ok:false},{status:400});
+      try{
+        const controller=new AbortController();
+        const timer=setTimeout(()=>controller.abort(),6000);
+        let upstream;
+        try{
+          const api='https://www.youtube.com/oembed?url='+encodeURIComponent('https://www.youtube.com/watch?v='+id)+'&format=json';
+          upstream=await fetch(api,{signal:controller.signal,headers:{Accept:'application/json'}});
+        }finally{clearTimeout(timer);}
+        if(!upstream.ok)return Response.json({ok:false},{status:502});
+        const metadata=await upstream.json();
+        const title=typeof metadata.title==='string'?metadata.title.trim().slice(0,250):'';
+        if(!title)return Response.json({ok:false},{status:502});
+        return Response.json({ok:true,id,title},{headers:{'Cache-Control':'public, max-age=300'}});
+      }catch{return Response.json({ok:false},{status:502});}
+    }
+
     // Fresh public videos for the technology / automotive sidebar.
     // No secrets or user-input upstream URLs; only two whitelisted playlists.
     if(path === '/api/tech-playlist'){
