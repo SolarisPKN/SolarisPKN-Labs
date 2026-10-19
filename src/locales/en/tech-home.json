@@ -78,41 +78,35 @@
   "blogRead": "Read article",
   "emptyBlog": "New articles will appear here.",
   "videoHeading": "Workshop and video tutorials",
-  "videoLead": "Technical content from my channel: PC builds, automotive repairs, tutorials and computing tools.",
+  "videoLead": "Two public SolarisPKN playlists covering technology and computing, plus automotive mechanics and electronics. Choose a video from the side panel to play it.",
   "channel": "Visit the channel",
-  "videoPick": "Select a playlist to play it here.",
+  "videoPick": "Choose a playlist and a video.",
   "videoPlay": "Play playlist",
   "videoOpen": "Open on YouTube",
-  "videoPrivacy": "The YouTube player loads only when you select a playlist.",
+  "videoPrivacy": "Videos are retrieved from YouTube when opening the page.",
   "videoIframe": "Player: ",
   "playlists": [
     {
       "key": "pc",
-      "label": "Hardware & PCs",
+      "label": "Technology",
       "title": "TecnOtakus: PC Tutorials",
       "description": "PC assembly, components and repair."
     },
     {
       "key": "auto",
-      "label": "Automotive electronics",
+      "label": "Automotive",
       "title": "Lubricantes Villars: Automotive Videos",
       "description": "Work and repairs carried out in the workshop."
-    },
-    {
-      "key": "solarispkn",
-      "label": "Technical tutorials",
-      "title": "SolarisPKN Tutorials",
-      "description": "Technical guides and experiences published on the channel."
-    },
-    {
-      "key": "internet",
-      "label": "Computing",
-      "title": "SolarisPKN Computing Tutorials",
-      "description": "Software, web services and useful tools."
     }
   ],
   "outroTitle": "Want to see how it's built?",
   "outroText": "Most of these projects include public source code, documentation or examples. Browse the ecosystem and its repositories directly.",
   "outroAction": "Explore on GitHub",
-  "backGateway": "Switch between Tech and Gaming"
+  "backGateway": "Switch between Tech and Gaming",
+  "videoQueueHeading": "Videos in this playlist",
+  "videoLoading": "Loading current videos from YouTube…",
+  "videoUnavailable": "The video list could not be loaded. You can open the playlist on YouTube.",
+  "videoCount": "Available videos",
+  "videoFallback": "Video",
+  "videoPartial": "YouTube may limit the items it returns. Open the full playlist on YouTube."
 }
