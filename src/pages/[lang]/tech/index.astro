@@ -1,0 +1,89 @@
+---
+// Página tecnológica original preservada íntegramente durante el rescate del gateway Tech / Gaming.
+// src/pages/[lang]/tech/index.astro
+export async function getStaticPaths() {
+  return [
+    { params: { lang: 'es' } },
+    { params: { lang: 'en' } }
+  ];
+}
+
+const lang = Astro.params.lang === 'en' ? 'en' : 'es';
+
+import Layout from '../../../layouts/Layout.astro';
+import ScrollReveal from '../../../components/ScrollReveal.astro';
+
+// ===== IMPORTAR ESTILOS ESPECÍFICOS DEL HOME =====
+import '../../../styles/home-tech.css';
+
+// ===== CARGAR TRADUCCIONES =====
+const t = await import(`../../../locales/${lang}/home.json`);
+const common = await import(`../../../locales/${lang}/common.json`);
+---
+
+<Layout title={t.hero.titulo} lang={lang}>
+  <!-- ===== HERO ===== -->
+  <section class="hero-home">
+    <h1 class="hero-title">⚡ {t.hero.titulo}</h1>
+<p class="hero-subtitle" style="min-height: 1.5em;">{t.hero.descripcion}</p>
+    <div class="hero-buttons">
+      <a href={`/${lang}/projects/`} class="glass" style="padding: 0.75rem 1.5rem;">
+        {t.botones.proyectos}
+      </a>
+      <a href={`/${lang}/arquitectura`} class="glass" style="padding: 0.75rem 1.5rem; border-color: var(--accent-pink);">
+        {t.botones.arquitectura}
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== NARRATIVA CON SCROLL: CHIPS ESP32 ===== -->
+  <ScrollReveal delay="0.2s">
+    <div class="chips-section glass">
+      <h2>🔧 <span id="chip-counter">0</span> {t.chipTitulo}</h2>
+      <canvas id="chip-canvas" width="800" height="200"></canvas>
+      <p style="margin-top: 0.5rem;">{t.chipDescripcion}</p>
+    </div>
+  </ScrollReveal>
+
+  <!-- ===== SECCIÓN DE ARQUITECTURA ===== -->
+  <ScrollReveal delay="0.4s">
+    <div class="ecosistema-section glass">
+      <h2>{t.ecosistema.titulo}</h2>
+      <div class="ecosistema-grid">
+        <div class="glass">{t.ecosistema.web}</div>
+        <div class="glass">{t.ecosistema.api}</div>
+        <div class="glass">{t.ecosistema.db}</div>
+        <div class="glass">{t.ecosistema.r2}</div>
+      </div>
+      <p>
+        {t.ecosistema.texto}
+        <a href={`/${lang}/arquitectura`} style="color: var(--border-cyan);">
+          {t.ecosistema.diagrama}
+        </a>
+      </p>
+    </div>
+  </ScrollReveal>
+
+  <!-- ===== EARLY ACCESS TEASER ===== -->
+  <ScrollReveal delay="0.6s">
+    <div class="early-access-section glass">
+      <h2>{t.early.titulo}</h2>
+      <p>{t.early.descripcion}</p>
+      <button
+        id="early-bait"
+        class="glass"
+        style="margin-top: 0.5rem; cursor: pointer;"
+        data-message={t.emailPrompt.message}
+        data-success={t.emailPrompt.success}
+        data-invalid={t.emailPrompt.invalid}
+      >
+        {t.early.boton}
+      </button>
+    </div>
+  </ScrollReveal>
+
+  <!-- ===== SCRIPT MODULARIZADO ===== -->
+  <script>
+    import '../../../scripts/home-tech.js';
+  </script>
+</Layout>
