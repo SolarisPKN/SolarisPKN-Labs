@@ -12,6 +12,7 @@ test('bilingual Tech/Gaming entrance links correctly and Tech introduces real La
  const tech=file('src/pages/[lang]/tech/index.astro');
  const gateway=file('src/components/Home/WorldGateway.astro');
  assert.match(home,/WorldGateway/);
+ assert.match(home,/navigation="gateway"/);
  assert.match(tech,/loadAllProjects/);
  assert.match(tech,/TechPlaylists/);
  assert.match(tech,/tech-landing.css/);
@@ -19,7 +20,7 @@ test('bilingual Tech/Gaming entrance links correctly and Tech introduces real La
  assert.match(tech,/recentPosts/);
  assert.doesNotMatch(tech,/chip-canvas|early-bait|dispositivos simulados/);
  assert.match(gateway,/\$\{lang\}\/tech\//);
- assert.match(gateway,/\$\{lang\}\/under-construction\//);
+ assert.match(gateway,/\$\{lang\}\/gaming\//);
  assert.match(gateway,/import gatewayArtwork from/);
  assert.match(gateway,/astro:assets/);
  assert.match(gateway,/prefers-reduced-motion/);

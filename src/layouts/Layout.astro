@@ -3,8 +3,7 @@
 import SEO from '@components/SEO.astro';
 import { ClientRouter } from 'astro:transitions';
 import "@styles/global.css";
-import esFlag from '../assets/flags/es.svg?url';
-import enFlag from '../assets/flags/en.svg?url';
+import ContextualHeader from '../components/Layout/ContextualHeader.astro';
 
 export interface Props {
   title: string;
@@ -16,6 +15,7 @@ export interface Props {
   certificates?: any[];
   techSkills?: string[];
   coreSkills?: string[];
+  navigation?: 'gateway' | 'tech' | 'gaming';
 }
 
 const {
@@ -28,22 +28,15 @@ const {
   certificates = [],
   techSkills = [],
   coreSkills = [],
+  navigation = 'tech',
 } = Astro.props;
 
 // Cargar traducciones
 const common = await import(`../locales/${lang}/common.json`);
 
-// Dos imports estáticos son más robustos que un glob y pasan por Vite.
-const flags = { es: esFlag, en: enFlag } as const;
-
-const getFlagSrc = (langCode: string): string =>
-  flags[langCode as keyof typeof flags] ?? flags.es;
-
 const pathWithoutLang = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/');
 const languagePath = /^\/404(?:\.html)?\/?$/.test(Astro.url.pathname) ? '/' : pathWithoutLang;
 
-// URL base para usar en enlaces (opcional, para no hardcodear)
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://labs.solarispkn.com.ar';
 ---
 
 <!doctype html>
@@ -91,54 +84,29 @@ const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://labs.solar
 
   <body>
     <!-- SKIP TO CONTENT -->
-    <a href="#main-content" class="skip-link">Saltar al contenido</a>
+    <a href="#main-content" class="skip-link">{lang==='es'?'Saltar al contenido':'Skip to content'}</a>
 
-    <!-- HEADER -->
-    <header class="glass" style="position: sticky; top: 1rem; margin: 1rem; z-index: 100; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-      <div style="font-weight: bold; font-family: 'JetBrains Mono', monospace; display: flex; align-items: center; gap: 0.5rem;">
-        <img src="/favicon.svg" alt="SolarisPKN Labs" width="24" height="24" loading="eager" fetchpriority="high" />
-        SolarisPKN-Labs
-      </div>
-
-      <nav style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center;">
-        <a href={`/${lang}/`} style="color: var(--border-cyan); text-decoration: none;">{common.nav.inicio}</a>
-        <a href={`/${lang}/blog/`} style="color: var(--border-cyan); text-decoration: none;">{common.nav.blog}</a>
-        <a href={`/${lang}/projects/`} style="color: var(--border-cyan); text-decoration: none;">{common.nav.proyectos}</a>
-        <a href={`/${lang}/arquitectura/`} style="color: var(--border-cyan); text-decoration: none;">{common.nav.arquitectura}</a>
-        <a href={`/${lang}/portfolio/`} style="color: var(--border-cyan); text-decoration: none;">{common.nav.portfolio}</a>
-        <a href={`/${lang}/under-construction/`} style="color: var(--accent-pink);">{common.nav.miCuenta}</a>
-
-        <!-- SELECTOR DE IDIOMA -->
-        <div class="language-dropdown" style="position: relative; margin-left: 0.5rem;">
-          <div class="language-selector">
-            <button id="lang-btn" class="lang-btn" aria-haspopup="true" aria-expanded="false">
-              <img src={getFlagSrc(lang)} alt={lang === 'es' ? 'Español' : 'English'} width="20" height="15" loading="lazy" />
-              <span>{lang === 'es' ? 'Español' : 'English'}</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
-            <ul id="lang-dropdown" class="lang-dropdown" role="menu" aria-labelledby="lang-btn">
-              <li role="menuitem">
-                <a href={`/es${languagePath}`} data-lang="es">
-                  <img src={getFlagSrc('es')} alt="Español" width="20" height="15" loading="lazy" /> Español
-                </a>
-              </li>
-              <li role="menuitem">
-                <a href={`/en${languagePath}`} data-lang="en">
-                  <img src={getFlagSrc('en')} alt="English" width="20" height="15" loading="lazy" /> English
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+    <!-- One navigation surface per world. Gateway contains only account + language. -->
+    <ContextualHeader lang={lang} mode={navigation} languagePath={languagePath} nav={common.nav} />
 
     <!-- MAIN -->
     <main id="main-content">
       <slot />
     </main>
+
+    <!-- Universal, accessible back-to-top control; round SVG, never the square emoji. -->
+    <button
+      type="button"
+      id="back-to-top"
+      class="back-to-top"
+      aria-label={lang==='es'?'Volver arriba':'Back to top'}
+      title={lang==='es'?'Volver arriba':'Back to top'}
+      hidden
+    >
+      <svg viewBox="0 0 24 24" width="25" height="25" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 19V5M5.8 11.2 12 5l6.2 6.2"></path>
+      </svg>
+    </button>
 
     <!-- FOOTER (opcionalmente usando siteUrl en lugar de hardcodear) -->
     <footer class="glass" style="margin-top: 4rem; text-align: center; font-size: 0.85rem;">

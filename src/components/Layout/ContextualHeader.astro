@@ -1,0 +1,124 @@
+---
+import esFlag from '../../assets/flags/es.svg?url';
+import enFlag from '../../assets/flags/en.svg?url';
+
+interface NavText {
+  inicio: string;
+  blog: string;
+  proyectos: string;
+  arquitectura: string;
+  portfolio: string;
+  miCuenta: string;
+  mundos: string;
+  gaming: string;
+  directos: string;
+  videos: string;
+  comunidad: string;
+  visitarTech: string;
+}
+const { lang, mode, languagePath, nav } = Astro.props as {
+  lang: 'es'|'en';
+  mode: 'gateway'|'tech'|'gaming';
+  languagePath: string;
+  nav: NavText;
+};
+const flags={es:esFlag,en:enFlag} as const;
+const items=mode==='tech'
+  ? [
+      {href:`/${lang}/tech/`,text:nav.inicio,key:'tech'},
+      {href:`/${lang}/blog/`,text:nav.blog,key:'blog'},
+      {href:`/${lang}/projects/`,text:nav.proyectos,key:'projects'},
+      {href:`/${lang}/arquitectura/`,text:nav.arquitectura,key:'arquitectura'},
+      {href:`/${lang}/portfolio/`,text:nav.portfolio,key:'portfolio'}
+    ]
+  : [
+      {href:`/${lang}/gaming/`,text:nav.gaming,key:'gaming'},
+      {href:`/${lang}/gaming/#directos`,text:nav.directos,key:'directos'},
+      {href:`/${lang}/gaming/#videos`,text:nav.videos,key:'videos'},
+      {href:`/${lang}/gaming/#comunidad`,text:nav.comunidad,key:'comunidad'}
+    ];
+const accountHref=`/${lang}/under-construction/`;
+const currentPath=Astro.url.pathname;
+const isActive=(item:{href:string;key:string})=>{
+  if(item.key==='tech')return currentPath===`/${lang}/tech/`;
+  if(item.key==='gaming')return currentPath===`/${lang}/gaming/`;
+  return currentPath.startsWith(`/${lang}/${item.key}/`);
+};
+---
+
+<header class:list={['site-header', 'site-header-'+mode]}>
+  {mode!=='gateway' && (
+    <a class="site-brand" href={`/${lang}/`} aria-label={nav.mundos} title={nav.mundos}>
+      <img src="/favicon.svg" alt="" width="26" height="26" loading="eager" />
+      <span>SolarisPKN <span class="brand-section">{mode==='gaming' ? 'Gaming' : 'Labs'}</span></span>
+    </a>
+  )}
+
+  {mode!=='gateway' && (
+    <nav class="site-primary-nav" aria-label={mode==='gaming'?'Gaming':'Tech'}>
+      {items.map(item=>(
+        <a href={item.href} aria-current={isActive(item)?'page':undefined}>{item.text}</a>
+      ))}
+      {mode==='gaming' && <a class="nav-switch-tech" href={`/${lang}/tech/`}>{nav.visitarTech} ↗</a>}
+    </nav>
+  )}
+
+  <div class="site-header-actions">
+    <a class="site-account" href={accountHref}>{nav.miCuenta}</a>
+
+    <div class="language-dropdown">
+      <div class="language-selector">
+        <button id="lang-btn" class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="lang-dropdown">
+          <img src={flags[lang]} alt="" width="20" height="15" loading="lazy" />
+          <span>{lang==='es'?'Español':'English'}</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <ul id="lang-dropdown" class="lang-dropdown" role="menu" aria-labelledby="lang-btn">
+          <li role="none"><a role="menuitem" href={`/es${languagePath}`} data-lang="es">
+            <img src={flags.es} alt="" width="20" height="15" loading="lazy" /> Español
+          </a></li>
+          <li role="none"><a role="menuitem" href={`/en${languagePath}`} data-lang="en">
+            <img src={flags.en} alt="" width="20" height="15" loading="lazy" /> English
+          </a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+.site-header{position:sticky;top:.8rem;z-index:100;max-width:1600px;margin:.8rem auto 1.1rem;padding:.68rem clamp(.75rem,1.8vw,1.35rem);display:flex;flex-wrap:wrap;align-items:center;gap:.9rem 1.35rem;border:1px solid rgba(95,224,202,.4);border-radius:18px;background:rgba(15,21,38,.83);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 8px 25px rgba(0,0,0,.18)}
+.site-header-gateway{justify-content:flex-end;max-width:1510px;border:none;background:transparent;backdrop-filter:none;box-shadow:none;padding:.35rem 1rem;margin:.55rem auto .2rem}
+.site-brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:#fff;font:750 .94rem 'JetBrains Mono',monospace;white-space:nowrap}
+.brand-section{color:#77f2df}
+.site-header-gaming .brand-section{color:#d8a1ff}
+.site-primary-nav{display:flex;align-items:center;flex:1;justify-content:center;flex-wrap:wrap;gap:clamp(.45rem,1.2vw,1rem)}
+.site-primary-nav>a{font-size:.82rem;font-weight:650;text-decoration:none;color:#bad1dd;padding:.47rem .25rem;border-bottom:2px solid transparent;transition:color .18s,border-color .18s}
+.site-primary-nav>a:hover,.site-primary-nav>a[aria-current="page"]{color:#79ffe1;border-color:#79ffe1}
+.site-header-gaming .site-primary-nav>a:hover,.site-header-gaming .site-primary-nav>a[aria-current="page"]{color:#e6b7ff;border-color:#e6b7ff}
+.site-primary-nav>.nav-switch-tech{color:#77f2df}
+.site-header-actions{display:flex;align-items:center;justify-content:flex-end;gap:clamp(.5rem,1.25vw,1rem);margin-left:auto}
+.site-account{white-space:nowrap;font-size:.85rem;font-weight:700;color:#ffc3e7;text-decoration:none;border:1px solid rgba(255,121,198,.3);padding:.52rem .8rem;border-radius:999px;background:rgba(255,121,198,.07)}
+.site-account:hover{border-color:#ff79c6;background:rgba(255,121,198,.15)}
+.site-header :global(.lang-btn){min-height:36px}
+.site-header :global(.language-dropdown){position:relative}
+.site-header :global(.lang-dropdown){z-index:1001}
+.site-header a:focus-visible,.site-header button:focus-visible{outline:3px solid #ff79c6;outline-offset:3px}
+@media(max-width:1010px){
+.site-header:not(.site-header-gateway){justify-content:space-between}
+.site-primary-nav{order:3;width:100%;flex-basis:100%;justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:thin;padding-bottom:.15rem}
+.site-primary-nav>a{white-space:nowrap}
+}
+@media(max-width:560px){
+.site-header{margin:.5rem .45rem .75rem;padding:.6rem .7rem}
+.site-header-gateway{margin:.3rem .4rem 0;background:transparent}
+.site-brand{font-size:.78rem}
+.site-header-actions{gap:.5rem}
+.site-account{font-size:.76rem;padding:.44rem .6rem}
+.site-header :global(.lang-btn){font-size:.77rem;padding:.35rem .48rem}
+.site-primary-nav>a{font-size:.76rem}
+}
+@media(prefers-reduced-motion:reduce){.site-primary-nav>a{transition:none}}
+</style>
