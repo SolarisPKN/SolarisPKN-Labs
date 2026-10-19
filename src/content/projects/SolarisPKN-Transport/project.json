@@ -1,0 +1,26 @@
+{
+  "id": "SolarisPKN-Transport",
+  "category": "core",
+  "type": "automation",
+  "status": "development",
+  "name": {
+    "es": "SolarisPKN-Transport",
+    "en": "SolarisPKN-Transport"
+  },
+  "shortDescription": {
+    "es": "Pipeline de horarios de transporte con conectores SOFSE, Cuándo SUBO y GTFS, validación de datos y salidas XLSX, CSV y SQLite.",
+    "en": "Transport timetable pipeline using SOFSE, Cuándo SUBO and GTFS connectors, data validation, and XLSX, CSV and SQLite outputs."
+  },
+  "technologies": [
+    "Python",
+    "SQLite",
+    "XLSX",
+    "GTFS",
+    "REST API"
+  ],
+  "statsId": "solarispkn-transport",
+  "links": {
+    "github": "https://github.com/SolarisPKN/SolarisPKN-Transport",
+    "docs": "https://github.com/SolarisPKN/SolarisPKN-Transport/blob/main/README.es.md"
+  }
+}
