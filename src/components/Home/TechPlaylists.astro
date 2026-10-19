@@ -1,0 +1,112 @@
+---
+const {words} = Astro.props;
+const ids = {
+  pc:'PLVxh46uVOYfb5YCI8AqG5jK_TB8p0vu9D',
+  auto:'PLVxh46uVOYfYbTsYFmaZ31w8AyCOs9yuG',
+  solarispkn:'PLVxh46uVOYfYPPkf0sxzGOW0Ws8Tto1Jz',
+  internet:'PLVxh46uVOYfbcY-IbZGORC1gU_DU04SeN'
+};
+const playlists = words.playlists.map((p) => ({
+  ...p, id:ids[p.key],
+  url:'https://www.youtube.com/playlist?list='+ids[p.key]
+}));
+---
+<div class="tech-video-shell" data-tech-playlists>
+  <div class="tech-video-tabs" role="group" aria-label={words.videoPick}>
+    {playlists.map((list,index)=>(
+      <button type="button" class:list={['tech-playlist-option',{chosen:index===0}]} data-playlist={list.id} data-title={list.title} aria-pressed={index===0}>
+        <span class="tech-playlist-number">{String(index+1).padStart(2,'0')}</span>
+        <span>{list.label}</span>
+      </button>
+    ))}
+  </div>
+  <div class="tech-video-layout">
+    <div class="tech-video-display" data-video-display>
+      <div class="tech-video-placeholder" data-video-placeholder>
+        <span class="tech-video-play-icon" aria-hidden="true">▶</span>
+        <p>{words.videoPick}</p>
+        <button type="button" data-video-play class="tech-video-start">{words.videoPlay} ↗</button>
+        <small>{words.videoPrivacy}</small>
+      </div>
+    </div>
+    <div class="tech-video-info" aria-live="polite">
+      <p class="tech-overline">SOLARISPKN / YOUTUBE</p>
+      <h3 data-video-title>{playlists[0].title}</h3>
+      <p data-video-description>{playlists[0].description}</p>
+      <div class="tech-video-links">
+        <button type="button" data-video-play-alt>{words.videoPlay} ↗</button>
+        <a data-video-link href={playlists[0].url} target="_blank" rel="noopener noreferrer">{words.videoOpen} ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script define:vars={{playlistInfo:playlists,iframePrefix:words.videoIframe}}>
+function initializeTechPlaylists(){
+ document.querySelectorAll('[data-tech-playlists]').forEach(root=>{
+  if(root.dataset.initialized==='1')return;
+  root.dataset.initialized='1';
+  const options=[...root.querySelectorAll('[data-playlist]')];
+  let active=0;
+  const display=root.querySelector('[data-video-display]');
+  const placeholder=root.querySelector('[data-video-placeholder]');
+  const title=root.querySelector('[data-video-title]');
+  const description=root.querySelector('[data-video-description]');
+  const link=root.querySelector('[data-video-link]');
+  function select(index){
+   active=index;
+   options.forEach((button,i)=>{
+     button.classList.toggle('chosen',i===index);
+     button.setAttribute('aria-pressed',String(i===index));
+   });
+   const info=playlistInfo[index];
+   title.textContent=info.title;
+   description.textContent=info.description;
+   link.href=info.url;
+   // A changed playlist requires an explicit click, avoiding background video/network activity.
+   display.replaceChildren(placeholder);
+  }
+  function play(){
+   const info=playlistInfo[active];
+   const player=document.createElement('iframe');
+   player.title=iframePrefix+info.title;
+   player.setAttribute('loading','lazy');
+   player.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+   player.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+   player.setAttribute('allowfullscreen','');
+   player.src='https://www.youtube-nocookie.com/embed/videoseries?list='+encodeURIComponent(info.id);
+   player.className='tech-video-iframe';
+   display.replaceChildren(player);
+  }
+  options.forEach((b,index)=>b.addEventListener('click',()=>select(index)));
+  root.querySelector('[data-video-play]').addEventListener('click',play);
+  root.querySelector('[data-video-play-alt]').addEventListener('click',play);
+ });
+}
+document.addEventListener('astro:page-load',initializeTechPlaylists);
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initializeTechPlaylists,{once:true});
+else initializeTechPlaylists();
+</script>
+<style>
+.tech-video-shell{border:1px solid rgba(177,221,236,.18);border-radius:20px;background:rgba(5,12,23,.68);padding:clamp(.8rem,2vw,1.4rem)}
+.tech-video-tabs{display:flex;gap:.55rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.tech-playlist-option{display:flex;align-items:center;gap:.5rem;border:1px solid #33445e;background:rgba(19,30,47,.94);border-radius:10px;padding:.65rem .8rem;color:#d6e4f4;font-size:.82rem;cursor:pointer;font-family:inherit}
+.tech-playlist-option:hover,.tech-playlist-option.chosen{border-color:#00ffcc;background:rgba(0,255,204,.10);color:#fff}
+.tech-playlist-option:focus-visible,.tech-video-links button:focus-visible,.tech-video-start:focus-visible{outline:3px solid #ff79c6;outline-offset:2px}
+.tech-playlist-number{color:#00ffcc;font:700 .7rem 'JetBrains Mono',monospace}
+.tech-video-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(220px,1fr);gap:1.2rem;align-items:stretch}
+.tech-video-display{min-width:0;background:radial-gradient(circle at 50% 40%,rgba(34,106,112,.22),transparent 60%),#050911;border-radius:13px;aspect-ratio:16/9;overflow:hidden;border:1px solid #273a4b}
+.tech-video-placeholder{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;padding:1rem;text-align:center}
+.tech-video-play-icon{width:64px;height:64px;display:grid;place-items:center;border:1px solid #5ce5d0;background:rgba(0,255,204,.07);color:#5ce5d0;border-radius:50%;font-size:1.5rem}
+.tech-video-placeholder p{font-weight:600;line-height:1.3}
+.tech-video-placeholder small{font-size:.72rem;color:#97aab9;max-width:31ch}
+.tech-video-start,.tech-video-links button{background:#00d8b2;color:#041517;padding:.62rem .95rem;border:0;border-radius:9px;cursor:pointer;font-weight:800;font-family:inherit}
+.tech-video-iframe{width:100%;height:100%;border:0;display:block}
+.tech-video-info{display:flex;flex-direction:column;justify-content:center;gap:.8rem;padding:.5rem}
+.tech-video-info .tech-overline{font:700 .72rem 'JetBrains Mono',monospace;color:#63f0d5;letter-spacing:.1em}
+.tech-video-info h3{font-size:clamp(1.3rem,2.2vw,1.9rem);line-height:1.2;overflow-wrap:anywhere}
+.tech-video-info p:not(.tech-overline){font-size:.91rem;color:#bed0da;line-height:1.65}
+.tech-video-links{display:flex;flex-wrap:wrap;align-items:center;gap:.85rem;margin-top:.5rem}
+.tech-video-links a{color:#7bffe2;text-decoration:none;font-size:.86rem}
+@media(max-width:860px){.tech-video-layout{grid-template-columns:1fr}.tech-video-info{padding:.4rem}.tech-video-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:450px){.tech-playlist-option{padding:.5rem;font-size:.74rem}.tech-playlist-number{display:none}.tech-video-shell{padding:.65rem}.tech-video-play-icon{width:44px;height:44px;font-size:1rem}}
+</style>
