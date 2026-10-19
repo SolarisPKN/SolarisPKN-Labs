@@ -101,7 +101,8 @@ export function initMindMap() {
     if(!node){detail.append(paragraph("p",ui.select));return;}
     const head=paragraph("h3",node.label);detail.append(head);
     detail.append(paragraph("p",labelFor(node.type)+(node.period?" · "+node.period:"")+(node.status?" · "+statusText(node):""),"mindmap-meta"));
-    detail.append(paragraph("p",node.description||""));
+    detail.append(paragraph("h4",ui.descriptionHeading,"mindmap-description-heading"));
+    detail.append(paragraph("p",node.description||ui.descriptionHint,"mindmap-description"));
     if(node.url && /^https:\/\/github\.com\/SolarisPKN\//.test(node.url)){
       const a=paragraph("a",ui.open+" ↗");a.href=node.url;a.target="_blank";a.rel="noopener noreferrer";detail.append(a);
     }
@@ -145,7 +146,7 @@ export function initMindMap() {
       const text=element("text",{x:0,y:-radius-12,"text-anchor":"middle","class":"mindmap-node-label"});
       const clipped=n.label.length>21?n.label.slice(0,20)+"…":n.label;
       text.textContent=clipped;
-      const title=element("title");title.textContent=n.label+" · "+(n.description||"");
+      const title=element("title");title.textContent=n.label+" · "+(n.description||ui.descriptionHint);
       g.append(halo,circle,text,title);
       g.addEventListener("click",(evt)=>{evt.stopPropagation();if(suppressClick)return;select(n.id)},{signal});
       g.addEventListener("keydown",evt=>{if(evt.key==="Enter"||evt.key===" "){evt.preventDefault();select(n.id)}},{signal});
