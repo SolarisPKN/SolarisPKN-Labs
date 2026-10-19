@@ -18,7 +18,7 @@ const { words, lang = 'es' } = Astro.props as { words: WorldCopy; lang: 'es' | '
 // The existing original image places Gaming/Solaris at left and Tech/Pablo at right.
 // Each half is ONE link: no separate cards, nested buttons or duplicate hotspots.
 const worlds = [
-  { id: 'gaming', href: `/${lang}/under-construction/`, copy: words.gaming, symbol: '✦' },
+  { id: 'gaming', href: `/${lang}/gaming/`, copy: words.gaming, symbol: '✦' },
   { id: 'tech', href: `/${lang}/tech/`, copy: words.tech, symbol: '⌘' }
 ] as const;
 
