@@ -1,0 +1,25 @@
+{
+  "id": "SolarisPKN-Engineer",
+  "category": "core",
+  "type": "software",
+  "status": "development",
+  "name": {
+    "es": "SolarisPKN-Engineer",
+    "en": "SolarisPKN-Engineer"
+  },
+  "shortDescription": {
+    "es": "Analizador local de dependencias, relaciones e impacto de cambios con grafos interactivos y documentación opcional asistida por IA.",
+    "en": "Local dependency and change-impact analyzer with interactive graphs and optional AI-assisted documentation."
+  },
+  "technologies": [
+    "Python",
+    "SQLite",
+    "HTML",
+    "JavaScript"
+  ],
+  "statsId": "solarispkn-engineer",
+  "links": {
+    "github": "https://github.com/SolarisPKN/SolarisPKN-Engineer",
+    "docs": "https://github.com/SolarisPKN/SolarisPKN-Engineer/blob/main/README.es.md"
+  }
+}

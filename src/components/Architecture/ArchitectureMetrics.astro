@@ -1,0 +1,107 @@
+---
+const { model, projects, lang = 'es' } = Astro.props;
+const en = lang === 'en';
+const all = model.totalProjects || 1;
+const sectors = [
+  {label:'Core Labs',value:model.counts.core,color:'#33d4cf'},
+  {label:'Derived Labs',value:model.counts.derived,color:'#9c92f5'},
+  {label:'External Labs',value:model.counts.external,color:'#eeb870'}
+];
+const circumference=2*Math.PI*77;
+let accumulated=0;
+const pieces=sectors.map(s=>{
+ const length=circumference*s.value/all;
+ const piece={...s,fillLength:length,offset:-accumulated};
+ accumulated+=length;
+ return piece;
+});
+const layerColors={runtime:'#30d5d0',build:'#a88af2',content:'#6ada95',editorial:'#e5a56c',metrics:'#86b7f7'};
+const layerCounts = new Map<string, number>();
+for (const node of model.internal.nodes) {
+  layerCounts.set(node.group, (layerCounts.get(node.group) || 0) + 1);
+}
+const layers = [...layerCounts.entries()].map(([label,value]) => ({
+  label, value, color:layerColors[label] || '#d1dae8'
+}));
+const statusColors={operational:'#36cfad',online:'#36cfad',development:'#9c92f5',tracking:'#e8b761',maintenance:'#d98181'};
+const statusCounts = new Map<string, number>();
+for (const project of projects) {
+  const status = project.status || 'unclassified';
+  statusCounts.set(status, (statusCounts.get(status) || 0) + 1);
+}
+const statuses = [...statusCounts.entries()].sort((a,b)=>b[1]-a[1])
+  .map(([label,value])=>({label,value,color:statusColors[label]||'#96afcc'}));
+const intTotal=model.internal.nodes.length||1;
+---
+
+<section class="arch-charts" aria-labelledby="arch-charts-heading">
+  <div class="arch-charts-head">
+    <p class="arch-eyebrow">DATA INSIGHTS</p>
+    <h2 id="arch-charts-heading">{en?'Architecture breakdown':'Radiografía de la arquitectura'}</h2>
+    <p>{en?'Counts derived from the public project catalog and the documented Labs architecture.':'Conteos calculados a partir del catálogo público y de la arquitectura documentada de Labs.'}</p>
+  </div>
+  <div class="arch-charts-grid">
+    <article class="arch-chart-panel">
+      <h3>{en?'Project distribution':'Distribución de proyectos'}</h3>
+      <div class="arch-ring-layout">
+        <svg viewBox="0 0 200 200" role="img" aria-label={en?'Projects grouped by category':'Proyectos distribuidos por categoría'}>
+          <circle cx="100" cy="100" r="77" fill="none" stroke="#253247" stroke-width="20"/>
+          {pieces.map(p=><circle cx="100" cy="100" r="77" fill="none" stroke={p.color} stroke-width="20"
+            stroke-dasharray={p.fillLength+' '+Math.max(0,circumference-p.fillLength)}
+            stroke-dashoffset={p.offset} transform="rotate(-90 100 100)"/>)}
+          <text x="100" y="99" text-anchor="middle" class="ring-count">{model.totalProjects}</text>
+          <text x="100" y="117" text-anchor="middle" class="ring-caption">{en?'repos':'repos'}</text>
+        </svg>
+        <div class="arch-chart-legend">{sectors.map(s=><p><i style={'background:'+s.color}></i><span>{s.label}</span><b>{s.value}</b></p>)}</div>
+      </div>
+    </article>
+    <article class="arch-chart-panel">
+      <h3>{en?'Internal systems documented':'Componentes internos documentados'}</h3>
+      <p class="arch-chart-note">{en?'Modules and roles described in the public architecture model.':'Módulos y responsabilidades representados en el mapa público.'}</p>
+      <div class="arch-horizontal-bars">
+        {layers.map(s=><div class="arch-bar-row">
+          <div class="arch-bar-label"><span>{s.label}</span><b>{s.value}</b></div>
+          <div class="arch-bar-track"><div style={'width:'+(100*s.value/intTotal).toFixed(1)+'%;background:'+s.color}></div></div>
+        </div>)}
+      </div>
+    </article>
+    <article class="arch-chart-panel">
+      <h3>{en?'Project catalog status':'Estados declarados del catálogo'}</h3>
+      <p class="arch-chart-note">{en?'These are project metadata labels, not live uptime monitoring.':'Son etiquetas declaradas en los metadatos; no indican disponibilidad en tiempo real.'}</p>
+      <div class="arch-horizontal-bars">
+        {statuses.map(s=><div class="arch-bar-row">
+          <div class="arch-bar-label"><span>{s.label}</span><b>{s.value}</b></div>
+          <div class="arch-bar-track"><div style={'width:'+(100*s.value/all).toFixed(1)+'%;background:'+s.color}></div></div>
+        </div>)}
+      </div>
+    </article>
+  </div>
+</section>
+
+<style>
+.arch-charts{margin:2.5rem 0}
+.arch-charts-head{margin-bottom:1rem}
+.arch-eyebrow{color:#56e8dd;letter-spacing:.16em;font:.72rem 'JetBrains Mono',monospace}
+.arch-charts-head h2{font-size:1.5rem;margin:.4rem 0}
+.arch-charts-head>p:last-child,.arch-chart-note{font-size:.89rem;color:#b9c8d5;line-height:1.55}
+.arch-charts-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.arch-chart-panel{background:radial-gradient(circle at 50% 0,rgba(76,116,188,.08),transparent 70%),#111a2a;border:1px solid rgba(116,160,194,.2);border-radius:17px;padding:1.2rem;min-width:0}
+.arch-chart-panel h3{font-size:1rem;margin:.2rem 0 .8rem}
+.arch-ring-layout{display:flex;align-items:center;gap:1rem}
+.arch-ring-layout svg{width:50%;max-width:185px;flex-shrink:0}
+.ring-count{font:700 36px 'JetBrains Mono',monospace;fill:#edf9ff}
+.ring-caption{font:13px 'Inter',sans-serif;fill:#b4c1d0}
+.arch-chart-legend{flex:1;min-width:0}
+.arch-chart-legend p{display:flex;align-items:center;gap:.45rem;font-size:.77rem;margin:.75rem 0}
+.arch-chart-legend i{width:10px;height:10px;flex-shrink:0;border-radius:50%}
+.arch-chart-legend span{overflow-wrap:anywhere;flex:1;color:#c1d2df}
+.arch-chart-legend b{color:#ecfaff;font-family:'JetBrains Mono',monospace}
+.arch-horizontal-bars{display:grid;gap:1rem;margin-top:1rem}
+.arch-bar-label{display:flex;justify-content:space-between;gap:.5rem;font-size:.8rem;margin-bottom:.45rem;color:#c5d4df}
+.arch-bar-label b{color:#edf8ff;font-family:'JetBrains Mono',monospace}
+.arch-bar-track{height:9px;width:100%;border-radius:99px;background:#243247;overflow:hidden}
+.arch-bar-track>div{height:100%;border-radius:99px}
+@media(max-width:1110px){.arch-charts-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:710px){.arch-charts-grid{grid-template-columns:1fr}.arch-ring-layout svg{width:45%}}
+@media(prefers-reduced-motion:reduce){.arch-bar-track>div{transition:none}}
+</style>

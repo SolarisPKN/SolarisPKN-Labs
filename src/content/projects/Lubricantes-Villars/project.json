@@ -1,0 +1,19 @@
+{
+  "id": "Lubricantes-Villars",
+  "category": "derived",
+  "type": "software",
+  "status": "development",
+  "name": {
+    "es": "Lubricantes-Villars",
+    "en": "Lubricantes-Villars"
+  },
+  "shortDescription": {
+    "es": "Proyecto web asociado a Lubricantes Villars; el repositorio público aún no contiene el desarrollo del sitio.",
+    "en": "Web project associated with Lubricantes Villars; the public repository does not yet contain its website implementation."
+  },
+  "technologies": [],
+  "statsId": "lubricantes-villars",
+  "links": {
+    "github": "https://github.com/SolarisPKN/Lubricantes-Villars"
+  }
+}

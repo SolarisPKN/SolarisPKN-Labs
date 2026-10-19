@@ -1,0 +1,27 @@
+{
+  "id": "Villars-Informa",
+  "category": "derived",
+  "type": "software",
+  "status": "operational",
+  "name": {
+    "es": "Villars-Informa",
+    "en": "Villars-Informa"
+  },
+  "shortDescription": {
+    "es": "Portal comunitario de Villars con noticias, servicios, mapa vectorial e información de transporte basada en datos publicados.",
+    "en": "Villars community portal with news, services, vector maps and published transport information."
+  },
+  "technologies": [
+    "Astro",
+    "TypeScript",
+    "PMTiles",
+    "JSON",
+    "Cloudflare"
+  ],
+  "statsId": "villars-informa",
+  "links": {
+    "github": "https://github.com/SolarisPKN/Villars-Informa",
+    "docs": "https://github.com/SolarisPKN/Villars-Informa/blob/main/README.es.md",
+    "live": "https://villars.solarispkn.com.ar"
+  }
+}
