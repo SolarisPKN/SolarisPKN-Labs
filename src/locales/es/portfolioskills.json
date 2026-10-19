@@ -1,58 +1,140 @@
 {
   "coreAreas": [
     {
-      "icon": "🖥",
-      "title": "Sistemas Operativos",
-      "items": ["Windows XP", "Windows 7", "Windows 10", "Windows 11", "Windows Server", "Debian", "Ubuntu", "Linux Mint", "LXLE"]
+      "icon": "🖥️",
+      "title": "Sistemas y virtualización",
+      "items": [
+        "Debian y Ubuntu",
+        "Windows y Windows Server",
+        "Administración remota por SSH",
+        "Diagnóstico y mantenimiento",
+        "VirtualBox y Hyper-V",
+        "PowerShell y Bash"
+      ]
+    },
+    {
+      "icon": "☁️",
+      "title": "Cloud y plataformas",
+      "items": [
+        "Microsoft Azure (laboratorios)",
+        "VPS y hosting",
+        "Docker y Docker Compose",
+        "Nginx y Apache",
+        "Cloudflare y HTTPS",
+        "Yocto (laboratorios)"
+      ]
     },
     {
       "icon": "🌐",
-      "title": "Redes",
-      "items": ["TCP/IP", "DHCP", "DNS", "NAT", "SSH", "Firewall", "QoS", "OpenWRT", "Ubiquiti", "Samba", "DDNS", "VPN", "Acceso Remoto"]
+      "title": "Redes y seguridad",
+      "items": [
+        "TCP/IP, DNS, DHCP y NAT",
+        "VPN y acceso remoto",
+        "OpenWRT y Ubiquiti",
+        "Firewall y segmentación",
+        "Certificados TLS",
+        "Monitoreo y copias de seguridad"
+      ]
     },
     {
-      "icon": "☁",
-      "title": "Infraestructura",
-      "items": ["Servidores Linux", "VPS", "Apache", "Nginx", "Cloudflare", "GitHub Pages", "Cloudflare Pages", "cPanel", "WordPress", "Let's Encrypt", "SSL/TLS", "DNS", "FTP", "SFTP", "MariaDB", "phpMyAdmin", "Docker", "VirtualBox", "Hyper-V", "KVM", "QEMU"]
-    },
-    {
-      "icon": "🛠",
-      "title": "Hardware",
-      "items": ["Armado de PC", "PC Gamer", "Servidores", "NAS", "Mini PCs", "Optimización Térmica", "Metal Líquido", "Recuperación BIOS CH341A", "Diagnóstico de Hardware", "Fuentes de Alimentación", "Diseño de Refrigeración", "Reparación de Hardware", "Reemplazo de Pantallas", "Reemplazo de Condensadores"]
-    },
-    {
-      "icon": "⚙",
-      "title": "Automatización",
-      "items": ["Batch", "Bash", "PowerShell", "Python (con IA)", "Cron", "Programador de Tareas", "Webhooks", "OBS Websocket", "Streamer.bot", "ESP32", "Arduino", "Google Home"]
+      "icon": "⚙️",
+      "title": "Automatización y operaciones",
+      "items": [
+        "SaltStack",
+        "PowerShell y scripting",
+        "Python y Node.js",
+        "Git y GitHub",
+        "CI y flujos de despliegue",
+        "Tareas programadas y webhooks"
+      ]
     },
     {
       "icon": "💻",
-      "title": "Desarrollo",
-      "items": ["HTML", "CSS", "JavaScript", "PHP", "Astro", "NodeJS", "React", "Bootstrap", "Git", "GitHub", "MongoDB", "SQLite", "MySQL", "MariaDB"]
+      "title": "Desarrollo web y datos",
+      "items": [
+        "Astro, HTML y CSS",
+        "JavaScript y TypeScript",
+        "React y Node.js",
+        "APIs e integraciones",
+        "SQLite y MariaDB",
+        "Arquitectura de aplicaciones"
+      ]
+    },
+    {
+      "icon": "🤖",
+      "title": "IA aplicada",
+      "items": [
+        "Ollama y modelos locales",
+        "MCP y conexión de herramientas",
+        "Agentes y enrutamiento de modelos",
+        "RAG y embeddings",
+        "Automatización asistida por IA",
+        "Proyecto SolarisPKN-IA"
+      ]
+    },
+    {
+      "icon": "🔧",
+      "title": "Hardware e IoT",
+      "items": [
+        "Montaje y diagnóstico de PC",
+        "Refrigeración y electrónica",
+        "ESP32 y Arduino",
+        "Sensores y control remoto",
+        "Redes de dispositivos",
+        "Optimización de recursos"
+      ]
     },
     {
       "icon": "📺",
-      "title": "Streaming",
-      "items": ["OBS Studio", "StreamElements", "TikTok Studio", "Discord", "TeamSpeak", "Webhooks", "Cámaras Virtuales", "Multistreaming", "SEO para Creadores"]
-    },
-    {
-      "icon": "📈",
-      "title": "Marketing",
-      "items": ["SEO Técnico", "Google Analytics", "Search Console", "Meta Pixel", "Google Tag Manager", "Gestión de Redes Sociales", "Estrategia de Contenido", "YouTube SEO", "TikTok", "LinkedIn", "WordPress"]
+      "title": "Streaming y multimedia",
+      "items": [
+        "OBS Studio",
+        "NVENC y codificación",
+        "Multistreaming",
+        "Herramientas para creadores",
+        "Automatización de emisiones",
+        "Cámaras y fuentes de video"
+      ]
     },
     {
       "icon": "🚗",
-      "title": "Tecnología Automotriz",
-      "items": ["OBD-II", "ELM327", "Torque Pro", "Diagnóstico Eléctrico", "Diagramas de Cableado", "Sensores", "ECU", "Electrónica Automotriz"]
-    },
-    {
-      "icon": "⚡",
-      "title": "Electricidad",
-      "items": ["Sistemas Solares", "Inversores", "Conmutación 220V", "Temporizadores", "Autocaravanas", "Remolques", "Instalaciones Eléctricas"]
+      "title": "Diagnóstico automotriz",
+      "items": [
+        "OBD-II y códigos DTC",
+        "Sensores y actuadores",
+        "ECU y módulos",
+        "Diagramas eléctricos",
+        "Diagnóstico de fallas",
+        "Electrónica vehicular"
+      ]
     }
   ],
   "techIcons": [
-    "Linux", "Debian", "Docker", "Cloudflare", "GitHub", "WordPress", "Git", "Apache", "Nginx", "SSH", "MariaDB", "OBS", "Discord", "OpenWRT", "Ubiquiti", "Node", "React", "Astro", "HTML", "CSS", "JavaScript", "PHP", "Python", "VirtualBox", "Hyper-V"
+    "Linux",
+    "Debian",
+    "Docker",
+    "Cloudflare",
+    "GitHub",
+    "WordPress",
+    "Git",
+    "Apache",
+    "Nginx",
+    "SSH",
+    "MariaDB",
+    "OBS",
+    "Discord",
+    "OpenWRT",
+    "Ubiquiti",
+    "Node",
+    "React",
+    "Astro",
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "PHP",
+    "Python",
+    "VirtualBox",
+    "Hyper-V"
   ],
   "certificados": [
     {

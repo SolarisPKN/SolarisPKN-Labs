@@ -1,12 +1,17 @@
 {
   "hero": {
-    "nombre": "Pablo Marchetti Orayen"
+    "nombre": "Pablo Marchetti Orayen",
+    "kicker": "SYSTEMS ADMINISTRATION · AUTOMATION · DEVELOPMENT",
+    "headline": "Bridging infrastructure, software and AI to solve real problems.",
+    "resumen": "I administer Linux and Windows systems, work with networking and cloud infrastructure, and build automation tools, software and applied AI integrations. My approach combines professional experience, personal projects and practical learning.",
+    "verExperiencia": "View experience",
+    "verConocimientos": "Explore expertise"
   },
   "aptitudesMini": [
-    "🖥️ IT Infrastructure",
-    "🐧 Linux Administration",
-    "🌐 Networking & Hosting",
-    "🔧 Technical Support"
+    "Systems & cloud",
+    "Automation & DevOps",
+    "Software development",
+    "Applied AI & IoT"
   ],
   "contacto": {
     "email": "PabloKoutaNya@gmail.com",
@@ -17,9 +22,14 @@
     "descargarCV": "Download CV"
   },
   "sobreMi": {
-    "titulo": "About Me",
-    "perfil": "MY PROFILE",
-    "texto": "IT Infrastructure, Linux and Technical Support professional with hands-on experience in Windows, Linux, networking, web infrastructure, VPS hosting, hardware and systems administration. I have deployed and managed Linux servers, VPS instances, websites, self-hosted services, cloud services and game servers, configuring domains, DNS, HTTPS, SSL/TLS certificates, Cloudflare, GitHub, WordPress and cPanel. I also have practical experience with networking, SSH, Samba, OpenWRT, Ubiquiti, hardware diagnostics, server monitoring, remote administration and Windows/Linux integration. My approach focuses on solving real technical problems through research, official documentation, hands-on experimentation and AI-assisted workflows while applying security best practices, backups, documentation and data protection."
+    "titulo": "About me",
+    "perfil": "APPROACH",
+    "parrafos": [
+      "I currently work as a Systems Administrator at EXO, gaining hands-on experience in enterprise environments involving Linux, SaltStack, Docker, Microsoft Azure and Yocto. My background also includes hosting, networking, server maintenance and technical troubleshooting.",
+      "Since 2015, I have developed SolarisPKN, a collection of personal projects connecting web applications, automation, streaming tools, AI assistants and self-hosted services. I enjoy designing the architecture as much as implementing, testing, documenting and improving its components.",
+      "My experience also includes automotive electronics and diagnostics. That background shaped a practical approach: investigate root causes, measure outcomes and deliver solutions people can actually use."
+    ],
+    "texto": "My work combines systems administration, software tools, automation, applied AI and practical problem-solving."
   },
   "experiencia": {
     "titulo": "Professional experience",
@@ -91,24 +101,63 @@
     ]
   },
   "formacion": {
-    "titulo": "Education",
-    "curso1": {
-      "titulo": "DKA Formación – Online Course: Server Administrator",
-      "id": "eU9IUTsvJf",
-      "items": [
-        "Linux/Windows Server Installation",
-        "Remote and On-site Administration & Maintenance",
-        "Server Security Against Cyberattacks"
-      ],
-      "verLink": "View"
-    },
-    "curso2": {
-      "titulo": "Fundación Carlos Slim – Online Course: Front-End Developer",
-      "id": "dk3mhbtwf",
-      "items": [
-        "Responsive Web Interface Development"
-      ]
-    }
+    "titulo": "Education & continuous learning",
+    "intro": "Completed secondary education, documented courses and hands-on technical training applied in projects and labs.",
+    "certificadoTexto": "Browse documented courses and training certificates",
+    "grupos": [
+      {
+        "tipo": "Formal education",
+        "titulo": "High school diploma in Social Sciences and Humanities",
+        "institucion": "Adultos 2000 program",
+        "descripcion": "Completed secondary education.",
+        "temas": []
+      },
+      {
+        "tipo": "Technical course",
+        "titulo": "Server Administrator",
+        "institucion": "DKA Formación",
+        "descripcion": "Server administration, maintenance and security.",
+        "temas": [
+          "Linux & Windows Server",
+          "Remote administration",
+          "Security practices"
+        ]
+      },
+      {
+        "tipo": "Technical course",
+        "titulo": "Front-End Developer",
+        "institucion": "Fundación Carlos Slim",
+        "descripcion": "Foundations of web user interface development.",
+        "temas": [
+          "HTML & CSS",
+          "Responsive interfaces",
+          "Web development"
+        ]
+      },
+      {
+        "tipo": "Complementary training",
+        "titulo": "Project Management with Agile and Lean Methodologies",
+        "institucion": "Fundación Telefónica",
+        "descripcion": "Team workflows, continuous improvement and agile methodologies.",
+        "temas": [
+          "Agile methods",
+          "Lean",
+          "Project management"
+        ]
+      },
+      {
+        "tipo": "Hands-on learning · 2026",
+        "titulo": "Infrastructure and automation labs",
+        "institucion": "Professional practice at EXO",
+        "descripcion": "Technical learning experience, not presented as an academic credential.",
+        "temas": [
+          "SaltStack",
+          "Docker",
+          "Azure",
+          "Yocto"
+        ]
+      }
+    ]
   },
   "aptitudes": {
     "titulo": "Skills and Languages",
@@ -141,39 +190,35 @@
   },
   "estudios": {
     "titulo": "Studies and Achievements",
-    "interesesTitulo": "Interests",
+    "interesesTitulo": "Interests & current explorations",
     "intereses": [
-      "🎓 High School Diploma – Social Sciences and Humanities",
-      "📜 50+ Technical Certifications",
-      "🖥️ IT Infrastructure",
-      "🐧 Linux Administration",
-      "💻 Web Development",
-      "🤖 Automation & AI",
-      "🔧 Electronics & Hardware",
-      "🔬 Technology Research"
+      "Local AI and agent tooling",
+      "Infrastructure automation",
+      "IoT and connected-device control",
+      "Video, livestreaming and media pipelines",
+      "Hardware, electronics and diagnostics",
+      "Open-source software and continuous learning"
     ],
     "verMas": "See More"
   },
   "about": {
-    "title": "About Me",
-    "intro": "10+ years building IT infrastructure and technology solutions.",
+    "title": "About me",
+    "intro": "From managing servers to building tools, I enjoy understanding how an entire system works and making it more useful, reliable and efficient.",
     "points": [
-      "Linux & Windows",
-      "Servers & VPS",
-      "Web Hosting",
-      "IT Infrastructure",
-      "Technical Support",
-      "Networking",
-      "AI-Assisted Workflows"
+      "Linux, Windows and network operations",
+      "Cloud infrastructure and automation",
+      "Software and service integration",
+      "Local AI, hardware and connected systems"
     ]
   },
-  "coreAreasTitle": "Core Areas",
+  "coreAreasTitle": "Knowledge & hands-on expertise",
   "techCarouselTitle": "Technologies",
   "certificationsTitle": "Certifications",
   "certificationsFilter": "Filter by issuer",
   "certificationsSearch": "Search certification...",
-  "philosophy": "I believe technology should solve real-world problems. My workflow combines research, official documentation, hands-on experimentation and AI-assisted workflows to build reliable solutions. I prioritize security best practices, documentation, backups, privacy and continuous learning in every project.",
+  "philosophy": "The best technology solves a measurable problem. I research, test, measure, document and improve; AI is one tool in that process.",
   "mindMapTitle": "Skills Map",
   "mindMapPlaceholder": "Coming soon: interactive mind map of skills and technologies.",
-  "mindMapSubtext": "This space will visually showcase the technologies, tools and competencies that define my professional experience."
+  "mindMapSubtext": "This space will visually showcase the technologies, tools and competencies that define my professional experience.",
+  "coreAreasIntro": "Skills used across professional work, labs and personal projects. Grouped by real-world problems, not software versions."
 }

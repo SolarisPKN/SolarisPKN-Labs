@@ -17,8 +17,8 @@ const t = await import(`../../locales/${lang}/portfolio.json`);
 const skills = await import(`../../locales/${lang}/portfolioskills.json`);
 const common = await import(`../../locales/${lang}/common.json`);
 const mindmap = (await import(`../../locales/${lang}/mindmap.json`)).default;
-// Assets are discovered at build time. Missing (not-yet-committed) logos
-// gracefully fall back to initials; TheZapas intentionally has no logo.
+// Logos are bundled as hashed Vite assets during the Astro build.
+// If an asset is temporarily unavailable, each card retains its initials fallback.
 const experienceLogoModules = import.meta.glob('../../assets/portfolio/experience/*.{webp,png,jpg,jpeg,svg,avif}', {
   eager: true,
   query: '?url',
@@ -42,11 +42,18 @@ const academias: string[] = [...new Set<string>(skills.certificados.map((c) => S
     <button id="back-to-top" class="glass back-to-top" aria-label="Volver arriba">⬆️</button>
 
     <!-- ===== HERO ===== -->
-    <section class="hero-portfolio glass">
+    <section class="hero-portfolio glass" aria-labelledby="portfolio-name">
       <div class="hero-text">
-        <h1 class="hero-name">{t.hero.nombre}</h1>
-        <div class="aptitudes-mini">
+        <p class="hero-kicker">{t.hero.kicker}</p>
+        <h1 id="portfolio-name" class="hero-name">{t.hero.nombre}</h1>
+        <p class="hero-headline">{t.hero.headline}</p>
+        <p class="hero-summary">{t.hero.resumen}</p>
+        <div class="aptitudes-mini" aria-label={lang === 'es' ? 'Áreas de trabajo' : 'Areas of work'}>
           {t.aptitudesMini.map((aptitud) => <span>{aptitud}</span>)}
+        </div>
+        <div class="hero-navigation">
+          <a href="#experiencia" class="hero-cta primary">{t.hero.verExperiencia} <span aria-hidden="true">↗</span></a>
+          <a href="#conocimientos" class="hero-cta secondary">{t.hero.verConocimientos} <span aria-hidden="true">↓</span></a>
         </div>
         <div class="contact-info">
           <p>📧 <a href="mailto:PabloKoutaNya@gmail.com">{t.contacto.email}</a></p>
@@ -54,52 +61,47 @@ const academias: string[] = [...new Set<string>(skills.certificados.map((c) => S
         </div>
         <div class="buttons-social">
           <a href="https://www.linkedin.com/in/solarispkn" target="_blank" rel="noopener noreferrer" class="btn-social">
-            <img src="/images/portfolio/logos/linkedin.svg" alt="LinkedIn" loading="lazy" width="20" height="20" /> LinkedIn
+            <img src="/images/portfolio/logos/linkedin.svg" alt="" loading="lazy" width="20" height="20" /> LinkedIn
           </a>
           <a href="https://www.github.com/SolarisPKN" target="_blank" rel="noopener noreferrer" class="btn-social">
-            <img src="/images/portfolio/logos/github.svg" alt="GitHub" loading="lazy" width="20" height="20" /> GitHub
+            <img src="/images/portfolio/logos/github.svg" alt="" loading="lazy" width="20" height="20" /> GitHub
           </a>
           <a href="https://www.youtube.com/@SolarisPKN" target="_blank" rel="noopener noreferrer" class="btn-social">
-            <img src="/images/portfolio/logos/youtube.svg" alt="YouTube" loading="lazy" width="20" height="20" /> YouTube
+            <img src="/images/portfolio/logos/youtube.svg" alt="" loading="lazy" width="20" height="20" /> YouTube
           </a>
           <a href="/cv.pdf" download class="btn-social download">
-            <img src="/images/portfolio/logos/download.svg" alt="CV" loading="lazy" width="20" height="20" />
+            <img src="/images/portfolio/logos/download.svg" alt="" loading="lazy" width="20" height="20" />
             {t.botones.descargarCV}
           </a>
         </div>
       </div>
       <div class="hero-image">
-        <img 
-          src="/images/portfolio/foto-perfil.webp" 
-          alt="Pablo Marchetti Orayen" 
-          class="profile-pic" 
-          width="200" 
-          height="200" 
-          loading="eager" 
-          fetchpriority="high" 
+        <img
+          src="/images/portfolio/foto-perfil.webp"
+          alt={t.hero.nombre}
+          class="profile-pic"
+          width="200"
+          height="200"
+          loading="eager"
+          fetchpriority="high"
         />
       </div>
     </section>
 
-<!-- ===== ABOUT ===== -->
-<section class="about-section glass reveal" data-reveal>
-  <h2>{t.about.title || t.sobreMi.titulo}</h2>
-
-  <p class="about-intro">{t.about.intro}</p>
-
-  <ul class="about-points">
-    {t.about.points.map((point) => (
-      <li>✔ {point}</li>
-    ))}
-  </ul>
-
-  <p class="about-text">
-    {t.sobreMi.texto}
-  </p>
-</section>
+    <!-- ===== ABOUT ===== -->
+    <section class="about-section glass reveal" data-reveal id="sobre-mi">
+      <h2>{t.about.title}</h2>
+      <p class="about-intro">{t.about.intro}</p>
+      <ul class="about-points">
+        {t.about.points.map((point) => <li><span aria-hidden="true">✓</span> {point}</li>)}
+      </ul>
+      <div class="about-story">
+        {t.sobreMi.parrafos.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </section>
 
     <!-- ===== EXPERIENCIA / EXPERIENCE ===== -->
-    <section class="experiencia glass reveal" data-reveal aria-labelledby="experience-heading">
+    <section id="experiencia" class="experiencia glass reveal" data-reveal aria-labelledby="experience-heading">
       <h2 id="experience-heading">{t.experiencia.titulo}</h2>
       <div class="experience-grid">
         {t.experiencia.items.map((item) => {
@@ -108,7 +110,7 @@ const academias: string[] = [...new Set<string>(skills.certificados.map((c) => S
             <article class="experience-card">
               <div class="experience-card-head">
                 <div class="experience-brand" aria-hidden="true">
-                  {logo ? (
+                  {logo && (
                     <img
                       src={logo}
                       alt=""
@@ -116,10 +118,10 @@ const academias: string[] = [...new Set<string>(skills.certificados.map((c) => S
                       height="88"
                       loading="lazy"
                       decoding="async"
+                      onerror="this.hidden=true; this.parentElement.classList.add('logo-missing');"
                     />
-                  ) : (
-                    <span class="experience-initials">{item.initials}</span>
                   )}
+                  <span class:list={['experience-initials', { 'logo-fallback': Boolean(logo) }]}>{item.initials}</span>
                 </div>
                 <div class="experience-heading">
                   <h3>{item.titulo}</h3>
@@ -137,39 +139,47 @@ const academias: string[] = [...new Set<string>(skills.certificados.map((c) => S
       </div>
     </section>
 
-    <!-- ===== EDUCACIÓN ===== -->
-    <section class="formacion glass reveal" data-reveal>
-      <h2>{t.formacion.titulo}</h2>
-      <div class="formacion-item">
-        <h3>{t.formacion.curso1.titulo}</h3>
-        <p>ID: {t.formacion.curso1.id}</p>
-        <ul>
-          {t.formacion.curso1.items.map((item) => <li>{item}</li>)}
-        </ul>
+    <!-- ===== EDUCATION ===== -->
+    <section id="formacion" class="formacion glass reveal" data-reveal aria-labelledby="education-heading">
+      <h2 id="education-heading">{t.formacion.titulo}</h2>
+      <p class="section-lead">{t.formacion.intro}</p>
+      <div class="education-grid">
+        {t.formacion.grupos.map((item) => (
+          <article class="education-card">
+            <p class="education-kind">{item.tipo}</p>
+            <h3>{item.titulo}</h3>
+            <p class="education-institution">{item.institucion}</p>
+            <p class="education-description">{item.descripcion}</p>
+            {item.temas.length > 0 && (
+              <ul class="education-topics">
+                {item.temas.map((topic) => <li>{topic}</li>)}
+              </ul>
+            )}
+          </article>
+        ))}
       </div>
-      <div class="formacion-item">
-        <h3>{t.formacion.curso2.titulo}</h3>
-        <p>ID: {t.formacion.curso2.id}</p>
-        <ul>
-          {t.formacion.curso2.items.map((item) => <li>{item}</li>)}
-        </ul>
-      </div>
+      <a class="education-cert-link" href="#certificaciones">
+        <span class="education-cert-count">{skills.certificados.length}</span>
+        <span>{t.formacion.certificadoTexto}</span>
+        <span aria-hidden="true">↗</span>
+      </a>
     </section>
 
     <!-- ===== CORE AREAS ===== -->
-    <section class="core-areas glass reveal" data-reveal>
-      <h2>{t.coreAreasTitle}</h2>
+    <section id="conocimientos" class="core-areas glass reveal" data-reveal aria-labelledby="core-heading">
+      <h2 id="core-heading">{t.coreAreasTitle}</h2>
+      <p class="section-lead">{t.coreAreasIntro}</p>
       <div class="core-grid">
         {skills.coreAreas.map((area) => (
-          <div class="core-card">
+          <article class="core-card">
             <div class="core-header">
-              <span class="core-icon">{area.icon}</span>
+              <span class="core-icon" aria-hidden="true">{area.icon}</span>
               <h3>{area.title}</h3>
             </div>
             <ul class="core-items">
               {area.items.map((item) => <li>{item}</li>)}
             </ul>
-          </div>
+          </article>
         ))}
       </div>
     </section>
@@ -202,7 +212,7 @@ const academias: string[] = [...new Set<string>(skills.certificados.map((c) => S
     </section>
 
     <!-- ===== CERTIFICACIONES ===== -->
-    <section class="certificaciones glass reveal" data-reveal data-certificates={JSON.stringify(certificates)}>
+    <section id="certificaciones" class="certificaciones glass reveal" data-reveal data-certificates={JSON.stringify(certificates)}>
       <h2>{t.certificationsTitle}</h2>
 
       <!-- FILTROS -->
