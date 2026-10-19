@@ -11,6 +11,10 @@ on:
       - 'public/_headers'
       - 'src/components/Home/TechPlaylists.astro'
       - 'scripts/home-gateway.test.js'
+      - 'scripts/tech-playlist-feed.test.js'
+      - 'src/utils/tech-playlist-feed.js'
+      - 'src/worker.js'
+      - 'src/locales/**/tech-home.json'
       - '.github/workflows/home-gateway.yml'
   push:
     branches: [main]
@@ -23,6 +27,10 @@ on:
       - 'public/_headers'
       - 'src/components/Home/TechPlaylists.astro'
       - 'scripts/home-gateway.test.js'
+      - 'scripts/tech-playlist-feed.test.js'
+      - 'src/utils/tech-playlist-feed.js'
+      - 'src/worker.js'
+      - 'src/locales/**/tech-home.json'
       - '.github/workflows/home-gateway.yml'
 
 permissions:
@@ -41,6 +49,8 @@ jobs:
         run: npm ci
       - name: Ensure bilingual gateway, existing Tech landing and original artwork
         run: node --test scripts/home-gateway.test.js
+      - name: Live public YouTube playlist endpoint
+        run: node --test scripts/tech-playlist-feed.test.js
       - name: Recheck recovered architecture and catalog
         run: node --test scripts/project-catalog.test.js scripts/architecture-map.test.js
       - name: Astro diagnostics
