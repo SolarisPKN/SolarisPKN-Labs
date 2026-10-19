@@ -11,6 +11,6 @@ const lang = Astro.params.lang === 'en' ? 'en' : 'es';
 const words = lang === 'en' ? enWords : esWords;
 ---
 
-<Layout title={words.pageTitle} description={words.lead} lang={lang}>
+<Layout title={words.pageTitle} description={words.lead} lang={lang} navigation="gateway">
   <WorldGateway lang={lang} words={words} />
 </Layout>
