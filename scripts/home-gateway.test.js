@@ -71,7 +71,7 @@ test('hover particle fields use CSS animation with keyboard and reduced-motion s
  assert.doesNotMatch(source,/<script\b|setInterval|requestAnimationFrame|<canvas\b/,'no unnecessary JS or canvas loops');
 });
 
-test('embedded playlists are real SolarisPKN series and YouTube loads only on user click',()=>{
+test('embedded playlists load on page open, fill the video area and switch on click',()=>{
  const player=file('src/components/Home/TechPlaylists.astro');
  const verified=[
  'PLVxh46uVOYfb5YCI8AqG5jK_TB8p0vu9D',
