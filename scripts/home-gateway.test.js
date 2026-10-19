@@ -40,6 +40,20 @@ test('bilingual Tech/Gaming entrance links correctly and Tech introduces real La
  }
 });
 
+
+test('gateway respects original artwork: Gaming left, Tech right, captions below without cropping',()=>{
+ const source=file('src/components/Home/WorldGateway.astro');
+ const asset=path.join(root,'src/assets/index/index.webp');
+ const before=source.indexOf("id: 'gaming'");
+ const after=source.indexOf("id: 'tech'");
+ assert.ok(before>=0&&after>before,'Gaming must occupy the left half and Tech the right');
+ assert.match(source,/aspect-ratio:3\/2/,'preserve original 1536x1024 artwork ratio');
+ assert.match(source,/object-fit:contain/,'entire image must be visible');
+ assert.ok(source.indexOf('class="world-scene"') < source.indexOf('class="world-choice-grid"'),'text navigation must sit below artwork');
+ assert.doesNotMatch(source,/world-image-dim|world-midmark|world-seam|world-copy[^-]/,'no giant overlays or center seam over illustrations');
+ assert.ok(fs.existsSync(asset));
+});
+
 test('embedded playlists are real SolarisPKN series and YouTube loads only on user click',()=>{
  const player=file('src/components/Home/TechPlaylists.astro');
  const verified=[
