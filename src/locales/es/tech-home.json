@@ -1,0 +1,118 @@
+{
+  "eyebrow": "SOLARISPKN / LABORATORIO TÉCNICO",
+  "title": "Tecnología que se diseña, se prueba y se comparte.",
+  "intro": "SolarisPKN Labs reúne mis proyectos de sistemas, desarrollo, automatización, inteligencia artificial, hardware y electrónica. Un lugar para mostrar cómo funcionan las soluciones, documentar experimentos y compartir lo aprendido.",
+  "primary": "Explorar proyectos",
+  "secondary": "Conocer la arquitectura",
+  "stats": {
+    "projects": "proyectos documentados",
+    "areas": "áreas de exploración",
+    "languages": "idiomas"
+  },
+  "headingExplore": "Tu recorrido por Labs",
+  "exploreLead": "Entrá por la puerta que más te interese: trabajo técnico, artículos, experiencia o la arquitectura del sitio.",
+  "destinations": [
+    {
+      "key": "projects",
+      "icon": "⌘",
+      "title": "Proyectos y herramientas",
+      "description": "Explorá los repositorios Core, Derived y External Labs y su documentación bilingüe.",
+      "action": "Ver catálogo"
+    },
+    {
+      "key": "blog",
+      "icon": "✍",
+      "title": "Blog técnico",
+      "description": "Análisis, experiencias de implementación, investigaciones y notas de desarrollo.",
+      "action": "Leer artículos"
+    },
+    {
+      "key": "portfolio",
+      "icon": "◉",
+      "title": "Portfolio y conocimientos",
+      "description": "Mi experiencia, formación y un mapa navegable de conocimientos técnicos.",
+      "action": "Conocer el perfil"
+    },
+    {
+      "key": "architecture",
+      "icon": "◇",
+      "title": "Arquitectura del ecosistema",
+      "description": "Observá los componentes reales de Labs y las relaciones documentadas entre proyectos.",
+      "action": "Abrir explorador"
+    }
+  ],
+  "focusHeading": "Qué se construye e investiga",
+  "focusLead": "De la infraestructura al dispositivo físico: disciplinas que se cruzan en proyectos reales.",
+  "focus": [
+    {
+      "icon": "🖥️",
+      "title": "Sistemas y cloud",
+      "description": "Linux, Windows, redes, servidores, virtualización, contenedores y laboratorios en la nube."
+    },
+    {
+      "icon": "⚙️",
+      "title": "Software y automatización",
+      "description": "Aplicaciones web, scripts, Git, integración de servicios, CI y herramientas de operación."
+    },
+    {
+      "icon": "🤖",
+      "title": "IA y agentes",
+      "description": "Modelos locales, MCP, memoria, RAG y automatización asistida, con verificación y permisos."
+    },
+    {
+      "icon": "🔧",
+      "title": "Hardware y electrónica",
+      "description": "Diagnóstico, reparación, refrigeración, ESP32, IoT y sistemas eléctricos automotrices."
+    }
+  ],
+  "projectsHeading": "Proyectos para empezar",
+  "projectsLead": "Una selección del catálogo público. Cada tarjeta te lleva a su ficha técnica bilingüe.",
+  "allProjects": "Explorar los proyectos",
+  "projectRead": "Explorar proyecto",
+  "active": "Operativo",
+  "developing": "En desarrollo",
+  "otherStatus": "En seguimiento",
+  "blogHeading": "Ideas, problemas y aprendizajes",
+  "blogLead": "Artículos publicados en Labs, tomados directamente del blog: no son demostraciones ni contenido inventado.",
+  "allBlog": "Ir al blog",
+  "blogRead": "Leer artículo",
+  "emptyBlog": "Los próximos artículos aparecerán aquí.",
+  "videoHeading": "Taller y tutoriales en video",
+  "videoLead": "Contenido técnico de mi canal: armados de PC, reparación automotriz, tutoriales y herramientas informáticas.",
+  "channel": "Visitar el canal",
+  "videoPick": "Elegí una lista para reproducirla aquí.",
+  "videoPlay": "Reproducir lista",
+  "videoOpen": "Abrir en YouTube",
+  "videoPrivacy": "El reproductor de YouTube solo se carga cuando elegís una lista.",
+  "videoIframe": "Reproductor: ",
+  "playlists": [
+    {
+      "key": "pc",
+      "label": "Hardware y PC",
+      "title": "TecnOtakus: Tutoriales PC",
+      "description": "Armado, componentes y reparación de computadoras."
+    },
+    {
+      "key": "auto",
+      "label": "Mecánica y electrónica",
+      "title": "Lubricantes Villars: Videos del Automotor",
+      "description": "Trabajos y reparaciones realizados en el taller."
+    },
+    {
+      "key": "solarispkn",
+      "label": "Tutoriales técnicos",
+      "title": "Tutoriales de SolarisPKN",
+      "description": "Experiencias y guías técnicas publicadas en el canal."
+    },
+    {
+      "key": "internet",
+      "label": "Informática",
+      "title": "Tutoriales Informáticos de SolarisPKN",
+      "description": "Herramientas, sitios web y uso de software."
+    }
+  ],
+  "outroTitle": "¿Querés ver cómo está hecho?",
+  "outroText": "La mayoría de estos proyectos tiene código, documentación o ejemplos públicos. Podés recorrer el ecosistema y ver los repositorios directamente.",
+  "outroAction": "Explorar en GitHub",
+  "backGateway": "Cambiar entre Tech y Gaming"
+}
