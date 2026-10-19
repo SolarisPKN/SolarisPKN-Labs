@@ -51,6 +51,11 @@ test('gateway respects original artwork: Gaming left, Tech right, captions below
  assert.match(source,/object-fit:contain/,'entire image must be visible');
  assert.ok(source.indexOf('class="world-scene"') < source.indexOf('class="world-choice-grid"'),'text navigation must sit below artwork');
  assert.doesNotMatch(source,/world-image-dim|world-midmark|world-seam|world-copy[^-]/,'no giant overlays or center seam over illustrations');
+ assert.doesNotMatch(source,/world-areas|world-hotspot|world-hit-/,'image must have no hidden duplicate navigation targets');
+ assert.equal((source.match(/<a\\b/g)||[]).length,1,'only one mapped card anchor template can exist');
+ assert.equal((source.match(/worlds\\.map/g)||[]).length,1,'the exactly two world links must only be rendered in the card grid');
+ assert.match(source,/worlds\\s*=\\s*\\[[\\s\\S]*?id: 'gaming'[\\s\\S]*?id: 'tech'[\\s\\S]*?\\]/,'Gaming card must be left of Tech');
+ assert.match(source,/\\.world-artwork\\{[^}]*height:auto/,'artwork must display naturally without overlays');
  assert.ok(fs.existsSync(asset));
 });
 
