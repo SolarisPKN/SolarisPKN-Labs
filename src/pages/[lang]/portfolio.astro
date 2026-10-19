@@ -1,6 +1,7 @@
 ---
 // src/pages/[lang]/portfolio.astro
 import "@styles/portfolio.css";
+import "@styles/mindmap.css";
 
 export async function getStaticPaths() {
   return [
@@ -15,6 +16,7 @@ import Layout from '../../layouts/Layout.astro';
 const t = await import(`../../locales/${lang}/portfolio.json`);
 const skills = await import(`../../locales/${lang}/portfolioskills.json`);
 const common = await import(`../../locales/${lang}/common.json`);
+const mindmap = (await import(`../../locales/${lang}/mindmap.json`)).default;
 
 // El build conserva un orden determinista; el carrusel decide su muestra en el navegador.
 const certificates = skills.certificados ?? [];
@@ -267,13 +269,44 @@ const academias: string[] = [...new Set<string>(skills.certificados.map((c) => S
       </ul>
     </section>
 
-    <!-- ===== MAPA MENTAL ===== -->
-    <section class="mind-map glass reveal" data-reveal>
-      <h2>🗺️ {t.mindMapTitle || 'Mapa de habilidades'}</h2>
-      <div class="mind-map-placeholder">
-        <p>🧠 {t.mindMapPlaceholder || 'Próximamente: mapa mental interactivo de habilidades y tecnologías.'}</p>
-        <p><small>{t.mindMapSubtext || 'Este espacio albergará un diagrama de nodos interactivo.'}</small></p>
+    <!-- ===== MAPA MENTAL / KNOWLEDGE GRAPH ===== -->
+    <section class="mind-map glass reveal" data-reveal aria-labelledby="mindmap-title">
+      <h2 id="mindmap-title">🗺️ {mindmap.ui.title}</h2>
+      <p class="mindmap-intro">{mindmap.ui.subtitle}</p>
+      <div id="knowledge-map">
+        <div class="mindmap-toolbar">
+          <input id="mindmap-search" type="search" placeholder={mindmap.ui.search} aria-label={mindmap.ui.search} autocomplete="off" />
+          <select id="mindmap-kind" aria-label={mindmap.ui.all}>
+            <option value="all">{mindmap.ui.all}</option>
+            <option value="work">{mindmap.ui.works}</option>
+            <option value="project">{mindmap.ui.projects}</option>
+            <option value="area">{mindmap.ui.areas}</option>
+            <option value="skill">{mindmap.ui.skills}</option>
+          </select>
+          <button type="button" id="mindmap-mode">{mindmap.ui.full}</button>
+          <button type="button" id="mindmap-reset">{mindmap.ui.reset}</button>
+        </div>
+        <div id="mindmap-results" class="mindmap-results" aria-live="polite"></div>
+        <div class="mindmap-main">
+          <div class="mindmap-stage">
+            <svg id="mindmap-svg" role="group" aria-label={mindmap.ui.title} tabindex="0" xmlns="http://www.w3.org/2000/svg">
+              <title>{mindmap.ui.title}</title>
+              <desc>{mindmap.ui.subtitle}</desc>
+            </svg>
+            <div class="mindmap-zoom">
+              <button type="button" id="mindmap-plus" aria-label={mindmap.ui.zoomIn} title={mindmap.ui.zoomIn}>＋</button>
+              <button type="button" id="mindmap-minus" aria-label={mindmap.ui.zoomOut} title={mindmap.ui.zoomOut}>−</button>
+              <button type="button" id="mindmap-fit" aria-label={mindmap.ui.fit} title={mindmap.ui.fit}>⤢</button>
+            </div>
+          </div>
+          <aside id="mindmap-detail" class="mindmap-detail" aria-live="polite">
+            <h3>{mindmap.ui.select}</h3>
+          </aside>
+        </div>
+        <p id="mindmap-counter" class="mindmap-note"></p>
+        <p class="mindmap-note">{mindmap.ui.hint} · {mindmap.ui.source}</p>
       </div>
+      <script id="mindmap-data" type="application/json" set:html={JSON.stringify(mindmap).replace(/</g, '\\u003c')} />
     </section>
 
     <!-- ===== FOOTER ===== -->
@@ -293,6 +326,7 @@ const academias: string[] = [...new Set<string>(skills.certificados.map((c) => S
     import { initBackToTop } from '@scripts/backToTop.js';
     import { initTechCarousel } from '@scripts/techCarousel.js';
     import { initCertificates } from '@scripts/certificates.js';
+    import { initMindMap } from '@scripts/mindmap.js';
 
     let cleanupPortfolio = () => {};
 
@@ -312,6 +346,7 @@ const academias: string[] = [...new Set<string>(skills.certificados.map((c) => S
         initBackToTop(),
         initTechCarousel(),
         initCertificates(certificates),
+        initMindMap(),
       ].filter((cleanup) => typeof cleanup === 'function');
 
       cleanupPortfolio = () => {
