@@ -48,3 +48,26 @@ test('Worker routes live list before static asset serving, no untrusted upstream
   assert.equal(hits,1);
  }finally{globalThis.fetch=previous;}
 });
+
+test('Worker resolves older playlist video titles via public oEmbed without secrets',async()=>{
+ const old=globalThis.fetch;
+ let hits=0;
+ globalThis.fetch=async(url)=>{
+  hits++;
+  assert.ok(String(url).startsWith('https://www.youtube.com/oembed?url='));
+  assert.ok(String(url).includes('abcdefghijk'));
+  return Response.json({title:'Hardware & Reparaciones'});
+ };
+ const assets={fetch:async()=>new Response('STATIC',{status:200})};
+ try{
+  const yes=await worker.fetch(new Request('https://labs.solarispkn.com.ar/api/tech-video-title?id=abcdefghijk'),{ASSETS:assets});
+  assert.equal(yes.status,200);
+  const data=await yes.json();
+  assert.equal(data.title,'Hardware & Reparaciones');
+  assert.equal(data.id,'abcdefghijk');
+  assert.equal(hits,1);
+  const no=await worker.fetch(new Request('https://labs.solarispkn.com.ar/api/tech-video-title?id=https%3A%2F%2Fexample.com'),{ASSETS:assets});
+  assert.equal(no.status,400);
+  assert.equal(hits,1);
+ }finally{globalThis.fetch=old;}
+});
