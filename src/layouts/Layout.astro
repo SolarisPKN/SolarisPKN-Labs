@@ -4,6 +4,7 @@ import SEO from '@components/SEO.astro';
 import { ClientRouter } from 'astro:transitions';
 import "@styles/global.css";
 import ContextualHeader from '../components/Layout/ContextualHeader.astro';
+import AnalyticsConsent from '../components/Layout/AnalyticsConsent.astro';
 
 export interface Props {
   title: string;
@@ -129,7 +130,20 @@ const languagePath = /^\/404(?:\.html)?\/?$/.test(Astro.url.pathname) ? '/' : pa
         </a>
         — <span id="status">{common.footer.estado}</span>
       </p>
+      <p style="margin-top: .7rem;">
+        <a href={`/${lang}/privacy/`} style="color: var(--border-cyan);">
+          {lang === 'es' ? 'Privacidad y analítica' : 'Privacy and analytics'}
+        </a>
+        <span aria-hidden="true"> · </span>
+        <button type="button" data-analytics-settings
+          style="background: none; border: 0; padding: .6rem; color: var(--border-cyan); text-decoration: underline; font: inherit; cursor: pointer; min-height: 44px;">
+          {lang === 'es' ? 'Configurar estadísticas' : 'Analytics settings'}
+        </button>
+      </p>
     </footer>
+
+    <!-- GA4 only loads after the visitor explicitly opts in. -->
+    <AnalyticsConsent lang={lang} />
 
     <!-- ===== SCRIPTS ===== -->
     <script>
