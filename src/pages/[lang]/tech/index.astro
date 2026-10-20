@@ -4,6 +4,8 @@ import TechPlaylists from '../../../components/Home/TechPlaylists.astro';
 import { loadAllProjects } from '../../../utils/projects.js';
 import esCopy from '../../../locales/es/tech-home.json';
 import enCopy from '../../../locales/en/tech-home.json';
+import esProjectWords from '../../../locales/es/projects.json';
+import enProjectWords from '../../../locales/en/projects.json';
 import fs from 'node:fs';
 import path from 'node:path';
 import '../../../styles/tech-landing.css';
@@ -14,6 +16,7 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang === 'en' ? 'en' : 'es';
 const copy = lang === 'en' ? enCopy : esCopy;
+const labWords = (lang === 'en' ? enProjectWords : esProjectWords).categories;
 const projectCatalog = loadAllProjects();
 const featuredSlugs = [
   'SolarisPKN-IA','SolarisPKN-Engineer','SolarisPKN-LiveTools',
@@ -117,6 +120,11 @@ const dateLabel=(s) => {
         <div><p class="tech-overline">03 / BUILD</p><h2 id="tech-projects-title">{copy.projectsHeading}</h2><p>{copy.projectsLead}</p></div>
         <a class="tech-inline-action" href={directoryRoutes.projects}>{copy.allProjects} ↗</a>
       </div>
+      <nav class="tech-labs-shortcuts" aria-label="Labs">
+        {(['core','derived','external'] as const).map(category => (
+          <a href={`/${lang}/projects/${category}-labs/`}>{labWords[category].title} ↗</a>
+        ))}
+      </nav>
       <div class="tech-feature-grid">
         {highlighted.map(p => (
           <a class="tech-feature-card" href={`/${lang}/projects/${encodeURIComponent(p.slug)}/`}>
