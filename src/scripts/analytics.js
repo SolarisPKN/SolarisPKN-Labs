@@ -7,7 +7,6 @@
   const CONSENT_KEY = 'solarispkn-labs.analytics-consent.v1';
   let memoryChoice = null;
   let googleTagStarted = false;
-  let lastTrackedPage = null;
 
   function consentChoice() {
     try {
@@ -45,30 +44,17 @@
     window.gtag('consent', 'update', { analytics_storage: 'granted' });
     window.gtag('js', new Date());
     window.gtag('config', id, {
-      send_page_view: false,
       allow_google_signals: false,
       allow_ad_personalization_signals: false
     });
 
+    // GA4 Enhanced Measurement sends the initial and browser-history pageviews.
+    // Do not emit manual page_view events: Astro navigation would double-count.
     const googleScript = document.createElement('script');
     googleScript.async = true;
     googleScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
     googleScript.setAttribute('data-ga4-tag', '');
     document.head.appendChild(googleScript);
-  }
-
-  function recordPageView() {
-    if (consentChoice() !== 'accepted' || !googleTagStarted || !window.gtag) return;
-
-    // Deliberately omit query strings and URL fragments; they may contain private data.
-    const page = window.location.origin + window.location.pathname;
-    if (lastTrackedPage === page) return;
-    lastTrackedPage = page;
-    window.gtag('event', 'page_view', {
-      page_location: page,
-      page_title: document.title,
-      page_path: window.location.pathname
-    });
   }
 
   function renderConsent() {
@@ -80,7 +66,6 @@
       const id = measurementId();
       if (id) {
         startGoogleAnalytics(id);
-        recordPageView();
       }
     }
   }
@@ -123,7 +108,6 @@
       const id = measurementId();
       if (id) {
         startGoogleAnalytics(id);
-        recordPageView();
       }
     } else if (previouslyActive) {
       // Basic consent mode: unload the Google tag entirely on withdrawal.
