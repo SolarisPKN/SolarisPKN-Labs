@@ -1,0 +1,45 @@
+name: Blog responsive and SEO regression
+
+on:
+  pull_request:
+    paths:
+      - 'src/pages/**/blog/**'
+      - 'src/styles/blog*.css'
+      - 'src/scripts/blog.js'
+      - 'src/locales/**/blog.json'
+      - 'src/layouts/Layout.astro'
+      - 'src/components/SEO.astro'
+      - 'scripts/blog-audit.test.js'
+      - '.github/workflows/blog-audit.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/pages/**/blog/**'
+      - 'src/styles/blog*.css'
+      - 'src/scripts/blog.js'
+      - 'src/locales/**/blog.json'
+      - 'src/layouts/Layout.astro'
+      - 'src/components/SEO.astro'
+      - 'scripts/blog-audit.test.js'
+      - '.github/workflows/blog-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-blog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Blog regression
+        run: node --test scripts/blog-audit.test.js
+      - name: Astro check
+        run: npm run check
+      - name: Site build
+        run: npm run build
