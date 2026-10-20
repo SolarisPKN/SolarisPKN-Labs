@@ -16,6 +16,10 @@ export interface Props {
   techSkills?: string[];
   coreSkills?: string[];
   navigation?: 'gateway' | 'tech' | 'gaming';
+  seoType?: 'website' | 'article' | 'profile' | 'book';
+  publishedTime?: string;
+  modifiedTime?: string;
+  tags?: string[];
 }
 
 const {
@@ -29,6 +33,10 @@ const {
   techSkills = [],
   coreSkills = [],
   navigation = 'tech',
+  seoType = 'website',
+  publishedTime,
+  modifiedTime,
+  tags = [],
 } = Astro.props;
 
 // Cargar traducciones
@@ -50,6 +58,10 @@ const languagePath = /^\/404(?:\.html)?\/?$/.test(Astro.url.pathname) ? '/' : pa
       canonical={canonical || Astro.url.pathname}
       locale={lang === 'es' ? 'es_AR' : 'en_US'}
       schema={schema}
+      type={seoType}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+      tags={tags}
       author="Pablo Sebastian Marchetti Orayen"
       jobTitle="IT Infrastructure Specialist"
       certificates={certificates}

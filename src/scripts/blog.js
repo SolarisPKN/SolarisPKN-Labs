@@ -2,7 +2,8 @@ function initBlogFilters() {
   window.__blogFiltersCleanup?.();
 
   const buttons = document.querySelectorAll('.tag-filter');
-  const cards = document.querySelectorAll('.post-card');
+  const cards = document.querySelectorAll('.post-card-link');
+  const counter = document.querySelector('[data-blog-result-count]');
   if (buttons.length === 0) {
     window.__blogFiltersCleanup = () => {};
     return;
@@ -19,15 +20,16 @@ function initBlogFilters() {
         const selected = candidate === button;
         candidate.classList.toggle('active', selected);
         candidate.setAttribute('aria-pressed', String(selected));
-        candidate.style.background = selected ? 'var(--border-cyan)' : 'transparent';
-        candidate.style.color = selected ? '#0a0a0a' : 'var(--text-light)';
-        candidate.style.borderColor = selected ? 'var(--border-cyan)' : 'rgba(255,255,255,0.2)';
       });
 
+      let visible = 0;
       cards.forEach((card) => {
         const tags = card.dataset.tags?.split(',') ?? [];
-        card.style.display = selectedTag === 'all' || tags.includes(selectedTag) ? '' : 'none';
+        const matches = selectedTag === 'all' || tags.includes(selectedTag);
+        card.hidden = !matches;
+        if (matches) visible++;
       });
+      if (counter) counter.textContent = visible + ' ' + (counter.dataset.resultsLabel || 'posts');
     }, { signal });
   });
 

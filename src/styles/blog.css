@@ -55,3 +55,30 @@
 .popular-post-link:hover {
   color: var(--border-cyan);
 }
+/* Blog refreshed to match the Labs Tech visual system. */
+.blog-index{max-width:1280px;min-width:0;margin:0 auto;padding:clamp(1rem,2.5vw,2.6rem);color:#eaf4fa}
+.blog-title{font:750 clamp(2rem,5vw,3.3rem) 'JetBrains Mono',monospace;letter-spacing:-.04em;color:#87ffe7;line-height:1.2}
+.blog-intro{margin:.7rem 0 2rem;color:#afc6d2;max-width:68ch;line-height:1.7}
+.blog-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,285px);gap:clamp(1rem,2.2vw,2rem);align-items:start}
+.blog-main,.blog-sidebar{min-width:0}
+.blog-filter-bar{display:flex;align-items:center;flex-wrap:wrap;gap:.65rem;margin:0 0 .65rem}
+.blog-filter-icon{opacity:.8}
+.blog-tag-picker{min-width:0;position:relative;max-width:100%}
+.blog-tag-picker summary{list-style:revert;cursor:pointer;min-height:44px;display:flex;gap:.6rem;align-items:center;padding:.55rem .8rem;border:1px solid rgba(104,240,219,.4);border-radius:10px;background:#102633;color:#9ffce9;font-size:.85rem;font-weight:750}
+.blog-tag-picker summary:hover{background:#193746}
+.blog-tag-picker summary:focus-visible,.tag-filter:focus-visible,.post-card-link:focus-visible,.popular-post-link:focus-visible{outline:3px solid #ff79c6;outline-offset:3px}
+.blog-tag-picker[open]{width:100%}
+.blog-tag-options{display:flex;flex-wrap:wrap;gap:.5rem;padding:1rem 0 .5rem}
+.blog-filter-status{display:block;font-size:.8rem;color:#9bb4c3;margin:0 0 1rem}
+#post-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,265px),1fr));gap:1rem}
+.post-card-link{display:block;min-width:0;height:100%;text-decoration:none;color:inherit;border-radius:16px}
+.post-card-link[hidden]{display:none!important}
+.post-card{height:100%;padding:0!important;background:linear-gradient(145deg,#152535,#0c1624);border-radius:16px;overflow:hidden}
+.post-card-link:hover .post-card,.post-card-link:focus-visible .post-card{border-color:#5bffdf;transform:translateY(-3px)}
+.blog-card-heading{font:750 clamp(1rem,1.5vw,1.17rem) 'JetBrains Mono',monospace;color:#f3fdff;line-height:1.35;margin:0 0 .65rem;overflow-wrap:anywhere}
+.blog-sidebar-card{padding:1.2rem;position:sticky;top:6.5rem;border:1px solid rgba(105,217,211,.3);background:#101e2d;border-radius:14px}
+.blog-sidebar-heading{font:750 1.05rem 'JetBrains Mono',monospace;color:#89ffe7;margin:0 0 1rem}
+.popular-post-link{display:inline-block;line-height:1.45}
+@media(max-width:880px){.blog-layout{grid-template-columns:minmax(0,1fr)}.blog-sidebar-card{position:static}.blog-sidebar{margin-top:1rem}}
+@media(max-width:540px){.blog-index{padding:1rem .75rem 3rem}.blog-title{font-size:clamp(1.85rem,8vw,2.5rem)}.blog-filter-bar{gap:.5rem}.blog-tag-picker{flex:1}.blog-tag-picker summary{justify-content:center;text-align:center}#post-grid{grid-template-columns:minmax(0,1fr)}.post-card:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){.post-card,.post-card-link .post-card{transition:none}}

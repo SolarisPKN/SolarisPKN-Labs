@@ -103,3 +103,22 @@
 .prose tbody tr:nth-child(even) {
   background: rgba(255, 255, 255, 0.025);
 }
+
+/* Blog reading surface; narrow screens never clip code or media. */
+.blog-article{max-width:880px;min-width:0;margin:0 auto;padding:clamp(1rem,3vw,2.5rem);color:#edf8ff}
+.blog-article>h1{line-height:1.18;overflow-wrap:anywhere}
+.blog-article-breadcrumb{margin:0 0 1.5rem}
+.blog-article-breadcrumb a,.blog-article-bottom a{display:inline-flex;align-items:center;min-height:44px;color:#8bffe7;text-decoration:none;font-weight:700;font-size:.91rem}
+.blog-article-breadcrumb a:hover,.blog-article-bottom a:hover{text-decoration:underline}
+.blog-article-breadcrumb a:focus-visible,.blog-article-bottom a:focus-visible,.prose a:focus-visible{outline:3px solid #ff79c6;outline-offset:3px}
+.blog-article-date{font-size:.85rem;color:#aec2d1;margin:.85rem 0 1.5rem}
+.blog-article-bottom{margin:2rem 0 0;padding-top:1.2rem;border-top:1px solid rgba(110,231,210,.2)}
+.prose{min-width:0;max-width:100%}
+.prose :is(iframe,video,embed,object,svg){max-width:100%}
+.prose img{height:auto;display:block}
+.prose pre{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;white-space:pre;font-size:clamp(.76rem,1.3vw,.92rem);border:1px solid rgba(110,231,210,.18)}
+.prose pre code{white-space:inherit;overflow-wrap:normal;word-break:normal}
+.prose table{max-width:100%;overflow-x:auto;scrollbar-width:thin}
+.prose :is(h2,h3){line-height:1.35;scroll-margin-top:7rem;overflow-wrap:anywhere}
+@media(max-width:540px){.blog-article{padding:1rem .85rem 2.5rem}.blog-article>h1{font-size:clamp(1.7rem,7vw,2.5rem)!important}.prose{font-size:1rem;line-height:1.75}.prose pre{padding:.75rem}.prose ul,.prose ol{padding-left:1.2rem}}
+@media(prefers-reduced-motion:reduce){.blog-article{scroll-behavior:auto}}
