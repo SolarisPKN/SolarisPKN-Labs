@@ -103,3 +103,16 @@ Un proyecto diseñado para contener otros proyectos.
 ## Licencia
 
 La licencia del proyecto será definida en futuras versiones.
+
+## Analítica de visitas (GA4)
+
+La etiqueta de Google Analytics 4 `G-66ZYMRXVCE` se incorpora en el layout compartido mediante un módulo de consentimiento básico. El identificador de medición es público y puede reemplazarse opcionalmente en compilación con `PUBLIC_GA_MEASUREMENT_ID`; **no** es un secreto de API.
+
+- La etiqueta **no se descarga ni transmite datos** antes de que el visitante acepte. El rechazo no afecta al sitio.
+- La elección se guarda localmente; en el pie de página se puede volver a configurar.
+- Tras aceptar, Google recibe los datos directamente desde el navegador; no hay solicitudes ni escrituras adicionales en Cloudflare Workers, KV o D1.
+- GA4 registra vistas automáticamente, también cuando Astro ClientRouter navega y modifica el historial. No enviamos `page_view` manualmente.
+- En **Google Analytics → Administrar → Flujos de datos → Web → Medición optimizada → Vistas de página → Configuración avanzada**, mantener habilitada la opción de cambios de página basados en eventos del historial del navegador. Así se miden las navegaciones internas.
+- Google, los bloqueadores y las decisiones de consentimiento pueden reducir las visitas observables; esto no es un contador absoluto de personas.
+
+Pruebas: `node --test scripts/analytics-consent.test.js`.
