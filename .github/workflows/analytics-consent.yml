@@ -1,0 +1,43 @@
+name: GA4 consent integration regression
+
+on:
+  pull_request:
+    paths:
+      - 'src/scripts/analytics.js'
+      - 'src/components/Layout/AnalyticsConsent.astro'
+      - 'src/pages/**/privacy/**'
+      - 'src/layouts/Layout.astro'
+      - 'public/_headers'
+      - 'scripts/analytics-consent.test.js'
+      - '.github/workflows/analytics-consent.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/scripts/analytics.js'
+      - 'src/components/Layout/AnalyticsConsent.astro'
+      - 'src/pages/**/privacy/**'
+      - 'src/layouts/Layout.astro'
+      - 'public/_headers'
+      - 'scripts/analytics-consent.test.js'
+      - '.github/workflows/analytics-consent.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test-analytics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Verify consent privacy, GA4 and CSP
+        run: node --test scripts/analytics-consent.test.js
+      - name: Astro diagnostics
+        run: npm run check
+      - name: Build static site
+        run: npm run build
