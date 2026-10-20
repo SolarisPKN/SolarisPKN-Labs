@@ -1,0 +1,55 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'es' } }, { params: { lang: 'en' } }];
+}
+const lang = Astro.params.lang === 'en' ? 'en' : 'es';
+const es = lang === 'es';
+const heading = es ? 'Privacidad y estadísticas' : 'Privacy and analytics';
+const description = es
+  ? 'Cómo medimos las visitas de SolarisPKN-Labs y cómo podés controlar tu consentimiento.'
+  : 'How SolarisPKN-Labs measures visits and how you can manage your consent.';
+---
+<Layout title={heading} description={description} lang={lang}>
+  <article class="privacy-page">
+    <h1>{heading}</h1>
+    <p>{description}</p>
+    <section>
+      <h2>{es ? 'Medición opcional' : 'Optional measurement'}</h2>
+      <p>{es
+        ? 'Usamos Google Analytics 4 para conocer las visitas, los artículos consultados y estadísticas generales del sitio. Su etiqueta externa no se descarga ni envía información a Google antes de que aceptes las estadísticas.'
+        : 'We use Google Analytics 4 to measure visits, article readership and general site statistics. Its external tag is neither loaded nor used to send data to Google before you opt in.'}</p>
+      <p>{es
+        ? 'Si aceptás, Google puede utilizar cookies de analítica para reconocer un navegador y calcular sesiones y visitantes. No configuramos funciones publicitarias ni creamos identificadores propios de hardware.'
+        : 'If you accept, Google may use analytics cookies to recognize a browser and calculate sessions and users. We do not configure advertising features or generate hardware identifiers.'}</p>
+    </section>
+    <section>
+      <h2>{es ? 'Tu elección' : 'Your choice'}</h2>
+      <p>{es
+        ? 'Guardamos solamente tu preferencia (aceptar o rechazar) en el almacenamiento local del navegador. Podés cambiarla con «Configurar estadísticas» al pie de cualquier página. Al retirar el consentimiento, dejamos de cargar la etiqueta de Google y eliminamos las cookies de analítica de esta propiedad que podemos controlar desde nuestro dominio.'
+        : 'We store only your accept/reject preference in your browser’s local storage. You can change it using “Analytics settings” in the footer of any page. If you withdraw consent, we stop loading the Google tag and delete this property’s analytics cookies that we can control on our domain.'}</p>
+      <p>{es
+        ? 'Rechazar no impide leer el blog ni usar el resto del sitio. Los bloqueadores de contenido y las restricciones de red también pueden impedir la medición, incluso cuando aceptás.'
+        : 'Rejecting does not prevent reading the blog or using the rest of the site. Content blockers and network restrictions can also prevent tracking even after consent.'}</p>
+    </section>
+    <section>
+      <h2>{es ? 'Tercero responsable de la analítica' : 'Third-party analytics provider'}</h2>
+      <p>{es
+        ? 'Google procesa los eventos de medición conforme a sus propias políticas y a la configuración de nuestra propiedad de Analytics. Podés consultar cómo utiliza Google los datos de sitios que usan sus servicios.'
+        : 'Google processes measurement events according to its own policies and our Analytics property settings. You can read how Google uses data from sites that use its services.'}</p>
+      <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">
+        {es ? 'Cómo utiliza Google la información de sitios y aplicaciones' : 'How Google uses information from sites and apps'}
+      </a>
+    </section>
+    <p><a href={`/${lang}/tech/`}>← {es ? 'Volver a Tech' : 'Back to Tech'}</a></p>
+  </article>
+</Layout>
+<style>
+  .privacy-page{max-width:850px;margin:0 auto;padding:clamp(1rem,3vw,2.5rem);line-height:1.8;color:var(--text-light)}
+  .privacy-page h1{color:var(--border-cyan);font-size:clamp(1.7rem,5vw,2.65rem);line-height:1.2;margin-bottom:1rem}
+  .privacy-page h2{font-size:1.2rem;color:#a7fcec;margin:1.7rem 0 .6rem}
+  .privacy-page p{margin:0 0 1rem}
+  .privacy-page a{color:#89ffe5;text-underline-offset:3px;overflow-wrap:anywhere}
+  .privacy-page a:focus-visible{outline:3px solid #ff79c6;outline-offset:3px}
+</style>
