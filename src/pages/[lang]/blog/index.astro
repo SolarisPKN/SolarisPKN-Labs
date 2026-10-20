@@ -33,7 +33,7 @@ if (fs.existsSync(blogBaseDir)) {
     const metaPath = path.join(blogBaseDir, slug, 'post.json');
     const localePath = path.join(root, 'src', 'locales', lang, 'posts', `${slug}.json`);
 
-    if (fs.existsSync(metaPath) && fs.existsSync(localePath)) {
+    if (fs.existsSync(metaPath) && fs.existsSync(localePath) && fs.existsSync(path.join(blogBaseDir, slug, 'index-' + lang + '.mdx'))) {
       const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
       const locale = JSON.parse(fs.readFileSync(localePath, 'utf-8'));
       posts.push({
@@ -50,16 +50,18 @@ if (fs.existsSync(blogBaseDir)) {
 posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 // Tags únicos
-const allTags = [...new Set(posts.flatMap(p => p.tags || []))];
+const allTags = [...new Set(posts.flatMap(p => Array.isArray(p.tags) ? p.tags : []))].sort((a,b)=>a.localeCompare(b,lang));
 
-// Posts populares (los 5 más recientes)
+// Posts recientes (sin inventar métricas de visitas)
 const popularPosts = posts.slice(0, 5);
 
-const t = await import(`../../../locales/${lang}/blog.json`);
+const t = await import('../../../locales/' + lang + '/blog.json');
+const formatDate = date => new Intl.DateTimeFormat(lang === 'es' ? 'es-AR' : 'en-US', {day:'numeric', month:'long',year:'numeric', timeZone:'UTC'}).format(new Date(date+'T12:00:00Z'));
+const formatShortDate = date => new Intl.DateTimeFormat(lang === 'es' ? 'es-AR' : 'en-US', {day:'numeric', month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(date+'T12:00:00Z'));
 ---
 
-<Layout title={t.titulo} lang={lang}>
-  <div style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem;">
+<Layout title={t.titulo} description={t.descripcion} lang={lang}>
+  <div class="blog-index">
     <h1 style="font-size: 2.5rem; font-family: 'JetBrains Mono', monospace; color: var(--border-cyan);">
       {t.titulo}
     </h1>
@@ -71,20 +73,20 @@ const t = await import(`../../../locales/${lang}/blog.json`);
       </div>
     ) : (
       <>
-        <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
-          <div style="flex: 3; min-width: 300px;">
+        <div class="blog-layout">
+          <div class="blog-main">
             <!-- Filtros de tags -->
-            <div style="margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
-              <span style="opacity: 0.6; margin-right: 0.5rem;">🏷️</span>
+            <div class="blog-filter-bar">
+              <span class="blog-filter-icon" aria-hidden="true">🏷️</span>
               <button 
-                class="tag-filter active" 
+                class="tag-filter active" type="button" aria-pressed="true" 
                 data-tag="all"
               >
                 {t.todos}
               </button>
               {allTags.map(tag => (
                 <button 
-                  class="tag-filter" 
+                  class="tag-filter" type="button" aria-pressed="false" 
                   data-tag={tag}
                 >
                   #{tag}
@@ -92,11 +94,12 @@ const t = await import(`../../../locales/${lang}/blog.json`);
               ))}
             </div>
 
+            <output class="blog-filter-status" data-blog-result-count aria-live="polite">{posts.length} {t.resultados}</output>
             <!-- Grid de posts -->
             <div id="post-grid">
               {posts.map(post => (
-                <a href={`/${lang}/blog/${post.slug}`} style="text-decoration: none; color: inherit; display: block;">
-                  <div class="post-card glass" data-tags={post.tags?.join(',') || ''}>
+                <a href={'/'+lang+'/blog/'+post.slug+'/'} class="post-card-link" data-tags={post.tags?.join(',') || ''}>
+                  <div class="post-card glass">
                     {post.heroImage && (
                       <div style="overflow: hidden; height: 200px; flex-shrink: 0;">
                         <img 
@@ -127,7 +130,7 @@ const t = await import(`../../../locales/${lang}/blog.json`);
                         </p>
                       )}
                       <div style="font-size: 0.8rem; opacity: 0.5; margin-top: auto;">
-                        {new Date(post.date).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                        {formatDate(post.date)}
                       </div>
                     </div>
                   </div>
@@ -137,17 +140,17 @@ const t = await import(`../../../locales/${lang}/blog.json`);
           </div>
 
           <!-- Sidebar: Posts populares -->
-          <aside style="flex: 1; min-width: 250px;">
-            <div class="glass" style="padding: 1.5rem; position: sticky; top: 2rem; border: 1px solid rgba(255,255,255,0.1);">
-              <h3 style="font-size: 1.1rem; font-family: 'JetBrains Mono', monospace; color: var(--border-cyan); margin-top: 0;">🔥 {t.populares}</h3>
+          <aside class="blog-sidebar">
+            <div class="blog-sidebar-card glass">
+              <h3 style="font-size: 1.1rem; font-family: 'JetBrains Mono', monospace; color: var(--border-cyan); margin-top: 0;">🕒 {t.recientes}</h3>
               <ul style="list-style: none; padding: 0; margin: 0;">
                 {popularPosts.map(p => (
                   <li style="margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                    <a href={`/${lang}/blog/${p.slug}`} class="popular-post-link">
+                    <a href={'/'+lang+'/blog/'+p.slug+'/'} class="popular-post-link">
                       {p.title}
                     </a>
                     <div style="font-size: 0.7rem; opacity: 0.5; margin-top: 0.2rem;">
-                      {new Date(p.date).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                      {formatShortDate(p.date)}
                     </div>
                   </li>
                 ))}
