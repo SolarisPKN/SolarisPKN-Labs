@@ -346,7 +346,7 @@ switch (schema) {
       '@graph': [
         {
           '@type': 'Article',
-          '@id': `${siteUrl}/#article`,
+          '@id': `${fullUrl}#article`,
           'headline': title,
           'description': description,
           'author': { 
@@ -360,6 +360,8 @@ switch (schema) {
             '@type': 'ImageObject',
             'url': fullImage
           },
+          'keywords': tags.join(', '),
+          'mainEntityOfPage': fullUrl,
           'publisher': {
             '@type': 'Organization',
             'name': 'SolarisPKN Labs',
