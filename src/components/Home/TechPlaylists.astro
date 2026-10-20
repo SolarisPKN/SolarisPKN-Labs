@@ -29,8 +29,19 @@ const scriptConfig=JSON.stringify({playlistInfo:playlists,words:{
   <div class="tech-video-layout">
     <div class="tech-video-main">
       <div class="tech-video-display">
-        <div data-video-holder></div>
-        <div class="tech-video-placeholder" data-video-placeholder>
+        <div data-video-holder>
+          <!-- Native iframe fallback: mobile and no-JavaScript users can watch directly. -->
+          <iframe
+            data-video-fallback-frame
+            src={'https://www.youtube-nocookie.com/embed/videoseries?list='+playlists[0].id+'&playsinline=1'}
+            title={playlists[0].title}
+            loading="lazy"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="tech-video-placeholder" data-video-placeholder hidden>
           <span class="tech-video-play-icon" aria-hidden="true">▶</span>
           <p>{words.videoLoading}</p>
         </div>
@@ -48,7 +59,11 @@ const scriptConfig=JSON.stringify({playlistInfo:playlists,words:{
         <span data-video-count aria-live="polite">{words.videoLoading}</span>
       </div>
       <div class="tech-queue-list" data-video-list role="list">
-        <p class="tech-queue-message">{words.videoLoading}</p>
+        {playlists.map(list => (
+          <a class="tech-queue-fallback" role="listitem" href={list.url} target="_blank" rel="noopener noreferrer">
+            <span>{list.title}</span><span>{words.videoOpen} ↗</span>
+          </a>
+        ))}
       </div>
       <p class="tech-queue-footnote" data-video-warning hidden>{words.videoPartial}</p>
       <a class="tech-queue-more" data-video-more href={playlists[0].url} target="_blank" rel="noopener noreferrer">{words.videoOpen} ↗</a>
@@ -90,9 +105,11 @@ const scriptConfig=JSON.stringify({playlistInfo:playlists,words:{
 .tech-queue-list :global(.tech-queue-item-title){font-weight:650;font-size:.81rem;line-height:1.3;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .tech-queue-list :global(.tech-queue-item-index){font-size:.68rem;color:#8fabbd}
 .tech-queue-message{font-size:.85rem;color:#aec6d2;padding:.7rem}
+.tech-queue-list :global(.tech-queue-fallback){display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;padding:.75rem;background:#112034;border:1px solid #305268;border-radius:9px;color:#c5fff4;text-decoration:none;font-size:.85rem;min-height:44px}
+.tech-queue-list :global(.tech-queue-fallback:focus-visible){outline:2px solid #ff79c6}
 .tech-queue-footnote{font-size:.73rem;color:#a9bac7;line-height:1.5;margin:.65rem .35rem}
 .tech-queue-more{display:inline-block;margin:.55rem .45rem}
 @media(max-width:850px){.tech-video-layout{grid-template-columns:1fr}.tech-queue-list{max-height:330px}}
-@media(max-width:450px){.tech-playlist-option{flex:1;justify-content:center;padding:.6rem;font-size:.75rem}.tech-playlist-number{display:none}.tech-video-shell{padding:.5rem}.tech-queue-list :global(.tech-queue-item img){width:80px;height:45px;flex-basis:80px}}
+@media(max-width:450px){.tech-video-display{width:100%;max-width:100%}.tech-playlist-option{flex:1;justify-content:center;padding:.6rem;font-size:.75rem}.tech-playlist-number{display:none}.tech-video-shell{padding:.5rem}.tech-queue-list :global(.tech-queue-item img){width:80px;height:45px;flex-basis:80px}}
 @media(prefers-reduced-motion:reduce){.tech-queue-list{scroll-behavior:auto}}
 </style>

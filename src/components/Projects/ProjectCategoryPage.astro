@@ -50,6 +50,7 @@ const projects = loadProjectsByCategory(category);
 <style>
   .projects-page {
     max-width: 1200px;
+    min-width: 0;
     margin: 0 auto;
     padding: 2rem 1.5rem 4rem;
   }
@@ -92,7 +93,7 @@ const projects = loadProjectsByCategory(category);
 
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
     gap: 1.5rem;
   }
 
@@ -120,6 +121,7 @@ const projects = loadProjectsByCategory(category);
   }
 
   @media (max-width: 640px) {
-    .projects-grid { grid-template-columns: 1fr; }
+    .projects-page { padding: 1rem .8rem 3rem; }
+    .projects-grid { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
   }
 </style>
