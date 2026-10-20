@@ -1,0 +1,81 @@
+---
+interface Props { lang?: 'es' | 'en'; }
+const { lang = 'es' } = Astro.props;
+// Measurement IDs are public identifiers, not credentials.
+// Optional build-time override; works out of the box without Cloudflare secrets.
+const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-66ZYMRXVCE';
+const es = lang === 'es';
+---
+<section
+  class="analytics-consent"
+  data-analytics-consent
+  data-ga-id={gaId}
+  aria-label={es ? 'Preferencias de analítica' : 'Analytics preferences'}
+  hidden
+>
+  <div class="analytics-consent-copy">
+    <strong>{es ? '📊 Estadísticas del sitio' : '📊 Site analytics'}</strong>
+    <p>
+      {es
+        ? 'Usamos Google Analytics para entender qué páginas se visitan. Es opcional y solo se carga si aceptás; no usamos estos datos para publicidad.'
+        : 'We use Google Analytics to understand which pages people visit. It is optional and only loads if you agree; we do not use this data for advertising.'}
+      <a href={`/${lang}/privacy/`}>{es ? 'Más información' : 'Learn more'}</a>
+    </p>
+  </div>
+  <div class="analytics-consent-actions">
+    <button type="button" data-analytics-choice="rejected" class="analytics-button analytics-button-secondary">
+      {es ? 'Rechazar' : 'Reject'}
+    </button>
+    <button type="button" data-analytics-choice="accepted" class="analytics-button analytics-button-primary">
+      {es ? 'Aceptar estadísticas' : 'Accept analytics'}
+    </button>
+  </div>
+</section>
+
+<script>
+  import '../../scripts/analytics.js';
+</script>
+
+<style>
+  .analytics-consent {
+    position: fixed;
+    z-index: 9000;
+    inset: auto max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    max-width: 800px;
+    max-height: calc(100dvh - 24px);
+    margin: 0 auto;
+    padding: 1rem 1.2rem;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border: 1px solid rgba(0, 255, 204, .6);
+    border-radius: 16px;
+    background: #10202e;
+    color: #e6f8f6;
+    box-shadow: 0 18px 55px rgba(0, 0, 0, .6);
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  .analytics-consent[hidden] { display: none !important; }
+  .analytics-consent-copy { flex: 1 1 320px; min-width: 0; }
+  .analytics-consent-copy strong { font-size: .95rem; color: #adfff1; }
+  .analytics-consent-copy p { margin: .3rem 0 0; font-size: .85rem; line-height: 1.55; color: #c2d3dc; }
+  .analytics-consent-copy a { color: #9ef9df; margin-left: .3rem; text-decoration: underline; }
+  .analytics-consent-actions { display: flex; flex-wrap: wrap; gap: .65rem; }
+  .analytics-button {
+    appearance: none; border-radius: 10px; border: 1px solid #88d9d0;
+    padding: .75rem .95rem; min-height: 44px; color: #e8fdfa;
+    font: inherit; font-size: .84rem; font-weight: 700; cursor: pointer;
+  }
+  .analytics-button-secondary { background: #233647; }
+  .analytics-button-primary { background: #0b635d; border-color: #7ce3d1; }
+  .analytics-button:hover { filter: brightness(1.18); }
+  .analytics-button:focus-visible { outline: 3px solid #ff79c6; outline-offset: 3px; }
+  @media (max-width: 560px) {
+    .analytics-consent { gap: .8rem; padding: .85rem; }
+    .analytics-consent-actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+    .analytics-button { padding: .7rem .45rem; }
+  }
+</style>
