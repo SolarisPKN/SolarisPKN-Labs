@@ -55,7 +55,7 @@ const allTags = [...new Set(posts.flatMap(p => Array.isArray(p.tags) ? p.tags : 
 // Posts recientes (sin inventar métricas de visitas)
 const popularPosts = posts.slice(0, 5);
 
-const t = await import('../../../locales/' + lang + '/blog.json');
+const t = await import(`../../../locales/${lang}/blog.json`);
 const formatDate = date => new Intl.DateTimeFormat(lang === 'es' ? 'es-AR' : 'en-US', {day:'numeric', month:'long',year:'numeric', timeZone:'UTC'}).format(new Date(date+'T12:00:00Z'));
 const formatShortDate = date => new Intl.DateTimeFormat(lang === 'es' ? 'es-AR' : 'en-US', {day:'numeric', month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(date+'T12:00:00Z'));
 ---
