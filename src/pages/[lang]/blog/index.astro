@@ -62,10 +62,10 @@ const formatShortDate = date => new Intl.DateTimeFormat(lang === 'es' ? 'es-AR' 
 
 <Layout title={t.titulo} description={t.descripcion} lang={lang}>
   <div class="blog-index">
-    <h1 style="font-size: 2.5rem; font-family: 'JetBrains Mono', monospace; color: var(--border-cyan);">
+    <h1 class="blog-title">
       {t.titulo}
     </h1>
-    <p style="margin-bottom: 2rem; opacity: 0.8;">{t.descripcion}</p>
+    <p class="blog-intro">{t.descripcion}</p>
 
     {posts.length === 0 ? (
       <div class="glass" style="padding: 3rem; text-align: center;">
@@ -84,17 +84,22 @@ const formatShortDate = date => new Intl.DateTimeFormat(lang === 'es' ? 'es-AR' 
               >
                 {t.todos}
               </button>
-              {allTags.map(tag => (
+              <details class="blog-tag-picker">
+                <summary>{t.filtrarPorTags} ({allTags.length})</summary>
+                <div class="blog-tag-options">
+                  {allTags.map(tag => (
                 <button 
                   class="tag-filter" type="button" aria-pressed="false" 
                   data-tag={tag}
                 >
                   #{tag}
                 </button>
-              ))}
+                  ))}
+                </div>
+              </details>
             </div>
 
-            <output class="blog-filter-status" data-blog-result-count aria-live="polite">{posts.length} {t.resultados}</output>
+            <output class="blog-filter-status" data-blog-result-count data-results-label={t.resultados} aria-live="polite">{posts.length} {t.resultados}</output>
             <!-- Grid de posts -->
             <div id="post-grid">
               {posts.map(post => (
@@ -121,9 +126,9 @@ const formatShortDate = date => new Intl.DateTimeFormat(lang === 'es' ? 'es-AR' 
                           <span style="font-size: 0.7rem; padding: 0.2rem 0.6rem; opacity: 0.6;">+{post.tags.length - 3}</span>
                         )}
                       </div>
-                      <h3 style="font-size: 1.2rem; margin: 0 0 0.5rem 0; font-family: 'JetBrains Mono', monospace; color: var(--text-light);">
+                      <h2 class="blog-card-heading">
                         {post.title}
-                      </h3>
+                      </h2>
                       {post.description && (
                         <p style="font-size: 0.9rem; opacity: 0.7; margin: 0 0 1rem 0; flex: 1;">
                           {post.description}
@@ -142,7 +147,7 @@ const formatShortDate = date => new Intl.DateTimeFormat(lang === 'es' ? 'es-AR' 
           <!-- Sidebar: Posts populares -->
           <aside class="blog-sidebar">
             <div class="blog-sidebar-card glass">
-              <h3 style="font-size: 1.1rem; font-family: 'JetBrains Mono', monospace; color: var(--border-cyan); margin-top: 0;">🕒 {t.recientes}</h3>
+              <h2 class="blog-sidebar-heading">🕒 {t.recientes}</h2>
               <ul style="list-style: none; padding: 0; margin: 0;">
                 {popularPosts.map(p => (
                   <li style="margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
