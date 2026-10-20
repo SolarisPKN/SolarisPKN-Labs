@@ -9,6 +9,7 @@ const read = (path) => readFileSync(new URL('../' + path, import.meta.url), 'utf
 function harness(savedChoice = null, id = 'G-66ZYMRXVCE') {
   const listeners = new Map();
   const scripts = [];
+  const scriptHost = { appendChild: (node) => scripts.push(node) };
   const storage = new Map();
   if (savedChoice) storage.set('solarispkn-labs.analytics-consent.v1', savedChoice);
   const cookies = [];
@@ -22,6 +23,7 @@ function harness(savedChoice = null, id = 'G-66ZYMRXVCE') {
     title: 'Labs',
     addEventListener: (type, cb) => listeners.set(type, cb),
     querySelector: (selector) => selector === '[data-analytics-consent]' ? panel : null,
+    getElementById: (id) => id === 'analytics-script-host' ? scriptHost : null,
     createElement: (tag) => ({
       tag,
       setAttribute(name, value) { this[name] = value; }
@@ -46,7 +48,7 @@ function harness(savedChoice = null, id = 'G-66ZYMRXVCE') {
     };
     listeners.get('click')({ target: { closest: () => button } });
   };
-  return { window, panel, scripts, storage, cookies, click, listeners, reloads: () => reloads };
+  return { window, panel, scripts, scriptHost, storage, cookies, click, listeners, reloads: () => reloads };
 }
 
 test('new visitor receives no Google tag or cookies until opt-in', () => {
@@ -118,4 +120,29 @@ test('site-wide bilingual UI, privacy explanation and restrictive CSP', () => {
   assert.match(privacy, /getStaticPaths/);
   assert.match(headers, /script-src .*https:\/\/www\.googletagmanager\.com/);
   assert.ok(!read('src/worker.js').includes('G-66ZYMRXVCE'));
+});
+
+test('the tag remains in the persisted host when Astro changes /es/ to /en/', () => {
+  const site = harness('accepted');
+  const tag = site.scripts[0];
+  const html = read('src/layouts/Layout.astro');
+  assert.match(html, /id="analytics-script-host" transition:persist/);
+  assert.ok(tag);
+  assert.equal(site.scripts.length, 1);
+  // Astro preserves the element and JS globals, then fires astro:page-load.
+  site.panel.dataset.gaId = 'G-66ZYMRXVCE';
+  site.listeners.get('astro:page-load')();
+  assert.strictEqual(site.scripts[0], tag);
+  assert.equal(site.scripts.length, 1);
+  assert.equal(site.window.dataLayer.filter((a) => a[0] === 'config').length, 1);
+
+  for (const path of [
+    'src/pages/[lang]/index.astro',
+    'src/pages/[lang]/portfolio.astro',
+    'src/pages/[lang]/blog/index.astro',
+    'src/pages/[lang]/gaming/index.astro',
+    'src/pages/[lang]/projects/[slug].astro'
+  ]) {
+    assert.match(read(path), /<Layout\b/);
+  }
 });

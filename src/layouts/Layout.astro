@@ -142,6 +142,10 @@ const languagePath = /^\/404(?:\.html)?\/?$/.test(Astro.url.pathname) ? '/' : pa
       </p>
     </footer>
 
+    <!-- Keep the consented Google tag alive across Astro ClientRouter navigations. -->
+    <!-- Empty until opt-in: this container alone cannot contact Google. -->
+    <div id="analytics-script-host" transition:persist hidden aria-hidden="true"></div>
+
     <!-- GA4 only loads after the visitor explicitly opts in. -->
     <AnalyticsConsent lang={lang} />
 

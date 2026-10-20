@@ -54,7 +54,11 @@
     googleScript.async = true;
     googleScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
     googleScript.setAttribute('data-ga4-tag', '');
-    document.head.appendChild(googleScript);
+    // Astro swaps <head> on client-side navigation. Keeping the initialized
+    // script inside a transition:persist host avoids removing/reloading it
+    // when the visitor switches /es/, /en/ or any other Labs route.
+    const persistentHost = document.getElementById('analytics-script-host');
+    (persistentHost || document.head).appendChild(googleScript);
   }
 
   function renderConsent() {
