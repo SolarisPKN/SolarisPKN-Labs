@@ -122,3 +122,16 @@ A project designed to contain other projects.
 ## License
 
 License information will be defined in a future release.
+
+## Visit analytics (GA4)
+
+The public GA4 measurement ID `G-66ZYMRXVCE` is set in the shared layout. It can optionally be overridden at build time using `PUBLIC_GA_MEASUREMENT_ID`; it is **not** an API secret.
+
+- Google's tag is **not fetched or called before opt-in**. Declining does not affect site usage.
+- The preference is stored locally and can be changed using the footer settings.
+- After opt-in, the browser talks directly to Google; Cloudflare Workers, D1 and KV receive no extra analytics traffic.
+- GA4 Enhanced Measurement automatically counts initial and Astro ClientRouter history-driven pageviews; there are no manually emitted `page_view` events.
+- In **Analytics → Admin → Data streams → Web → Enhanced measurement → Page views → Advanced settings**, keep page changes based on browser history events enabled.
+- Counts may be lower due to blocking, consent, or network restrictions.
+
+Regression test: `node --test scripts/analytics-consent.test.js`.
