@@ -36,6 +36,9 @@ function initializeTechPlaylists(){
   const playlistLink=root.querySelector('[data-video-link]');
   const moreLink=root.querySelector('[data-video-more]');
   const holder=root.querySelector('[data-video-holder]');
+  const fallbackFrame=root.querySelector('[data-video-fallback-frame]');
+  // Mobile browsers may block/delay the YouTube IFrame API; keep a native embed.
+  const useNativeEmbed=window.matchMedia('(max-width: 850px)').matches;
   const VIDEO_ID=/^[a-zA-Z0-9_-]{11}$/;
   let selected=0;
   let generation=0;
@@ -89,6 +92,13 @@ function initializeTechPlaylists(){
      p.className='tech-queue-message';
      p.textContent=words.videoUnavailable;
      parent.append(p);
+     const link=document.createElement('a');
+     link.className='tech-queue-fallback';
+     link.href=playlistInfo[selected].url;
+     link.target='_blank';
+     link.rel='noopener noreferrer';
+     link.textContent=words.videoOpen+' ↗';
+     parent.append(link);
    }
    items.forEach((video,index)=>{
      const button=document.createElement('button');
@@ -116,6 +126,9 @@ function initializeTechPlaylists(){
        player.playVideoAt(liveIds.indexOf(video.id)); // user gesture, playlist order preserved
       }else if(player && typeof player.loadVideoById==='function'){
        player.loadVideoById(video.id); // public recent feed fallback
+      }else if(fallbackFrame?.isConnected){
+       fallbackFrame.src='https://www.youtube-nocookie.com/embed/'+encodeURIComponent(video.id)+'?playsinline=1';
+       fallbackFrame.title=video.title||words.videoFallback;
       }else{
        window.open('https://www.youtube.com/watch?v='+encodeURIComponent(video.id),'_blank','noopener');
       }
@@ -186,6 +199,10 @@ function initializeTechPlaylists(){
    clearTimeout(pollTimer);
    liveIds=[];recent=[];currentIds=[];
    setActive(index);
+   if(fallbackFrame?.isConnected){
+     fallbackFrame.src='https://www.youtube-nocookie.com/embed/videoseries?list='+encodeURIComponent(playlistInfo[index].id)+'&playsinline=1';
+     fallbackFrame.title=playlistInfo[index].title;
+   }
    queue.textContent=words.videoLoading;
    warning.hidden=true;
    loadRecent(generation,index);
@@ -202,7 +219,7 @@ function initializeTechPlaylists(){
     }
     pollList(generation);
   };
-  readyYouTubePlayer().then(YT=>{
+  if(!useNativeEmbed)readyYouTubePlayer().then(YT=>{
     if(disposed||!holder.isConnected)return;
     player=new YT.Player(holder,{
       width:'100%',height:'100%',
