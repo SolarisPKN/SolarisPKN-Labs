@@ -11,6 +11,10 @@ on:
       - 'public/_headers'
       - 'src/components/Home/TechPlaylists.astro'
       - 'scripts/home-gateway.test.js'
+      - 'scripts/mobile-labs.test.js'
+      - 'src/components/Projects/**'
+      - 'src/styles/tech-landing.css'
+      - 'src/scripts/tech-playlists.js'
       - 'scripts/contextual-nav.test.js'
       - 'src/layouts/Layout.astro'
       - 'src/components/Layout/**'
@@ -38,6 +42,10 @@ on:
       - 'public/_headers'
       - 'src/components/Home/TechPlaylists.astro'
       - 'scripts/home-gateway.test.js'
+      - 'scripts/mobile-labs.test.js'
+      - 'src/components/Projects/**'
+      - 'src/styles/tech-landing.css'
+      - 'src/scripts/tech-playlists.js'
       - 'scripts/contextual-nav.test.js'
       - 'src/layouts/Layout.astro'
       - 'src/components/Layout/**'
@@ -77,6 +85,8 @@ jobs:
         run: node --test scripts/tech-playlist-feed.test.js
       - name: Recheck recovered architecture and catalog
         run: node --test scripts/project-catalog.test.js scripts/architecture-map.test.js
+      - name: Mobile video and Labs accessibility fallbacks
+        run: node --test scripts/mobile-labs.test.js
       - name: Astro diagnostics
         run: npm run check
       - name: Build website
