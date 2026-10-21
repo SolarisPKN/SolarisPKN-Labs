@@ -1,0 +1,56 @@
+name: Publish bilingual ATS CV PDFs
+
+on:
+  push:
+    branches:
+      - feat/bilingual-cvs-ats-20261021
+    paths:
+      - 'scripts/generate-cvs.py'
+      - '.github/workflows/publish-cvs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-cv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install reproducible PDF dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-dejavu-core
+          python -m pip install --disable-pip-version-check 'reportlab==4.4.9' 'pypdf>=5,<7'
+      - name: Generate both localized PDFs
+        run: python scripts/generate-cvs.py
+      - name: Check both are two-page searchable ATS resumes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from pypdf import PdfReader
+          for code, headline in [('en','CORE COMPETENCIES (ATS)'),('es','COMPETENCIAS CLAVE (ATS)')]:
+              pdf=Path('public')/f'cv-{code}.pdf'
+              assert pdf.is_file() and pdf.stat().st_size > 10000
+              doc=PdfReader(str(pdf))
+              assert len(doc.pages)==2, f'{pdf}: {len(doc.pages)} pages, expected exactly 2'
+              text=' '.join(page.extract_text() for page in doc.pages)
+              assert headline in text, (pdf, headline)
+              assert ('/' + code + '/portfolio/') in text, pdf
+              print(f'PASS {pdf}: {len(doc.pages)} pages, {len(text)} text characters, ATS')
+          PY
+      - name: Remove obsolete cv.pdf and commit generated binaries
+        run: |
+          rm -f public/cv.pdf
+          git add -A -- public/cv-en.pdf public/cv-es.pdf public/cv.pdf
+          if git diff --cached --quiet; then
+            echo 'CV binaries already up to date'
+          else
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'docs(cv): publish English and Spanish ATS PDFs, retire legacy URL'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi

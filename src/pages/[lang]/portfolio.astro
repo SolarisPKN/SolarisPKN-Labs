@@ -11,6 +11,8 @@ export async function getStaticPaths() {
 }
 
 const lang = Astro.params.lang === 'en' ? 'en' : 'es';
+// Public bilingual PDFs generated from the curated portfolio CV source.
+const cvDownloadUrl = lang === 'en' ? '/cv-en.pdf' : '/cv-es.pdf';
 
 import Layout from '../../layouts/Layout.astro';
 const t = await import(`../../locales/${lang}/portfolio.json`);
@@ -67,7 +69,7 @@ const academias: string[] = [...new Set<string>(skills.certificados.map((c) => S
           <a href="https://www.youtube.com/@SolarisPKN" target="_blank" rel="noopener noreferrer" class="btn-social">
             <img src="/images/portfolio/logos/youtube.svg" alt="" loading="lazy" width="20" height="20" /> YouTube
           </a>
-          <a href="/cv.pdf" download class="btn-social download">
+          <a href={cvDownloadUrl} download class="btn-social download">
             <img src="/images/portfolio/logos/download.svg" alt="" loading="lazy" width="20" height="20" />
             {t.botones.descargarCV}
           </a>
@@ -350,7 +352,7 @@ const academias: string[] = [...new Set<string>(skills.certificados.map((c) => S
     <footer class="contact-footer glass reveal" data-reveal>
       <p>📧 <a href="mailto:PabloKoutaNya@gmail.com">{t.contacto.email}</a></p>
       <p>📱 WhatsApp: <a href="https://wa.me/541170095771">{t.contacto.whatsapp}</a></p>
-      <a href="/cv.pdf" download class="btn-social download">{t.botones.descargarCV}</a>
+      <a href={cvDownloadUrl} download class="btn-social download">{t.botones.descargarCV}</a>
       <div class="logos-footer">
         <span>SolarisPKN</span>
       </div>
