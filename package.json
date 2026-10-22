@@ -27,7 +27,7 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "reactflow": "^11.11.4",
-    "sharp": "^0.35.3"
+    "sharp": "^0.35.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
@@ -38,5 +38,8 @@
     "typescript": "^6.0.3",
     "vite": "^8.2.2",
     "wrangler": "^4.125.0"
+  },
+  "overrides": {
+    "sharp": "$sharp"
   }
 }
