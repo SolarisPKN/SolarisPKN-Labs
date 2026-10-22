@@ -24,6 +24,7 @@ jobs:
           cache: npm
       - name: Update vulnerable packages within supported version ranges
         run: |
+          npm install 'mermaid@^12.2.0' --package-lock-only --ignore-scripts
           npm audit fix --package-lock-only --ignore-scripts || true
           npm ci --ignore-scripts
           npm run check
