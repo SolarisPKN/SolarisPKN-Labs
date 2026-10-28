@@ -1,0 +1,72 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import esFlag from '../../assets/flags/es.svg?url';
+import enFlag from '../../assets/flags/en.svg?url';
+interface Props { title: string; description: string; section: 'home' | 'privacy' | 'terms' | 'support'; }
+const { title, description, section } = Astro.props;
+const pages = [
+  {id:'home',url:'/exo-auth-policy/',es:'Aplicación',en:'Application'},
+  {id:'privacy',url:'/exo-auth-policy/privacy/',es:'Privacidad',en:'Privacy'},
+  {id:'terms',url:'/exo-auth-policy/terms/',es:'Condiciones',en:'Terms'},
+  {id:'support',url:'/exo-auth-policy/support/',es:'Asistencia',en:'Support'}
+];
+---
+<Layout title={title} description={description} lang="es" navigation="tech" canonical={Astro.url.pathname}>
+  <div class="exo-policy-site">
+    <div class="exo-legal-bg" aria-hidden="true"></div>
+    <div class="exo-legal-content">
+      <header class="exo-legal-header">
+        <div class="exo-legal-brand"><span class="exo-legal-mark" aria-hidden="true">///</span><span>EXO <strong>RESEARCH LAB</strong><small>SOLARISPKN · DOCUMENTACIÓN PÚBLICA</small></span></div>
+        <p>Prototipo independiente y no oficial. El contenido privado permanece en la VM corporativa.</p>
+      </header>
+      <nav class="exo-legal-nav" aria-label="Documentos públicos de autenticación">
+        {pages.map(p => <a href={p.url} aria-current={section===p.id?'page':undefined}>{p.es} <span>/ {p.en}</span></a>)}
+      </nav>
+      <div class="exo-legal-body"><slot /></div>
+      <footer class="exo-legal-footer">
+        <span>SolarisPKN Research Lab · Acceso privado con Google Workspace OIDC</span>
+        <span><a href="mailto:contacto@solarispkn.com.ar">contacto@solarispkn.com.ar</a> · <a href="/es/exo-labs/">Comprobar acceso VPN</a></span>
+      </footer>
+    </div>
+  </div>
+</Layout>
+<style is:global>
+.exo-policy-site{position:relative;isolation:isolate;min-height:72vh;padding:clamp(14px,2vw,32px) 12px 70px;color:#e9ecf2}
+.exo-legal-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 52% 32% at 83% 0%,#a4203330,transparent),radial-gradient(ellipse 30% 27% at 0% 45%,#19495825,transparent)}
+.exo-legal-content{max-width:1050px;margin:auto}
+.exo-legal-header{display:flex;align-items:center;justify-content:space-between;gap:28px;margin:12px 0 24px}
+.exo-legal-brand{display:flex;align-items:center;gap:14px;color:white;font-size:clamp(19px,2.6vw,27px);font-weight:900;letter-spacing:-.05em}
+.exo-legal-mark{display:grid;place-items:center;color:#ff3a4c;font-weight:950;font-size:34px;transform:rotate(-40deg);letter-spacing:-.25em;padding-right:.24em}
+.exo-legal-brand strong{color:#ff656c;font-weight:900}
+.exo-legal-brand small{display:block;letter-spacing:.12em;font:700 9px/1.8 'JetBrains Mono',monospace;color:#9ab1c0}
+.exo-legal-header>p{max-width:285px;color:#a8a9b8;font-size:12px;line-height:1.7}
+.exo-legal-nav{display:flex;gap:8px;flex-wrap:wrap;padding:10px;border:1px solid #3a3f51;background:#10151f;border-radius:14px;margin-bottom:32px}
+.exo-legal-nav a{color:#b8becd;font-weight:700;text-decoration:none;padding:10px 15px;border-radius:8px;font-size:13px}
+.exo-legal-nav a span{font-weight:400;color:#98a6b4}
+.exo-legal-nav a[aria-current="page"]{background:#952c3a;color:white}
+.exo-legal-nav a[aria-current="page"] span{color:#fff6}
+.exo-legal-nav a:hover{background:#323946;color:white}
+.exo-legal-body{border-radius:20px;border:1px solid #414558;background:linear-gradient(145deg,#151a26,#0d121c);padding:clamp(22px,4vw,52px);box-shadow:0 24px 80px #0005}
+.exo-legal-body .exo-eyebrow{font:800 11px 'JetBrains Mono',monospace;letter-spacing:.17em;color:#ff6b76;margin:0 0 17px}
+.exo-legal-body h1{font-size:clamp(2rem,5vw,4rem);line-height:1.12;letter-spacing:-.045em;margin:0 0 18px;color:white}
+.exo-legal-body h2{font-size:clamp(1.18rem,2.5vw,1.6rem);color:#f0f2f6;margin:0 0 12px}
+.exo-legal-body h3{color:#ff8b93;font-size:1.02rem;margin:24px 0 7px}
+.exo-legal-body p,.exo-legal-body li{color:#bfc7d4;line-height:1.9;font-size:15px}
+.exo-legal-body a{color:#8ff0e0;text-underline-offset:3px;overflow-wrap:anywhere}
+.exo-legal-body a:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.exo-legal-body .exo-intro{font-size:clamp(1rem,2vw,1.16rem);color:#d2d8e2}
+.exo-legal-body .exo-notice{border:1px solid #9e5b49;border-radius:12px;padding:15px 18px;background:#6f342427;color:#f8d6be;margin:24px 0}
+.exo-legal-body .exo-languages{display:flex;gap:11px;flex-wrap:wrap;margin:30px 0}
+.exo-legal-body .exo-languages a{display:inline-flex;align-items:center;gap:8px;border:1px solid #4c5266;border-radius:8px;padding:8px 14px;text-decoration:none;color:#e8ebf4}
+.exo-legal-body .exo-languages img{width:22px;height:15px;border-radius:2px}
+.exo-legal-body .exo-policy-language{padding-top:20px;margin-top:30px;border-top:1px solid #354256}
+.exo-legal-body .exo-policy-language:first-of-type{border-top:0}
+.exo-legal-body .exo-policy-language>h2{color:#ff7983;margin-bottom:20px}
+.exo-legal-body .exo-legal-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:28px 0}
+.exo-legal-body .exo-tile{padding:23px;border:1px solid #434a60;border-radius:14px;background:#202333}
+.exo-legal-body .exo-tile h2{font-size:1.16rem;margin:0 0 9px}
+.exo-legal-body .exo-tile p{font-size:14px;margin:0 0 14px}
+.exo-legal-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:22px 5px;color:#8fa5b6;font-size:11px}
+.exo-legal-footer a{color:#a5ddd7}
+@media(max-width:680px){.exo-legal-header{display:block}.exo-legal-header>p{max-width:100%}.exo-legal-body .exo-legal-tiles{grid-template-columns:1fr}.exo-legal-nav a{font-size:11px;padding:9px}}
+</style>
