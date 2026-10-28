@@ -55,6 +55,7 @@ const probe = 'https://exo.solarispkn.com.ar/static/exo-mark.svg';
         <p>{english ? 'JavaScript is required for the automatic connectivity check.' : 'Activá JavaScript para realizar la comprobación automática.'}</p>
         <a href={portal} rel="noopener noreferrer">{english ? 'Open EXO Labs' : 'Abrir EXO Labs'}</a>
       </noscript>
+      <div class="exo-public-links"><a href={`/${lang}/exo-labs/info/`}>{english ? 'About this application' : 'Acerca de esta aplicación'}</a><a href={`/${lang}/exo-labs/privacidad/`}>{english ? 'Privacy policy' : 'Política de privacidad'}</a></div>
       <a class="exo-back" href={`/${lang}/tech/`}>{english ? '← Back to SolarisPKN Labs' : '← Volver a SolarisPKN Labs'}</a>
     </div>
   </section>
@@ -70,7 +71,7 @@ const probe = 'https://exo.solarispkn.com.ar/static/exo-mark.svg';
 .exo-access h1{margin:0 auto 12px;color:#fff;font-size:clamp(1.6rem,3.5vw,2.65rem);line-height:1.2}
 .exo-access p{line-height:1.75}
 .exo-checking p,.exo-unavailable>p{max-width:740px;margin:0 auto 15px;color:#b9c5d5}
-.exo-network-image{display:block;max-width:100%;height:auto;margin:0 auto 27px;border-radius:15px}
+.exo-network-image{display:block;max-width:100%;height:auto;max-height:min(65vh,650px);object-fit:contain;margin:0 auto 27px;border-radius:15px}
 .exo-unavailable .exo-hint{max-width:710px;margin:17px auto 26px;color:#91a3bc;font-size:.93rem}
 .exo-actions{display:flex;justify-content:center;gap:13px;flex-wrap:wrap;margin-top:22px}
 .exo-actions button,.exo-actions a{min-height:46px;border:1px solid #ed2027;border-radius:9px;padding:12px 21px;font:700 .92rem Inter,sans-serif;cursor:pointer;text-decoration:none}
@@ -78,6 +79,7 @@ const probe = 'https://exo.solarispkn.com.ar/static/exo-mark.svg';
 .exo-actions button:hover{background:#ed2027}
 .exo-actions a{background:transparent;color:#fff;border-color:#77859c}
 .exo-actions a:hover{border-color:#f2b2b4;color:#f2b2b4}
+.exo-public-links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-top:26px;font-size:.86rem}.exo-public-links a{color:#d9b4b8;text-decoration:underline;text-underline-offset:4px}.exo-public-links a:hover{color:#fff}
 .exo-back{display:inline-block;margin-top:34px;color:#98f3e2;font-size:.9rem}
 [hidden]{display:none!important}
 @keyframes exo-turn{to{transform:rotate(360deg)}}
