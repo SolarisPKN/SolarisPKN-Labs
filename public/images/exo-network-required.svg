@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 960 390" role="img" aria-labelledby="exoNetTitle exoNetDesc">
+  <title id="exoNetTitle">EXO Research Lab - acceso a red privada</title>
+  <desc id="exoNetDesc">Ilustracion de una red privada con nodos desconectados y un candado cerrado</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101624"/><stop offset="1" stop-color="#090d16"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#ed2027" stop-opacity=".3"/><stop offset="1" stop-color="#ed2027" stop-opacity="0"/></radialGradient>
+    <linearGradient id="shield" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#272e40"/><stop offset="1" stop-color="#151b2b"/></linearGradient>
+  </defs>
+  <rect width="960" height="390" rx="26" fill="url(#bg)"/>
+  <rect x="1" y="1" width="958" height="388" rx="25" fill="none" stroke="#ffffff" stroke-opacity=".14"/>
+  <g stroke="#ffffff" stroke-opacity=".055" fill="none"><path d="M0 70H960M0 140H960M0 210H960M0 280H960M0 350H960M80 0V390M160 0V390M240 0V390M320 0V390M400 0V390M480 0V390M560 0V390M640 0V390M720 0V390M800 0V390M880 0V390"/></g>
+  <ellipse cx="620" cy="205" rx="300" ry="200" fill="url(#glow)"/>
+  <g transform="translate(82 112) scale(1.8)" fill="#ed2027">
+    <path d="M65 46 15 94 15 104 21 111 26 111 73 64 73 55Z"/>
+    <path d="M84 66 35 114 35 124 41 131 45 132 91 87 94 78Z"/>
+    <path d="M104 86 56 133 54 141 61 151 65 152 112 106 114 98Z"/>
+  </g>
+  <g stroke="#7f94b6" stroke-width="2" stroke-dasharray="6 10" opacity=".5" fill="none">
+    <path d="M390 116 515 202 646 95M515 202 660 291M515 202 805 200M646 95 805 200M660 291 805 200"/>
+  </g>
+  <g fill="#141f30" stroke="#7593bd" stroke-width="2"><circle cx="390" cy="116" r="19"/><circle cx="646" cy="95" r="20"/><circle cx="660" cy="291" r="20"/><circle cx="805" cy="200" r="20"/></g>
+  <g fill="#91a8c7"><circle cx="390" cy="116" r="5"/><circle cx="646" cy="95" r="6"/><circle cx="660" cy="291" r="6"/><circle cx="805" cy="200" r="6"/></g>
+  <circle cx="515" cy="202" r="90" fill="url(#glow)"/>
+  <path d="M515 115 586 144V199Q586 248 515 291Q444 248 444 199V144Z" fill="url(#shield)" stroke="#ff6367" stroke-width="3.2"/>
+  <path d="M489 191V180a26 26 0 0 1 52 0v11" fill="none" stroke="#ffffff" stroke-width="9" stroke-linecap="round"/>
+  <rect x="476" y="190" width="78" height="61" rx="12" fill="#ed2027"/>
+  <circle cx="515" cy="218" r="8" fill="#fff"/>
+  <path d="M515 224v12" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+  <g fill="none" stroke="#ed2027" stroke-width="3" opacity=".8"><circle cx="515" cy="202" r="111" stroke-dasharray="24 22"/><path d="M366 201h42m220 0h40"/></g>
+</svg>
