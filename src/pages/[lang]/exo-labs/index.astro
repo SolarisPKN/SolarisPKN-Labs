@@ -55,7 +55,7 @@ const probe = 'https://exo.solarispkn.com.ar/static/exo-mark.svg';
         <p>{english ? 'JavaScript is required for the automatic connectivity check.' : 'Activá JavaScript para realizar la comprobación automática.'}</p>
         <a href={portal} rel="noopener noreferrer">{english ? 'Open EXO Labs' : 'Abrir EXO Labs'}</a>
       </noscript>
-      <div class="exo-public-links"><a href={`/${lang}/exo-labs/info/`}>{english ? 'About this application' : 'Acerca de esta aplicación'}</a><a href={`/${lang}/exo-labs/privacidad/`}>{english ? 'Privacy policy' : 'Política de privacidad'}</a></div>
+      <div class="exo-public-links"><a href="/exo-auth-policy/">{english ? 'About this application' : 'Acerca de esta aplicación'}</a><a href="/exo-auth-policy/privacy/">{english ? 'Privacy policy' : 'Política de privacidad'}</a></div>
       <a class="exo-back" href={`/${lang}/tech/`}>{english ? '← Back to SolarisPKN Labs' : '← Volver a SolarisPKN Labs'}</a>
     </div>
   </section>
