@@ -1,0 +1,28 @@
+---
+import Shell from '../../../components/Legal/ExoPolicyShell.astro';
+import esFlag from '../../../assets/flags/es.svg?url';
+import enFlag from '../../../assets/flags/en.svg?url';
+---
+<Shell section="terms" title="Condiciones de uso | SolarisPKN EXO Research Lab" description="Condiciones públicas de uso, acceso y seguridad del prototipo EXO Research Lab, en español e inglés.">
+  <p class="exo-eyebrow">CONDICIONES DE USO · TERMS OF USE</p>
+  <h1>Condiciones <span style="color:#ff6672">/ Terms</span></h1>
+  <p>Última actualización / Last updated: <time datetime="2026-10-28">28/10/2026</time></p>
+  <nav class="exo-languages" aria-label="Idioma de las condiciones"><a href="#es"><img src={esFlag} alt="" /> Español</a><a href="#en"><img src={enFlag} alt="" /> English</a></nav>
+  <section id="es" class="exo-policy-language" lang="es">
+    <h2>Condiciones de uso — Español</h2>
+    <h3>1. Naturaleza del servicio</h3><p>EXO Research Lab es un prototipo independiente y no oficial desarrollado por SolarisPKN. La aplicación privada está concebida para investigación técnica y documentación de experimentos. Su publicación no implica aprobación, respaldo ni representación oficial de EXO.</p>
+    <h3>2. Requisitos de acceso</h3><p>El acceso está limitado a personas expresamente autorizadas. Requiere conectividad a la red privada aprobada (VPN/NetBird o mecanismo definido por IT), autenticación válida de Google Workspace y permisos específicos por proyecto. Haber iniciado sesión o disponer de VPN no garantiza acceso a las investigaciones.</p>
+    <h3>3. Uso permitido</h3><p>El usuario debe respetar las políticas corporativas de seguridad y confidencialidad, emplear únicamente credenciales propias, proteger sus sesiones y no difundir datos de laboratorio, evidencias, registros internos o credenciales sin autorización expresa.</p>
+    <h3>4. Pruebas experimentales y disponibilidad</h3><p>Las mediciones son material experimental sujeto a validación; no equivalen a una certificación de seguridad o rendimiento de producción. El prototipo puede cambiar o suspenderse por motivos operativos o de seguridad, sin garantía de disponibilidad ininterrumpida.</p>
+    <h3>5. Revocación y consultas</h3><p>Los administradores autorizados pueden restringir o revocar permisos cuando sea necesario. Para consultas sobre el prototipo escribí a <a href="mailto:contacto@solarispkn.com.ar">contacto@solarispkn.com.ar</a>. El uso de infraestructura corporativa requiere además las autorizaciones pertinentes de EXO.</p>
+  </section>
+  <section id="en" class="exo-policy-language" lang="en">
+    <h2>Terms of use — English</h2>
+    <h3>1. Nature of the service</h3><p>EXO Research Lab is an independent, unofficial SolarisPKN prototype intended for technical research and experimental documentation. Its publication does not indicate official EXO endorsement or representation.</p>
+    <h3>2. Access requirements</h3><p>Only individually authorized people may use the private application. Access requires approved private-network connectivity, valid Google Workspace authentication and project-specific permissions. VPN access or successful sign-in alone does not authorize research access.</p>
+    <h3>3. Acceptable use</h3><p>Users must follow applicable corporate confidentiality and security policies, use only their own credentials, protect their sessions and refrain from sharing internal research data, evidence, records or credentials without express authorization.</p>
+    <h3>4. Experimental results and availability</h3><p>Performance and integrity results are experimental and subject to validation; they are not production certifications. The prototype may change or become unavailable for operational or security reasons without any guarantee of uninterrupted service.</p>
+    <h3>5. Revocation and questions</h3><p>Authorized administrators may restrict or revoke permissions when required. Questions about the prototype can be sent to <a href="mailto:contacto@solarispkn.com.ar">contacto@solarispkn.com.ar</a>. Corporate infrastructure use also requires the relevant EXO approvals.</p>
+  </section>
+  <p><a href="/exo-auth-policy/">← Volver / Back to application information</a></p>
+</Shell>
