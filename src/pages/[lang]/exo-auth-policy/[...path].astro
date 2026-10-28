@@ -1,0 +1,22 @@
+---
+export function getStaticPaths() {
+  const paths = [undefined, 'privacy', 'terms', 'support'];
+  return (['es', 'en'] as const).flatMap(lang => paths.map(path => ({ params: { lang, path } })));
+}
+const lang = Astro.params.lang === 'en' ? 'en' : 'es';
+const segment = Astro.params.path ? Astro.params.path + '/' : '';
+const destination = '/exo-auth-policy/' + segment + '#' + lang;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex,follow" />
+    <meta http-equiv="refresh" content={`0;url=${destination}`} />
+    <link rel="canonical" href={`https://labs.solarispkn.com.ar/exo-auth-policy/${segment}`} />
+    <title>{lang==='es'?'Redirigiendo a la documentación pública':'Redirecting to the public documentation'}</title>
+  </head>
+  <body>
+    <p><a href={destination}>{lang==='es'?'Continuar a la documentación pública':'Continue to the public documentation'}</a></p>
+  </body>
+</html>
