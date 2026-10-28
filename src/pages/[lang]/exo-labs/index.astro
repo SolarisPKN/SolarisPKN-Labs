@@ -1,0 +1,137 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+  return [{ params: {lang: 'es'} }, { params: {lang: 'en'} }];
+}
+const lang = Astro.params.lang === 'en' ? 'en' : 'es';
+const english = lang === 'en';
+const portal = 'https://exo.solarispkn.com.ar/';
+const probe = 'https://exo.solarispkn.com.ar/static/exo-mark.svg';
+---
+
+<Layout
+  lang={lang}
+  navigation="tech"
+  title={english ? 'EXO Labs | Private network access' : 'EXO Labs | Acceso a red privada'}
+  description={english ? 'Access to EXO Research Lab requires the approved corporate network and account permissions.' : 'El acceso a EXO Research Lab requiere conexión a la red corporativa autorizada y permisos de cuenta.'}
+>
+  <section class="exo-access" id="exo-network-check" data-portal={portal} data-probe={probe}>
+    <div class="exo-access-inner">
+      <p class="exo-eyebrow"><span class="exo-dot"></span> EXO RESEARCH LAB · PRIVATE NETWORK</p>
+      <div id="exo-checking" class="exo-checking" role="status" aria-live="polite">
+        <span class="exo-spinner" aria-hidden="true"></span>
+        <h1>{english ? 'Checking EXO network connectivity…' : 'Comprobando conexión a la red EXO…'}</h1>
+        <p>{english ? 'Trying to reach the portal over your current network connection.' : 'Intentando acceder al portal desde tu conexión de red actual.'}</p>
+      </div>
+      <div id="exo-unavailable" class="exo-unavailable" hidden>
+        <img
+          class="exo-network-image"
+          src="/images/exo-network-required.svg"
+          alt={english ? 'EXO private network: a lock protects disconnected network nodes' : 'Red privada EXO: un candado protege nodos de red desconectados'}
+          width="960"
+          height="390"
+          loading="eager"
+        />
+        <h1>{english ? 'You need access to the EXO network' : 'Necesitás acceso a la red de EXO'}</h1>
+        <p>
+          {english
+            ? 'The EXO Research Lab portal could not be reached. Connect to the EXO network through your approved NetBird or VPN access, then try again.'
+            : 'No pudimos establecer conexión con EXO Research Lab. Conectate a la red de EXO mediante NetBird o la VPN autorizada y volvé a intentar.'}
+        </p>
+        <p class="exo-hint">
+          {english
+            ? 'A failed check can also mean DNS, HTTPS or a temporary service error. Network access alone does not grant permission: corporate sign-in and project authorization are still required.'
+            : 'También puede ser un problema de DNS, HTTPS o una caída temporal del servicio. Estar en la red no concede permisos: siguen siendo obligatorios el inicio de sesión corporativo y la autorización de cada proyecto.'}
+        </p>
+        <div class="exo-actions">
+          <button type="button" id="exo-retry">{english ? 'Try again' : 'Reintentar conexión'}</button>
+          <a href={portal} target="_blank" rel="noopener noreferrer">
+            {english ? 'Open portal anyway ↗' : 'Abrir el portal igualmente ↗'}
+          </a>
+        </div>
+      </div>
+      <noscript>
+        <p>{english ? 'JavaScript is required for the automatic connectivity check.' : 'Activá JavaScript para realizar la comprobación automática.'}</p>
+        <a href={portal} rel="noopener noreferrer">{english ? 'Open EXO Labs' : 'Abrir EXO Labs'}</a>
+      </noscript>
+      <a class="exo-back" href={`/${lang}/tech/`}>{english ? '← Back to SolarisPKN Labs' : '← Volver a SolarisPKN Labs'}</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+.exo-access{min-height:65vh;display:grid;place-items:center;padding:clamp(24px,5vw,65px) 18px}
+.exo-access-inner{width:min(100%,960px);margin:0 auto;padding:clamp(22px,4.5vw,45px);border:1px solid #384358;border-radius:24px;background:linear-gradient(135deg,#171d2c,#0c101b);box-shadow:0 22px 65px #0004;text-align:center}
+.exo-eyebrow{color:#f3a1a4;font:700 .75rem 'JetBrains Mono',monospace;letter-spacing:.12em;display:flex;align-items:center;justify-content:center;gap:10px;margin:0 0 27px}
+.exo-dot{height:9px;width:9px;border-radius:50%;background:#ed2027;box-shadow:0 0 15px #ed202788}
+.exo-checking{padding:70px 0}
+.exo-spinner{display:inline-block;width:48px;height:48px;margin-bottom:30px;border:4px solid #ffffff26;border-top-color:#ed2027;border-radius:50%;animation:exo-turn .8s linear infinite}
+.exo-access h1{margin:0 auto 12px;color:#fff;font-size:clamp(1.6rem,3.5vw,2.65rem);line-height:1.2}
+.exo-access p{line-height:1.75}
+.exo-checking p,.exo-unavailable>p{max-width:740px;margin:0 auto 15px;color:#b9c5d5}
+.exo-network-image{display:block;max-width:100%;height:auto;margin:0 auto 27px;border-radius:15px}
+.exo-unavailable .exo-hint{max-width:710px;margin:17px auto 26px;color:#91a3bc;font-size:.93rem}
+.exo-actions{display:flex;justify-content:center;gap:13px;flex-wrap:wrap;margin-top:22px}
+.exo-actions button,.exo-actions a{min-height:46px;border:1px solid #ed2027;border-radius:9px;padding:12px 21px;font:700 .92rem Inter,sans-serif;cursor:pointer;text-decoration:none}
+.exo-actions button{color:#fff;background:#b81620}
+.exo-actions button:hover{background:#ed2027}
+.exo-actions a{background:transparent;color:#fff;border-color:#77859c}
+.exo-actions a:hover{border-color:#f2b2b4;color:#f2b2b4}
+.exo-back{display:inline-block;margin-top:34px;color:#98f3e2;font-size:.9rem}
+[hidden]{display:none!important}
+@keyframes exo-turn{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.exo-spinner{animation:none}}
+@media(max-width:530px){.exo-access-inner{padding:24px 16px}.exo-checking{padding:40px 0}.exo-actions>*{width:100%}}
+</style>
+
+<script>
+function checkExoNetwork() {
+  const host = document.getElementById('exo-network-check');
+  if (!host || host.dataset.started === 'true') return;
+  host.dataset.started = 'true';
+  const waiting = document.getElementById('exo-checking');
+  const unavailable = document.getElementById('exo-unavailable');
+  const retry = document.getElementById('exo-retry');
+  const portal = host.dataset.portal;
+  const probe = host.dataset.probe;
+  if (!waiting || !unavailable || !portal || !probe) return;
+
+  function start() {
+    waiting.hidden = false;
+    unavailable.hidden = true;
+    let settled = false;
+    const img = new Image();
+    const finish = (isReachable) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timeout);
+      img.onload = null;
+      img.onerror = null;
+      if (isReachable) {
+        // This tests only whether an EXO static asset is reachable, NOT authorization.
+        window.location.replace(portal);
+      } else {
+        waiting.hidden = true;
+        unavailable.hidden = false;
+      }
+    };
+    const timeout = window.setTimeout(() => finish(false), 6500);
+    img.onload = () => finish(true);
+    img.onerror = () => finish(false);
+    // Cache-busting avoids treating a previously cached SVG as live connectivity.
+    const url = new URL(probe);
+    url.searchParams.set('connectivity_check', String(Date.now()));
+    img.src = url.toString();
+  }
+
+  retry?.addEventListener('click', start);
+  start();
+}
+document.addEventListener('astro:page-load', checkExoNetwork);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', checkExoNetwork, {once:true});
+} else {
+  checkExoNetwork();
+}
+</script>
