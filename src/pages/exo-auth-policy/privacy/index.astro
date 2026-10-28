@@ -1,0 +1,47 @@
+---
+import Shell from '../../../components/Legal/ExoPolicyShell.astro';
+import esFlag from '../../../assets/flags/es.svg?url';
+import enFlag from '../../../assets/flags/en.svg?url';
+---
+<Shell section="privacy" title="Política de privacidad | SolarisPKN EXO Research Lab" description="Aviso público de privacidad en español e inglés para el inicio de sesión Google Workspace del prototipo privado EXO Research Lab.">
+  <p class="exo-eyebrow">POLÍTICA DE PRIVACIDAD · PRIVACY POLICY</p>
+  <h1>Privacidad <span style="color:#ff6672">/ Privacy</span></h1>
+  <p>Última actualización / Last updated: <time datetime="2026-10-28">28/10/2026</time></p>
+  <div class="exo-notice">Este documento se refiere exclusivamente al prototipo independiente SolarisPKN Research Lab. No constituye una declaración de privacidad emitida en nombre de EXO ni reemplaza las políticas corporativas aplicables.</div>
+  <nav class="exo-languages" aria-label="Idioma de la política"><a href="#es"><img src={esFlag} alt="" /> Español</a><a href="#en"><img src={enFlag} alt="" /> English</a></nav>
+  <section id="es" class="exo-policy-language" lang="es">
+    <h2>Política de privacidad — Español</h2>
+    <h3>1. Responsable y alcance</h3>
+    <p>SolarisPKN desarrolla el prototipo EXO Research Lab como herramienta de documentación técnica e investigación. El portal privado está sujeto a permisos y a la infraestructura corporativa autorizada. Este documento explica el uso de datos en el prototipo, sin representar a EXO como organización. Para consultas sobre la aplicación y los derechos relativos a los datos, escribí a <a href="mailto:contacto@solarispkn.com.ar">contacto@solarispkn.com.ar</a>; las solicitudes relativas a datos corporativos también pueden requerir intervención de los responsables internos de EXO.</p>
+    <h3>2. Datos obtenidos a través de Google</h3>
+    <p>El inicio de sesión utiliza Google Workspace con OpenID Connect y solicita los alcances <code>openid</code>, <code>email</code> y <code>profile</code>. La aplicación valida el emisor, destinatario, identificador estable de cuenta, dominio organizacional y correo verificado. Utiliza el identificador de cuenta (<code>sub</code>), el correo corporativo y el nombre para reconocer a la persona y aplicar autorizaciones. No solicita ni lee mensajes de Gmail, archivos de Google Drive ni calendarios.</p>
+    <h3>3. Datos creados por la aplicación</h3>
+    <p>El sistema puede guardar en la base de datos privada identificadores de usuario, solicitudes de acceso, estado de whitelist, permisos por proyecto, comprobaciones administrativas de acceso a VM y registros de seguridad necesarios para el control de acceso. También emplea una cookie de sesión y medidas de protección de solicitudes. No se publican estos datos en SolarisPKN Labs.</p>
+    <h3>4. Finalidad y base del tratamiento</h3>
+    <p>Se utilizan los datos para verificar identidad corporativa, mantener sesiones, permitir o denegar acceso a contenidos de investigación, gestionar solicitudes de autorización y facilitar auditorías de seguridad. La habilitación del acceso debe ajustarse a las políticas y autorizaciones de la organización responsable de la infraestructura.</p>
+    <h3>5. Destinatarios y transferencias</h3>
+    <p>El proveedor de identidad Google participa en la autenticación conforme a sus propias políticas. Dentro de la aplicación, los datos se ponen a disposición únicamente de los administradores autorizados y de los componentes necesarios para prestar el servicio. No se venden datos personales ni se utilizan para anuncios. No se divulgan identidades ni resultados internos desde este sitio público.</p>
+    <h3>6. Seguridad, conservación y eliminación</h3>
+    <p>El portal usa verificaciones de autorización del lado del servidor y se limita a conexiones de la red privada aprobada. Las credenciales OAuth se guardan en la configuración protegida de la VM, nunca en el repositorio público. Los registros se conservan según la configuración operativa y las políticas organizacionales aplicables; no se promete un plazo fijo de eliminación hasta que se defina formalmente una política de retención. Cerrar sesión no borra automáticamente auditorías previas.</p>
+    <h3>7. Solicitudes y cambios</h3>
+    <p>Para solicitar acceso, rectificación o eliminación de información vinculada a tu cuenta, escribí a <a href="mailto:contacto@solarispkn.com.ar?subject=EXO%20Research%20Lab%20-%20Privacidad">contacto@solarispkn.com.ar</a> y, cuando corresponda, al administrador autorizado de EXO. Antes de revelar o modificar registros puede ser necesario comprobar tu identidad. La presente política puede actualizarse si cambian el software o los requisitos organizacionales.</p>
+  </section>
+  <section id="en" class="exo-policy-language" lang="en">
+    <h2>Privacy policy — English</h2>
+    <h3>1. Controller and scope</h3>
+    <p>SolarisPKN develops the EXO Research Lab prototype for engineering documentation and research. Its private portal is subject to approved organizational permissions and infrastructure. This statement describes the prototype's handling of personal information; it is not issued on EXO's behalf. Contact <a href="mailto:contacto@solarispkn.com.ar">contacto@solarispkn.com.ar</a> about the prototype; corporate data requests may also require action from the responsible EXO administrators.</p>
+    <h3>2. Google account data</h3>
+    <p>Sign-in uses Google Workspace OpenID Connect with only the <code>openid</code>, <code>email</code> and <code>profile</code> scopes. The application validates the identity provider, audience, stable subject identifier, organizational domain and verified email. It uses the Google account subject (<code>sub</code>), corporate email and account name to identify users and apply access controls. It does not request or read Gmail messages, Google Drive files or Calendar events.</p>
+    <h3>3. Application records</h3>
+    <p>The private system may store user identifiers, access requests, allowlist status, project permissions, administrative VM-access attestations and security audit records. A session cookie and request protections are used. Those records are not published on SolarisPKN Labs.</p>
+    <h3>4. Purposes</h3>
+    <p>Information is used to authenticate corporate identity, maintain sign-in sessions, grant or deny research access, process permission requests and support security audits. Access must follow the applicable organizational policies and approvals.</p>
+    <h3>5. Disclosure</h3>
+    <p>Google acts as the identity provider under its own policies. Within the application, only authorized administrators and the components needed to provide the service have access to these records. Personal data is not sold or used for advertising; this public site does not disclose private identities or internal research results.</p>
+    <h3>6. Security, retention and deletion</h3>
+    <p>The portal uses server-side authorization and approved private-network connectivity. OAuth secrets are kept in protected VM configuration, not in the public repository. Records are retained according to operational configuration and applicable corporate rules; there is no promised fixed deletion period until an approved retention policy is defined. Signing out does not automatically remove prior audit records.</p>
+    <h3>7. Requests and updates</h3>
+    <p>For account access, correction or deletion requests, email <a href="mailto:contacto@solarispkn.com.ar?subject=EXO%20Research%20Lab%20-%20Privacy">contacto@solarispkn.com.ar</a> and contact the authorized EXO administrator where relevant. Identity verification may be needed before records can be disclosed or changed. This notice may be updated if the application or corporate requirements change.</p>
+  </section>
+  <p><a href="/exo-auth-policy/">← Volver / Back to application information</a></p>
+</Shell>
