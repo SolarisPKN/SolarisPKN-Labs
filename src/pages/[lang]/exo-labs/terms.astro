@@ -1,0 +1,24 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+export function getStaticPaths(){return [{params:{lang:'es'}},{params:{lang:'en'}}];}
+const lang=Astro.params.lang==='en'?'en':'es';
+const en=lang==='en';
+---
+<Layout lang={lang} navigation="tech" title={en?'Terms | EXO Research Lab prototype':'Condiciones | Prototipo EXO Research Lab'} description={en?'Terms of private research portal access.':'Condiciones de acceso al portal de investigaciones privado.'}>
+<main class="policy">
+<p class="tag">SOLARISPKN LABS · RESTRICTED RESEARCH</p>
+<h1>{en?'Terms of access':'Condiciones de acceso'}</h1>
+<p>{en?'EXO Research Lab is an independent, unofficial prototype for controlled technical investigations, not a public EXO service.':'EXO Research Lab es un prototipo independiente y no oficial para investigaciones técnicas controladas; no es un servicio público de EXO.'}</p>
+<h2>{en?'Eligibility':'Requisitos'}</h2>
+<p>{en?'Access to the portal requires connectivity to the authorized private network, valid organizational authentication and explicitly granted permissions. Access to one area does not authorize access to all projects.':'El acceso al portal exige conectividad a la red privada autorizada, autenticación organizacional válida y permisos concedidos expresamente. El acceso a un área no habilita automáticamente todos los proyectos.'}</p>
+<h2>{en?'Appropriate use':'Uso permitido'}</h2>
+<p>{en?'Use only for authorized laboratory research. Do not publish confidential measurements, credentials, source code, or other internal information. Follow organizational security policies and obtain required approvals.':'Usalo solo para investigaciones autorizadas. No publiques mediciones confidenciales, credenciales, código fuente ni otra información interna. Respetá las políticas de seguridad de la organización y obtené las aprobaciones necesarias.'}</p>
+<h2>{en?'Availability':'Disponibilidad'}</h2>
+<p>{en?'The experimental service may be temporarily unavailable and its results are not a certification for production systems.':'El servicio experimental puede no estar disponible temporalmente y sus resultados no constituyen una certificación para sistemas de producción.'}</p>
+<a href={`/${lang}/exo-labs/`}>{en?'← Return to EXO Labs':'← Volver a EXO Labs'}</a>
+</main>
+</Layout>
+<style>
+.policy{width:min(860px,calc(100% - 40px));margin:55px auto 85px;padding:36px;background:#111923;border:1px solid #344357;border-radius:17px;color:#dbe7f2}
+.tag{font-size:11px;letter-spacing:2px;color:#f47783}.policy h1{color:#fff;font-size:clamp(30px,4vw,47px)}.policy h2{margin-top:30px;color:#fa9ba0;font-size:18px}.policy p{line-height:1.8}.policy a{color:#9bead9}
+</style>
