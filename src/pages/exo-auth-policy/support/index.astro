@@ -1,0 +1,18 @@
+---
+import Shell from '../../../components/Legal/ExoPolicyShell.astro';
+import esFlag from '../../../assets/flags/es.svg?url';
+import enFlag from '../../../assets/flags/en.svg?url';
+---
+<Shell section="support" title="Asistencia y contacto | SolarisPKN EXO Research Lab" description="Contacto y asistencia pública del prototipo EXO Research Lab para inicio de sesión, seguridad, acceso y privacidad.">
+  <p class="exo-eyebrow">ASISTENCIA · CONTACT & SUPPORT</p>
+  <h1>Asistencia <span style="color:#ff6672">/ Support</span></h1>
+  <div class="exo-notice">Las consultas de seguridad y cuentas corporativas deben gestionarse por canales autorizados. No envíes contraseñas, tokens, secretos OAuth ni datos confidenciales por correo electrónico.</div>
+  <div class="exo-legal-tiles">
+    <div class="exo-tile"><h2>Correo de contacto</h2><p>Consultas sobre la aplicación independiente, su política de privacidad y datos vinculados a cuentas.</p><a href="mailto:contacto@solarispkn.com.ar?subject=EXO%20Research%20Lab%20-%20Consulta">contacto@solarispkn.com.ar</a></div>
+    <div class="exo-tile"><h2>Permisos corporativos</h2><p>La autorización a EXO y a su VPN/NetBird debe gestionarse con el equipo de IT o con el administrador habilitado. Este sitio público no concede permisos.</p><a href="/es/exo-labs/">Comprobar conexión al portal privado →</a></div>
+  </div>
+  <nav class="exo-languages" aria-label="Idiomas"><a href="#es"><img src={esFlag} alt="" /> Español</a><a href="#en"><img src={enFlag} alt="" /> English</a></nav>
+  <section id="es" class="exo-policy-language" lang="es"><h2>Español</h2><p>Para problemas con el inicio de sesión, comprobá primero que tenés una cuenta corporativa autorizada y conectividad a la red privada. Si Google muestra que se requiere aprobación del administrador, contactá a IT de EXO. Si querés solicitar acceso, rectificación o eliminación de registros personales del prototipo, escribí al correo de contacto y detallá el tipo de solicitud, sin enviar credenciales.</p></section>
+  <section id="en" class="exo-policy-language" lang="en"><h2>English</h2><p>For sign-in issues, first check that you have an authorized corporate account and private-network connectivity. If Google requests administrator approval, contact EXO IT. For access, correction or deletion requests involving the prototype's personal records, use the email above and describe your request without sending credentials.</p></section>
+  <p><a href="/exo-auth-policy/privacy/">Privacidad / Privacy</a> · <a href="/exo-auth-policy/">Inicio / Home</a></p>
+</Shell>
