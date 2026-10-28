@@ -1,0 +1,29 @@
+---
+import Shell from '../../components/Legal/ExoPolicyShell.astro';
+import esFlag from '../../assets/flags/es.svg?url';
+import enFlag from '../../assets/flags/en.svg?url';
+---
+<Shell section="home" title="EXO Research Lab | App OAuth y documentos públicos" description="Página pública oficial del prototipo independiente SolarisPKN Research Lab: descripción del acceso Google Workspace, política de privacidad, condiciones y asistencia.">
+  <p class="exo-eyebrow">GOOGLE WORKSPACE · OPENID CONNECT · EXO-LABS</p>
+  <h1>EXO Research Lab <span style="color:#ff6672">/ OAuth</span></h1>
+  <p class="exo-intro">Información pública sobre el inicio de sesión del laboratorio privado de ingeniería. Esta documentación se publica en SolarisPKN Labs para que cualquier usuario pueda consultar qué hace la aplicación y cómo trata sus datos, incluso sin conexión a la VPN de EXO.</p>
+  <div class="exo-notice"><strong>Importante:</strong> Este es un prototipo independiente de investigación, no un servicio oficial ni una política emitida por EXO. Ningún informe de laboratorio, identidad de empleado, credencial o información de la red privada está disponible aquí.</div>
+  <div class="exo-legal-tiles">
+    <div class="exo-tile"><h2>01 · Política de privacidad</h2><p>Datos de Google utilizados, finalidades, controles de acceso, almacenamiento y solicitudes de privacidad.</p><a href="/exo-auth-policy/privacy/">Leer la política de privacidad →</a></div>
+    <div class="exo-tile"><h2>02 · Condiciones de uso</h2><p>Limitaciones del prototipo, normas de acceso, confidencialidad y responsabilidades.</p><a href="/exo-auth-policy/terms/">Leer condiciones de uso →</a></div>
+    <div class="exo-tile"><h2>03 · Contacto y asistencia</h2><p>Información pública para consultas sobre acceso, cuenta, seguridad y solicitudes sobre datos personales.</p><a href="/exo-auth-policy/support/">Ver asistencia →</a></div>
+    <div class="exo-tile"><h2>04 · Portal privado</h2><p>El laboratorio exige red VPN/NetBird aprobada, autenticación corporativa y permisos individuales.</p><a href="/es/exo-labs/">Comprobar conexión a EXO →</a></div>
+  </div>
+  <nav class="exo-languages" aria-label="Idiomas"><a href="#es"><img src={esFlag} alt="" /> Español</a><a href="#en"><img src={enFlag} alt="" /> English</a></nav>
+  <section id="es" class="exo-policy-language" lang="es">
+    <h2>Información en español</h2>
+    <p>El prototipo permite autenticar empleados con Google Workspace mediante OpenID Connect y consultar, bajo permisos, experimentos reproducibles de ingeniería e integridad de sistemas. Se solicitan únicamente los alcances <code>openid</code>, <code>email</code> y <code>profile</code>; no se solicitan permisos de Gmail, Drive ni Calendar.</p>
+    <p>El sitio público hospeda únicamente información sobre el proyecto y sus políticas. La aplicación privada se ejecuta en la infraestructura autorizada de EXO y verifica por separado la identidad, la lista de acceso, los permisos y la conexión corporativa.</p>
+  </section>
+  <section id="en" class="exo-policy-language" lang="en">
+    <h2>Information in English</h2>
+    <p>This independent research prototype lets authorized employees sign in using Google Workspace OpenID Connect and view permission-scoped engineering evidence and integrity experiments. It requests only <code>openid</code>, <code>email</code> and <code>profile</code>; it does not request access to Gmail, Drive or Calendar.</p>
+    <p>This public website hosts only the application's description and legal information. The private application runs on authorized EXO infrastructure and separately checks identity, allowlisting, project permissions and corporate network connectivity.</p>
+    <p><a href="/exo-auth-policy/privacy/">Privacy policy</a> · <a href="/exo-auth-policy/terms/">Terms</a> · <a href="/exo-auth-policy/support/">Support</a></p>
+  </section>
+</Shell>
