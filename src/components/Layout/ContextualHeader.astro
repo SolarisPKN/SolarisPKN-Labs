@@ -59,6 +59,24 @@ const isActive=(item:{href:string;key:string})=>{
       {items.map(item=>(
         <a href={item.href} aria-current={isActive(item)?'page':undefined}>{item.text}</a>
       ))}
+      {mode==='tech' && (
+        <a
+          class="nav-exo-labs"
+          href="https://exo.solarispkn.com.ar/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={lang==='es'?'EXO Labs, portal privado (abre en una pestaña nueva)':'EXO Labs, private portal (opens in a new tab)'}
+        >
+          <svg viewBox="9 42 112 114" width="21" height="21" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="EXO" focusable="false">
+            <g fill="#ed2027">
+              <path d="M65 46 15 94 15 104 21 111 26 111 73 64 73 55Z" />
+              <path d="M84 66 35 114 35 124 41 131 45 132 91 87 94 78Z" />
+              <path d="M104 86 56 133 54 141 61 151 65 152 112 106 114 98Z" />
+            </g>
+          </svg>
+          <span>Exo-Labs</span>
+        </a>
+      )}
       {mode==='gaming' && <a class="nav-switch-tech" href={`/${lang}/tech/`}>{nav.visitarTech} ↗</a>}
     </nav>
   )}
@@ -99,6 +117,20 @@ const isActive=(item:{href:string;key:string})=>{
 .site-primary-nav>a:hover,.site-primary-nav>a[aria-current="page"]{color:#79ffe1;border-color:#79ffe1}
 .site-header-gaming .site-primary-nav>a:hover,.site-header-gaming .site-primary-nav>a[aria-current="page"]{color:#e6b7ff;border-color:#e6b7ff}
 .site-primary-nav>.nav-switch-tech{color:#77f2df}
+/* EXO Research Lab: distinct private portal action next to Portfolio (Tech only). */
+.site-header-tech .site-primary-nav>a.nav-exo-labs{
+  display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
+  padding:.5rem .76rem;min-height:37px;border:1px solid #fff;border-radius:9px;
+  background:#fff;color:#101216;font-weight:800;white-space:nowrap;
+  box-shadow:0 2px 10px rgba(0,0,0,.16);transition:background .18s,color .18s,transform .18s;
+}
+.site-header-tech .site-primary-nav>a.nav-exo-labs:hover{
+  background:#ededed;color:#101216;border-color:#ededed;transform:translateY(-1px);
+}
+.site-header-tech .site-primary-nav>a.nav-exo-labs:focus-visible{
+  outline:3px solid #77f2df;outline-offset:3px;
+}
+.site-primary-nav .nav-exo-labs svg{display:block;flex-shrink:0}
 .site-header-actions{display:flex;align-items:center;justify-content:flex-end;gap:clamp(.5rem,1.25vw,1rem);margin-left:auto}
 .site-account{white-space:nowrap;font-size:.85rem;font-weight:700;color:#ffc3e7;text-decoration:none;border:1px solid rgba(255,121,198,.3);padding:.52rem .8rem;border-radius:999px;background:rgba(255,121,198,.07)}
 .site-account:hover{border-color:#ff79c6;background:rgba(255,121,198,.15)}
