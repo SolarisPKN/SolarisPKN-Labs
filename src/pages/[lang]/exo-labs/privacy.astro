@@ -1,26 +1,10 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
-export function getStaticPaths(){return [{params:{lang:'es'}},{params:{lang:'en'}}];}
-const lang=Astro.params.lang==='en'?'en':'es';
-const en=lang==='en';
+export function getStaticPaths() { return [{params:{lang:'es'}},{params:{lang:'en'}}]; }
+const lang = Astro.params.lang === 'en' ? 'en' : 'es';
+const url = '/exo-auth-policy/privacy/#'+lang;
 ---
-<Layout lang={lang} navigation="tech" title={en?'Privacy | EXO Research Lab prototype':'Privacidad | Prototipo EXO Research Lab'} description={en?'Privacy notice for the privately hosted EXO Research Lab prototype.':'Información de privacidad del prototipo privado EXO Research Lab.'}>
-<main class="policy">
-<p class="tag">SOLARISPKN LABS · EXO RESEARCH LAB</p>
-<h1>{en?'Privacy notice':'Aviso de privacidad'}</h1>
-<p>{en?'This page describes the independent, unofficial EXO Research Lab prototype operated in a restricted corporate network. It is not an official privacy policy on behalf of EXO.':'Esta página describe el prototipo independiente y no oficial EXO Research Lab, alojado en una red corporativa restringida. No representa una política oficial de privacidad emitida por EXO.'}</p>
-<h2>{en?'Information handled':'Información utilizada'}</h2>
-<p>{en?'The portal uses Google OpenID Connect to verify the identity of an approved organizational user. It handles name, corporate email, a stable account identifier, session security values and internal access permissions. Research access may be recorded in security audit logs.':'El portal utiliza Google OpenID Connect para verificar la identidad de usuarios organizacionales autorizados. Procesa nombre, correo corporativo, identificador estable de cuenta, datos de seguridad de sesión y permisos internos. El acceso a investigaciones puede quedar registrado en auditorías de seguridad.'}</p>
-<h2>{en?'Purpose and access':'Finalidad y acceso'}</h2>
-<p>{en?'Personal information is used only for authentication, access control and security. No public sharing, advertising or sale of account information is intended. Public SolarisPKN-Labs pages do not receive the private laboratory datasets.':'Los datos se utilizan exclusivamente para autenticación, control de acceso y seguridad. No se prevé publicar, vender ni utilizar los datos de las cuentas para publicidad. Las páginas públicas de SolarisPKN-Labs no reciben los conjuntos de datos privados del laboratorio.'}</p>
-<h2>{en?'Storage and retention':'Almacenamiento y conservación'}</h2>
-<p>{en?'Authentication records and permissions remain in the private virtual machine, subject to access controls. Retention and deletion requests should be coordinated with the organization responsible for the VM. This prototype does not automatically delete audit trails on session expiry.':'Los registros de autenticación y permisos permanecen en la máquina virtual privada, sujetos a controles de acceso. Las solicitudes de conservación o eliminación deben coordinarse con la organización responsable de la VM. El cierre de sesión no elimina automáticamente las trazas de auditoría.'}</p>
-<h2>{en?'Contact':'Contacto'}</h2>
-<p>{en?'For privacy questions about this prototype, contact its administrator through the authorized corporate channel. For employee or company privacy matters, contact the organization directly.':'Para consultas sobre este prototipo, contactá al administrador por el canal corporativo autorizado. Para cuestiones de privacidad laboral o de la empresa, consultá directamente con la organización.'}</p>
-<a href={`/${lang}/exo-labs/`}>{en?'← Return to EXO Labs':'← Volver a EXO Labs'}</a>
-</main>
-</Layout>
-<style>
-.policy{width:min(860px,calc(100% - 40px));margin:55px auto 85px;padding:36px;background:#111923;border:1px solid #344357;border-radius:17px;color:#dbe7f2}
-.tag{font-size:11px;letter-spacing:2px;color:#f47783}.policy h1{color:#fff;font-size:clamp(30px,4vw,47px)}.policy h2{margin-top:30px;color:#fa9ba0;font-size:18px}.policy p{line-height:1.8}.policy a{color:#9bead9}
-</style>
+<!doctype html>
+<html lang={lang}>
+<head><meta charset="utf-8"/><meta name="robots" content="noindex,follow"/><meta http-equiv="refresh" content={`0;url=${url}`}/><link rel="canonical" href="https://labs.solarispkn.com.ar/exo-auth-policy/privacy/"/><title>EXO Research Lab · Public policy</title></head>
+<body><p><a href={url}>{lang==='en'?'Continue to the public application policy':'Continuar a la información pública de la aplicación'}</a></p></body>
+</html>
