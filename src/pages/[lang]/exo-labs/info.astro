@@ -1,34 +1,10 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
 export function getStaticPaths() { return [{params:{lang:'es'}},{params:{lang:'en'}}]; }
-const lang=Astro.params.lang==='en'?'en':'es';
-const en=lang==='en';
+const lang = Astro.params.lang === 'en' ? 'en' : 'es';
+const url = '/exo-auth-policy/#'+lang;
 ---
-<Layout lang={lang} navigation="tech" title={en?'EXO Research Lab | Application information':'EXO Research Lab | Información de la aplicación'} description={en?'Public information about the private EXO Research Lab prototype and its Google Workspace sign-in.':'Información pública del prototipo privado EXO Research Lab y su acceso con Google Workspace.'}>
-  <main class="about-exo">
-    <p class="overline">SOLARISPKN / EXO RESEARCH LAB</p>
-    <h1>{en?'Private engineering research environment':'Entorno privado de investigación en ingeniería'}</h1>
-    <p>{en
-      ? 'EXO Research Lab is a restricted-access prototype developed by SolarisPKN for documenting engineering experiments, reviewing integrity-test evidence, exploring project dependencies and managing individual permissions. It is not a public service or an official corporate announcement.'
-      : 'EXO Research Lab es un prototipo de acceso restringido desarrollado por SolarisPKN para documentar experimentos de ingeniería, consultar evidencias de pruebas de integridad, explorar dependencias y administrar permisos individuales. No es un servicio público ni un comunicado oficial de la empresa.'}</p>
-    <p>{en
-      ? 'Authentication uses Google Workspace OpenID Connect. Access requires an approved corporate identity, explicit permissions and connectivity to the authorized private network. This public page contains no private test results or employee information.'
-      : 'La autenticación utiliza Google Workspace mediante OpenID Connect. El acceso requiere una identidad corporativa aprobada, permisos explícitos y conexión a la red privada autorizada. Esta página pública no expone resultados privados ni información de empleados.'}</p>
-    <div class="about-links">
-      <a href={`/${lang}/exo-labs/privacidad/`}>{en?'Privacy policy':'Política de privacidad'}</a>
-      <a href={`/${lang}/exo-labs/`}>{en?'Try accessing EXO Research Lab':'Intentar acceder a EXO Research Lab'}</a>
-      <a href={`/${lang}/tech/`}>{en?'SolarisPKN Labs':'SolarisPKN Labs'}</a>
-    </div>
-    <p class="fine">{en?'For support about authentication or your data, contact the verified user-support address shown on the Google consent screen. Corporate access must also be approved by the relevant EXO administrator.':'Para consultas sobre autenticación o tus datos, contactá el correo de asistencia verificado que aparece en la pantalla de consentimiento de Google. El acceso corporativo también requiere aprobación de la administración correspondiente de EXO.'}</p>
-  </main>
-</Layout>
-<style>
-.about-exo{max-width:940px;margin:0 auto;padding:clamp(40px,7vw,110px) 22px 90px;color:#e9ebf0}
-.overline{color:#fb5363!important;letter-spacing:.18em;font-size:.77rem;font-weight:800}
-.about-exo h1{font-size:clamp(2rem,5vw,3.8rem);line-height:1.12;margin:12px 0 28px;letter-spacing:-.045em}
-.about-exo>p:not(.overline){font-size:1.08rem;color:#bfc5d0;line-height:1.85}
-.about-links{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0}
-.about-links a{padding:12px 16px;border:1px solid #b13e4b;border-radius:10px;color:#fff;background:#27202a;text-decoration:none;font-weight:700}
-.about-links a:hover{background:#722938}
-.about-exo .fine{font-size:.92rem!important;color:#99a7b8!important}
-</style>
+<!doctype html>
+<html lang={lang}>
+<head><meta charset="utf-8"/><meta name="robots" content="noindex,follow"/><meta http-equiv="refresh" content={`0;url=${url}`}/><link rel="canonical" href="https://labs.solarispkn.com.ar/exo-auth-policy/"/><title>EXO Research Lab · Public policy</title></head>
+<body><p><a href={url}>{lang==='en'?'Continue to the public application policy':'Continuar a la información pública de la aplicación'}</a></p></body>
+</html>
