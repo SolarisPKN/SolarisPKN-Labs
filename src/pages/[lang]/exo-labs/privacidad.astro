@@ -1,43 +1,10 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
 export function getStaticPaths() { return [{params:{lang:'es'}},{params:{lang:'en'}}]; }
-const lang=Astro.params.lang==='en'?'en':'es';
-const en=lang==='en';
+const lang = Astro.params.lang === 'en' ? 'en' : 'es';
+const url = '/exo-auth-policy/privacy/#'+lang;
 ---
-<Layout lang={lang} navigation="tech" title={en?'EXO Research Lab | Privacy policy':'EXO Research Lab | Política de privacidad'} description={en?'Privacy information for the EXO Research Lab sign-in prototype.':'Información de privacidad para el prototipo de acceso a EXO Research Lab.'}>
-  <main class="exo-policy">
-    <p class="overline">SOLARISPKN / EXO RESEARCH LAB</p>
-    <h1>{en?'Privacy policy':'Política de privacidad'}</h1>
-    <p>{en?'Last updated: October 28, 2026':'Última actualización: 28 de octubre de 2026'}</p>
-    <section>
-      <h2>{en?'Purpose and scope':'Finalidad y alcance'}</h2>
-      <p>{en?'This notice describes Google account information used by the private EXO Research Lab engineering prototype. The public SolarisPKN Labs website does not provide access to private research data.':'Este aviso describe los datos de cuentas Google utilizados por el prototipo privado de ingeniería EXO Research Lab. El sitio público SolarisPKN Labs no da acceso a los datos privados de investigación.'}</p>
-    </section>
-    <section>
-      <h2>{en?'Google data accessed':'Datos de Google utilizados'}</h2>
-      <p>{en?'Sign-in requests only the OpenID Connect scopes openid, email and profile. After token validation, the application uses the verified email address, Google account subject identifier, account name, verified-domain indication and issuer/audience claims to establish identity. It does not request Gmail, Drive or Calendar contents.':'El acceso solicita únicamente los permisos OpenID Connect openid, email y profile. Tras validar el token, la aplicación utiliza el correo verificado, identificador de cuenta de Google, nombre, indicación del dominio verificado y datos del emisor y destinatario para identificar a la persona. No solicita contenido de Gmail, Drive ni Calendar.'}</p>
-    </section>
-    <section>
-      <h2>{en?'Use and storage':'Uso y almacenamiento'}</h2>
-      <p>{en?'Identity and application-specific records can be stored on the restricted application server to manage sign-in sessions, access requests, allowlists, permissions, VM-access attestations and administrative actions. Information is used to authenticate and authorize access, not for advertising or sale. Access is limited to the application and authorized administrators.':'La identidad y los registros propios de la aplicación pueden almacenarse en el servidor restringido para gestionar sesiones, solicitudes de acceso, listas de autorización, permisos, constancias de acceso a la VM y acciones administrativas. Los datos se utilizan para autenticar y autorizar accesos, no para publicidad ni venta. El acceso se limita a la aplicación y a los administradores autorizados.'}</p>
-    </section>
-    <section>
-      <h2>{en?'Security and retention':'Seguridad y conservación'}</h2>
-      <p>{en?'The application requires server-side permission checks and a private corporate network for its protected content. Records are retained subject to application configuration and the applicable corporate retention rules; this notice does not promise a fixed deletion schedule. OAuth client secrets are managed on the private server, not published on this site.':'La aplicación aplica controles de permisos en el servidor y requiere red corporativa privada para el contenido protegido. Los registros se conservan según la configuración y las reglas corporativas de retención aplicables; este aviso no promete un plazo fijo de eliminación. Los secretos del cliente OAuth se administran en el servidor privado, no se publican en este sitio.'}</p>
-    </section>
-    <section>
-      <h2>{en?'Questions and requests':'Consultas y solicitudes'}</h2>
-      <p>{en?'For questions about access, correction or removal of account records, use the verified user-support email shown on the Google authorization screen or contact the authorized EXO application administrator. Requests are assessed under applicable organizational policies.':'Para consultas sobre acceso, corrección o eliminación de registros, utilizá el correo de asistencia verificado que figura en la pantalla de autorización de Google o contactá al administrador autorizado de la aplicación en EXO. Las solicitudes se evalúan conforme a las políticas organizacionales aplicables.'}</p>
-    </section>
-    <a class="return" href={`/${lang}/exo-labs/info/`}>{en?'← Application information':'← Información de la aplicación'}</a>
-  </main>
-</Layout>
-<style>
-.exo-policy{max-width:940px;margin:auto;padding:clamp(38px,6vw,90px) 22px;color:#edf0f5}
-.overline{font-size:.77rem;color:#fc6069!important;letter-spacing:.15em;font-weight:800}
-.exo-policy h1{font-size:clamp(2.2rem,5vw,3.7rem);margin:10px 0 15px}
-.exo-policy h2{font-size:1.23rem;color:#fff;margin:0 0 8px}
-.exo-policy p{color:#bdc8d5;line-height:1.85}
-.exo-policy section{padding:20px 0;border-top:1px solid #364150}
-.return{display:inline-block;border:1px solid #ad4554;padding:12px 17px;border-radius:9px;color:white;margin:18px 0 38px;text-decoration:none}
-</style>
+<!doctype html>
+<html lang={lang}>
+<head><meta charset="utf-8"/><meta name="robots" content="noindex,follow"/><meta http-equiv="refresh" content={`0;url=${url}`}/><link rel="canonical" href="https://labs.solarispkn.com.ar/exo-auth-policy/privacy/"/><title>EXO Research Lab · Public policy</title></head>
+<body><p><a href={url}>{lang==='en'?'Continue to the public application policy':'Continuar a la información pública de la aplicación'}</a></p></body>
+</html>
